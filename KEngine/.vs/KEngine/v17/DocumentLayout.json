@@ -6,16 +6,19 @@
       "AbsoluteMoniker": "D:0:0:{FCD01071-D13E-4442-9D6C-BBD49DD51A63}|..\\Sandbox\\Sandbox.vcxproj|C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\Sandbox\\src\\Sandbox.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{FCD01071-D13E-4442-9D6C-BBD49DD51A63}|..\\Sandbox\\Sandbox.vcxproj|C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\Sandbox\\src\\KEngine.dll||{177559E0-D141-11D0-92DF-00A0C9138C45}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|solutionrelative:src\\KEngine.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|solutionrelative:src\\KEngine\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine\\core.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|solutionrelative:src\\KEngine\\core.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|solutionrelative:src\\KEngine\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4794B08F-E915-40E5-B961-15340CF80199}|KEngine.vcxproj|C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -29,7 +32,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -37,7 +40,18 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "KEngine.dll",
+              "DocumentMoniker": "C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\Sandbox\\src\\KEngine.dll",
+              "RelativeDocumentMoniker": "..\\Sandbox\\src\\KEngine.dll",
+              "ToolTip": "C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\Sandbox\\src\\KEngine.dll",
+              "RelativeToolTip": "..\\Sandbox\\src\\KEngine.dll",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001697|",
+              "WhenOpened": "2025-09-01T14:29:49.439Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Application.h",
               "DocumentMoniker": "C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine\\Application.h",
               "RelativeDocumentMoniker": "src\\KEngine\\Application.h",
@@ -55,14 +69,14 @@
               "RelativeDocumentMoniker": "..\\Sandbox\\src\\Sandbox.cpp",
               "ToolTip": "C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\Sandbox\\src\\Sandbox.cpp",
               "RelativeToolTip": "..\\Sandbox\\src\\Sandbox.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-09-01T12:49:59.118Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "KEngine.h",
               "DocumentMoniker": "C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine.h",
               "RelativeDocumentMoniker": "src\\KEngine.h",
@@ -86,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\LLY\\Documents\\VS Project\\KEngine\\KEngine\\src\\KEngine\\Application.cpp",
               "RelativeDocumentMoniker": "src\\KEngine\\Application.cpp",

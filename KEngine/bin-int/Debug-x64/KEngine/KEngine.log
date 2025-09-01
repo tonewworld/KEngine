@@ -1,5 +1,1 @@
-﻿  Application.cpp
-    正在创建库 C:\Users\LLY\Documents\VS Project\KEngine\bin\Debug-x64\KEngine\KEngine.lib 和对象 C:\Users\LLY\Documents\VS Project\KEngine\bin\Debug-x64\KEngine\KEngine.exp
-  KEngine.vcxproj -> C:\Users\LLY\Documents\VS Project\KEngine\bin\Debug-x64\KEngine\KEngine.dll
-  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
-  或批处理文件。
+﻿C:\Users\LLY\Documents\VS Project\KEngine\KEngine\KEngine.vcxproj : error MSB4025: 未能加载项目文件。未能找到文件“C:\Users\LLY\Documents\VS Project\KEngine\KEngine\KEngine.vcxproj”。
