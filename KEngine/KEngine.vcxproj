@@ -83,6 +83,7 @@
     <ClInclude Include="src\KEngine.h" />
     <ClInclude Include="src\KEngine\Application.h" />
     <ClInclude Include="src\KEngine\Core.h" />
+    <ClInclude Include="src\KEngine\EntryPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\KEngine\Application.cpp" />

@@ -15,9 +15,10 @@ namespace KEngine
 		virtual~Application();
 
 		void Run();
-
+		
 
 	};
+	Application* CreateApplication();
 
 }
 

@@ -8,4 +8,5 @@ namespace KEngine {
 	void Application::Run() {
 		while (true);
 	}
+	
 }

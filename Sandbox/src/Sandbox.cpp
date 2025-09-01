@@ -1,11 +1,19 @@
-#include"KEngine.h"
+#include<KEngine.h>
+
+
+class Sandbox : public KEngine::Application {
+
+
+public:
+	Sandbox() {
+	}
+	~Sandbox() {
+	}
+
+};
 
 
 
-
-
-int main() {
-	
-	
-	return 0;
+KEngine::Application* KEngine::CreateApplication() {
+	return new Sandbox();
 }
