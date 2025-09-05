@@ -1,3 +1,6 @@
 [submodule "KEngine/vendor/spdlog"]
 	path = KEngine/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "KEngine/vendor/GLFW"]
+	path = KEngine/vendor/GLFW
+	url = https://github.com/TheCherno/glfw.git

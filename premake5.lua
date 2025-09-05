@@ -11,6 +11,10 @@ workspace "KEngine"
 
 outputdir="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir={}
+IncludeDir["GLFW"]="KEngine/vendor/GLFW/include"
+
+include "KEngine/vendor/GLFW"
 project"KEngine"
 	location"KEngine"	
 	kind"SharedLib"
@@ -18,6 +22,9 @@ project"KEngine"
 
 	targetdir("bin/"..outputdir.."/%{prj.name}")
 	objdir("bin-int/"..outputdir.."/%{prj.name}")
+	
+	pchheader "kepch.h"
+	pchsource "KEngine/src/kepch.cpp"
 
 	files{
 		"%{prj.name}/src/**.h",
@@ -27,7 +34,13 @@ project"KEngine"
 
 	includedirs{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter"system:windows"
