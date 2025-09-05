@@ -22,9 +22,9 @@ namespace KEngine{
             //这里放一个assert
             GLFWInitialized=true;
         }
-        //m_Window=glfwCreateWindow((int)props.Width,(int)props.Height,props.Title.c_str(),nullptr,nullptr);
-        //glfwMakeContextCurrent(m_Window);
-        //glfwSetWindowUserPointer(m_Window,&myData);//将data和window绑定，然后回调的时候使用
+        m_Window=glfwCreateWindow((int)props.Width,(int)props.Height,props.Title.c_str(),nullptr,nullptr);
+        glfwMakeContextCurrent(m_Window);
+        glfwSetWindowUserPointer(m_Window,&myData);//将data和window绑定，然后回调的时候使用
         SetVSync(true);
     }
     void WindowsWindow::Shutdown(){
@@ -34,10 +34,14 @@ namespace KEngine{
 
     }
     void WindowsWindow::OnUpdate(){
-        
+        glfwPollEvents();
+        glfwSwapBuffers(m_Window);
     }
     void WindowsWindow::SetVSync(bool sign){
-
+        if (sign)
+            glfwSwapInterval(1);
+        else
+            glfwSwapInterval(0);
     }
     bool WindowsWindow::IsVSync(){
         return myData.Vsync;
