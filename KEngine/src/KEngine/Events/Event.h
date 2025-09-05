@@ -2,6 +2,7 @@
 
 #include"../Core.h"
 
+#include<string>
 
 
 

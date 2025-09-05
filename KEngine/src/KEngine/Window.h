@@ -1,6 +1,8 @@
+#pragma once
 
-#include <string>//删除
-#include <cstdint>//删除
+#include "kepch.h"
+#include "Core.h"
+#include "Events/Event.h"
 
 namespace KEngine{
     struct WindowProps{
@@ -14,11 +16,12 @@ namespace KEngine{
 
 
 
-    class Window{
+    class  KE_API Window{
         
     public:
-
-        Windows()=default;
+        
+        using EventCallbackFn = std::function<void(Event&)>;
+        Window()=default;
         virtual ~Window()=default;
 
         virtual void OnUpdate()=0;
@@ -26,11 +29,13 @@ namespace KEngine{
         virtual uint32_t GetWidth() const=0; 
         virtual uint32_t GetHeight()const =0;
 
-        virtual void SetVSync()=0;
+        virtual void SetVSync(bool sign)=0;
         virtual bool IsVSync()=0;
 
-        staic Window
+        virtual void SetEventCallback(const EventCallbackFn& callback)=0;
 
         
+        static Window* Create(const WindowProps& props);
+
     };
 }

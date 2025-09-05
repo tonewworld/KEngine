@@ -164,11 +164,15 @@
     <ClInclude Include="src\KEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\KEngine\Events\MouseEvent.h" />
     <ClInclude Include="src\KEngine\Log.h" />
+    <ClInclude Include="src\KEngine\Platforms\WindowsWindow.h" />
+    <ClInclude Include="src\KEngine\Window.h" />
     <ClInclude Include="src\kepch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\KEngine\Application.cpp" />
     <ClCompile Include="src\KEngine\Log.cpp" />
+    <ClCompile Include="src\KEngine\Platforms\WindowsWindow.cpp" />
+    <ClCompile Include="src\KEngine\Window.cpp" />
     <ClCompile Include="src\kepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

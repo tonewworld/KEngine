@@ -1,12 +1,15 @@
 ﻿  kepch.cpp
   Application.cpp
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Application.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -15,13 +18,13 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x52 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x57 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -33,10 +36,10 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x60 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -45,19 +48,19 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x62 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x63 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x64 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x65 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3be 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -66,16 +69,16 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ca 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -87,25 +90,25 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3da 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3df 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x454 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x455 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -114,10 +117,10 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x457 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x458 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x459 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -126,43 +129,43 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x460 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x461 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x494 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x495 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x496 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x497 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4aa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ae 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -174,34 +177,34 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6da 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6dc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6dd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -210,10 +213,10 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -222,13 +225,13 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ec 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ef 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -237,43 +240,565 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x754 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x755 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x756 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x757 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x758 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x760 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/Application.cpp”)
-  
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x764 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x763 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“/src/KEngine/Application.cpp”)
   
   Log.cpp
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Log.h(14,42): warning C4251: “KEngine::Log::s_CoreLogger”:“std::shared_ptr<spdlog::logger>”需要有 dll 接口以供“KEngine::Log”的客户端使用
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Log.h(13,42): warning C4251: “KEngine::Log::s_CoreLogger”:“std::shared_ptr<spdlog::logger>”需要有 dll 接口以供“KEngine::Log”的客户端使用
   (编译源文件“/src/KEngine/Log.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1565,7):
       参见“std::shared_ptr<spdlog::logger>”的声明
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Log.h(15,42): warning C4251: “KEngine::Log::s_ClientLogger”:“std::shared_ptr<spdlog::logger>”需要有 dll 接口以供“KEngine::Log”的客户端使用
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Log.h(14,42): warning C4251: “KEngine::Log::s_ClientLogger”:“std::shared_ptr<spdlog::logger>”需要有 dll 接口以供“KEngine::Log”的客户端使用
   (编译源文件“/src/KEngine/Log.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1565,7):
       参见“std::shared_ptr<spdlog::logger>”的声明
+  
+  WindowsWindow.cpp
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x57 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x58 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x60 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x62 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x64 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3be 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3da 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x455 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x457 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x459 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x460 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x495 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x496 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ae 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4af 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6dc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x754 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x756 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x757 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x763 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Platforms/WindowsWindow.cpp”)
+  
+  Window.cpp
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x57 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x58 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x60 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x62 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x64 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3be 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3da 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x455 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x457 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x459 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x460 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x495 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x496 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ae 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4af 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6dc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x754 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x756 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x757 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x763 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/KEngine/Window.cpp”)
   
   正在生成代码...
     正在创建库 ..\bin\Debug-windows-x86_64\KEngine\KEngine.lib 和对象 ..\bin\Debug-windows-x86_64\KEngine\KEngine.exp
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
   KEngine.vcxproj -> C:\Users\LLY\Documents\VS Project\KEngine\bin\Debug-windows-x86_64\KEngine\KEngine.dll
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。
