@@ -84,7 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 /MDd %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -110,8 +110,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -138,8 +138,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -163,6 +163,8 @@
     <ClInclude Include="src\KEngine\Events\Event.h" />
     <ClInclude Include="src\KEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\KEngine\Events\MouseEvent.h" />
+    <ClInclude Include="src\KEngine\Layer.h" />
+    <ClInclude Include="src\KEngine\LayerStack.h" />
     <ClInclude Include="src\KEngine\Log.h" />
     <ClInclude Include="src\KEngine\Platforms\WindowsWindow.h" />
     <ClInclude Include="src\KEngine\Window.h" />
@@ -170,6 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\KEngine\Application.cpp" />
+    <ClCompile Include="src\KEngine\Layer.cpp" />
+    <ClCompile Include="src\KEngine\LayerStack.cpp" />
     <ClCompile Include="src\KEngine\Log.cpp" />
     <ClCompile Include="src\KEngine\Platforms\WindowsWindow.cpp" />
     <ClCompile Include="src\KEngine\Window.cpp" />

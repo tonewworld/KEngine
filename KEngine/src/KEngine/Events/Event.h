@@ -71,6 +71,9 @@ namespace KEngine {
 	};
 
 	//这里重载<<出问题了
-
+	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	{
+		return os << e.ToString();
+	}
 
 }

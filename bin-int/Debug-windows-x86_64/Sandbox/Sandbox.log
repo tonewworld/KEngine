@@ -1,4 +1,13 @@
 ﻿  Sandbox.cpp
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xcd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xd1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xd2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xdb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
@@ -260,7 +269,30 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x763 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Application.h(13,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Layer.h(20,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
+  (编译源文件“src/Sandbox.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(541,7):
+      参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(22,23): warning C4251: “KEngine::LayerStack::m_Layers”:“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
+  (编译源文件“src/Sandbox.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(442,7):
+      参见“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”的声明
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251: “KEngine::LayerStack::m_LayerInsertPoint”:“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:         with
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:         [
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:             _Ty=KEngine::Layer *
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:         ]
+  (编译源文件“src/Sandbox.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(255,7):
+      参见“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”的声明
+          with
+          [
+              _Ty=KEngine::Layer *
+          ]
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Application.h(16,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
   (编译源文件“src/Sandbox.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
       参见“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”的声明

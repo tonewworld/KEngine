@@ -44,6 +44,8 @@
       <Filter>KEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\kepch.h" />
+    <ClInclude Include="src\KEngine\LayerStack.h" />
+    <ClInclude Include="src\KEngine\Layer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\KEngine\Application.cpp">
@@ -59,5 +61,7 @@
       <Filter>KEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\kepch.cpp" />
+    <ClCompile Include="src\KEngine\LayerStack.cpp" />
+    <ClCompile Include="src\KEngine\Layer.cpp" />
   </ItemGroup>
 </Project>

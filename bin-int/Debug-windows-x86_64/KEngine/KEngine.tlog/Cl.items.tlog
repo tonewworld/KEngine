@@ -1,4 +1,6 @@
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Application.cpp;C:\Users\LLY\Documents\VS Project\KEngine\bin-int\Debug-windows-x86_64\KEngine\Application.obj
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Layer.cpp;C:\Users\LLY\Documents\VS Project\KEngine\bin-int\Debug-windows-x86_64\KEngine\Layer.obj
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.cpp;C:\Users\LLY\Documents\VS Project\KEngine\bin-int\Debug-windows-x86_64\KEngine\LayerStack.obj
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Log.cpp;C:\Users\LLY\Documents\VS Project\KEngine\bin-int\Debug-windows-x86_64\KEngine\Log.obj
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Platforms\WindowsWindow.cpp;C:\Users\LLY\Documents\VS Project\KEngine\bin-int\Debug-windows-x86_64\KEngine\WindowsWindow.obj
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Window.cpp;C:\Users\LLY\Documents\VS Project\KEngine\bin-int\Debug-windows-x86_64\KEngine\Window.obj

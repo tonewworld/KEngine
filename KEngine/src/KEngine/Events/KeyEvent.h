@@ -36,6 +36,9 @@ namespace KEngine {
 	class KeyReleasedEvent : public KeyEvent {
 	
 		public:
+		KeyReleasedEvent(int keycode)
+			:KeyEvent(keycode) {
+		}
 		
 		EVENT_CLASS_TYPE(KeyReleased)
 

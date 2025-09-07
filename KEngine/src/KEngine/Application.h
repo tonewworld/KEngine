@@ -3,6 +3,9 @@
 #include "Core.h"
 #include "Events/Event.h"
 #include"Window.h"
+#include"Layer.h"
+#include "LayerStack.h"
+#include "Events/ApplicationEvent.h"
 
 namespace KEngine
 {
@@ -11,6 +14,8 @@ namespace KEngine
 	{
 	private:
 		std::unique_ptr<Window> m_Window;
+		LayerStack m_LayerStack;
+		
 	public:
 
 		Application();
@@ -18,6 +23,14 @@ namespace KEngine
 
 		void Run();
 		bool m_Running = true;
+
+		void OnEvent(Event& e);
+
+		bool OnWindowClose(WindowCloseEvent& e);
+
+		void PushLayer(Layer* layer);
+		void PushOverlayer(Layer* layer);
+
 
 	};
 	Application* CreateApplication();
