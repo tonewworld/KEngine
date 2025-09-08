@@ -1,13 +1,4 @@
 ﻿  Sandbox.cpp
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xc9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xcd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xd1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xd2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VS Project\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xdb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
@@ -188,34 +179,28 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x550 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x559 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6d9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6dc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x560 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -224,22 +209,16 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ed 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
@@ -248,28 +227,64 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1
 C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x754 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x756 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x757 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ff 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x75f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x763 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x701 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Layer.h(20,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x706 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x70a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x70b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x70c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x772 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x776 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x777 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x77b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“src/Sandbox.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Layer.h(21,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
   (编译源文件“src/Sandbox.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(541,7):
       参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明

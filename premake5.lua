@@ -13,8 +13,13 @@ outputdir="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir={}
 IncludeDir["GLFW"]="KEngine/vendor/GLFW/include"
+IncludeDir["Glad"]="KEngine/vendor/Glad/include"
+IncludeDir["ImGui"]="KEngine/vendor/ImGui"
 
+include "KEngine/vendor/Glad"
 include "KEngine/vendor/GLFW"
+include "KEngine/vendor/ImGui"
+
 project"KEngine"
 	location"KEngine"	
 	kind"SharedLib"
@@ -35,11 +40,15 @@ project"KEngine"
 	includedirs{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links{
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 

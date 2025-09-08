@@ -7,8 +7,17 @@
     <Filter Include="KEngine\Events">
       <UniqueIdentifier>{2A36F034-1604-E43A-FF97-5461EB04C09F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KEngine\ImGui">
+      <UniqueIdentifier>{B0CE97EA-1C8F-1321-E5C9-5C9E514958FD}</UniqueIdentifier>
+    </Filter>
     <Filter Include="KEngine\Platforms">
       <UniqueIdentifier>{CD73820C-398A-80A2-8201-0CC4EE56512A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KEngine\Platforms\OpenGL">
+      <UniqueIdentifier>{6134F74B-4D59-46CC-76A4-2B5C622845EA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KEngine\Platforms\Windows">
+      <UniqueIdentifier>{079BF922-735D-2DAD-BC0D-BC39280F068B}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,34 +43,54 @@
     <ClInclude Include="src\KEngine\Events\MouseEvent.h">
       <Filter>KEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\KEngine\ImGui\ImGuiLayer.h">
+      <Filter>KEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KEngine\Layer.h">
+      <Filter>KEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KEngine\LayerStack.h">
+      <Filter>KEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\KEngine\Log.h">
       <Filter>KEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\KEngine\Platforms\WindowsWindow.h">
-      <Filter>KEngine\Platforms</Filter>
+    <ClInclude Include="src\KEngine\Platforms\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>KEngine\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\KEngine\Platforms\Windows\WindowsWindow.h">
+      <Filter>KEngine\Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\KEngine\Window.h">
       <Filter>KEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\kepch.h" />
-    <ClInclude Include="src\KEngine\LayerStack.h" />
-    <ClInclude Include="src\KEngine\Layer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\KEngine\Application.cpp">
       <Filter>KEngine</Filter>
     </ClCompile>
+    <ClCompile Include="src\KEngine\ImGui\ImGuiLayer.cpp">
+      <Filter>KEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KEngine\Layer.cpp">
+      <Filter>KEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KEngine\LayerStack.cpp">
+      <Filter>KEngine</Filter>
+    </ClCompile>
     <ClCompile Include="src\KEngine\Log.cpp">
       <Filter>KEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\KEngine\Platforms\WindowsWindow.cpp">
-      <Filter>KEngine\Platforms</Filter>
+    <ClCompile Include="src\KEngine\Platforms\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>KEngine\Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\KEngine\Platforms\Windows\WindowsWindow.cpp">
+      <Filter>KEngine\Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\KEngine\Window.cpp">
       <Filter>KEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\kepch.cpp" />
-    <ClCompile Include="src\KEngine\LayerStack.cpp" />
-    <ClCompile Include="src\KEngine\Layer.cpp" />
   </ItemGroup>
 </Project>

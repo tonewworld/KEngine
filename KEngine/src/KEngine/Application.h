@@ -15,7 +15,8 @@ namespace KEngine
 	private:
 		std::unique_ptr<Window> m_Window;
 		LayerStack m_LayerStack;
-		
+
+		static Application* s_Instance;
 	public:
 
 		Application();
@@ -31,9 +32,11 @@ namespace KEngine
 		void PushLayer(Layer* layer);
 		void PushOverlayer(Layer* layer);
 
+		inline Window& GetWindow() { return *m_Window; }
+		inline static Application& GetApplication() { return *s_Instance; }
 
 	};
 	Application* CreateApplication();
-
+	
 }
 

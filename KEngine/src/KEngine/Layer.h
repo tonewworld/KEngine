@@ -10,6 +10,7 @@ namespace KEngine{
 		virtual ~Layer()=default;
 
 		virtual void OnEvent(Event&event){}
+		
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}

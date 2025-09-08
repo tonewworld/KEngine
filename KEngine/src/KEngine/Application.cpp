@@ -6,7 +6,11 @@
 
 
 namespace KEngine {
+
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application() {
+		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent,this,std::placeholders::_1));
 	}
@@ -45,9 +49,11 @@ namespace KEngine {
 
 	void Application::PushLayer(Layer* layer) {
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 	void Application::PushOverlayer(Layer* layer) {
 		m_LayerStack.PushOverlayer(layer);
+		layer->OnAttach();
 	}
 	
 }

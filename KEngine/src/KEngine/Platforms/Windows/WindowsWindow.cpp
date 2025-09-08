@@ -6,6 +6,7 @@
 #include"KEngine/Events/KeyEvent.h"
 #include"KEngine/Events/MouseEvent.h"
 
+
 namespace KEngine{
 
     static bool GLFWInitialized=false;
@@ -32,6 +33,9 @@ namespace KEngine{
         }
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
         glfwMakeContextCurrent(m_Window);
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);//GLAD加载OpenGL函数指针
+
         glfwSetWindowUserPointer(m_Window, &myData);//将data和window绑定，然后回调的时候使用
         SetVSync(true);
         glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height) {
