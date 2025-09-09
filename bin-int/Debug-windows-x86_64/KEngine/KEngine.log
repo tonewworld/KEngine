@@ -1,316 +1,370 @@
 ﻿cl : 命令行  warning D9025: 正在重写“/MTd”(用“/MDd”)
   ImGuiLayer.cpp
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0xffd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0xffe 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x1000 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x1007 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x46 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x48 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x57 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x58 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x60 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x62 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x64 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3b8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ba 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3be 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3cd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ca 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3da 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3df 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x450 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x455 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x452 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x457 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x454 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x459 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x460 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x490 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x495 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x492 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x496 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x498 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4aa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ae 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4af 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x550 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x559 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x556 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x558 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x560 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ed 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f4 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ff 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x701 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fe 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x706 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x70a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x707 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x70b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x708 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x70c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x709 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x769 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x772 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x776 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x773 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x777 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x774 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x77b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x778 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Layer.h(21,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Layer.h(21,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(541,7):
       参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\vendor\ImGui\imgui.h(74,9): warning C4005: “IMGUI_VERSION”: 宏重定义
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
-      C:\Users\LLY\Documents\VS Project\KEngine\KEngine\vendor\ImGui\imgui.h(25,9):
-      参见“IMGUI_VERSION”的前一个定义
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xa9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\vendor\ImGui\imgui.h(75,9): warning C4005: “IMGUI_VERSION_NUM”: 宏重定义
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
-      C:\Users\LLY\Documents\VS Project\KEngine\KEngine\vendor\ImGui\imgui.h(26,9):
-      参见“IMGUI_VERSION_NUM”的前一个定义
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(22,23): warning C4251: “KEngine::LayerStack::m_Layers”:“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xaf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xb1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xb2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x12f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x131 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x132 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x145 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x146 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x151 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x153 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x154 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x155 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x156 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(22,23): warning C4251: “KEngine::LayerStack::m_Layers”:“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(442,7):
       参见“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”的声明
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251: “KEngine::LayerStack::m_LayerInsertPoint”:“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:         with
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:         [
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:             _Ty=KEngine::Layer *
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33): warning C4251:         ]
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251: “KEngine::LayerStack::m_LayerInsertPoint”:“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         with
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         [
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:             _Ty=KEngine::Layer *
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         ]
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(255,7):
       参见“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”的声明
           with
@@ -318,16 +372,16 @@ C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\LayerStack.h(23,33
               _Ty=KEngine::Layer *
           ]
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\Application.h(16,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Application.h(16,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
       参见“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”的声明
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\ImGui\ImGuiLayer.cpp(63,80): warning C4244: “参数”: 从“uint32_t”转换到“float”，可能丢失数据
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(95,52): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
-C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\KEngine\ImGui\ImGuiLayer.cpp(63,51): warning C4244: “参数”: 从“uint32_t”转换到“float”，可能丢失数据
-  (编译源文件“/src/KEngine/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(95,37): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
+  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
   
   KEngine.vcxproj -> C:\Users\LLY\Documents\VS Project\KEngine\bin\Debug-windows-x86_64\KEngine\KEngine.dll
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序

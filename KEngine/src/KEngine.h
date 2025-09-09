@@ -2,16 +2,16 @@
 
 
 
-#include"KEngine/Application.h"
+#include"Application.h"
 
-#include"KEngine/Log.h"
+#include"Log.h"
 
-#include"KEngine/EntryPoint.h"
+#include"EntryPoint.h"
 
-#include"KEngine/Layer.h"
-#include"KEngine/LayerStack.h"	
+#include"Layer.h"
+#include"LayerStack.h"	
 
-#include "KEngine/ImGui/ImGuiLayer.h"
+#include "ImGui/ImGuiLayer.h"
 
 
 

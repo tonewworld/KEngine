@@ -155,32 +155,33 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Core.h" />
+    <ClInclude Include="src\EntryPoint.h" />
+    <ClInclude Include="src\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\Events\Event.h" />
+    <ClInclude Include="src\Events\KeyEvent.h" />
+    <ClInclude Include="src\Events\MouseEvent.h" />
+    <ClInclude Include="src\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\KEngine.h" />
-    <ClInclude Include="src\KEngine\Application.h" />
-    <ClInclude Include="src\KEngine\Core.h" />
-    <ClInclude Include="src\KEngine\EntryPoint.h" />
-    <ClInclude Include="src\KEngine\Events\ApplicationEvent.h" />
-    <ClInclude Include="src\KEngine\Events\Event.h" />
-    <ClInclude Include="src\KEngine\Events\KeyEvent.h" />
-    <ClInclude Include="src\KEngine\Events\MouseEvent.h" />
-    <ClInclude Include="src\KEngine\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\KEngine\Layer.h" />
-    <ClInclude Include="src\KEngine\LayerStack.h" />
-    <ClInclude Include="src\KEngine\Log.h" />
-    <ClInclude Include="src\KEngine\Platforms\OpenGL\ImGuiOpenGLRenderer.h" />
-    <ClInclude Include="src\KEngine\Platforms\Windows\WindowsWindow.h" />
-    <ClInclude Include="src\KEngine\Window.h" />
+    <ClInclude Include="src\Layer.h" />
+    <ClInclude Include="src\LayerStack.h" />
+    <ClInclude Include="src\Log.h" />
+    <ClInclude Include="src\Platforms\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Platforms\OpenGL\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Platforms\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\kepch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\KEngine\Application.cpp" />
-    <ClCompile Include="src\KEngine\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\KEngine\Layer.cpp" />
-    <ClCompile Include="src\KEngine\LayerStack.cpp" />
-    <ClCompile Include="src\KEngine\Log.cpp" />
-    <ClCompile Include="src\KEngine\Platforms\OpenGL\ImGuiOpenGLRenderer.cpp" />
-    <ClCompile Include="src\KEngine\Platforms\Windows\WindowsWindow.cpp" />
-    <ClCompile Include="src\KEngine\Window.cpp" />
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="src\Layer.cpp" />
+    <ClCompile Include="src\LayerStack.cpp" />
+    <ClCompile Include="src\Log.cpp" />
+    <ClCompile Include="src\Platforms\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Platforms\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\kepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
