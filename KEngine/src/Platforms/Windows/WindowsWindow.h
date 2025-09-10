@@ -27,6 +27,8 @@ namespace KEngine {
         void SetVSync(bool sign) override;
         bool IsVSync() override;
 
+        inline virtual void * GetNativeWindow() const { return m_Window; }
+
     private:
         WindowData myData;
         GLFWwindow* m_Window;

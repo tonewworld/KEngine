@@ -37,5 +37,6 @@ namespace KEngine{
         
         static Window* Create(const WindowProps& props);
 
+        virtual void * GetNativeWindow() const { return nullptr; }
     };
 }

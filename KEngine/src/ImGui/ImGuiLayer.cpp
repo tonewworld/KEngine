@@ -61,7 +61,7 @@ namespace KEngine
 	{
 		ImGuiIO& io = ImGui::GetIO();
 
-		//ÐÂ°æ±¾µÄ°ó¶¨
+		//ï¿½Â°æ±¾ï¿½Ä°ï¿½
 		/*ImGuiKey imguiKey = (ImGuiKey)e.GetKeyCode(); 
 		io.AddKeyEvent(imguiKey, true);
 
@@ -107,14 +107,8 @@ namespace KEngine
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
 		
-
-
 		ImGui_ImplOpenGL3_Init("#version 410");
-		
-		int major, minor;
-		glfwGetVersion(&major, &minor, nullptr);
-		std::cout << "GLFW version: " << major << "." << minor << std::endl;
-		const char* glVersion = (const char*)glGetString(GL_VERSION);
+	
 		
 	}
 	void ImGuiLayer::OnDetach()
@@ -131,7 +125,7 @@ namespace KEngine
 		if (m_Time <= 0.0f)
 		{
 			m_Time = time;
-			io.DeltaTime = 1.0f / 60.0f; // ¼ÙÉè³õÊ¼Ö¡ÂÊÎª 60fps
+			io.DeltaTime = 1.0f / 60.0f; // ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Ö¡ï¿½ï¿½Îª 60fps
 		}
 		else
 		{
