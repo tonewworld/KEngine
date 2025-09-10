@@ -4,6 +4,3 @@
 [submodule "KEngine/vendor/GLFW"]
 	path = KEngine/vendor/GLFW
 	url = https://github.com/TheCherno/glfw.git
-[submodule "KEngine/vendor/imgui"]
-	path = KEngine/vendor/imgui
-	url = https://github.com/TheCherno/imgui.git
