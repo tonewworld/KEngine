@@ -51,6 +51,8 @@
     </ClInclude>
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\kepch.h" />
+    <ClInclude Include="src\Input.h" />
+    <ClInclude Include="src\Platforms\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
@@ -68,5 +70,6 @@
     </ClCompile>
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\kepch.cpp" />
+    <ClCompile Include="src\Platforms\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

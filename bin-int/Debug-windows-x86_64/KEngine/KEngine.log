@@ -1,374 +1,306 @@
 ﻿cl : 命令行  warning D9025: 正在重写“/MTd”(用“/MDd”)
-  ImGuiLayer.cpp
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x770 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x772 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x776 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x779 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x100f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x1010 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x1012 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(1,1): warning C4828: 文件包含在偏移 0x1019 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x46 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+  WindowsInput.cpp
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x46 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x48 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x48 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3b8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3b8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ba 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ba 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ca 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ca 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3df 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3df 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x450 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x450 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x452 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x452 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x454 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x454 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x490 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x490 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x492 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x492 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x498 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x498 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4aa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4aa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x556 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x556 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x558 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x558 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fe 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fe 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x707 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x707 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x708 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x708 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x709 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x709 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x769 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x769 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x773 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x773 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x774 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x774 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x778 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x778 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Layer.h(21,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Layer.h(21,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(541,7):
       参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xa9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xaf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xb1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xb2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x12f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x131 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x132 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x145 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x146 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x151 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x153 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x154 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x155 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x156 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\LayerStack.h(22,23): warning C4251: “KEngine::LayerStack::m_Layers”:“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(22,23): warning C4251: “KEngine::LayerStack::m_Layers”:“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(442,7):
       参见“std::vector<KEngine::Layer *,std::allocator<KEngine::Layer *>>”的声明
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251: “KEngine::LayerStack::m_LayerInsertPoint”:“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         with
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         [
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:             _Ty=KEngine::Layer *
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         ]
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251: “KEngine::LayerStack::m_LayerInsertPoint”:“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”需要有 dll 接口以供“KEngine::LayerStack”的客户端使用
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         with
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         [
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:             _Ty=KEngine::Layer *
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\LayerStack.h(23,33): warning C4251:         ]
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector(255,7):
       参见“std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>”的声明
           with
@@ -376,1461 +308,38 @@ C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\LayerStack.h(23,33): warnin
               _Ty=KEngine::Layer *
           ]
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Application.h(16,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
+C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Application.h(16,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
       参见“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”的声明
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(74,9): warning C4005: “IMGUI_VERSION”: 宏重定义
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(25,9):
-      参见“IMGUI_VERSION”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(75,9): warning C4005: “IMGUI_VERSION_NUM”: 宏重定义
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(26,9):
-      参见“IMGUI_VERSION_NUM”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.h(45,57): error C2065: “ImTextureData”: 未声明的标识符
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.h(45,72): error C2065: “tex”: 未声明的标识符
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.h(45,25): error C2182: “ImGui_ImplOpenGL3_UpdateTexture”: “void” 这一使用无效
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(95,52): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\ImGui\ImGuiLayer.cpp(95,37): warning C4244: “参数”: 从“unsigned int”转换到“float”，可能丢失数据
-  (编译源文件“/src/ImGui/ImGuiLayer.cpp”)
-  
-  Layer.cpp
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x46 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x48 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3b8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ba 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ca 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3df 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x450 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x452 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x454 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x490 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x492 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x498 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4aa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x556 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x558 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fe 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x707 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x708 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x709 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x769 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x773 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x774 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x778 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Layer.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Layer.h(21,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
-  (编译源文件“/src/Layer.cpp”)
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(541,7):
-      参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
-  
-  imgui_impl_opengl3.cpp
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(121,9): warning C4603: “_CRT_SECURE_NO_WARNINGS”: 未定义宏或在预编译头使用后定义发生改变
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(121,9):
-      将宏添加到预编译头中，而不是在此处定义
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(124,1):
-      使用预编译头
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(74,9): warning C4005: “IMGUI_VERSION”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(25,9):
-      参见“IMGUI_VERSION”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(75,9): warning C4005: “IMGUI_VERSION_NUM”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(26,9):
-      参见“IMGUI_VERSION_NUM”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.h(45,57): error C2065: “ImTextureData”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.h(45,72): error C2065: “tex”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.h(45,25): error C2182: “ImGui_ImplOpenGL3_UpdateTexture”: “void” 这一使用无效
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(554,9): warning C4005: “glActiveTexture”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1728,9):
-      参见“glActiveTexture”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(555,9): warning C4005: “glAttachShader”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1866,9):
-      参见“glAttachShader”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(556,9): warning C4005: “glBindBuffer”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1814,9):
-      参见“glBindBuffer”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(557,9): warning C4005: “glBindSampler”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2528,9):
-      参见“glBindSampler”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(558,9): warning C4005: “glBindTexture”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1696,9):
-      参见“glBindTexture”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(559,9): warning C4005: “glBindVertexArray”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2396,9):
-      参见“glBindVertexArray”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(560,9): warning C4005: “glBlendEquation”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1783,9):
-      参见“glBlendEquation”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(561,9): warning C4005: “glBlendEquationSeparate”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1851,9):
-      参见“glBlendEquationSeparate”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(562,9): warning C4005: “glBlendFuncSeparate”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1759,9):
-      参见“glBlendFuncSeparate”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(563,9): warning C4005: “glBufferData”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1826,9):
-      参见“glBufferData”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(564,9): warning C4005: “glBufferSubData”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1829,9):
-      参见“glBufferSubData”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(565,9): warning C4005: “glClear”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1563,9):
-      参见“glClear”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(566,9): warning C4005: “glClearColor”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1566,9):
-      参见“glClearColor”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(567,9): warning C4005: “glCompileShader”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1872,9):
-      参见“glCompileShader”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(568,9): warning C4005: “glCreateProgram”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1875,9):
-      参见“glCreateProgram”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(569,9): warning C4005: “glCreateShader”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1878,9):
-      参见“glCreateShader”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(570,9): warning C4005: “glDeleteBuffers”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1817,9):
-      参见“glDeleteBuffers”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(571,9): warning C4005: “glDeleteProgram”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1881,9):
-      参见“glDeleteProgram”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(572,9): warning C4005: “glDeleteShader”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1884,9):
-      参见“glDeleteShader”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(573,9): warning C4005: “glDeleteTextures”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1699,9):
-      参见“glDeleteTextures”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(574,9): warning C4005: “glDeleteVertexArrays”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2399,9):
-      参见“glDeleteVertexArrays”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(575,9): warning C4005: “glDetachShader”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1887,9):
-      参见“glDetachShader”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(576,9): warning C4005: “glDisable”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1584,9):
-      参见“glDisable”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(577,9): warning C4005: “glDisableVertexAttribArray”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1890,9):
-      参见“glDisableVertexAttribArray”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(578,9): warning C4005: “glDrawElements”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1672,9):
-      参见“glDrawElements”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(579,9): warning C4005: “glDrawElementsBaseVertex”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2452,9):
-      参见“glDrawElementsBaseVertex”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(580,9): warning C4005: “glEnable”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1587,9):
-      参见“glEnable”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(581,9): warning C4005: “glEnableVertexAttribArray”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1893,9):
-      参见“glEnableVertexAttribArray”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(582,9): warning C4005: “glFlush”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1593,9):
-      参见“glFlush”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(583,9): warning C4005: “glGenBuffers”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1820,9):
-      参见“glGenBuffers”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(584,9): warning C4005: “glGenTextures”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1702,9):
-      参见“glGenTextures”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(585,9): warning C4005: “glGenVertexArrays”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2402,9):
-      参见“glGenVertexArrays”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(586,9): warning C4005: “glGetAttribLocation”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1905,9):
-      参见“glGetAttribLocation”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(587,9): warning C4005: “glGetError”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1629,9):
-      参见“glGetError”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(588,9): warning C4005: “glGetIntegerv”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1635,9):
-      参见“glGetIntegerv”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(589,9): warning C4005: “glGetProgramInfoLog”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1911,9):
-      参见“glGetProgramInfoLog”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(590,9): warning C4005: “glGetProgramiv”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1908,9):
-      参见“glGetProgramiv”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(591,9): warning C4005: “glGetShaderInfoLog”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1917,9):
-      参见“glGetShaderInfoLog”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(592,9): warning C4005: “glGetShaderiv”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1914,9):
-      参见“glGetShaderiv”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(593,9): warning C4005: “glGetString”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1638,9):
-      参见“glGetString”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(594,9): warning C4005: “glGetStringi”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2327,9):
-      参见“glGetStringi”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(595,9): warning C4005: “glGetUniformLocation”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1923,9):
-      参见“glGetUniformLocation”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(596,9): warning C4005: “glGetVertexAttribPointerv”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1941,9):
-      参见“glGetVertexAttribPointerv”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(597,9): warning C4005: “glGetVertexAttribiv”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1938,9):
-      参见“glGetVertexAttribiv”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(598,9): warning C4005: “glIsEnabled”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1656,9):
-      参见“glIsEnabled”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(599,9): warning C4005: “glIsProgram”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1944,9):
-      参见“glIsProgram”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(600,9): warning C4005: “glLinkProgram”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1950,9):
-      参见“glLinkProgram”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(601,9): warning C4005: “glPixelStorei”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1614,9):
-      参见“glPixelStorei”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(602,9): warning C4005: “glPolygonMode”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1536,9):
-      参见“glPolygonMode”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(603,9): warning C4005: “glReadPixels”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1620,9):
-      参见“glReadPixels”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(604,9): warning C4005: “glScissor”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1539,9):
-      参见“glScissor”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(605,9): warning C4005: “glShaderSource”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1953,9):
-      参见“glShaderSource”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(606,9): warning C4005: “glTexImage2D”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1557,9):
-      参见“glTexImage2D”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(607,9): warning C4005: “glTexParameteri”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1548,9):
-      参见“glTexParameteri”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(608,9): warning C4005: “glTexSubImage2D”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1693,9):
-      参见“glTexSubImage2D”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(609,9): warning C4005: “glUniform1i”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1971,9):
-      参见“glUniform1i”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(610,9): warning C4005: “glUniformMatrix4fv”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2013,9):
-      参见“glUniformMatrix4fv”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(611,9): warning C4005: “glUseProgram”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1956,9):
-      参见“glUseProgram”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(612,9): warning C4005: “glVertexAttribPointer”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(2127,9):
-      参见“glVertexAttribPointer”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(613,9): warning C4005: “glViewport”: 宏重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\Glad\include\glad\glad.h(1662,9):
-      参见“glViewport”的前一个定义
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(814,13): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(376,24): error C2065: “ImGuiBackendFlags_RendererHasTextures”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(380,17): error C2039: "Renderer_TextureMaxWidth": 不是 "ImGuiPlatformIO" 的成员
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(3148,8):
-      参见“ImGuiPlatformIO”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(380,56): error C2039: "Renderer_TextureMaxHeight": 不是 "ImGuiPlatformIO" 的成员
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(3148,8):
-      参见“ImGuiPlatformIO”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(340,9): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(397,5): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(398,5): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(436,67): error C2065: “ImGuiBackendFlags_RendererHasTextures”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(547,20): error C2039: "Textures": 不是 "ImDrawData" 的成员
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(2761,8):
-      参见“ImDrawData”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(548,14): error C2065: “ImTextureData”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(548,29): error C2065: “tex”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(548,33): error C2143: 语法错误: 缺少“;”(在“:”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(548,47): error C2039: "Textures": 不是 "ImDrawData" 的成员
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(2761,8):
-      参见“ImDrawData”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(548,55): error C2143: 语法错误: 缺少“;”(在“)”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(549,17): error C2065: “tex”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(549,32): error C2065: “ImTextureStatus_OK”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(550,49): error C2065: “tex”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(605,49): error C3312: 找不到类型 "ImDrawList **" 的可调用 "begin" 函数
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(605,49): error C3312: 找不到类型 "ImDrawList **" 的可调用 "end" 函数
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(605,38): error C2143: 语法错误: 缺少“;”(在“:”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(605,59): error C2143: 语法错误: 缺少“;”(在“)”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(718,46): error C2065: “ImTextureData”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(718,61): error C2065: “tex”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(718,13): error C2182: “ImGui_ImplOpenGL3_DestroyTexture”: “void” 这一使用无效
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(719,1): error C2143: 语法错误: 缺少“;”(在“{”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(720,42): error C2065: “tex”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(721,5): error C3927: "->": 非函数声明符后不允许尾随返回类型
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(721,5): error C3484: 语法错误: 返回类型前应为“->”
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(721,5): error C3613: “->”后缺少返回类型(假定为“int”)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(721,5): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(721,5): error C2371: “imgl3wProcs”: 重定义；不同的基类型
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3_loader.h(917,28):
-      参见“imgl3wProcs”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(721,5): error C2146: 语法错误: 缺少“;”(在标识符“gl”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(724,5): error C3927: "->": 非函数声明符后不允许尾随返回类型
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(724,10): error C3613: “->”后缺少返回类型(假定为“int”)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(724,5): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(724,10): error C2146: 语法错误: 缺少“;”(在标识符“SetTexID”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(725,5): error C3927: "->": 非函数声明符后不允许尾随返回类型
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(725,10): error C3613: “->”后缺少返回类型(假定为“int”)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(725,5): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(725,5): error C2086: “int tex”: 重定义
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(724,5):
-      参见“tex”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(725,10): error C2146: 语法错误: 缺少“;”(在标识符“SetStatus”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(726,1): error C2059: 语法错误:“}”
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(726,1): error C2143: 语法错误: 缺少“;”(在“}”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(729,1): error C2143: 语法错误: 缺少“;”(在“{”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(729,1): error C2447: “{”: 缺少函数标题(是否是老式的形式表?)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(861,5): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(1048,10): error C2065: “ImTextureData”: 未声明的标识符
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(1048,29): error C2143: 语法错误: 缺少“;”(在“:”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(1048,54): error C2039: "Textures": 不是 "ImGuiPlatformIO" 的成员
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-      C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\ImGui\imgui.h(3148,8):
-      参见“ImGuiPlatformIO”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(1048,62): error C2143: 语法错误: 缺少“;”(在“)”的前面)
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\imgui_impl_opengl3.cpp(1050,13): error C2064: 项不会计算为接受 1 个参数的函数
-  (编译源文件“/src/Platforms/OpenGL/imgui_impl_opengl3.cpp”)
-  
-  WindowsWindow.cpp
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x46 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x48 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3b8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ba 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ca 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3df 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x450 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x452 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x454 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x490 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x492 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x498 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4aa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x556 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x558 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fe 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x707 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x708 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x709 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x769 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x773 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x774 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x778 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Log.h(13,42): warning C4251: “KEngine::Log::s_CoreLogger”:“std::shared_ptr<spdlog::logger>”需要有 dll 接口以供“KEngine::Log”的客户端使用
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1565,7):
-      参见“std::shared_ptr<spdlog::logger>”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Log.h(14,42): warning C4251: “KEngine::Log::s_ClientLogger”:“std::shared_ptr<spdlog::logger>”需要有 dll 接口以供“KEngine::Log”的客户端使用
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1565,7):
-      参见“std::shared_ptr<spdlog::logger>”的声明
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xa9 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xaf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xb1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0xb2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x12f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x131 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x132 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x145 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x146 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x14e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x151 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x153 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x154 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x155 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\KeyEvent.h(1,1): warning C4828: 文件包含在偏移 0x156 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Platforms/Windows/WindowsWindow.cpp”)
-  
-  Window.cpp
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x46 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x48 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x50 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x51 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x53 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x56 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x59 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x5f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x61 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3b8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ba 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3bb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3c6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ca 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3ce 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d5 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3d7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3db 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3de 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x3df 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x450 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x452 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x453 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x454 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x456 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x45d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x490 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x492 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x493 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x498 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49e 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x49f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4a8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4aa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ab 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ac 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4ad 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x4b1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x54d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x556 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x558 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55a 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x55d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e2 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6e3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ea 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6eb 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6ee 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f0 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f6 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f7 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6f8 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fa 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fc 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x6fe 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x700 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x703 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x707 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x708 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x709 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x769 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76b 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x76f 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x773 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x774 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x778 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-  (编译源文件“/src/Window.cpp”)
-  
-  正在生成代码...
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,16): warning C4244: “初始化”: 从“double”转换到“_Ty1”，可能丢失数据
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,16): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,16): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,16): warning C4244:             _Ty1=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,16): warning C4244:         ]
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,16):
+      模板实例化上下文(最早的实例化上下文)为
+          C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Platforms\Windows\WindowsInput.cpp(28,9):
+          查看对正在编译的函数 模板 实例化“std::pair<float,float>::pair<double&,double&,0>(_Other1,_Other2) noexcept”的引用
+          with
+          [
+              _Other1=double &,
+              _Other2=double &
+          ]
+              C:\Users\LLY\Documents\VS Project\KEngine\KEngine\src\Platforms\Windows\WindowsInput.cpp(28,9):
+              请参阅 "KEngine::WindowsInput::GetMousePositionImpl" 中对 "std::pair<float,float>::pair" 的第一个引用
+  
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,54): warning C4244: “初始化”: 从“double”转换到“_Ty2”，可能丢失数据
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,54): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,54): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,54): warning C4244:             _Ty2=float
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility(274,54): warning C4244:         ]
+  (编译源文件“/src/Platforms/Windows/WindowsInput.cpp”)
+  
+    正在创建库 ..\bin\Debug-windows-x86_64\KEngine\KEngine.lib 和对象 ..\bin\Debug-windows-x86_64\KEngine\KEngine.exp
+LINK : warning LNK4098: 默认库“LIBCMT”与其他库的使用冲突；请使用 /NODEFAULTLIB:library
+  KEngine.vcxproj -> C:\Users\LLY\Documents\VS Project\KEngine\bin\Debug-windows-x86_64\KEngine\KEngine.dll
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。

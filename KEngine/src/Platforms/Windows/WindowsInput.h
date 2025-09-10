@@ -10,6 +10,6 @@ namespace KEngine {
         virtual float GetMouseXImpl() override;
         virtual float GetMouseYImpl() override;
 
-    }
+    };
 
 }
