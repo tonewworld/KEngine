@@ -12,7 +12,7 @@ namespace KEngine {
 	Application::Application() {
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
-		m_Window->SetEventCallback(std::bind(&Application::OnEvent,this,std::placeholders::_1));
+		m_Window->SetEventCallback(KE_BIND_FN(Application::OnEvent));
 	}
 	Application::~Application() {
 	}

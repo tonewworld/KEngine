@@ -15,6 +15,7 @@ IncludeDir={}
 IncludeDir["GLFW"]="KEngine/vendor/GLFW/include"
 IncludeDir["Glad"]="KEngine/vendor/Glad/include"
 IncludeDir["ImGui"]="KEngine/vendor/ImGui"
+IncludeDir["glm"]="KEngine/vendor/glm/glm"
 
 include "KEngine/vendor/Glad"
 include "KEngine/vendor/GLFW"
@@ -33,8 +34,9 @@ project"KEngine"
 
 	files{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
-
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs{
@@ -42,7 +44,8 @@ project"KEngine"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",	
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links{
@@ -97,7 +100,8 @@ project"Sandbox"
 
 	includedirs{
 		"KEngine/vendor/spdlog/include",
-		"KEngine/src"
+		"KEngine/src",
+		"%{IncludeDir.glm}"
 	}
 
 	links{

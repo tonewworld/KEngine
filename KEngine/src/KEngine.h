@@ -15,5 +15,6 @@
 
 #include"Input.h"
 
-
+#include"KeyCode.h"
+#include "MouseButtonCode.h"
 

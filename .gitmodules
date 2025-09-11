@@ -7,3 +7,6 @@
 [submodule "KEngine/vendor/imgui"]
 	path = KEngine/vendor/imgui
 	url = https://github.com/ocornut/imgui.git
+[submodule "KEngine/vendor/glm"]
+	path = KEngine/vendor/glm
+	url = https://github.com/g-truc/glm.git
