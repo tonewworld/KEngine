@@ -2,8 +2,9 @@
 
 #include "Core.h"
 #include "Events/Event.h"
-#include"Window.h"
-#include"Layer.h"
+#include "Window.h"
+#include "Layer.h"
+#include "ImGuiLayer.h"
 #include "LayerStack.h"
 #include "Events/ApplicationEvent.h"
 
@@ -14,6 +15,7 @@ namespace KEngine
 	{
 	private:
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
 	public:

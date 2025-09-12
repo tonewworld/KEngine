@@ -101,7 +101,8 @@ project"Sandbox"
 	includedirs{
 		"KEngine/vendor/spdlog/include",
 		"KEngine/src",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"KEngine/vendor/imgui"
 	}
 
 	links{

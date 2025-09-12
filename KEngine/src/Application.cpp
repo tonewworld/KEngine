@@ -13,6 +13,9 @@ namespace KEngine {
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
 		m_Window->SetEventCallback(KE_BIND_FN(Application::OnEvent));
+
+		m_ImGuiLayer=new ImGuiLayer();
+		PushOverLayer(m_ImGuiLayer);
 	}
 	Application::~Application() {
 	}
@@ -23,7 +26,10 @@ namespace KEngine {
 			m_Window->OnUpdate();
 			for(Layer* layer:m_LayerStack)
 				layer->OnUpdate();
-			
+			m_ImGuiLayer->ImGuiBegin();
+			for(Layer* layer:m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->ImGuiEnd();		
 		}
 	}
 

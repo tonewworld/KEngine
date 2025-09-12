@@ -15,6 +15,8 @@ namespace KEngine{
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
 
+		virtual void ImGuiRender() {}
+
 		const std::string& GetName() const { return m_DebugName; }
 
 	protected:

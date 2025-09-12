@@ -6,11 +6,14 @@ class ExampleLayer : public KEngine::Layer {
 		:Layer("Example") {
 	}
 	void OnUpdate() override {
-		
-		
 	}
 	void OnEvent(KEngine::Event& event) override {
+	}
+	void OnImGuiRender()override{
 		
+		ImGui::Begin("TestWindow");
+		ImGui::Text("111");
+		ImGui::End();
 	}
 };
 
@@ -21,7 +24,6 @@ class Sandbox : public KEngine::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
-		PushOverlayer(new KEngine::ImGuiLayer());
 	}
 	~Sandbox() {
 	}

@@ -18,7 +18,8 @@ namespace KEngine
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerInsertPoint=m_Layers.emplace(m_LayerInsertPoint, layer);
+		m_LayerInsertPoint=m_Layers.emplace(m_Layers.begin()+m_LayerInsertIndex, layer);
+		m_LayerInsertIndex++;
 	}
 
 	void LayerStack::PopLayer(Layer* layer)
@@ -27,7 +28,8 @@ namespace KEngine
 		if(it != m_Layers.end())
 		{
 			m_Layers.erase(it);
-			m_LayerInsertPoint--;//这里是为什么,我感觉不用移动这个指针，这个指针应该只要在插入的时候改变就行了
+			m_LayerInsertIndex--;
+			
 		}	
 	}
 

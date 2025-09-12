@@ -20,7 +20,7 @@ namespace KEngine {
 
 	private:
 		std::vector<Layer*> m_Layers;
-		std::vector<Layer*>::iterator m_LayerInsertPoint ;
+		unsigned int m_LayerInsertIndex = 0;
 	};
 }
 
