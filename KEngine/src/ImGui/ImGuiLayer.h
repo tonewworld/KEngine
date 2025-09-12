@@ -1,3 +1,4 @@
+#pragma once
 #include "Layer.h"
 
 namespace KEngine {
@@ -10,7 +11,7 @@ namespace KEngine {
 
 		virtual void OnAttach() override ;
 		virtual void OnDetach() override ;
-		virtual void OnUpdate() override ;
+		
 
 		void ImGuiBegin();
 		void ImGuiEnd();

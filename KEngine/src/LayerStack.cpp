@@ -5,7 +5,6 @@ namespace KEngine
 {
 	LayerStack::LayerStack()
 	{
-		m_LayerInsertPoint = m_Layers.begin();
 	}
 
 	LayerStack::~LayerStack()
@@ -18,7 +17,7 @@ namespace KEngine
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerInsertPoint=m_Layers.emplace(m_Layers.begin()+m_LayerInsertIndex, layer);
+		m_Layers.emplace(m_Layers.begin()+m_LayerInsertIndex, layer);
 		m_LayerInsertIndex++;
 	}
 

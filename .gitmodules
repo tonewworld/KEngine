@@ -4,9 +4,10 @@
 [submodule "KEngine/vendor/GLFW"]
 	path = KEngine/vendor/GLFW
 	url = https://github.com/TheCherno/glfw.git
-[submodule "KEngine/vendor/imgui"]
-	path = KEngine/vendor/imgui
-	url = https://github.com/ocornut/imgui.git
 [submodule "KEngine/vendor/glm"]
 	path = KEngine/vendor/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "KEngine/vendor/ImGui"]
+	path = KEngine/vendor/ImGui
+	url = https://github.com/tonewworld/imgui.git
+	branch = docking
