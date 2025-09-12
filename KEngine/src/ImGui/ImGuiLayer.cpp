@@ -4,8 +4,8 @@
 
 #include "imgui.h"
 #include "GLFW/glfw3.h"
-#include "examples/imgui_impl_opengl3.h"
-#include "examples/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_glfw.h"
 
 
 
@@ -76,7 +76,7 @@ namespace KEngine
 			glfwMakeContextCurrent(backup_current_context);
 		}
 	}
-	void ImGuiLayer::OnImGuiRender()
+	void ImGuiLayer::ImGuiRender()
 	{
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);

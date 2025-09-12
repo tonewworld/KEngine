@@ -9,7 +9,7 @@ class ExampleLayer : public KEngine::Layer {
 	}
 	void OnEvent(KEngine::Event& event) override {
 	}
-	void OnImGuiRender()override{
+	void ImGuiRender()override{
 		
 		ImGui::Begin("TestWindow");
 		ImGui::Text("111");

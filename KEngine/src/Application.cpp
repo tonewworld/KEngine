@@ -15,7 +15,7 @@ namespace KEngine {
 		m_Window->SetEventCallback(KE_BIND_FN(Application::OnEvent));
 
 		m_ImGuiLayer=new ImGuiLayer();
-		PushOverLayer(m_ImGuiLayer);
+		PushOverlayer(m_ImGuiLayer);
 	}
 	Application::~Application() {
 	}
@@ -28,7 +28,7 @@ namespace KEngine {
 				layer->OnUpdate();
 			m_ImGuiLayer->ImGuiBegin();
 			for(Layer* layer:m_LayerStack)
-				layer->OnImGuiRender();
+				layer->ImGuiRender();
 			m_ImGuiLayer->ImGuiEnd();		
 		}
 	}
