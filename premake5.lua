@@ -38,6 +38,9 @@ project"KEngine"
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
+	defines{
+		"IMGUI_API=__declspec(dllexport)"
+	}
 
 	includedirs{
 		"%{prj.name}/src",
@@ -96,6 +99,9 @@ project"Sandbox"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
 
+	}
+	defines{
+		"IMGUI_API=__declspec(dllexport)"
 	}
 
 	includedirs{

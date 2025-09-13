@@ -10,4 +10,3 @@
 [submodule "KEngine/vendor/ImGui"]
 	path = KEngine/vendor/ImGui
 	url = https://github.com/tonewworld/imgui.git
-	branch = docking

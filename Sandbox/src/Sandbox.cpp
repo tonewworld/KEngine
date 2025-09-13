@@ -1,4 +1,5 @@
 #include<KEngine.h>
+#include "imgui.h"
 
 class ExampleLayer : public KEngine::Layer {
 	public:
@@ -11,9 +12,9 @@ class ExampleLayer : public KEngine::Layer {
 	}
 	void ImGuiRender()override{
 		
-		//ImGui::Begin("TestWindow");
-		//ImGui::Text("111");
-		//ImGui::End();
+		ImGui::Begin("TestWindow");
+		ImGui::Text("111");
+		ImGui::End();
 	}
 };
 
