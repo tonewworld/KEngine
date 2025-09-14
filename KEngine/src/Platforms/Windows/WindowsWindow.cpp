@@ -32,8 +32,8 @@ namespace KEngine{
             GLFWInitialized = true;
         }
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, props.Title.c_str(), nullptr, nullptr);
-        glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);//GLAD加载OpenGL函数指针
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 
         glfwSetWindowUserPointer(m_Window, &myData);//将data和window绑定，然后回调的时候使用
         SetVSync(true);
@@ -124,7 +124,8 @@ namespace KEngine{
     }
     void WindowsWindow::OnUpdate(){
         glfwPollEvents();
-        glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
+        
     }
     void WindowsWindow::SetVSync(bool sign){
         if (sign)

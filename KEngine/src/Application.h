@@ -37,6 +37,7 @@ namespace KEngine
 		inline Window& GetWindow() { return *m_Window; }
 		static Application& GetApplication() { return *s_Instance; }
 
+		unsigned int m_VAO, m_VBO, m_IBO;
 	};
 	Application* CreateApplication();
 	

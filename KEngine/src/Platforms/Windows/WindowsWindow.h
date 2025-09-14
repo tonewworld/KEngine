@@ -1,7 +1,6 @@
 #pragma once
 #include "Window.h"
-#include "glad/glad.h"
-#include <GLFW/glfw3.h>
+#include "Platforms/OpenGL/OpenGLContext.h"
 namespace KEngine {
 
     class WindowsWindow :public Window {
@@ -32,6 +31,7 @@ namespace KEngine {
     private:
         WindowData myData;
         GLFWwindow* m_Window;
+		OpenGLContext* m_Context;
 
         virtual void Init(const WindowProps& props);
         virtual void Shutdown();
