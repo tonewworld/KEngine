@@ -8,6 +8,7 @@
 #include "LayerStack.h"
 #include "Events/ApplicationEvent.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Buffer.h"
 
 namespace KEngine
 {
@@ -38,9 +39,12 @@ namespace KEngine
 		inline Window& GetWindow() { return *m_Window; }
 		static Application& GetApplication() { return *s_Instance; }
 
-		unsigned int m_VAO, m_VBO, m_IBO;
+		unsigned int m_VAO;
 
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VBO;
+		std::unique_ptr<IndexBuffer> m_IBO;
+		
 	};
 	Application* CreateApplication();
 	

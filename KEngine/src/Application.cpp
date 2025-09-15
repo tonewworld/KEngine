@@ -38,21 +38,17 @@ namespace KEngine {
 			 0.0f,  0.5f, 0.0f
 		};
 
-		unsigned int indices[3] = { 0,1,2 };
+		unsigned int indexes[3] = { 0,1,2 };
 
 		
 		glGenVertexArrays(1, &m_VAO);
 		glBindVertexArray(m_VAO);
 
-		glGenBuffers(1, &m_VBO);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		m_VBO.reset(VertexBuffer::Create(vertices,sizeof(vertices)));
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (const void*)0);
-
-		glGenBuffers(1, &m_IBO);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	
+		m_IBO.reset(IndexBuffer::Create(indexes,sizeof(indexes)));
 		
 		glBindVertexArray(0);
 
@@ -70,7 +66,7 @@ namespace KEngine {
 
 
 			glBindVertexArray(m_VAO);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, m_IBO->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for(Layer* layer:m_LayerStack)
 				layer->OnUpdate();

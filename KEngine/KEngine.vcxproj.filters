@@ -90,6 +90,9 @@
     <ClInclude Include="src\MouseButtonCode.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGL\OpenGLBuffer.h">
+      <Filter>src\Platforms\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platforms\OpenGL\OpenGLContext.h">
       <Filter>src\Platforms\OpenGL</Filter>
     </ClInclude>
@@ -99,7 +102,13 @@
     <ClInclude Include="src\Platforms\Windows\WindowsWindow.h">
       <Filter>src\Platforms\Windows</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer\Buffer.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\Renderer\GraphicsContext.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Renderer.h">
       <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer\Shader.h">
@@ -1385,6 +1394,9 @@
     <ClCompile Include="src\Log.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGL\OpenGLBuffer.cpp">
+      <Filter>src\Platforms\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platforms\OpenGL\OpenGLContext.cpp">
       <Filter>src\Platforms\OpenGL</Filter>
     </ClCompile>
@@ -1393,6 +1405,12 @@
     </ClCompile>
     <ClCompile Include="src\Platforms\Windows\WindowsWindow.cpp">
       <Filter>src\Platforms\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Buffer.cpp">
+      <Filter>src\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Renderer.cpp">
+      <Filter>src\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderer\Shader.cpp">
       <Filter>src\Renderer</Filter>
