@@ -7,6 +7,7 @@
 #include "ImGui/ImGuiLayer.h"
 #include "LayerStack.h"
 #include "Events/ApplicationEvent.h"
+#include "Renderer/Shader.h"
 
 namespace KEngine
 {
@@ -38,6 +39,8 @@ namespace KEngine
 		static Application& GetApplication() { return *s_Instance; }
 
 		unsigned int m_VAO, m_VBO, m_IBO;
+
+		std::unique_ptr<Shader> m_Shader;
 	};
 	Application* CreateApplication();
 	

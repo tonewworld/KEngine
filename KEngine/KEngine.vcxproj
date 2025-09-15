@@ -173,7 +173,10 @@
     <ClInclude Include="src\Platforms\OpenGl\OpenGLContext.h" />
     <ClInclude Include="src\Platforms\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platforms\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\Renderer\glad.h" />
     <ClInclude Include="src\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Renderer\khrplatform.h" />
+    <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\kepch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -605,6 +608,7 @@
     <ClCompile Include="src\Platforms\OpenGl\OpenGLContext.cpp" />
     <ClCompile Include="src\Platforms\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platforms\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\kepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

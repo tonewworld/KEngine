@@ -13,8 +13,14 @@
     <Filter Include="src\Platforms">
       <UniqueIdentifier>{B40E5C85-20CF-D7BB-E909-213955891C98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Platforms\OpenGl">
+      <UniqueIdentifier>{88A52600-7434-B0C9-1D53-C4C409C1C06F}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platforms\Windows">
       <UniqueIdentifier>{EE2C175D-5A99-D257-238D-6AB58FB8F4BF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Renderer">
+      <UniqueIdentifier>{73D1DFBF-5F34-6F64-08BA-A71AF4FB3AE7}</UniqueIdentifier>
     </Filter>
     <Filter Include="vendor">
       <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
@@ -84,11 +90,20 @@
     <ClInclude Include="src\MouseButtonCode.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platforms\OpenGl\OpenGLContext.h">
+      <Filter>src\Platforms\OpenGl</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platforms\Windows\WindowsInput.h">
       <Filter>src\Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platforms\Windows\WindowsWindow.h">
       <Filter>src\Platforms\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\GraphicsContext.h">
+      <Filter>src\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer\Shader.h">
+      <Filter>src\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Window.h">
       <Filter>src</Filter>
@@ -1350,8 +1365,8 @@
     <ClInclude Include="vendor\glm\glm\vector_relational.hpp">
       <Filter>vendor\glm\glm</Filter>
     </ClInclude>
-    <ClInclude Include="src\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Platforms\OpenGl\OpenGLContext.h" />
+    <ClInclude Include="src\Renderer\glad.h" />
+    <ClInclude Include="src\Renderer\khrplatform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp">
@@ -1372,11 +1387,17 @@
     <ClCompile Include="src\Log.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platforms\OpenGl\OpenGLContext.cpp">
+      <Filter>src\Platforms\OpenGl</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platforms\Windows\WindowsInput.cpp">
       <Filter>src\Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platforms\Windows\WindowsWindow.cpp">
       <Filter>src\Platforms\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer\Shader.cpp">
+      <Filter>src\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Window.cpp">
       <Filter>src</Filter>
@@ -1384,6 +1405,5 @@
     <ClCompile Include="src\kepch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platforms\OpenGl\OpenGLContext.cpp" />
   </ItemGroup>
 </Project>
