@@ -108,7 +108,9 @@ project"Sandbox"
 		"KEngine/vendor/spdlog/include",
 		"KEngine/src",
 		"%{IncludeDir.glm}",
-		"KEngine/vendor/imgui"
+		"KEngine/vendor/imgui",
+		"%{IncludeDir.GLFW}",	
+		"%{IncludeDir.Glad}"
 	}
 
 	links{

@@ -1,6 +1,6 @@
 #pragma once
 #include "Core.h"
-//#include "glad/glad.h" 为什么包含不了
+#include "glad/glad.h"
 
 namespace KEngine
 {
