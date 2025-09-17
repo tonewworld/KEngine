@@ -304,24 +304,6 @@ C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Log.h(14,42): warning C4251
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1565,7):
       参见“std::shared_ptr<spdlog::logger>”的声明
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\OpenGLBuffer.h(5,44): error C2504: “VertexBuffer”: 未定义基类
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\OpenGLBuffer.h(9,22): error C3668: “KEngine::OpenGLVertexBuffer::Bind”: 包含重写说明符“override”的方法没有重写任何基类方法
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\OpenGLBuffer.h(10,22): error C3668: “KEngine::OpenGLVertexBuffer::Unbind”: 包含重写说明符“override”的方法没有重写任何基类方法
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\OpenGLBuffer.h(15,43): error C2504: “IndexBuffer”: 未定义基类
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\OpenGLBuffer.h(19,22): error C3668: “KEngine::OpenGLIndexBuffer::Bind”: 包含重写说明符“override”的方法没有重写任何基类方法
-  (编译源文件“src/Sandbox.cpp”)
-  
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Platforms\OpenGL\OpenGLBuffer.h(20,22): error C3668: “KEngine::OpenGLIndexBuffer::Unbind”: 包含重写说明符“override”的方法没有重写任何基类方法
-  (编译源文件“src/Sandbox.cpp”)
-  
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Application.h(19,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
   (编译源文件“src/Sandbox.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
@@ -342,3 +324,5 @@ C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Application.h(46,32): warni
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
       参见“std::unique_ptr<KEngine::IndexBuffer,std::default_delete<KEngine::IndexBuffer>>”的声明
   
+    正在创建库 C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\..\bin\Debug-windows-x86_64\Sandbox\Sandbox.lib 和对象 C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\..\bin\Debug-windows-x86_64\Sandbox\Sandbox.exp
+  Sandbox.vcxproj -> C:\Users\LLY\Documents\VSProject\KEngine\bin\Debug-windows-x86_64\Sandbox\Sandbox.exe

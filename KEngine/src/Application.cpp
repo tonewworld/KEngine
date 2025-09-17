@@ -9,6 +9,26 @@ namespace KEngine {
 
 	Application* Application::s_Instance = nullptr;
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+			case KEngine::ShaderDataType::Float:    return GL_FLOAT;
+			case KEngine::ShaderDataType::Float2:   return GL_FLOAT;
+			case KEngine::ShaderDataType::Float3:   return GL_FLOAT;
+			case KEngine::ShaderDataType::Float4:   return GL_FLOAT;
+			case KEngine::ShaderDataType::Mat3:     return GL_FLOAT;
+			case KEngine::ShaderDataType::Mat4:     return GL_FLOAT;
+			case KEngine::ShaderDataType::Int:      return GL_INT;
+			case KEngine::ShaderDataType::Int2:     return GL_INT;
+			case KEngine::ShaderDataType::Int3:     return GL_INT;
+			case KEngine::ShaderDataType::Int4:     return GL_INT;
+			case KEngine::ShaderDataType::Bool:     return GL_BOOL;
+		}
+		
+		return 0;
+	}
+
 	Application::Application() {
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
@@ -19,23 +39,27 @@ namespace KEngine {
 		
 		char* vertexSrc = "#version 330 core\n"
 			"layout(location=0) in vec3 aPos;\n"
+			"layout(location=1) in vec4 aColor;\n"
+			"out vec4 v_Color;\n"
 			"void main()\n"
 			"{\n"
+			"   v_Color=aColor;\n"
 			"   gl_Position = vec4(aPos.x,aPos.y,aPos.z,1.0);\n"
 			"}\0";	
 		char* fragmentSrc = "#version 330 core\n"	
 			"out vec4 FragColor;\n"
+			"in vec4 v_Color;\n"
 			"void main()\n"
 			"{\n"
-			"   FragColor = vec4(1.0f,0.5f,0.2f,1.0f);\n"
+			"   FragColor = v_Color;\n"
 			"}\0";
 
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 		m_Shader->Bind();
-		float vertices[3 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
 		unsigned int indexes[3] = { 0,1,2 };
@@ -45,9 +69,23 @@ namespace KEngine {
 		glBindVertexArray(m_VAO);
 
 		m_VBO.reset(VertexBuffer::Create(vertices,sizeof(vertices)));
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (const void*)0);
-	
+		BufferLayout layout = { 
+			{ShaderDataType::Float3,"position"},
+			{ShaderDataType::Float4,"color"}};
+		m_VBO->SetLayout(layout);
+
+		unsigned int index=0;
+		const auto& elements = m_VBO->GetLayout().GetElements();
+		for (const auto& element : elements){
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.type),
+				element.normalized,layout.GetStride(),
+				(const void*)element.offset);
+			index++;
+		}
+		
 		m_IBO.reset(IndexBuffer::Create(indexes,sizeof(indexes)));
 		
 		glBindVertexArray(0);
