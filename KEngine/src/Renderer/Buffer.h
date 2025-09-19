@@ -63,6 +63,7 @@ namespace KEngine{
     public:
         BufferLayout() { }
         BufferLayout(const std::initializer_list<BufferElement>& elements):m_Elements(elements) {
+			CalculateOffsetsAndStride();
         }
         inline unsigned int GetStride() const { return m_Stride; }
 		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
@@ -72,6 +73,17 @@ namespace KEngine{
 		std::vector<BufferElement>::const_iterator begin() const { return m_Elements.begin(); }
 		std::vector<BufferElement>::const_iterator end() const { return m_Elements.end(); }
     private:
+		void CalculateOffsetsAndStride()
+		{
+			uint32_t offset = 0;
+			m_Stride = 0;
+			for (auto& element : m_Elements)
+			{
+				element.offset = offset;
+				offset += element.size;
+				m_Stride += element.size;
+			}
+		}
         std::vector<BufferElement> m_Elements;
         unsigned int m_Stride=0;
     };

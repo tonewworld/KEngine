@@ -6,28 +6,9 @@
 
 
 namespace KEngine {
+	
 
 	Application* Application::s_Instance = nullptr;
-
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-			case KEngine::ShaderDataType::Float:    return GL_FLOAT;
-			case KEngine::ShaderDataType::Float2:   return GL_FLOAT;
-			case KEngine::ShaderDataType::Float3:   return GL_FLOAT;
-			case KEngine::ShaderDataType::Float4:   return GL_FLOAT;
-			case KEngine::ShaderDataType::Mat3:     return GL_FLOAT;
-			case KEngine::ShaderDataType::Mat4:     return GL_FLOAT;
-			case KEngine::ShaderDataType::Int:      return GL_INT;
-			case KEngine::ShaderDataType::Int2:     return GL_INT;
-			case KEngine::ShaderDataType::Int3:     return GL_INT;
-			case KEngine::ShaderDataType::Int4:     return GL_INT;
-			case KEngine::ShaderDataType::Bool:     return GL_BOOL;
-		}
-		
-		return 0;
-	}
 
 	Application::Application() {
 		s_Instance = this;
@@ -37,57 +18,114 @@ namespace KEngine {
 		m_ImGuiLayer=new ImGuiLayer();
 		PushOverlayer(m_ImGuiLayer);
 		
-		char* vertexSrc = "#version 330 core\n"
-			"layout(location=0) in vec3 aPos;\n"
-			"layout(location=1) in vec4 aColor;\n"
-			"out vec4 v_Color;\n"
-			"void main()\n"
-			"{\n"
-			"   v_Color=aColor;\n"
-			"   gl_Position = vec4(aPos.x,aPos.y,aPos.z,1.0);\n"
-			"}\0";	
-		char* fragmentSrc = "#version 330 core\n"	
-			"out vec4 FragColor;\n"
-			"in vec4 v_Color;\n"
-			"void main()\n"
-			"{\n"
-			"   FragColor = v_Color;\n"
-			"}\0";
+		{
+			char* vertexSrc = "#version 330 core\n"
+				"layout(location=0) in vec3 aPos;\n"
+				"layout(location=1) in vec4 aColor;\n"
+				"out vec4 v_Color;\n"
+				"void main()\n"
+				"{\n"
+				"   v_Color=aColor;\n"
+				"   gl_Position = vec4(aPos.x,aPos.y,aPos.z,1.0);\n"
+				"}\0";
+			char* fragmentSrc = "#version 330 core\n"
+				"out vec4 FragColor;\n"
+				"in vec4 v_Color;\n"
+				"void main()\n"
+				"{\n"
+				"   FragColor = v_Color;\n"
+				"}\0";
 
-		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
-		m_Shader->Bind();
+			m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+
+		}
+		{
+			char* blueShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);	
+			}
+		)";
+
+			char* blueShaderFragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);
+			}
+		)";
+
+			m_BlueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+		}
+
+		m_VAO.reset(VertexArray::Create());
+		m_VAO->Bind();
+
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
+			-0.5f, -0.5f, 0.0f, 0.1f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
+			 0.0f,  0.5f, 0.0f, 0.1f, 0.8f, 0.2f, 1.0f
 		};
-
-		unsigned int indexes[3] = { 0,1,2 };
-
-		
-		glGenVertexArrays(1, &m_VAO);
-		glBindVertexArray(m_VAO);
-
+		std::shared_ptr<VertexBuffer> m_VBO;
 		m_VBO.reset(VertexBuffer::Create(vertices,sizeof(vertices)));
 		BufferLayout layout = { 
 			{ShaderDataType::Float3,"position"},
 			{ShaderDataType::Float4,"color"}};
 		m_VBO->SetLayout(layout);
 
-		unsigned int index=0;
-		const auto& elements = m_VBO->GetLayout().GetElements();
-		for (const auto& element : elements){
+		/*uint32_t index = 0;
+		const auto& layout = m_VBO->GetLayout();
+		for (const auto& element : layout)
+		{
 			glEnableVertexAttribArray(index);
 			glVertexAttribPointer(index,
 				element.GetComponentCount(),
-				ShaderDataTypeToOpenGLBaseType(element.type),
-				element.normalized,layout.GetStride(),
+				GL_FLOAT,
+				element.normalized ? GL_TRUE : GL_FALSE,
+				layout.GetStride(),
 				(const void*)element.offset);
 			index++;
-		}
+		}*/
+		m_VAO->AddVertexBuffer(m_VBO);
 		
+		unsigned int indexes[3] = { 0,1,2 };
+		std::shared_ptr<IndexBuffer> m_IBO;
 		m_IBO.reset(IndexBuffer::Create(indexes,sizeof(indexes)));
-		
+		m_VAO->SetIndexBuffer(m_IBO);
+
+		m_SquareVAO.reset(VertexArray::Create());
+		float squareVertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f
+		};
+
+		std::shared_ptr<VertexBuffer> squareVBO;
+		squareVBO.reset(VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		squareVBO->SetLayout({
+			{ ShaderDataType::Float3, "a_Position" }
+			});
+		m_SquareVAO->AddVertexBuffer(squareVBO);
+
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer> squareIBO;
+		squareIBO.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		m_SquareVAO->SetIndexBuffer(squareIBO);
+
+
 		glBindVertexArray(0);
 
 	}
@@ -102,9 +140,13 @@ namespace KEngine {
 			glClearColor(0.1f, 0.1f, 0.1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_BlueShader->Bind();
+			m_SquareVAO->Bind();
+			glDrawElements(GL_TRIANGLES, m_SquareVAO->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
-			glBindVertexArray(m_VAO);
-			glDrawElements(GL_TRIANGLES, m_IBO->GetCount(), GL_UNSIGNED_INT, nullptr);
+			m_Shader->Bind();
+			m_VAO->Bind();
+			glDrawElements(GL_TRIANGLES, m_VAO->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for(Layer* layer:m_LayerStack)
 				layer->OnUpdate();

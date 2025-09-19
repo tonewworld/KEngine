@@ -9,6 +9,7 @@
 #include "Events/ApplicationEvent.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
 
 namespace KEngine
 {
@@ -39,11 +40,12 @@ namespace KEngine
 		inline Window& GetWindow() { return *m_Window; }
 		static Application& GetApplication() { return *s_Instance; }
 
-		unsigned int m_VAO;
-
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VBO;
-		std::unique_ptr<IndexBuffer> m_IBO;
+		
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VAO;
+		
+		std::shared_ptr<Shader>m_BlueShader;
+		std::shared_ptr<VertexArray> m_SquareVAO;
 		
 	};
 	Application* CreateApplication();
