@@ -5,7 +5,7 @@
 
 namespace KEngine {
 
-	class VertexArray
+	class KE_API VertexArray
 	{
 	public:
 		virtual ~VertexArray() {}

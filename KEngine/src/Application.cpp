@@ -3,7 +3,7 @@
 #include "Log.h"
 #include "glad/glad.h"
 #include <GLFW/glfw3.h>
-
+#include "Renderer/Renderer.h"
 
 namespace KEngine {
 	
@@ -137,16 +137,14 @@ namespace KEngine {
 
 		while (m_Running) {
 			
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			Renderer::Init();
 
-			m_BlueShader->Bind();
-			m_SquareVAO->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVAO->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::BeginScene();
 
-			m_Shader->Bind();
-			m_VAO->Bind();
-			glDrawElements(GL_TRIANGLES, m_VAO->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_BlueShader,m_SquareVAO);
+			Renderer::Submit(m_Shader, m_VAO);
+
+			Renderer::EndScene();
 
 			for(Layer* layer:m_LayerStack)
 				layer->OnUpdate();

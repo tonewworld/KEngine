@@ -1,17 +1,19 @@
 #pragma once
 #include "Core.h"   
+#include "RenderCommand.h"
 
-
+#include "Shader.h"
 namespace KEngine{
-    enum class KE_API RendererAPI{
-        None=0,
-        OpenGL=1
-        
-    };
+   
     class KE_API Renderer{
     public:
-        inline static RendererAPI GetAPI(){return s_API;}
+        static void Init();
+        static void BeginScene();
+		static void EndScene();
+        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
+
+        inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:
-        static RendererAPI s_API;
+       
     };
 }
