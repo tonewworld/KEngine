@@ -10,6 +10,7 @@ namespace KEngine
 		virtual void SetClearColor(float r, float g, float b, float a) override;
 		virtual void Clear() override;
 		virtual void DrawIndexed(const std::shared_ptr<class VertexArray>& vertexArray) override;
+		
 	};
 }
 

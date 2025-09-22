@@ -5,12 +5,18 @@
 #include <GLFW/glfw3.h>
 #include "Renderer/Renderer.h"
 
+#include "glm.hpp"
+#include "gtc/matrix_transform.hpp"
+
 namespace KEngine {
 	
 
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application() {
+		mainCamera = new Camera();
+		projMatrix = glm::perspective(glm::radians(45.f), 16.f / 9.f, 0.1f, 300.f);
+
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
 		m_Window->SetEventCallback(KE_BIND_FN(Application::OnEvent));
@@ -22,11 +28,12 @@ namespace KEngine {
 			char* vertexSrc = "#version 330 core\n"
 				"layout(location=0) in vec3 aPos;\n"
 				"layout(location=1) in vec4 aColor;\n"
+				"uniform mat4 ViewProjMatrix;\n"
 				"out vec4 v_Color;\n"
 				"void main()\n"
 				"{\n"
 				"   v_Color=aColor;\n"
-				"   gl_Position = vec4(aPos.x,aPos.y,aPos.z,1.0);\n"
+				"   gl_Position = ViewProjMatrix * vec4(aPos.x,aPos.y,aPos.z,1.0);\n"
 				"}\0";
 			char* fragmentSrc = "#version 330 core\n"
 				"out vec4 FragColor;\n"
@@ -74,9 +81,9 @@ namespace KEngine {
 		m_VAO->Bind();
 
 		float vertices[3 * 7] = {
-			-0.5f, -0.5f, 0.0f, 0.1f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f, 0.1f, 0.8f, 0.2f, 1.0f
+			-0.5f, -0.5f, -1.0f, 0.1f, 0.2f, 0.8f, 1.0f,
+			 0.5f, -0.5f, -1.0f, 0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.0f, -1.0f, 0.1f, 0.8f, 0.2f, 1.0f
 		};
 		std::shared_ptr<VertexBuffer> m_VBO;
 		m_VBO.reset(VertexBuffer::Create(vertices,sizeof(vertices)));
@@ -85,25 +92,13 @@ namespace KEngine {
 			{ShaderDataType::Float4,"color"}};
 		m_VBO->SetLayout(layout);
 
-		/*uint32_t index = 0;
-		const auto& layout = m_VBO->GetLayout();
-		for (const auto& element : layout)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetComponentCount(),
-				GL_FLOAT,
-				element.normalized ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				(const void*)element.offset);
-			index++;
-		}*/
 		m_VAO->AddVertexBuffer(m_VBO);
 		
 		unsigned int indexes[3] = { 0,1,2 };
 		std::shared_ptr<IndexBuffer> m_IBO;
 		m_IBO.reset(IndexBuffer::Create(indexes,sizeof(indexes)));
 		m_VAO->SetIndexBuffer(m_IBO);
+		
 
 		m_SquareVAO.reset(VertexArray::Create());
 		float squareVertices[3 * 4] = {
@@ -135,6 +130,8 @@ namespace KEngine {
 	}
 	void Application::Run() {
 
+
+
 		while (m_Running) {
 			
 			Renderer::Init();
@@ -142,7 +139,11 @@ namespace KEngine {
 			Renderer::BeginScene();
 
 			Renderer::Submit(m_BlueShader,m_SquareVAO);
+			
+			mainCamera->Control();
+			m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::mat4(1.0f),mainCamera->GetViewMatrix(), projMatrix), "ViewProjMatrix");
 			Renderer::Submit(m_Shader, m_VAO);
+			
 
 			Renderer::EndScene();
 
@@ -184,6 +185,10 @@ namespace KEngine {
 	void Application::PushOverlayer(Layer* layer) {
 		m_LayerStack.PushOverlayer(layer);
 		layer->OnAttach();
+	}
+	
+	glm::mat4 Application::CalculateMVP(glm::mat4 model, glm::mat4 view, glm::mat4 proj) {
+		return proj * view * model;
 	}
 	
 }

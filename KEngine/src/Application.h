@@ -10,6 +10,7 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Buffer.h"
 #include "Renderer/VertexArray.h"
+#include "Renderer/Camera.h"
 
 namespace KEngine
 {
@@ -20,6 +21,9 @@ namespace KEngine
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
+
+		Camera* mainCamera;
+		glm::mat4 projMatrix;
 
 	public:
 		static Application* s_Instance;
@@ -46,6 +50,9 @@ namespace KEngine
 		
 		std::shared_ptr<Shader>m_BlueShader;
 		std::shared_ptr<VertexArray> m_SquareVAO;
+
+		
+		glm::mat4 CalculateMVP(glm::mat4 model, glm::mat4 view, glm::mat4 proj);
 		
 	};
 	Application* CreateApplication();
