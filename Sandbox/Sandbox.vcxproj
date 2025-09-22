@@ -143,6 +143,9 @@
     <ProjectReference Include="..\KEngine\KEngine.vcxproj">
       <Project>{062D043A-720C-83D5-7B24-0EACE782E936}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\KEngine\vendor\Glad\Glad.vcxproj">
+      <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

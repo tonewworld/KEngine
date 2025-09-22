@@ -18,3 +18,12 @@
 #include"KeyCode.h"
 #include "MouseButtonCode.h"
 
+#include "Renderer/Camera.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/RenderCommand.h"
+#include "Renderer/Renderer.h"
+#include "Renderer/Shader.h"
+
+#include "Platforms/OpenGL/OpenGLBuffer.h"
+#include "Platforms/OpenGL/OpenGLVertexArray.h"
+

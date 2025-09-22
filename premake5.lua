@@ -114,7 +114,8 @@ project"Sandbox"
 	}
 
 	links{
-		"KEngine"
+		"KEngine",
+		"Glad"
 	}
 
 	filter"system:windows"
