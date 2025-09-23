@@ -84,10 +84,10 @@ class ExampleLayer : public KEngine::Layer {
 
 		m_SquareVAO.reset(KEngine::VertexArray::Create());
 		float squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+			-0.5f, -0.5f, -1.0f,
+			 0.5f, -0.5f, -1.0f,
+			 0.5f,  0.5f, -1.0f,
+			-0.5f,  0.5f, -1.0f
 		};
 
 		std::shared_ptr<KEngine::VertexBuffer> squareVBO;
