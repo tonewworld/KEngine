@@ -1,21 +1,4 @@
 ﻿  Sandbox.cpp
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xcdd 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xcdf 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xce1 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xce3 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf22 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf23 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf24 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf26 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf27 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf29 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf2c 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf2d 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf31 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf33 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf36 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf38 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
-C:\Users\LLY\Documents\VSProject\KEngine\Sandbox\src\Sandbox.cpp(1,1): warning C4828: 文件包含在偏移 0xf39 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x46 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
@@ -301,7 +284,7 @@ C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warnin
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Events\Event.h(1,1): warning C4828: 文件包含在偏移 0x778 处开始的字符，该字符在当前源字符集中无效(代码页 65001)。
   (编译源文件“src/Sandbox.cpp”)
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Layer.h(23,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
+C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Layer.h(24,15): warning C4251: “KEngine::Layer::m_DebugName”:“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”需要有 dll 接口以供“KEngine::Layer”的客户端使用
   (编译源文件“src/Sandbox.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring(541,7):
       参见“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”的声明
@@ -321,17 +304,22 @@ C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Log.h(14,42): warning C4251
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(1565,7):
       参见“std::shared_ptr<spdlog::logger>”的声明
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Application.h(19,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
+C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Application.h(20,27): warning C4251: “KEngine::Application::m_Window”:“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
   (编译源文件“src/Sandbox.cpp”)
       C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
       参见“std::unique_ptr<KEngine::Window,std::default_delete<KEngine::Window>>”的声明
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\Camera.h(24,13): warning C4251: “KEngine::Camera::position”:“glm::vec<3,float,glm::packed_highp>”需要有 dll 接口以供“KEngine::Camera”的客户端使用
+C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Application.h(47,29): warning C4251: “KEngine::Application::timeStep”:“std::unique_ptr<KEngine::TimeStep,std::default_delete<KEngine::TimeStep>>”需要有 dll 接口以供“KEngine::Application”的客户端使用
+  (编译源文件“src/Sandbox.cpp”)
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      参见“std::unique_ptr<KEngine::TimeStep,std::default_delete<KEngine::TimeStep>>”的声明
+  
+C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\Camera.h(26,13): warning C4251: “KEngine::Camera::position”:“glm::vec<3,float,glm::packed_highp>”需要有 dll 接口以供“KEngine::Camera”的客户端使用
   (编译源文件“src/Sandbox.cpp”)
       C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\glm\glm\detail\type_vec3.hpp(17,9):
       参见“glm::vec<3,float,glm::packed_highp>”的声明
   
-C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\Camera.h(27,13): warning C4251: “KEngine::Camera::viewMatrix”:“glm::mat<4,4,glm::f32,glm::packed_highp>”需要有 dll 接口以供“KEngine::Camera”的客户端使用
+C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\Camera.h(30,13): warning C4251: “KEngine::Camera::viewMatrix”:“glm::mat<4,4,glm::f32,glm::packed_highp>”需要有 dll 接口以供“KEngine::Camera”的客户端使用
   (编译源文件“src/Sandbox.cpp”)
       C:\Users\LLY\Documents\VSProject\KEngine\KEngine\vendor\glm\glm\detail\type_mat4x4.hpp(13,9):
       参见“glm::mat<4,4,glm::f32,glm::packed_highp>”的声明

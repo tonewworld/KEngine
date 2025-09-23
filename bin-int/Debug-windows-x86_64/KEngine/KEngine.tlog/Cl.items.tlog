@@ -17,5 +17,6 @@ C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\Renderer.cpp;C:\Us
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\RendererAPI.cpp;C:\Users\LLY\Documents\VSProject\KEngine\bin-int\Debug-windows-x86_64\KEngine\RendererAPI.obj
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\Shader.cpp;C:\Users\LLY\Documents\VSProject\KEngine\bin-int\Debug-windows-x86_64\KEngine\Shader.obj
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Renderer\VertexArray.cpp;C:\Users\LLY\Documents\VSProject\KEngine\bin-int\Debug-windows-x86_64\KEngine\VertexArray.obj
+C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\TimeStep.cpp;C:\Users\LLY\Documents\VSProject\KEngine\bin-int\Debug-windows-x86_64\KEngine\TimeStep.obj
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\Window.cpp;C:\Users\LLY\Documents\VSProject\KEngine\bin-int\Debug-windows-x86_64\KEngine\Window.obj
 C:\Users\LLY\Documents\VSProject\KEngine\KEngine\src\kepch.cpp;C:\Users\LLY\Documents\VSProject\KEngine\bin-int\Debug-windows-x86_64\KEngine\kepch.obj

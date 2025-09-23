@@ -52,10 +52,10 @@ namespace KEngine
 	{
 		glUseProgram(0);
 	}
-	void Shader::SetUniformMatrix4fv(const glm::mat4 matrix, const std::string name)
+	void Shader::SetUniformMatrix4fv(const glm::mat4 matrix, const char* name)
 	{
 		this->Bind();
-		unsigned int location = glGetUniformLocation(m_RendererID, name.c_str());
+		unsigned int location = glGetUniformLocation(m_RendererID, name);
 		glUniformMatrix4fv(location, 1, 0, &matrix[0][0]);
 	}
 }

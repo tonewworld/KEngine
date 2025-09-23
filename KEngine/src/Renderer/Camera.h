@@ -2,6 +2,8 @@
 #include "Core.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
+#include "Input.h"
+
 namespace KEngine
 {
 	class KE_API Camera
@@ -9,7 +11,7 @@ namespace KEngine
 	public:
 		Camera() :viewMatrix(glm::mat4(1.0f)) {}
 		virtual ~Camera() = default;
-		void Control();
+		void Control(float timeStep);
 		inline glm::vec3 GetPosition() const { return position; }
 		inline void SetPosition(const glm::vec3& pos) { position = pos; }
 		inline float GetRotation() const { return rotation; }
@@ -24,6 +26,7 @@ namespace KEngine
 		glm::vec3 position = { 0,-0.2,0 };
 		float rotation = 0.f;
 
+		float moveSpeed=0.1f;
 		glm::mat4 viewMatrix;
 	};
 

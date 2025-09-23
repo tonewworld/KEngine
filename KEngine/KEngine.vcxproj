@@ -184,6 +184,7 @@
     <ClInclude Include="src\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Renderer\Shader.h" />
     <ClInclude Include="src\Renderer\VertexArray.h" />
+    <ClInclude Include="src\TimeStep.h" />
     <ClInclude Include="src\Window.h" />
     <ClInclude Include="src\kepch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -625,6 +626,7 @@
     <ClCompile Include="src\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Renderer\Shader.cpp" />
     <ClCompile Include="src\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\TimeStep.cpp" />
     <ClCompile Include="src\Window.cpp" />
     <ClCompile Include="src\kepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

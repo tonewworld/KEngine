@@ -10,6 +10,7 @@
 #include "Renderer/VertexArray.h"
 
 
+
 namespace KEngine
 {
 
@@ -19,6 +20,9 @@ namespace KEngine
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
+
+		
+		float lastFrameTime=0.f;
 
 	public:
 		static Application* s_Instance;
@@ -39,6 +43,8 @@ namespace KEngine
 		inline Window& GetWindow() { return *m_Window; }
 		static Application& GetApplication() { return *s_Instance; }
 
+	protected:
+		std::unique_ptr<TimeStep> timeStep;
 		
 	};
 	Application* CreateApplication();

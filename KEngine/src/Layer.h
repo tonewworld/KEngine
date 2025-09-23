@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 #include "Events/Event.h"
+#include "TimeStep.h"
 
 namespace KEngine{
 	class KE_API Layer
@@ -13,7 +14,7 @@ namespace KEngine{
 		
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(TimeStep ts) {}
 
 		virtual void ImGuiRender() {}
 

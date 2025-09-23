@@ -16,6 +16,8 @@ namespace KEngine {
 	Application::Application() {
 		s_Instance = this;
 
+		timeStep = std::make_unique<TimeStep>(0.f);
+
 		m_Window = std::unique_ptr<Window>(Window::Create(WindowProps()));
 		m_Window->SetEventCallback(KE_BIND_FN(Application::OnEvent));
 
@@ -26,13 +28,15 @@ namespace KEngine {
 	}
 	Application::~Application() {
 		
-		
-	}
-	void Application::Run() {
+			}	void Application::Run() {
 		while (m_Running) {
 
+			float nowFrameTime=(float)glfwGetTime();
+			timeStep->SetTimeStep(nowFrameTime-lastFrameTime);
+			lastFrameTime=nowFrameTime;
+
 			for(Layer* layer:m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(*timeStep);
 
 			m_ImGuiLayer->ImGuiBegin();
 			for(Layer* layer:m_LayerStack)

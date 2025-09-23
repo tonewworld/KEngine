@@ -7,23 +7,26 @@ class ExampleLayer : public KEngine::Layer {
 		mainCamera = std::make_unique<KEngine::Camera>();
 		projMatrix = glm::perspective(glm::radians(45.f), 16.f / 9.f, 0.1f, 300.f);
 		{
-			char* vertexSrc = "#version 330 core\n"
-				"layout(location=0) in vec3 aPos;\n"
-				"layout(location=1) in vec4 aColor;\n"
-				"uniform mat4 ViewProjMatrix;\n"
-				"out vec4 v_Color;\n"
-				"void main()\n"
-				"{\n"
-				"   v_Color=aColor;\n"
-				"   gl_Position = ViewProjMatrix * vec4(aPos.x,aPos.y,aPos.z,1.0);\n"
-				"}\0";
-			char* fragmentSrc = "#version 330 core\n"
-				"out vec4 FragColor;\n"
-				"in vec4 v_Color;\n"
-				"void main()\n"
-				"{\n"
-				"   FragColor = v_Color;\n"
-				"}\0";
+			char* vertexSrc = R"(
+				#version 330 core
+				layout(location=0) in vec3 aPos;
+				layout(location=1) in vec4 aColor;
+				uniform mat4 ViewProjMatrix;
+				out vec4 v_Color;
+				void main()
+				{
+				   v_Color=aColor;
+				   gl_Position = ViewProjMatrix * vec4(aPos.x,aPos.y,aPos.z,1.0);
+				}
+			)";
+			char* fragmentSrc = R"(#version 330 core
+				out vec4 FragColor;
+				in vec4 v_Color;
+				void main()
+				{
+				   FragColor = v_Color;
+				}
+			)";
 
 			m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 
@@ -33,13 +36,12 @@ class ExampleLayer : public KEngine::Layer {
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Position;
-
-			out vec3 v_Position;
+			uniform mat4 ViewProjMatrix;
+			
 
 			void main()
 			{
-				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);	
+				gl_Position= ViewProjMatrix * vec4(a_Position.x,a_Position.y,a_Position.z,1.0);	
 			}
 		)";
 
@@ -47,8 +49,6 @@ class ExampleLayer : public KEngine::Layer {
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
-
-			in vec3 v_Position;
 
 			void main()
 			{
@@ -106,14 +106,16 @@ class ExampleLayer : public KEngine::Layer {
 	void OnAttach() override {
 		KEngine::Renderer::Init();
 	}
-	void OnUpdate() override {
+	void OnUpdate(KEngine::TimeStep ts) {
 		
 		KEngine::Renderer::BeginScene();
+		
+		mainCamera->Control(ts.GetTimeStep());
 
+		m_BlueShader->SetUniformMatrix4fv(CalculateMVP(glm::mat4(1.0f), mainCamera->GetViewMatrix(), projMatrix), "ViewProjMatrix");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		KEngine::Renderer::Submit(m_BlueShader,m_SquareVAO);
 			
-		mainCamera->Control();
-		//m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::mat4(1.0f),glm::mat4(1.0f), projMatrix), "ViewProjMatrix");//ÎÊÌâËùÔÚ
+		m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::mat4(1.0f),mainCamera->GetViewMatrix(), projMatrix), "ViewProjMatrix");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 			
 		KEngine::Renderer::EndScene();
@@ -133,7 +135,7 @@ class ExampleLayer : public KEngine::Layer {
 	std::shared_ptr<KEngine::VertexArray> m_SquareVAO;
 
 	glm::mat4 projMatrix;
-	std::unique_ptr<KEngine::Camera>  mainCamera;//Î´À´Ïë¼ÓÏà»ú¿ÉÒÔ´ÓÕâÀïÌí¼Ó
+	std::unique_ptr<KEngine::Camera>  mainCamera;//Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 };
 
