@@ -1,3 +1,10 @@
 #忽略vs文件
 .vs/
 KEngine/.vs/
+.vscode/
+bin/
+bin-int/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
