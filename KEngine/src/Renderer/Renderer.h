@@ -12,6 +12,10 @@ namespace KEngine{
 		static void EndScene();
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
         
+        static void SetStencilFunc(GLenum func,GLint ref,GLuint mask);
+        static void SetStencilMask(GLint tag);
+        static void SetDepthOpenOrClose(bool tag);
+
 
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:

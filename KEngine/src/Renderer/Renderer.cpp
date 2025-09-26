@@ -13,12 +13,25 @@ namespace KEngine{
 	}
 	void Renderer::EndScene()
 	{
+		glStencilMask(0xFF);
+		glEnable(GL_DEPTH_TEST);
 	}
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
 	{
+
 		shader->Bind();
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
+	}
+	void Renderer::SetStencilFunc(GLenum func, GLint ref, GLuint mask)
+	{
+		RenderCommand::SetStencilFunc(func, ref, mask);
+	}
+	void Renderer::SetStencilMask(GLint tag) {
+		RenderCommand::SetStencilMask(tag);
+	}
+	void Renderer::SetDepthOpenOrClose(bool tag) {
+		RenderCommand::SetDepthOpenOrClose(tag);
 	}
 	
 	
