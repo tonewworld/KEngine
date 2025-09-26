@@ -23,10 +23,10 @@ namespace KEngine
 		void CalculateViewMatrix();
 		
 	private:
-		glm::vec3 position = { 0,-0.2,0 };
+		glm::vec3 position = { 0,0,3 };
 		float rotation = 0.f;
 
-		float moveSpeed=0.1f;
+		float moveSpeed=0.4f;
 		glm::mat4 viewMatrix;
 	};
 

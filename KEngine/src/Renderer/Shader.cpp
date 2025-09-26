@@ -58,5 +58,11 @@ namespace KEngine
 		unsigned int location = glGetUniformLocation(m_RendererID, name);
 		glUniformMatrix4fv(location, 1, 0, &matrix[0][0]);
 	}
+	void Shader::SetUniform3f(const glm::vec3 vec, const char* name)
+	{
+		this->Bind();
+		unsigned int location = glGetUniformLocation(m_RendererID, name);
+		glUniform3f(location, vec.x,vec.y,vec.z);
+	}
 }
 

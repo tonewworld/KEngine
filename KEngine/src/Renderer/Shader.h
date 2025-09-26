@@ -15,5 +15,6 @@ namespace KEngine
 		void Bind() const;
 		void Unbind() const;
 		void SetUniformMatrix4fv(const glm::mat4 matrix, const char* name);
+		void SetUniform3f(const glm::vec3 vec, const char* name);
 	};
 }
