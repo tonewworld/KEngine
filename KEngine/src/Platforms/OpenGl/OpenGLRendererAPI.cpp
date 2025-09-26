@@ -6,7 +6,7 @@ namespace KEngine
 	
 	void OpenGLRendererAPI::Init()
 	{
-	
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void OpenGLRendererAPI::SetClearColor(float r, float g, float b, float a)

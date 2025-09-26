@@ -9,102 +9,130 @@ class ExampleLayer : public KEngine::Layer {
 		{
 			char* vertexSrc = R"(
 				#version 330 core
-				layout(location=0) in vec3 aPos;
-				layout(location=1) in vec4 aColor;
-				uniform mat4 ViewProjMatrix;
-				out vec4 v_Color;
+				layout(location=0) in vec3 v_Position;
+				layout(location=1) in vec3 v_Normal;
+
+				out vec3 Normal;
+				out vec3 FragPos;
+				
+				uniform mat4 MVP;
+				
 				void main()
 				{
-				   v_Color=aColor;
-				   gl_Position = ViewProjMatrix * vec4(aPos.x,aPos.y,aPos.z,1.0);
+					gl_Position = MVP * vec4(v_Position,1.0);
+					FragPos = v_Position;
+					Normal=mat3(transpose(inverse(model))) * v_Normal;
 				}
 			)";
 			char* fragmentSrc = R"(#version 330 core
 				out vec4 FragColor;
-				in vec4 v_Color;
+				in vec3 FragPos;
+				in vec3 Normal;
+
 				void main()
 				{
-				   FragColor = v_Color;
+				   FragColor = ;
 				}
 			)";
 
-			m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+			//m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 
 		}
 		{
-			char* blueShaderVertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Position;
-			uniform mat4 ViewProjMatrix;
-			
+			char* vertexSrc = R"(
+				#version 330 core
+				layout(location=0) in vec3 v_Position;
+				
+				uniform mat4 MVP;
+				
+				void main()
+				{
+					gl_Position = MVP * vec4(v_Position,1.0);
+				}
+			)";
+			char* fragmentSrc = R"(
+				#version 330 core
+				out vec4 color;
+				
+				void main()
+				{
+					color = vec4(1.0f); //设置四维向量的所有元素为 1.0f
+				}
 
-			void main()
-			{
-				gl_Position= ViewProjMatrix * vec4(a_Position.x,a_Position.y,a_Position.z,1.0);	
-			}
-		)";
-
-			char* blueShaderFragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-
-			void main()
-			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
-			}
-		)";
-
-			m_BlueShader.reset(new KEngine::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
+			)";
+			l_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 		}
+		
 
 		m_VAO.reset(KEngine::VertexArray::Create());
 		m_VAO->Bind();
 
-		float vertices[3 * 7] = {
-			-0.5f, -0.5f, -1.0f, 0.1f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, -1.0f, 0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.0f, -1.0f, 0.1f, 0.8f, 0.2f, 1.0f
+		float vertices[] = {
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 		};
 		std::shared_ptr<KEngine::VertexBuffer> m_VBO;
 		m_VBO.reset(KEngine::VertexBuffer::Create(vertices,sizeof(vertices)));
 		KEngine::BufferLayout layout = { 
 			{KEngine::ShaderDataType::Float3,"position"},
-			{KEngine::ShaderDataType::Float4,"color"}};
+			{KEngine::ShaderDataType::Float3,"normal"}};
 		m_VBO->SetLayout(layout);
-
 		m_VAO->AddVertexBuffer(m_VBO);
 		
-		unsigned int indexes[3] = { 0,1,2 };
-		std::shared_ptr<KEngine::IndexBuffer> m_IBO;
-		m_IBO.reset(KEngine::IndexBuffer::Create(indexes,sizeof(indexes)));
-		m_VAO->SetIndexBuffer(m_IBO);
+
+		l_VAO.reset(KEngine::VertexArray::Create());
+		l_VAO->Bind();
+		std::shared_ptr<KEngine::VertexBuffer> l_VBO;
+		l_VBO.reset(KEngine::VertexBuffer::Create(vertices, sizeof(vertices)));
+		KEngine::BufferLayout l_Layout = {
+			{KEngine::ShaderDataType::Float3,"position"} };
+		l_VBO->SetLayout(l_Layout);
+		l_VAO->AddVertexBuffer(l_VBO);
+
 		
-
-		m_SquareVAO.reset(KEngine::VertexArray::Create());
-		float squareVertices[3 * 4] = {
-			-0.5f, -0.5f, -1.0f,
-			 0.5f, -0.5f, -1.0f,
-			 0.5f,  0.5f, -1.0f,
-			-0.5f,  0.5f, -1.0f
-		};
-
-		std::shared_ptr<KEngine::VertexBuffer> squareVBO;
-		squareVBO.reset(KEngine::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
-		squareVBO->SetLayout({
-			{ KEngine::ShaderDataType::Float3, "a_Position" }
-			});
-		m_SquareVAO->AddVertexBuffer(squareVBO);
-
-		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<KEngine::IndexBuffer> squareIBO;
-		squareIBO.reset(KEngine::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
-		m_SquareVAO->SetIndexBuffer(squareIBO);
-
 	}
 	void OnAttach() override {
 		KEngine::Renderer::Init();
+		lightPosition = glm::vec3(1.2f, 1.0f, 2.0f);
 	}
 	void OnUpdate(KEngine::TimeStep ts) {
 		
@@ -112,12 +140,14 @@ class ExampleLayer : public KEngine::Layer {
 		
 		mainCamera->Control(ts.GetTimeStep());
 
-		m_BlueShader->SetUniformMatrix4fv(CalculateMVP(glm::mat4(1.0f), mainCamera->GetViewMatrix(), projMatrix), "ViewProjMatrix");//��������
-		KEngine::Renderer::Submit(m_BlueShader,m_SquareVAO);
-			
-		m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::mat4(1.0f),mainCamera->GetViewMatrix(), projMatrix), "ViewProjMatrix");//��������
-		KEngine::Renderer::Submit(m_Shader, m_VAO);
-			
+		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),glm::vec3(1.2f,1.0f,2.0f)),glm::vec3(0.2f)), mainCamera->GetViewMatrix(), projMatrix), "MVP");//��������
+		l_Shader->Bind();
+		l_VAO->Bind();
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+	
+		//m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::mat4(1.0f),mainCamera->GetViewMatrix(), projMatrix), "MVP");//��������
+		//KEngine::Renderer::Submit(m_Shader, m_VAO);
+		//	
 		KEngine::Renderer::EndScene();
 	}
 	void OnEvent(KEngine::Event& event) override {
@@ -131,11 +161,13 @@ class ExampleLayer : public KEngine::Layer {
 	std::shared_ptr<KEngine::Shader> m_Shader;
 	std::shared_ptr<KEngine::VertexArray> m_VAO;
 
-	std::shared_ptr<KEngine::Shader>m_BlueShader;
-	std::shared_ptr<KEngine::VertexArray> m_SquareVAO;
+	std::shared_ptr<KEngine::Shader> l_Shader;
+	std::shared_ptr<KEngine::VertexArray>l_VAO;
+	
+	glm::vec3 lightPosition;
 
 	glm::mat4 projMatrix;
-	std::unique_ptr<KEngine::Camera>  mainCamera;//δ�����������Դ���������
+	std::unique_ptr<KEngine::Camera>  mainCamera;
 
 };
 

@@ -6,19 +6,19 @@ namespace KEngine
 	
 	void Camera::Control(float timeStep)
 	{
-		/*glm::vec3 temp = glm::vec3(GetPosition());
+		glm::vec3 temp = glm::vec3(GetPosition());
 		if(KEngine::Input::IsKeyPressed(KE_KEY_LEFT)){
-			SetPosition(temp.x -= moveSpeed * timeStep);
+			temp.x -= moveSpeed * timeStep;
 		}else if(KEngine::Input::IsKeyPressed(KE_KEY_LEFT)){
-			SetPosition(temp.x += moveSpeed * timeStep);
+			temp.x += moveSpeed * timeStep;
 		}
-		if((KEngine::Input::IsKeyPressed(KE_KEY_UP)){
-			SetPosition(temp.y += moveSpeed * timeStep);
-		}else if((KEngine::Input::IsKeyPressed(KE_KEY_DOWN)){
-			SetPosition(temp.y -= moveSpeed * timeStep);
-		}*/
+		if(KEngine::Input::IsKeyPressed(KE_KEY_UP)){
+			temp.y += moveSpeed * timeStep;
+		}else if(KEngine::Input::IsKeyPressed(KE_KEY_DOWN)){
+			temp.y -= moveSpeed * timeStep;
+		}
 
-
+		SetPosition(temp);
 		CalculateViewMatrix();
 	}
 	void Camera::CalculateViewMatrix()

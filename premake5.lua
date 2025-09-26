@@ -69,7 +69,7 @@ project"KEngine"
 		}
 
 		postbuildcommands{
-    		"IF EXIST $(TargetPath) (copy /Y \"$(TargetPath)\" \"$(SolutionDir)bin\\$(Configuration)-windows-x86_64\\Sandbox\")"
+    		"{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
 		}
 		
 		buildoptions { "/utf-8" }

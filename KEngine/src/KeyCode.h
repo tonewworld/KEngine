@@ -1,5 +1,5 @@
 
-#ifdef KENGINEE_PLATFORM_WINDOWS
+
 #define KE_KEY_SPACE              32
 #define KE_KEY_APOSTROPHE         39  /* ' */
 #define KE_KEY_COMMA              44  /* , */
@@ -124,4 +124,3 @@
 #define KE_KEY_MENU               348
 
 #define KE_KEY_LAST               KE_KEY_MENU
-#endif
