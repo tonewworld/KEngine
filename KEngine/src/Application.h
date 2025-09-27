@@ -7,7 +7,9 @@
 #include "ImGui/ImGuiLayer.h"
 #include "LayerStack.h"
 #include "Events/ApplicationEvent.h"
+#include "Events/MouseEvent.h"
 #include "Renderer/VertexArray.h"
+#include "MouseButtonCode.h"
 
 
 
@@ -36,6 +38,9 @@ namespace KEngine
 		void OnEvent(Event& e);
 
 		bool OnWindowClose(WindowCloseEvent& e);
+		bool OnRightMouseButtonPressed(MouseButtonPressedEvent& e);
+		bool OnRightMouseButtonReleased(MouseButtonReleasedEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 		void PushLayer(Layer* layer);
 		void PushOverlayer(Layer* layer);

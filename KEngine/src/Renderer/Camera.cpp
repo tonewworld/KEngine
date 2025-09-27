@@ -15,7 +15,6 @@ namespace KEngine
 		float mouseX = mousePosition.first;
 		float mouseY = mousePosition.second;
 		
-		// 如果鼠标右键按下，调整 yaw 和 pitch
 		if (KEngine::Input::IsMouseButtonPressed(KE_MOUSE_BUTTON_RIGHT))
 		{
 			
@@ -46,6 +45,14 @@ namespace KEngine
 		else if (KEngine::Input::IsKeyPressed(KE_KEY_S)) {
 			temp -= GetFront() * moveSpeed * timeStep;
 		}
+		if (KEngine::Input::IsKeyPressed(KE_KEY_SPACE)) {
+			temp.y += moveSpeed * timeStep;
+		}
+		else if (KEngine::Input::IsKeyPressed(KE_KEY_LEFT_CONTROL))
+		{
+			temp.y -= moveSpeed * timeStep;
+		}
+
 
 		SetPosition(temp);
 		SetYawRotation(YawRotaion);

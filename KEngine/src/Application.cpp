@@ -28,7 +28,9 @@ namespace KEngine {
 	}
 	Application::~Application() {
 		
-			}	void Application::Run() {
+	}	
+
+	void Application::Run() {
 		while (m_Running) {
 
 			float nowFrameTime=(float)glfwGetTime();
@@ -50,7 +52,10 @@ namespace KEngine {
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
+		dispatcher.Dispatch<WindowCloseEvent>(KE_BIND_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<MouseButtonPressedEvent>(KE_BIND_FN(Application::OnRightMouseButtonPressed));
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(KE_BIND_FN(Application::OnRightMouseButtonReleased));
+		dispatcher.Dispatch<WindowResizeEvent>(KE_BIND_FN(Application::OnWindowResize));
 		for(auto it=m_LayerStack.end();it!=m_LayerStack.begin();)
 		{
 			(*--it)->OnEvent(e);
@@ -64,6 +69,28 @@ namespace KEngine {
 		
 		m_Running = false;
 		return true;
+	}
+	bool Application::OnRightMouseButtonPressed(MouseButtonPressedEvent& e){
+		if (e.GetMouseButton() == KE_MOUSE_BUTTON_RIGHT) {
+			m_Window->SetCursorVisable(false);
+			return false;
+		}
+		return false;
+	}
+
+	bool Application::OnRightMouseButtonReleased(MouseButtonReleasedEvent& e)
+	{
+		if (e.GetMouseButton() == KE_MOUSE_BUTTON_RIGHT) {
+			m_Window->SetCursorVisable(true);
+			return false;
+		}
+		return false;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		glViewport(0, 0, e.GetWidth(), e.GetHeight());
+		return false;
 	}
 
 	void Application::PushLayer(Layer* layer) {

@@ -32,6 +32,8 @@ namespace KEngine{
         virtual void SetVSync(bool sign)=0;
         virtual bool IsVSync()=0;
 
+        virtual void SetCursorVisable(bool tag)=0;
+
         virtual void SetEventCallback(const EventCallbackFn& callback)=0;
 
         

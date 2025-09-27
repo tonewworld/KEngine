@@ -6,12 +6,17 @@ namespace KEngine
 	
 	void OpenGLRendererAPI::Init()
 	{
+		//深度测试
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 
+		//模板测试
 		glEnable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 		glStencilMask(0x00);
+		
+		//面剔除
+		//glEnable(GL_CULL_FACE);
 	}
 
 	void OpenGLRendererAPI::SetClearColor(float r, float g, float b, float a)

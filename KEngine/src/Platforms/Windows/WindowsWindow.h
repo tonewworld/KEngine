@@ -26,6 +26,8 @@ namespace KEngine {
         void SetVSync(bool sign) override;
         bool IsVSync() override;
 
+        virtual void SetCursorVisable(bool tag)override;
+
         inline virtual void * GetNativeWindow() const { return m_Window; }
 
     private:
