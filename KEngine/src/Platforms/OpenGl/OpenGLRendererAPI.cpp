@@ -7,13 +7,13 @@ namespace KEngine
 	void OpenGLRendererAPI::Init()
 	{
 		//深度测试
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LESS);
+		//glEnable(GL_DEPTH_TEST);
+		//glDepthFunc(GL_LESS);
 
 		//模板测试
-		glEnable(GL_STENCIL_TEST);
+		/*glEnable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-		glStencilMask(0x00);
+		glStencilMask(0x00);*/
 		
 		//面剔除
 		//glEnable(GL_CULL_FACE);

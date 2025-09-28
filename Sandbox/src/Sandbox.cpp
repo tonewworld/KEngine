@@ -260,6 +260,8 @@ class ExampleLayer : public KEngine::Layer {
 		std::shared_ptr<KEngine::IndexBuffer> l_IBO;
 		l_IBO.reset(KEngine::IndexBuffer::Create(l_Indexes, sizeof(l_Indexes) / sizeof(unsigned int)));
 		l_VAO->SetIndexBuffer(l_IBO);
+
+
 	}
 	void OnAttach() override {
 		KEngine::Renderer::Init();
@@ -275,7 +277,7 @@ class ExampleLayer : public KEngine::Layer {
 		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),lightPosition),glm::vec3(0.01f)), 
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
-		KEngine::Renderer::SetStencilMask(0);
+		//KEngine::Renderer::SetStencilMask(0);
 		KEngine::Renderer::Submit(l_Shader, l_VAO);
 	
 		
@@ -287,17 +289,17 @@ class ExampleLayer : public KEngine::Layer {
 		m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
-		KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
-		KEngine::Renderer::SetStencilMask(0xFF);
+		//KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
+		//KEngine::Renderer::SetStencilMask(0xFF);
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 
-		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(1.1f)),
+	/*	s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(1.1f)),
 			mainCamera->GetViewMatrix(),
 			projMatrix), "MVP");
 		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0x00);
 		KEngine::Renderer::SetDepthOpenOrClose(false);
-		KEngine::Renderer::Submit(s_Shader, m_VAO);
+		KEngine::Renderer::Submit(s_Shader, m_VAO);*/
 
 		
 

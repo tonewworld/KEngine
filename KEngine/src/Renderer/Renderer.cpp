@@ -13,8 +13,8 @@ namespace KEngine{
 	}
 	void Renderer::EndScene()
 	{
-		glStencilMask(0xFF);
-		glEnable(GL_DEPTH_TEST);
+		//glStencilMask(0xFF);
+		//glEnable(GL_DEPTH_TEST);
 	}
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
 	{

@@ -23,6 +23,7 @@ namespace KEngine
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
+		unsigned int frameBuffer;//днЪБ
 		
 		float lastFrameTime=0.f;
 
