@@ -3,11 +3,12 @@
 #include "RenderCommand.h"
 #include "glm.hpp"
 #include "Shader.h"
+#include "FrameBuffer.h"
 namespace KEngine{
    
     class KE_API Renderer{
     public:
-        static void Init(unsigned int &frameBuffer1,unsigned int &textureID );
+        static void Init();
         static void BeginScene();
 		static void EndScene();
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
@@ -20,7 +21,8 @@ namespace KEngine{
         
         static void SwitchFrameBuffer(unsigned int frameBuffer);
 
-        static void Test(unsigned int textureID);
+        static void Test(std::shared_ptr<FrameBuffer> frameBuffer);
+        static void Test2(std::shared_ptr<FrameBuffer> frameBuffer);
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:
        

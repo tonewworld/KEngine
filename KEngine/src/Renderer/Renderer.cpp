@@ -2,34 +2,10 @@
 #include "Renderer.h"
 
 namespace KEngine{
-	void Renderer::Init(unsigned int &frameBuffer1,unsigned int &textureID)
+	void Renderer::Init()
 	{
 		RenderCommand::Init();
-		/*glGenFramebuffers(1, &frameBuffer1);
-		glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer1);
 
-		
-		glGenTextures(1, &textureID);
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1600.f, 900.f, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, 1600.0f, 900.f, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, NULL);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, textureID, 0);*/
-
-		//GLuint rbo;
-		//glGenRenderbuffers(1, &rbo);
-		//glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-		//glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1600.f, 900.f); // Use a single renderbuffer object for both a depth AND stencil buffer.
-		//glBindRenderbuffer(GL_RENDERBUFFER, 0);
-		//glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo); // Now actually attach it
-		//// Now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
-		//if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		//	std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 	void Renderer::BeginScene()
 	{
@@ -48,7 +24,7 @@ namespace KEngine{
 	}
 	void Renderer::EndScene()
 	{
-		
+		glStencilMask(0xFF);
 	}
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
 	{
@@ -74,10 +50,14 @@ namespace KEngine{
 		RenderCommand::SwitchFrameBuffer(frameBuffer);
 	}
 
-	void Renderer::Test(unsigned int textureID)
+	void Renderer::Test(std::shared_ptr<FrameBuffer> frameBuffer)
 	{
-		glBindTexture(GL_TEXTURE_2D, textureID);
+		frameBuffer->Unbind();
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Set clear color to white (not really necessery actually, since we won't be able to see behind the quad anyways)
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
-	
+	void Renderer::Test2(std::shared_ptr<FrameBuffer> frameBuffer) {
+		frameBuffer->Bind();
+	}
 	
 }

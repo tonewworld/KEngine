@@ -322,18 +322,25 @@ class ExampleLayer : public KEngine::Layer {
 		quadIBO.reset(KEngine::IndexBuffer::Create(quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
 		quadVAO->SetIndexBuffer(quadIBO);
 
+		FBO.reset(KEngine::FrameBuffer::Create());
+		FBO->Bind();
+		texture.reset(KEngine::Texture::Create());
+		texture->Bind();
+		RBO.reset(KEngine::RenderBuffer::Create());
+
+
 	}
 	void OnAttach() override {
-		KEngine::Renderer::Init(frameBuffer1,textureID);
+		KEngine::Renderer::Init();
 		lightPosition = glm::vec3(1.2f, 1.0f, 0.0f);
 	}
 	void OnUpdate(KEngine::TimeStep ts) {
 		
+		FBO->Bind();
 		KEngine::Renderer::BeginScene();
 		
 		mainCamera->Control(ts.GetTimeStep());
 		
-		//KEngine::Renderer::Test(frameBuffer1);//Test
 		
 		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),lightPosition),glm::vec3(0.01f)), 
 			mainCamera->GetViewMatrix(), 
@@ -354,7 +361,7 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::SetStencilMask(0xFF);
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 
-		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(1.1f)),
+		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(1.02f)),
 			mainCamera->GetViewMatrix(),
 			projMatrix), "MVP");
 		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
@@ -362,14 +369,14 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::Submit(s_Shader, m_VAO);
 
-		KEngine::Renderer::SwitchFrameBuffer(0);//#define SCREEN  0
+		FBO->Unbind();
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::SetStencilOpenOrClose(false);
 		
-		//screenShader->Bind();
-		KEngine::Renderer::Submit(screenShader, quadVAO);
-		//KEngine::Renderer::Test(2);
 
+		texture->Bind();
+		KEngine::Renderer::Submit(screenShader, quadVAO);
+		
 		KEngine::Renderer::EndScene();
 	}
 	void OnEvent(KEngine::Event& event) override {
@@ -391,8 +398,9 @@ class ExampleLayer : public KEngine::Layer {
 	std::shared_ptr<KEngine::Shader> screenShader;
 	std::shared_ptr<KEngine::VertexArray>quadVAO;
 
-	unsigned int frameBuffer1;
-	unsigned int textureID;
+	std::shared_ptr<KEngine::FrameBuffer>FBO;
+	std::shared_ptr<KEngine::Texture>texture;
+	std::shared_ptr<KEngine::RenderBuffer>RBO;
 	
 	glm::vec3 lightPosition;
 
