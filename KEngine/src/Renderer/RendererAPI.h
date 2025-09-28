@@ -21,9 +21,15 @@ namespace KEngine
 		virtual void SetClearColor(float r, float g, float b, float a) = 0;
 		virtual void Clear() = 0;
         virtual void DrawIndexed(const std::shared_ptr<class VertexArray>& vertexArray) = 0;
+        
+        virtual void SetStencilOpenOrClose(bool tag) = 0;
         virtual void SetStencilFunc(GLenum func, GLint ref, GLint mask) = 0;
         virtual void SetStencilMask(GLint tag) = 0;
+
         virtual void SetDepthOpenOrClose(bool tag) = 0;
+        
+        virtual void SwitchFrameBuffer(unsigned int frameBuffer) = 0;
+
 	    inline static API GetAPI() { return s_API ; }
 
     private:

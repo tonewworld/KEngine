@@ -17,6 +17,10 @@ namespace KEngine{
 	void RenderCommand::DrawIndexed(const std::shared_ptr<class VertexArray>& vertexArray) {
 		m_RendererAPI->DrawIndexed(vertexArray);
 	}
+
+	void RenderCommand::SetStencilOpenOrClose(bool tag) {
+		m_RendererAPI->SetStencilOpenOrClose(tag);
+	}
 	void RenderCommand::SetStencilFunc(GLenum func, GLint ref, GLuint mask)
 	{
 		m_RendererAPI->SetStencilFunc(func, ref, mask);
@@ -26,5 +30,8 @@ namespace KEngine{
 	}
 	void RenderCommand::SetDepthOpenOrClose(bool tag) {
 		m_RendererAPI->SetDepthOpenOrClose(tag);
+	}
+	void RenderCommand::SwitchFrameBuffer(unsigned int frameBuffer) {
+		m_RendererAPI->SwitchFrameBuffer(frameBuffer);
 	}
 }

@@ -5,7 +5,10 @@ class ExampleLayer : public KEngine::Layer {
 	public:
 	ExampleLayer():Layer("Example") {
 		mainCamera = std::make_unique<KEngine::Camera>();
-		projMatrix = glm::perspective(glm::radians(45.f), 16.f / 9.f, 0.1f, 300.f);
+		projMatrix = glm::perspective(glm::radians(45.f),(float)
+			KEngine::Application::s_Instance->GetWindow().GetWidth()
+			/ KEngine::Application::s_Instance->GetWindow().GetHeight(),
+			0.1f, 300.f);
 		{
 			char* vertexSrc = R"(
 				#version 330 core
@@ -114,6 +117,35 @@ class ExampleLayer : public KEngine::Layer {
 
 		}
 		
+		{
+			char* vertexSrc = R"(
+				#version 330 core
+				layout (location = 0) in vec2 position;
+				layout (location = 1) in vec2 texCoords;
+
+				out vec2 TexCoords;
+
+				void main()
+				{
+					gl_Position = vec4(position.x, position.y, 0.0f, 1.0f);
+					TexCoords = texCoords;
+				}
+				)";
+			char* fragmentSrc = R"(
+				#version 330 core
+				in vec2 TexCoords;
+				out vec4 color;
+
+				uniform sampler2D screenTexture;
+
+				void main()
+				{
+					color =vec4(vec3(texture(screenTexture,TexCoords)),1.f);
+				}
+				)";
+
+			screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+		}
 
 	
 		float m_Vertices[] = {
@@ -261,10 +293,38 @@ class ExampleLayer : public KEngine::Layer {
 		l_IBO.reset(KEngine::IndexBuffer::Create(l_Indexes, sizeof(l_Indexes) / sizeof(unsigned int)));
 		l_VAO->SetIndexBuffer(l_IBO);
 
+		quadVAO.reset(KEngine::VertexArray::Create());
+		quadVAO->Bind();
+		GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+			// Positions   // TexCoords
+			-1.0f,  1.0f,  0.0f, 1.0f,
+			-1.0f, -1.0f,  0.0f, 0.0f,
+			 1.0f, -1.0f,  1.0f, 0.0f,
+
+			-1.0f,  1.0f,  0.0f, 1.0f,
+			 1.0f, -1.0f,  1.0f, 0.0f,
+			 1.0f,  1.0f,  1.0f, 1.0f
+		};
+		std::shared_ptr<KEngine::VertexBuffer>quadVBO;
+		quadVBO.reset(KEngine::VertexBuffer::Create(quadVertices, sizeof(quadVertices)));
+		KEngine::BufferLayout quadLayout = {
+			{KEngine::ShaderDataType::Float2,"Postition"},
+			{KEngine::ShaderDataType::Float2,"TexCoords"}
+		};
+		quadVBO->SetLayout(quadLayout);
+		quadVAO->AddVertexBuffer(quadVBO);
+
+		unsigned int quadIndexes[] = {
+			0,1,2,
+			3,4,5
+		};
+		std::shared_ptr<KEngine::IndexBuffer> quadIBO;
+		quadIBO.reset(KEngine::IndexBuffer::Create(quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
+		quadVAO->SetIndexBuffer(quadIBO);
 
 	}
 	void OnAttach() override {
-		KEngine::Renderer::Init();
+		KEngine::Renderer::Init(frameBuffer1,textureID);
 		lightPosition = glm::vec3(1.2f, 1.0f, 0.0f);
 	}
 	void OnUpdate(KEngine::TimeStep ts) {
@@ -273,11 +333,12 @@ class ExampleLayer : public KEngine::Layer {
 		
 		mainCamera->Control(ts.GetTimeStep());
 		
+		//KEngine::Renderer::Test(frameBuffer1);//Test
 		
 		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),lightPosition),glm::vec3(0.01f)), 
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
-		//KEngine::Renderer::SetStencilMask(0);
+		KEngine::Renderer::SetStencilMask(0);
 		KEngine::Renderer::Submit(l_Shader, l_VAO);
 	
 		
@@ -289,19 +350,25 @@ class ExampleLayer : public KEngine::Layer {
 		m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
-		//KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
-		//KEngine::Renderer::SetStencilMask(0xFF);
+		KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
+		KEngine::Renderer::SetStencilMask(0xFF);
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 
-	/*	s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(1.1f)),
+		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(1.1f)),
 			mainCamera->GetViewMatrix(),
 			projMatrix), "MVP");
 		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0x00);
 		KEngine::Renderer::SetDepthOpenOrClose(false);
-		KEngine::Renderer::Submit(s_Shader, m_VAO);*/
+		KEngine::Renderer::Submit(s_Shader, m_VAO);
 
+		KEngine::Renderer::SwitchFrameBuffer(0);//#define SCREEN  0
+		KEngine::Renderer::SetDepthOpenOrClose(false);
+		KEngine::Renderer::SetStencilOpenOrClose(false);
 		
+		//screenShader->Bind();
+		KEngine::Renderer::Submit(screenShader, quadVAO);
+		//KEngine::Renderer::Test(2);
 
 		KEngine::Renderer::EndScene();
 	}
@@ -320,6 +387,12 @@ class ExampleLayer : public KEngine::Layer {
 	std::shared_ptr<KEngine::VertexArray>l_VAO;
 
 	std::shared_ptr<KEngine::Shader> s_Shader;
+
+	std::shared_ptr<KEngine::Shader> screenShader;
+	std::shared_ptr<KEngine::VertexArray>quadVAO;
+
+	unsigned int frameBuffer1;
+	unsigned int textureID;
 	
 	glm::vec3 lightPosition;
 

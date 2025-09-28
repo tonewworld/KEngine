@@ -7,16 +7,20 @@ namespace KEngine{
    
     class KE_API Renderer{
     public:
-        static void Init();
+        static void Init(unsigned int &frameBuffer1,unsigned int &textureID );
         static void BeginScene();
 		static void EndScene();
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
         
+        static void SetStencilOpenOrClose(bool tag);
         static void SetStencilFunc(GLenum func,GLint ref,GLuint mask);
         static void SetStencilMask(GLint tag);
+
         static void SetDepthOpenOrClose(bool tag);
+        
+        static void SwitchFrameBuffer(unsigned int frameBuffer);
 
-
+        static void Test(unsigned int textureID);
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:
        
