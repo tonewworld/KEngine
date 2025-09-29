@@ -28,6 +28,8 @@
 #include "Renderer/FrameBuffer.h"
 #include "Renderer/Texture.h"
 #include "Renderer/RenderBuffer.h"
+#include "Renderer/Texture2D.h"
+#include "Renderer/TextureCube.h"
 
 #include "Platforms/OpenGL/OpenGLBuffer.h"
 #include "Platforms/OpenGL/OpenGLVertexArray.h"

@@ -96,7 +96,7 @@ class ExampleLayer : public KEngine::Layer {
 				layout(location=0) in vec3 v_Position;
 				layout(location=1) in vec3 v_Normal;
 
-				uniform mat4 model;
+				
 				uniform mat4 MVP;
 				
 				void main()
@@ -145,6 +145,34 @@ class ExampleLayer : public KEngine::Layer {
 				)";
 
 			screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+		}
+		{
+			char* vertexSrc = R"(
+				#version 330 core
+				layout (location = 0) in vec3 position;
+				out vec3 TexCoords;
+
+				uniform mat4 MVP;
+
+				void main()
+				{
+					gl_Position =  MVP * vec4(position, 1.0);  
+					TexCoords = position;
+				}
+				)";
+			char* fragmentSrc = R"(
+				#version 330 core
+				in vec3 TexCoords;
+				out vec4 color;
+
+				uniform samplerCube skybox;
+
+				void main()
+				{
+					color = texture(skybox, TexCoords);
+				}
+				)";
+			sky_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 		}
 
 	
@@ -323,12 +351,96 @@ class ExampleLayer : public KEngine::Layer {
 		quadVAO->SetIndexBuffer(quadIBO);
 
 		FBO.reset(KEngine::FrameBuffer::Create());
-		FBO->Bind();
-		texture.reset(KEngine::Texture::Create());
-		texture->Bind();
+		
+		texture.reset(KEngine::Texture::Create("Texture2D"));
+		texture->AddToFrameBuffer(FBO);
 		RBO.reset(KEngine::RenderBuffer::Create());
 
+		std::vector<const GLchar*> faces;
+		faces.push_back("right.jpg");
+		faces.push_back("left.jpg");
+		faces.push_back("top.jpg");
+		faces.push_back("bottom.jpg");
+		faces.push_back("back.jpg");
+		faces.push_back("front.jpg");
+		textureCube.reset(KEngine::Texture::Create("TextureCube"));//problem
+		if (textureCube) {
+			std::cout << 1 << std::endl;
+			textureCube->LoadCubemap(faces);
+		}
 
+		//float skyboxVertices[] = {
+		//	// Positions          
+		//	-1.0f,  1.0f, -1.0f,
+		//	-1.0f, -1.0f, -1.0f,
+		//	 1.0f, -1.0f, -1.0f,
+		//	 1.0f, -1.0f, -1.0f,
+		//	 1.0f,  1.0f, -1.0f,
+		//	-1.0f,  1.0f, -1.0f,
+
+		//	-1.0f, -1.0f,  1.0f,
+		//	-1.0f, -1.0f, -1.0f,
+		//	-1.0f,  1.0f, -1.0f,
+		//	-1.0f,  1.0f, -1.0f,
+		//	-1.0f,  1.0f,  1.0f,
+		//	-1.0f, -1.0f,  1.0f,
+
+		//	 1.0f, -1.0f, -1.0f,
+		//	 1.0f, -1.0f,  1.0f,
+		//	 1.0f,  1.0f,  1.0f,
+		//	 1.0f,  1.0f,  1.0f,
+		//	 1.0f,  1.0f, -1.0f,
+		//	 1.0f, -1.0f, -1.0f,
+
+		//	-1.0f, -1.0f,  1.0f,
+		//	-1.0f,  1.0f,  1.0f,
+		//	 1.0f,  1.0f,  1.0f,
+		//	 1.0f,  1.0f,  1.0f,
+		//	 1.0f, -1.0f,  1.0f,
+		//	-1.0f, -1.0f,  1.0f,
+
+		//	-1.0f,  1.0f, -1.0f,
+		//	 1.0f,  1.0f, -1.0f,
+		//	 1.0f,  1.0f,  1.0f,
+		//	 1.0f,  1.0f,  1.0f,
+		//	-1.0f,  1.0f,  1.0f,
+		//	-1.0f,  1.0f, -1.0f,
+
+		//	-1.0f, -1.0f, -1.0f,
+		//	-1.0f, -1.0f,  1.0f,
+		//	 1.0f, -1.0f, -1.0f,
+		//	 1.0f, -1.0f, -1.0f,
+		//	-1.0f, -1.0f,  1.0f,
+		//	 1.0f, -1.0f,  1.0f
+		//};
+
+		//sky_VAO.reset(KEngine::VertexArray::Create());
+		//sky_VAO->Bind();
+		//std::shared_ptr<KEngine::VertexBuffer> sky_VBO;
+		//sky_VBO.reset(KEngine::VertexBuffer::Create(skyboxVertices, sizeof(skyboxVertices)));
+		//KEngine::BufferLayout skyLayout = {
+		//	{KEngine::ShaderDataType::Float3,"Postition"}
+		//};
+		//sky_VBO->SetLayout(skyLayout);
+		//sky_VAO->AddVertexBuffer(sky_VBO);
+
+		//unsigned int sky_Indexes[]{
+		//	0,1,2,
+		//	3,4,5,
+		//	6,7,8,
+		//	9,10,11,
+		//	12,13,14,
+		//	15,16,17,
+		//	18,19,20,
+		//	21,22,23,
+		//	24,25,26,
+		//	27,28,29,
+		//	30,31,32,
+		//	33,34,35
+		//};
+		//std::shared_ptr<KEngine::IndexBuffer> sky_IBO;
+		//sky_IBO.reset(KEngine::IndexBuffer::Create(sky_Indexes, sizeof(sky_Indexes) / sizeof(unsigned int)));
+		//sky_VAO->SetIndexBuffer(sky_IBO);
 	}
 	void OnAttach() override {
 		KEngine::Renderer::Init();
@@ -341,7 +453,15 @@ class ExampleLayer : public KEngine::Layer {
 		
 		mainCamera->Control(ts.GetTimeStep());
 		
-		
+	/*	sky_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),
+			mainCamera->GetViewMatrix(),
+			projMatrix), "MVP");
+		KEngine::Renderer::SetDepthOpenOrClose(false);
+		KEngine::Renderer::SetStencilMask(0);
+		textureCube->Bind();
+		KEngine::Renderer::Submit(sky_Shader, sky_VAO);
+		KEngine::Renderer::SetDepthOpenOrClose(true);
+		*/
 		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),lightPosition),glm::vec3(0.01f)), 
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
@@ -373,7 +493,7 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::SetStencilOpenOrClose(false);
 		
-
+		if(texture!=NULL)
 		texture->Bind();
 		KEngine::Renderer::Submit(screenShader, quadVAO);
 		
@@ -401,6 +521,10 @@ class ExampleLayer : public KEngine::Layer {
 	std::shared_ptr<KEngine::FrameBuffer>FBO;
 	std::shared_ptr<KEngine::Texture>texture;
 	std::shared_ptr<KEngine::RenderBuffer>RBO;
+
+	std::shared_ptr<KEngine::Texture>textureCube;
+	std::shared_ptr<KEngine::Shader>sky_Shader;
+	std::shared_ptr<KEngine::VertexArray>sky_VAO;
 	
 	glm::vec3 lightPosition;
 

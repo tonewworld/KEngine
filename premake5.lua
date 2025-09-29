@@ -16,10 +16,12 @@ IncludeDir["GLFW"]="KEngine/vendor/GLFW/include"
 IncludeDir["Glad"]="KEngine/vendor/Glad/include"
 IncludeDir["ImGui"]="KEngine/vendor/ImGui"
 IncludeDir["glm"]="KEngine/vendor/glm/glm"
+IncludeDir["SOIL2"]="KEngine/vendor/SOIL2"
 
 include "KEngine/vendor/Glad"
 include "KEngine/vendor/GLFW"
 include "KEngine/vendor/ImGui"
+include "KEngine/vendor/SOIL2"
 
 project"KEngine"
 	location"KEngine"	
@@ -36,7 +38,8 @@ project"KEngine"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
-		"%{prj.name}/vendor/glm/glm/**.inl"
+		"%{prj.name}/vendor/glm/glm/**.inl",
+		"%{prj.name}/references/**.jpg"
 	}
 	defines{
 		"IMGUI_API=__declspec(dllexport)"
@@ -48,14 +51,17 @@ project"KEngine"
 		"%{IncludeDir.GLFW}",	
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.SOIL2}"
 	}
 
 	links{
 		"GLFW",
 		"Glad",
 		"ImGui",
+		"SOIL2",
 		"opengl32.lib"
+		
 	}
 
 	filter"system:windows"

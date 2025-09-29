@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "KEngine\vendor\ImG
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KEngine", "KEngine\KEngine.vcxproj", "{062D043A-720C-83D5-7B24-0EACE782E936}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SOIL2", "KEngine\vendor\SOIL2\SOIL2.vcxproj", "{6E84090E-DA98-31BF-A31A-D51E0FEE2DF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -48,6 +50,12 @@ Global
 		{062D043A-720C-83D5-7B24-0EACE782E936}.Dist|x64.Build.0 = Dist|x64
 		{062D043A-720C-83D5-7B24-0EACE782E936}.Release|x64.ActiveCfg = Release|x64
 		{062D043A-720C-83D5-7B24-0EACE782E936}.Release|x64.Build.0 = Release|x64
+		{6E84090E-DA98-31BF-A31A-D51E0FEE2DF0}.Debug|x64.ActiveCfg = Debug|x64
+		{6E84090E-DA98-31BF-A31A-D51E0FEE2DF0}.Debug|x64.Build.0 = Debug|x64
+		{6E84090E-DA98-31BF-A31A-D51E0FEE2DF0}.Dist|x64.ActiveCfg = Dist|x64
+		{6E84090E-DA98-31BF-A31A-D51E0FEE2DF0}.Dist|x64.Build.0 = Dist|x64
+		{6E84090E-DA98-31BF-A31A-D51E0FEE2DF0}.Release|x64.ActiveCfg = Release|x64
+		{6E84090E-DA98-31BF-A31A-D51E0FEE2DF0}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
