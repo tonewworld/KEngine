@@ -16,9 +16,9 @@ namespace KEngine {
 		virtual void Unbind()=0;
 
 		virtual void AddToFrameBuffer(std::shared_ptr<FrameBuffer>) {}
-		virtual void LoadCubemap(std::vector<const GLchar*>faces) {}
+		virtual void LoadCubemap(std::vector<std::string>&faces) {}
 
-		static Texture* Create(char* type);
+		static Texture* Create(std::string& type);
 	};
 }
 

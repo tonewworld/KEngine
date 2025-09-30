@@ -1,12 +1,14 @@
 project "SOIL2"
 	kind "StaticLib"
 	language "C"
-    staticruntime "off"
-
+    
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files { "src/SOIL2/*.c" }
+	files { "SOIL2/*.c" }
+	includedirs{
+		"SOIL2"
+	}
 	
 	filter "system:windows"
 		systemversion "latest"

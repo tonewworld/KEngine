@@ -2,17 +2,24 @@
 #include "Texture.h"
 #include "Texture2D.h"
 #include "TextureCube.h"
+
 namespace KEngine {
 	Texture::Texture() {
 		glGenTextures(1, &m_RendererID);
 	}
 	
-	Texture* Texture::Create(char* type) {
+	Texture* Texture::Create(std::string& type) {
 
-		if(strcmp(type, "Texture2D") == 0)
+		if( type == "Texture2D")
+		{
+			
 			return new Texture2D();
-		if (strcmp(type, "TextureCube") == 0)
+		}
+		if (type == "TextureCube")
+		{
+			
 			return new TextureCube();
+		}
 
 		return NULL;
 	}

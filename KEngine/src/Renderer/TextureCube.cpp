@@ -5,7 +5,7 @@
 namespace KEngine {
 	TextureCube::TextureCube()
 	{
-
+		
 	}
 
 	TextureCube::~TextureCube()
@@ -21,7 +21,7 @@ namespace KEngine {
 	{
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	}
-	void TextureCube::LoadCubemap(std::vector<const GLchar*>faces) {
+	void TextureCube::LoadCubemap(std::vector<std::string>&faces) {
 		glActiveTexture(GL_TEXTURE0);//maybe as a parameter
 
 		int width, height;
@@ -30,7 +30,7 @@ namespace KEngine {
 		Bind();
 		for (GLuint i = 0; i < faces.size(); i++)
 		{
-			image = SOIL_load_image(faces[i], &width, &height, 0, SOIL_LOAD_RGB);
+			image = SOIL_load_image(faces[i].c_str(), &width, &height, 0, SOIL_LOAD_RGB);
 			glTexImage2D(
 				GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0,
 				GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image

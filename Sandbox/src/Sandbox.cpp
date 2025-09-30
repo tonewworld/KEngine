@@ -352,95 +352,94 @@ class ExampleLayer : public KEngine::Layer {
 
 		FBO.reset(KEngine::FrameBuffer::Create());
 		
-		texture.reset(KEngine::Texture::Create("Texture2D"));
+		texture.reset(KEngine::Texture::Create((std::string)"Texture2D"));
 		texture->AddToFrameBuffer(FBO);
 		RBO.reset(KEngine::RenderBuffer::Create());
 
-		std::vector<const GLchar*> faces;
-		faces.push_back("right.jpg");
-		faces.push_back("left.jpg");
-		faces.push_back("top.jpg");
-		faces.push_back("bottom.jpg");
-		faces.push_back("back.jpg");
-		faces.push_back("front.jpg");
-		textureCube.reset(KEngine::Texture::Create("TextureCube"));//problem
-		if (textureCube) {
-			std::cout << 1 << std::endl;
-			textureCube->LoadCubemap(faces);
-		}
+		std::vector<std::string> faces;
+		faces.push_back("references\\skybox\\right.jpg");
+		faces.push_back("references\\skybox\\left.jpg");
+		faces.push_back("references\\skybox\\top.jpg");
+		faces.push_back("references\\skybox\\bottom.jpg");
+		faces.push_back("references\\skybox\\back.jpg");
+		faces.push_back("references\\skybox\\front.jpg");
 
-		//float skyboxVertices[] = {
-		//	// Positions          
-		//	-1.0f,  1.0f, -1.0f,
-		//	-1.0f, -1.0f, -1.0f,
-		//	 1.0f, -1.0f, -1.0f,
-		//	 1.0f, -1.0f, -1.0f,
-		//	 1.0f,  1.0f, -1.0f,
-		//	-1.0f,  1.0f, -1.0f,
+		textureCube.reset(KEngine::Texture::Create((std::string)"TextureCube"));//problem
+		textureCube->LoadCubemap(faces);
+		
 
-		//	-1.0f, -1.0f,  1.0f,
-		//	-1.0f, -1.0f, -1.0f,
-		//	-1.0f,  1.0f, -1.0f,
-		//	-1.0f,  1.0f, -1.0f,
-		//	-1.0f,  1.0f,  1.0f,
-		//	-1.0f, -1.0f,  1.0f,
+		float skyboxVertices[] = {
+			// Positions          
+			-1.0f,  1.0f, -1.0f,
+			-1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
 
-		//	 1.0f, -1.0f, -1.0f,
-		//	 1.0f, -1.0f,  1.0f,
-		//	 1.0f,  1.0f,  1.0f,
-		//	 1.0f,  1.0f,  1.0f,
-		//	 1.0f,  1.0f, -1.0f,
-		//	 1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f,  1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
+			-1.0f,  1.0f,  1.0f,
+			-1.0f, -1.0f,  1.0f,
 
-		//	-1.0f, -1.0f,  1.0f,
-		//	-1.0f,  1.0f,  1.0f,
-		//	 1.0f,  1.0f,  1.0f,
-		//	 1.0f,  1.0f,  1.0f,
-		//	 1.0f, -1.0f,  1.0f,
-		//	-1.0f, -1.0f,  1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
 
-		//	-1.0f,  1.0f, -1.0f,
-		//	 1.0f,  1.0f, -1.0f,
-		//	 1.0f,  1.0f,  1.0f,
-		//	 1.0f,  1.0f,  1.0f,
-		//	-1.0f,  1.0f,  1.0f,
-		//	-1.0f,  1.0f, -1.0f,
+			-1.0f, -1.0f,  1.0f,
+			-1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f, -1.0f,  1.0f,
+			-1.0f, -1.0f,  1.0f,
 
-		//	-1.0f, -1.0f, -1.0f,
-		//	-1.0f, -1.0f,  1.0f,
-		//	 1.0f, -1.0f, -1.0f,
-		//	 1.0f, -1.0f, -1.0f,
-		//	-1.0f, -1.0f,  1.0f,
-		//	 1.0f, -1.0f,  1.0f
-		//};
+			-1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			-1.0f,  1.0f,  1.0f,
+			-1.0f,  1.0f, -1.0f,
 
-		//sky_VAO.reset(KEngine::VertexArray::Create());
-		//sky_VAO->Bind();
-		//std::shared_ptr<KEngine::VertexBuffer> sky_VBO;
-		//sky_VBO.reset(KEngine::VertexBuffer::Create(skyboxVertices, sizeof(skyboxVertices)));
-		//KEngine::BufferLayout skyLayout = {
-		//	{KEngine::ShaderDataType::Float3,"Postition"}
-		//};
-		//sky_VBO->SetLayout(skyLayout);
-		//sky_VAO->AddVertexBuffer(sky_VBO);
+			-1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f,  1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f,  1.0f,
+			 1.0f, -1.0f,  1.0f
+		};
 
-		//unsigned int sky_Indexes[]{
-		//	0,1,2,
-		//	3,4,5,
-		//	6,7,8,
-		//	9,10,11,
-		//	12,13,14,
-		//	15,16,17,
-		//	18,19,20,
-		//	21,22,23,
-		//	24,25,26,
-		//	27,28,29,
-		//	30,31,32,
-		//	33,34,35
-		//};
-		//std::shared_ptr<KEngine::IndexBuffer> sky_IBO;
-		//sky_IBO.reset(KEngine::IndexBuffer::Create(sky_Indexes, sizeof(sky_Indexes) / sizeof(unsigned int)));
-		//sky_VAO->SetIndexBuffer(sky_IBO);
+		sky_VAO.reset(KEngine::VertexArray::Create());
+		sky_VAO->Bind();
+		std::shared_ptr<KEngine::VertexBuffer> sky_VBO;
+		sky_VBO.reset(KEngine::VertexBuffer::Create(skyboxVertices, sizeof(skyboxVertices)));
+		KEngine::BufferLayout skyLayout = {
+			{KEngine::ShaderDataType::Float3,"Postition"}
+		};
+		sky_VBO->SetLayout(skyLayout);
+		sky_VAO->AddVertexBuffer(sky_VBO);
+
+		unsigned int sky_Indexes[]{
+			0,1,2,
+			3,4,5,
+			6,7,8,
+			9,10,11,
+			12,13,14,
+			15,16,17,
+			18,19,20,
+			21,22,23,
+			24,25,26,
+			27,28,29,
+			30,31,32,
+			33,34,35
+		};
+		std::shared_ptr<KEngine::IndexBuffer> sky_IBO;
+		sky_IBO.reset(KEngine::IndexBuffer::Create(sky_Indexes, sizeof(sky_Indexes) / sizeof(unsigned int)));
+		sky_VAO->SetIndexBuffer(sky_IBO);
 	}
 	void OnAttach() override {
 		KEngine::Renderer::Init();
@@ -453,7 +452,7 @@ class ExampleLayer : public KEngine::Layer {
 		
 		mainCamera->Control(ts.GetTimeStep());
 		
-	/*	sky_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),
+		sky_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),
 			mainCamera->GetViewMatrix(),
 			projMatrix), "MVP");
 		KEngine::Renderer::SetDepthOpenOrClose(false);
@@ -461,7 +460,7 @@ class ExampleLayer : public KEngine::Layer {
 		textureCube->Bind();
 		KEngine::Renderer::Submit(sky_Shader, sky_VAO);
 		KEngine::Renderer::SetDepthOpenOrClose(true);
-		*/
+		
 		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),lightPosition),glm::vec3(0.01f)), 
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
@@ -474,14 +473,14 @@ class ExampleLayer : public KEngine::Layer {
 		m_Shader->SetUniform3f({ 1.0f,1.0f,1.0f },  "lightColor");
 		m_Shader->SetUniform3f( lightPosition, "lightPos");
 		m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
-		m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),
+		m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.3f)),
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
 		KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0xFF);
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 
-		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(1.02f)),
+		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),
 			mainCamera->GetViewMatrix(),
 			projMatrix), "MVP");
 		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
@@ -507,29 +506,29 @@ class ExampleLayer : public KEngine::Layer {
 		return proj * view * model;
 	}
 	private:
-	std::shared_ptr<KEngine::Shader> m_Shader;
-	std::shared_ptr<KEngine::VertexArray> m_VAO;
+		std::shared_ptr<KEngine::Shader> m_Shader;
+		std::shared_ptr<KEngine::VertexArray> m_VAO;
 
-	std::shared_ptr<KEngine::Shader> l_Shader;
-	std::shared_ptr<KEngine::VertexArray>l_VAO;
+		std::shared_ptr<KEngine::Shader> l_Shader;
+		std::shared_ptr<KEngine::VertexArray>l_VAO;
 
-	std::shared_ptr<KEngine::Shader> s_Shader;
+		std::shared_ptr<KEngine::Shader> s_Shader;
 
-	std::shared_ptr<KEngine::Shader> screenShader;
-	std::shared_ptr<KEngine::VertexArray>quadVAO;
+		std::shared_ptr<KEngine::Shader> screenShader;
+		std::shared_ptr<KEngine::VertexArray>quadVAO;
 
-	std::shared_ptr<KEngine::FrameBuffer>FBO;
-	std::shared_ptr<KEngine::Texture>texture;
-	std::shared_ptr<KEngine::RenderBuffer>RBO;
+		std::shared_ptr<KEngine::FrameBuffer>FBO;
+		std::shared_ptr<KEngine::Texture>texture;
+		std::shared_ptr<KEngine::RenderBuffer>RBO;
 
-	std::shared_ptr<KEngine::Texture>textureCube;
-	std::shared_ptr<KEngine::Shader>sky_Shader;
-	std::shared_ptr<KEngine::VertexArray>sky_VAO;
+		std::shared_ptr<KEngine::Texture>textureCube;
+		std::shared_ptr<KEngine::Shader>sky_Shader;
+		std::shared_ptr<KEngine::VertexArray>sky_VAO;
 	
-	glm::vec3 lightPosition;
+		glm::vec3 lightPosition;
 
-	glm::mat4 projMatrix;
-	std::unique_ptr<KEngine::Camera>  mainCamera;
+		glm::mat4 projMatrix;
+		std::unique_ptr<KEngine::Camera>  mainCamera;
 
 };
 

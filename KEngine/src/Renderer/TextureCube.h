@@ -1,5 +1,4 @@
 #pragma once
-#include "core.h"
 #include "Texture.h"
 namespace KEngine {
 
@@ -10,7 +9,7 @@ namespace KEngine {
 		~TextureCube();
 		virtual void Bind() override;
 		virtual void Unbind() override;
-		void LoadCubemap(std::vector<const GLchar*>faces);
+		void LoadCubemap(std::vector<std::string>&faces);
 	};
 }
 

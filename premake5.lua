@@ -39,7 +39,7 @@ project"KEngine"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
-		"%{prj.name}/references/**.jpg"
+		
 	}
 	defines{
 		"IMGUI_API=__declspec(dllexport)"
@@ -104,7 +104,7 @@ project"Sandbox"
 	files{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp"
-
+		
 	}
 	defines{
 		"IMGUI_API=__declspec(dllexport)"
