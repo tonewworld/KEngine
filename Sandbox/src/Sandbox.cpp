@@ -24,7 +24,7 @@ class ExampleLayer : public KEngine::Layer {
 				void main()
 				{
 					gl_Position = MVP * vec4(v_Position,1.0);
-					FragPos = v_Position;
+					FragPos = vec3(model*vec4(v_Position,1.0));
 					Normal=mat3(transpose(inverse(model))) * v_Normal;
 				}
 			)";
@@ -38,6 +38,8 @@ class ExampleLayer : public KEngine::Layer {
 				uniform vec3 lightColor;
 				uniform vec3 objectColor;
 				
+				//Reflect
+				uniform samplerCube skybox;	
 
 				void main()
 				{
@@ -59,7 +61,11 @@ class ExampleLayer : public KEngine::Layer {
 					vec3 specular = specularStrength * spec * lightColor;  
         
 					vec3 result = (ambient+diffuse+specular) * objectColor;
-					FragColor = vec4(result, 1.0f);
+
+					//Reflect
+					vec3 I = normalize(FragPos - viewPos);
+					vec3 R = reflect(I, normalize(Normal));
+					FragColor = vec4(texture(skybox, R).rgb, 1.0);
 				}
 			)";
 
@@ -452,22 +458,25 @@ class ExampleLayer : public KEngine::Layer {
 		
 		mainCamera->Control(ts.GetTimeStep());
 		
+		//天空盒
+		textureCube->Bind();
 		sky_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),
 			mainCamera->GetViewMatrix(),
 			projMatrix), "MVP");
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::SetStencilMask(0);
-		textureCube->Bind();
 		KEngine::Renderer::Submit(sky_Shader, sky_VAO);
 		KEngine::Renderer::SetDepthOpenOrClose(true);
 		
+		//光源
 		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),lightPosition),glm::vec3(0.01f)), 
 			mainCamera->GetViewMatrix(), 
 			projMatrix), "MVP");
 		KEngine::Renderer::SetStencilMask(0);
 		KEngine::Renderer::Submit(l_Shader, l_VAO);
 	
-		
+		//物体
+		textureCube->Bind();//Reflect
 		m_Shader->SetUniformMatrix4fv(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), "model");
 		m_Shader->SetUniform3f({ 1.0f,0.5f,0.31f }, "objectColor");
 		m_Shader->SetUniform3f({ 1.0f,1.0f,1.0f },  "lightColor");
@@ -480,6 +489,7 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::SetStencilMask(0xFF);
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 
+		//边框
 		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),
 			mainCamera->GetViewMatrix(),
 			projMatrix), "MVP");
@@ -492,7 +502,7 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::SetStencilOpenOrClose(false);
 		
-		if(texture!=NULL)
+		//屏幕
 		texture->Bind();
 		KEngine::Renderer::Submit(screenShader, quadVAO);
 		

@@ -47,7 +47,7 @@ namespace KEngine
 		if (tag)
 		{
 			glEnable(GL_DEPTH_TEST);
-			glDepthFunc(GL_LESS);
+			glDepthFunc(GL_LEQUAL);
 			return;
 		}
 			glDisable(GL_DEPTH_TEST);
