@@ -180,7 +180,29 @@ class ExampleLayer : public KEngine::Layer {
 				)";
 			sky_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 		}
+		{
+			char* vertexSrc = R"(
+				#version 330 core
+				layout(location=0) in vec3 v_Position;
 
+				uniform mat4 MVP;
+				
+				void main()
+				{
+					gl_Position = MVP * vec4(v_Position,1.0f);
+					gl_PointSize = 0.5f;
+				}
+			)";
+			char* fragmentSrc = R"(
+				#version 330 core
+				out vec4 FragColor;
+				void main()
+				{
+					FragColor=vec4(1.0f);
+				}
+			)";
+			pointShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+		}
 	
 		float m_Vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -446,6 +468,7 @@ class ExampleLayer : public KEngine::Layer {
 		std::shared_ptr<KEngine::IndexBuffer> sky_IBO;
 		sky_IBO.reset(KEngine::IndexBuffer::Create(sky_Indexes, sizeof(sky_Indexes) / sizeof(unsigned int)));
 		sky_VAO->SetIndexBuffer(sky_IBO);
+
 	}
 	void OnAttach() override {
 		KEngine::Renderer::Init();
@@ -455,13 +478,18 @@ class ExampleLayer : public KEngine::Layer {
 		
 		FBO->Bind();
 		KEngine::Renderer::BeginScene();
-		
+
 		mainCamera->Control(ts.GetTimeStep());
 		
+		pointShader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),
+			mainCamera->GetViewMatrix(),
+			projMatrix), "MVP");
+		KEngine::Renderer::Test();
+
 		//天空盒
 		textureCube->Bind();
 		sky_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),
-			mainCamera->GetViewMatrix(),
+			glm::mat4(glm::mat3(mainCamera->GetViewMatrix())),
 			projMatrix), "MVP");
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::SetStencilMask(0);
@@ -534,6 +562,8 @@ class ExampleLayer : public KEngine::Layer {
 		std::shared_ptr<KEngine::Texture>textureCube;
 		std::shared_ptr<KEngine::Shader>sky_Shader;
 		std::shared_ptr<KEngine::VertexArray>sky_VAO;
+
+		std::shared_ptr<KEngine::Shader>pointShader;
 	
 		glm::vec3 lightPosition;
 

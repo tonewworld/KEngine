@@ -21,8 +21,8 @@ namespace KEngine{
         
         static void SwitchFrameBuffer(unsigned int frameBuffer);
 
-        static void Test(std::shared_ptr<FrameBuffer> frameBuffer);
-        static void Test2(std::shared_ptr<FrameBuffer> frameBuffer);
+        static void Test();
+        
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:
        
