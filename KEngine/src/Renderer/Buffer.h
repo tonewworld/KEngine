@@ -1,7 +1,7 @@
 #pragma once 
 #include "Core.h"
 #include "Log.h"
-
+#include "glm.hpp"
 namespace KEngine{
 
     enum class ShaderDataType
@@ -106,4 +106,35 @@ namespace KEngine{
         virtual unsigned int GetCount() const =0;
         static IndexBuffer* Create(unsigned int* indexes, unsigned int size);
     };
+	class KE_API FrameBuffer
+	{
+	public:
+		FrameBuffer()=default;
+		virtual ~FrameBuffer() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		static FrameBuffer* Create();
+	};
+	class KE_API RenderBuffer
+	{
+	public:
+		RenderBuffer() = default;
+		virtual ~RenderBuffer() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		static RenderBuffer* Create();
+	};
+
+	class KE_API UniformBuffer
+	{
+	public:
+		UniformBuffer() = default;
+		virtual ~UniformBuffer() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		virtual void AddUniformData(glm::mat4& data, std::size_t offset = 0) = 0;
+		//这里要输入size
+		static UniformBuffer* Create(unsigned int size);
+	};
+
 }

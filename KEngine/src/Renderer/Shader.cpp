@@ -64,5 +64,10 @@ namespace KEngine
 		unsigned int location = glGetUniformLocation(m_RendererID, name);
 		glUniform3f(location, vec.x,vec.y,vec.z);
 	}
+	void Shader::BindUniformBufferPoint(const char* name,unsigned int number)
+	{
+		unsigned int location = glGetUniformBlockIndex(m_RendererID, name);
+		glUniformBlockBinding(m_RendererID,location,number);
+	}
 }
 

@@ -58,7 +58,7 @@ namespace KEngine{
 		glDisable(GL_DEPTH_TEST);
 
 		float pointVertices[] = {
-			0.f,0.f,0.f
+			0.f,0.f,5.f
 		};
 		unsigned int VAO, VBO, IBO;
 		glCreateVertexArrays(1, &VAO);

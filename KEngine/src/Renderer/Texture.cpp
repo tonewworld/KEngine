@@ -1,26 +1,28 @@
 #include "kepch.h"
 #include "Texture.h"
-#include "Texture2D.h"
-#include "TextureCube.h"
-
+#include "Renderer.h"
+#include "Platforms/OpenGL/OpenGLTexture.h"
 namespace KEngine {
-	Texture::Texture() {
-		glGenTextures(1, &m_RendererID);
+	Texture2D* Texture2D::Create() {
+		switch (Renderer::GetAPI()) {
+		case RendererAPI::API::None:
+			//KE_CORE_ASSERT(false, "RendererAPI::None is currently not supported");
+			return nullptr;
+		case RendererAPI::API::OpenGL:
+			return new OpenGLTexture2D();
+		}
+		//KE_CORE_ASSERT(false, "Unknown RendererAPI");
+		return nullptr;
 	}
-	
-	Texture* Texture::Create(std::string& type) {
-
-		if( type == "Texture2D")
-		{
-			
-			return new Texture2D();
+	TextureCube* TextureCube::Create() {
+		switch (Renderer::GetAPI()) {
+		case RendererAPI::API::None:
+			//KE_CORE_ASSERT(false, "RendererAPI::None is currently not supported");
+			return nullptr;
+		case RendererAPI::API::OpenGL:
+			return new OpenGLTextureCube();
 		}
-		if (type == "TextureCube")
-		{
-			
-			return new TextureCube();
-		}
-
-		return NULL;
+		//KE_CORE_ASSERT(false, "Unknown RendererAPI");
+		return nullptr;
 	}
 }

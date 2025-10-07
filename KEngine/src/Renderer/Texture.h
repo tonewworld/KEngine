@@ -1,24 +1,28 @@
 #pragma once
 #include "core.h"
 #include "glad/glad.h"
-#include "FrameBuffer.h"
+#include "Buffer.h"
 namespace KEngine {
 
-	class KE_API Texture
+	class KE_API Texture2D 
 	{
-	protected:
-		unsigned int m_RendererID;
 	public:
-		Texture();
-		virtual ~Texture() = default;
-
-		virtual void Bind()=0;
-		virtual void Unbind()=0;
-
-		virtual void AddToFrameBuffer(std::shared_ptr<FrameBuffer>) {}
-		virtual void LoadCubemap(std::vector<std::string>&faces) {}
-
-		static Texture* Create(std::string& type);
+		Texture2D() = default;
+		virtual ~Texture2D()=default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		virtual void AddToFrameBuffer(std::shared_ptr<FrameBuffer>fbo) = 0;
+		static Texture2D* Create();
+	};
+	class KE_API TextureCube 
+	{
+	public:
+		TextureCube() = default;
+		~TextureCube() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		virtual void LoadCubemap(std::vector<std::string>& faces) = 0;
+		static TextureCube* Create();
 	};
 }
 

@@ -11,7 +11,7 @@ class ExampleLayer : public KEngine::Layer {
 			0.1f, 300.f);
 		{
 			char* vertexSrc = R"(
-				#version 330 core
+				#version 420 core
 				layout(location=0) in vec3 v_Position;
 				layout(location=1) in vec3 v_Normal;
 
@@ -19,16 +19,19 @@ class ExampleLayer : public KEngine::Layer {
 				out vec3 FragPos;
 				
 				uniform mat4 model;
-				uniform mat4 MVP;
+				layout(std140) uniform VPMatrix
+				{
+					mat4 VP;
+				};
 				
 				void main()
 				{
-					gl_Position = MVP * vec4(v_Position,1.0);
+					gl_Position = VP * model * vec4(v_Position,1.0);
 					FragPos = vec3(model*vec4(v_Position,1.0));
 					Normal=mat3(transpose(inverse(model))) * v_Normal;
 				}
 			)";
-			char* fragmentSrc = R"(#version 330 core
+			char* fragmentSrc = R"(#version 420 core
 				out vec4 FragColor;
 				in vec3 FragPos;
 				in vec3 Normal;
@@ -74,18 +77,22 @@ class ExampleLayer : public KEngine::Layer {
 		}
 		{
 			char* vertexSrc = R"(
-				#version 330 core
+				#version 420 core
 				layout(location=0) in vec3 v_Position;
 				
-				uniform mat4 MVP;
-				
+				uniform mat4 model;
+				layout(std140) uniform VPMatrix
+				{
+					mat4 VP;
+				};
+
 				void main()
 				{
-					gl_Position = MVP * vec4(v_Position,1.0);
+					gl_Position = VP * model * vec4(v_Position,1.0);
 				}
 			)";
 			char* fragmentSrc = R"(
-				#version 330 core
+				#version 420 core
 				out vec4 color;
 				
 				void main()
@@ -98,19 +105,22 @@ class ExampleLayer : public KEngine::Layer {
 		}
 		{
 			char* vertexSrc = R"(
-				#version 330 core
+				#version 420 core
 				layout(location=0) in vec3 v_Position;
 				layout(location=1) in vec3 v_Normal;
 
 				
-				uniform mat4 MVP;
-				
+				uniform mat4 model;
+				layout(std140) uniform VPMatrix
+				{
+					mat4 VP;
+				};
 				void main()
 				{
-					gl_Position = MVP * vec4(v_Position,1.0);
+					gl_Position = VP * model * vec4(v_Position,1.0);
 				}
 			)";
-			char* fragmentSrc = R"(#version 330 core
+			char* fragmentSrc = R"(#version 420 core
 				out vec4 FragColor;
 				
 				void main()
@@ -125,7 +135,7 @@ class ExampleLayer : public KEngine::Layer {
 		
 		{
 			char* vertexSrc = R"(
-				#version 330 core
+				#version 420 core
 				layout (location = 0) in vec2 position;
 				layout (location = 1) in vec2 texCoords;
 
@@ -138,7 +148,7 @@ class ExampleLayer : public KEngine::Layer {
 				}
 				)";
 			char* fragmentSrc = R"(
-				#version 330 core
+				#version 420 core
 				in vec2 TexCoords;
 				out vec4 color;
 
@@ -154,20 +164,21 @@ class ExampleLayer : public KEngine::Layer {
 		}
 		{
 			char* vertexSrc = R"(
-				#version 330 core
+				#version 420 core
 				layout (location = 0) in vec3 position;
 				out vec3 TexCoords;
 
-				uniform mat4 MVP;
-
+				uniform mat4 model;
+				uniform mat4 VP;
+				
 				void main()
 				{
-					gl_Position =  MVP * vec4(position, 1.0);  
+					gl_Position =  VP * model * vec4(position, 1.0);  
 					TexCoords = position;
 				}
 				)";
 			char* fragmentSrc = R"(
-				#version 330 core
+				#version 420 core
 				in vec3 TexCoords;
 				out vec4 color;
 
@@ -182,19 +193,22 @@ class ExampleLayer : public KEngine::Layer {
 		}
 		{
 			char* vertexSrc = R"(
-				#version 330 core
+				#version 420 core
 				layout(location=0) in vec3 v_Position;
 
-				uniform mat4 MVP;
-				
+				uniform mat4 model;
+				layout(std140) uniform VPMatrix
+				{
+					mat4 VP;
+				};
 				void main()
 				{
-					gl_Position = MVP * vec4(v_Position,1.0f);
+					gl_Position = VP * model * vec4(v_Position,1.0f);
 					gl_PointSize = 0.5f;
 				}
 			)";
 			char* fragmentSrc = R"(
-				#version 330 core
+				#version 420 core
 				out vec4 FragColor;
 				void main()
 				{
@@ -380,7 +394,7 @@ class ExampleLayer : public KEngine::Layer {
 
 		FBO.reset(KEngine::FrameBuffer::Create());
 		
-		texture.reset(KEngine::Texture::Create((std::string)"Texture2D"));
+		texture.reset(KEngine::Texture2D::Create());
 		texture->AddToFrameBuffer(FBO);
 		RBO.reset(KEngine::RenderBuffer::Create());
 
@@ -392,7 +406,7 @@ class ExampleLayer : public KEngine::Layer {
 		faces.push_back("references\\skybox\\back.jpg");
 		faces.push_back("references\\skybox\\front.jpg");
 
-		textureCube.reset(KEngine::Texture::Create((std::string)"TextureCube"));//problem
+		textureCube.reset(KEngine::TextureCube::Create());//problem
 		textureCube->LoadCubemap(faces);
 		
 
@@ -469,6 +483,21 @@ class ExampleLayer : public KEngine::Layer {
 		sky_IBO.reset(KEngine::IndexBuffer::Create(sky_Indexes, sizeof(sky_Indexes) / sizeof(unsigned int)));
 		sky_VAO->SetIndexBuffer(sky_IBO);
 
+		shaderList.clear();
+		shaderList = {
+			m_Shader,
+			l_Shader,
+			s_Shader,
+			pointShader
+		};
+		//一个shader的列表,为他们每一个绑定相同的VP矩阵
+		for (auto& shader : shaderList)
+		{
+			shader->BindUniformBufferPoint("VPMatrix",0);
+		}
+		//生成uniform缓冲对象
+		matrixUBO.reset(KEngine::UniformBuffer::Create(2*sizeof(glm::mat4)));
+
 	}
 	void OnAttach() override {
 		KEngine::Renderer::Init();
@@ -481,46 +510,41 @@ class ExampleLayer : public KEngine::Layer {
 
 		mainCamera->Control(ts.GetTimeStep());
 		
-		pointShader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),
-			mainCamera->GetViewMatrix(),
-			projMatrix), "MVP");
+		//填充数据到uniform缓冲对象
+		//这个函数感觉得改成一个模板函数？
+		matrixUBO->AddUniformData(CalculateVP(mainCamera->GetViewMatrix(), projMatrix), 0);
+		
+		//测试的小点
+		pointShader->SetUniformMatrix4fv(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),"model");
 		KEngine::Renderer::Test();
 
 		//天空盒
 		textureCube->Bind();
-		sky_Shader->SetUniformMatrix4fv(CalculateMVP(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),
-			glm::mat4(glm::mat3(mainCamera->GetViewMatrix())),
-			projMatrix), "MVP");
+		sky_Shader->SetUniformMatrix4fv(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),"model");
+		sky_Shader->SetUniformMatrix4fv(CalculateVP(glm::mat4(glm::mat3(mainCamera->GetViewMatrix())), projMatrix), "VP");
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::SetStencilMask(0);
 		KEngine::Renderer::Submit(sky_Shader, sky_VAO);
 		KEngine::Renderer::SetDepthOpenOrClose(true);
 		
 		//光源
-		l_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f),lightPosition),glm::vec3(0.01f)), 
-			mainCamera->GetViewMatrix(), 
-			projMatrix), "MVP");
+		l_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f)), "model");
 		KEngine::Renderer::SetStencilMask(0);
 		KEngine::Renderer::Submit(l_Shader, l_VAO);
 	
 		//物体
 		textureCube->Bind();//Reflect
-		m_Shader->SetUniformMatrix4fv(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), "model");
+		m_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.3f)),"model");
 		m_Shader->SetUniform3f({ 1.0f,0.5f,0.31f }, "objectColor");
 		m_Shader->SetUniform3f({ 1.0f,1.0f,1.0f },  "lightColor");
 		m_Shader->SetUniform3f( lightPosition, "lightPos");
 		m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
-		m_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.3f)),
-			mainCamera->GetViewMatrix(), 
-			projMatrix), "MVP");
 		KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0xFF);
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 
 		//边框
-		s_Shader->SetUniformMatrix4fv(CalculateMVP(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),
-			mainCamera->GetViewMatrix(),
-			projMatrix), "MVP");
+		s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),"model");
 		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0x00);
 		KEngine::Renderer::SetDepthOpenOrClose(false);
@@ -540,8 +564,8 @@ class ExampleLayer : public KEngine::Layer {
 	}
 	void ImGuiRender()override {
 	}
-	glm::mat4 CalculateMVP(glm::mat4 model, glm::mat4 view, glm::mat4 proj) {
-		return proj * view * model;
+	glm::mat4 CalculateVP( glm::mat4 view, glm::mat4 proj) {
+		return proj * view;
 	}
 	private:
 		std::shared_ptr<KEngine::Shader> m_Shader;
@@ -556,15 +580,19 @@ class ExampleLayer : public KEngine::Layer {
 		std::shared_ptr<KEngine::VertexArray>quadVAO;
 
 		std::shared_ptr<KEngine::FrameBuffer>FBO;
-		std::shared_ptr<KEngine::Texture>texture;
+		std::shared_ptr<KEngine::Texture2D>texture;
 		std::shared_ptr<KEngine::RenderBuffer>RBO;
 
-		std::shared_ptr<KEngine::Texture>textureCube;
+		std::shared_ptr<KEngine::TextureCube>textureCube;
 		std::shared_ptr<KEngine::Shader>sky_Shader;
 		std::shared_ptr<KEngine::VertexArray>sky_VAO;
 
 		std::shared_ptr<KEngine::Shader>pointShader;
 	
+		std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
+
+		std::vector<std::shared_ptr<KEngine::Shader>> shaderList;
+
 		glm::vec3 lightPosition;
 
 		glm::mat4 projMatrix;
