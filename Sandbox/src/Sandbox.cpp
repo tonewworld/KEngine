@@ -15,26 +15,73 @@ class ExampleLayer : public KEngine::Layer {
 				layout(location=0) in vec3 v_Position;
 				layout(location=1) in vec3 v_Normal;
 
-				out vec3 Normal;
-				out vec3 FragPos;
 				
 				uniform mat4 model;
 				layout(std140) uniform VPMatrix
 				{
 					mat4 VP;
 				};
-				
+
+				out VS_OUT {
+					vec3 normal;
+					vec3 fragPos;
+				} vs_out;
+								
+
 				void main()
 				{
 					gl_Position = VP * model * vec4(v_Position,1.0);
-					FragPos = vec3(model*vec4(v_Position,1.0));
-					Normal=mat3(transpose(inverse(model))) * v_Normal;
+					vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
+					vs_out.normal = normalize(mat3(transpose(inverse(model))) * v_Normal);
+				}
+			)";
+			char* geometrySrc = R"(
+				#version 420 core
+				layout (triangles) in;
+				layout (triangle_strip, max_vertices = 9) out;
+
+				in VS_OUT {
+					vec3 normal;
+					vec3 fragPos;
+				} gs_in[];
+				
+				out GS_OUT {
+					vec3 normal;
+					vec3 fragPos;
+				} gs_out;
+
+				//没用到
+				/*const float MAGNITUDE = 0.2f;
+
+				void GenerateLine(int index)
+				{
+					gl_Position = gl_in[index].gl_Position;
+					EmitVertex();
+					gl_Position = gl_in[index].gl_Position + vec4(gs_in[index].normal, 0.0f) * MAGNITUDE;
+					EmitVertex();
+					EndPrimitive();
+				}*/
+
+				void main()
+				{
+					//GenerateLine(0); // First vertex normal
+					//GenerateLine(1); // Second vertex normal
+					//GenerateLine(2); // Third vertex normal
+					 for (int i = 0; i < 3; ++i) {
+						gl_Position = gl_in[i].gl_Position;
+						gs_out.normal = gs_in[i].normal;
+						gs_out.fragPos = gs_in[i].fragPos;
+						EmitVertex();
+					}
+					EndPrimitive();
 				}
 			)";
 			char* fragmentSrc = R"(#version 420 core
 				out vec4 FragColor;
-				in vec3 FragPos;
-				in vec3 Normal;
+				in GS_OUT {
+					vec3 normal;
+					vec3 fragPos;
+				} fs_in;
 
 				uniform vec3 lightPos;
 				uniform vec3 viewPos;
@@ -51,28 +98,27 @@ class ExampleLayer : public KEngine::Layer {
 					vec3 ambient = ambientStrength * lightColor;
   	
 					// Diffuse 
-					vec3 norm = normalize(Normal);
-					vec3 lightDir = normalize(lightPos - FragPos);
-					float diff = max(dot(norm, lightDir), 0.0);
+					vec3 lightDir = normalize(lightPos - fs_in.fragPos);
+					float diff = max(dot(fs_in.normal, lightDir), 0.0);
 					vec3 diffuse = diff * lightColor;
     
 					// Specular
 					float specularStrength = 0.5f;
-					vec3 viewDir = normalize(viewPos - FragPos);
-					vec3 reflectDir = reflect(-lightDir, norm);  
+					vec3 viewDir = normalize(viewPos - fs_in.fragPos);
+					vec3 reflectDir = reflect(-lightDir, fs_in.normal);  
 					float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 					vec3 specular = specularStrength * spec * lightColor;  
         
 					vec3 result = (ambient+diffuse+specular) * objectColor;
 
 					//Reflect
-					vec3 I = normalize(FragPos - viewPos);
-					vec3 R = reflect(I, normalize(Normal));
+					vec3 I = normalize(fs_in.fragPos - viewPos);
+					vec3 R = reflect(I, fs_in.normal);
 					FragColor = vec4(texture(skybox, R).rgb, 1.0);
 				}
 			)";
-
-			m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+			
+			m_Shader.reset(new KEngine::Shader(vertexSrc, geometrySrc, fragmentSrc));
 
 		}
 		{
@@ -527,10 +573,10 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::Submit(sky_Shader, sky_VAO);
 		KEngine::Renderer::SetDepthOpenOrClose(true);
 		
-		//光源
-		l_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f)), "model");
-		KEngine::Renderer::SetStencilMask(0);
-		KEngine::Renderer::Submit(l_Shader, l_VAO);
+		////光源
+		//l_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f)), "model");
+		//KEngine::Renderer::SetStencilMask(0);
+		//KEngine::Renderer::Submit(l_Shader, l_VAO);
 	
 		//物体
 		textureCube->Bind();//Reflect
@@ -543,12 +589,12 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::SetStencilMask(0xFF);
 		KEngine::Renderer::Submit(m_Shader, m_VAO);
 
-		//边框
-		s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),"model");
-		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		KEngine::Renderer::SetStencilMask(0x00);
-		KEngine::Renderer::SetDepthOpenOrClose(false);
-		KEngine::Renderer::Submit(s_Shader, m_VAO);
+		////边框
+		//s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),"model");
+		//KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		//KEngine::Renderer::SetStencilMask(0x00);
+		//KEngine::Renderer::SetDepthOpenOrClose(false);
+		//KEngine::Renderer::Submit(s_Shader, m_VAO);
 
 		FBO->Unbind();
 		KEngine::Renderer::SetDepthOpenOrClose(false);

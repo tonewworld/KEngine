@@ -10,3 +10,7 @@
 [submodule "KEngine/vendor/ImGui"]
 	path = KEngine/vendor/ImGui
 	url = https://github.com/tonewworld/imgui.git
+[submodule "KEngine/vendor/assimp"]
+	path = KEngine/vendor/assimp
+	url = https://github.com/tonewworld/assimp.git
+	branch = compiled

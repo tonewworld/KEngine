@@ -40,6 +40,58 @@ namespace KEngine
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 	}
+	Shader::Shader(const char* vertexSrc, const char* geometrySrc, const char* fragmentSrc)
+	{
+		unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexShader, 1, &vertexSrc, NULL);
+		glCompileShader(vertexShader);
+		{
+			GLint success;
+			glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+			if (!success)
+			{
+				GLchar infoLog[1024];
+				glGetShaderInfoLog(vertexShader, 1024, NULL, infoLog);
+				KE_CORE_ERROR("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n{0}", infoLog);
+			}
+		}
+		unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragmentShader, 1, &fragmentSrc, NULL);
+		glCompileShader(fragmentShader);
+		{
+			GLint success;
+			glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+			if (!success)
+			{
+				GLchar infoLog[1024];
+				glGetShaderInfoLog(vertexShader, 1024, NULL, infoLog);
+				KE_CORE_ERROR("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n{0}", infoLog);
+			}
+		}
+		unsigned int geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
+		glShaderSource(geometryShader, 1, &geometrySrc, NULL);
+		glCompileShader(geometryShader);
+		{
+			GLint success;
+			glGetShaderiv(geometryShader, GL_COMPILE_STATUS, &success);
+			if (!success)
+			{
+				GLchar infoLog[1024];
+				glGetShaderInfoLog(geometryShader, 1024, NULL, infoLog);
+				KE_CORE_ERROR("ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n{0}", infoLog);
+			}
+		}
+
+		m_RendererID = glCreateProgram();
+		glAttachShader(m_RendererID, vertexShader);
+		glAttachShader(m_RendererID, fragmentShader);
+		glAttachShader(m_RendererID, geometryShader);
+		glLinkProgram(m_RendererID);
+
+		glDeleteShader(vertexShader);
+		glDeleteShader(fragmentShader);
+		glDeleteShader(geometryShader);	
+	}
 	Shader::~Shader()
 	{
 		glDeleteProgram(m_RendererID);

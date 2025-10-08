@@ -10,6 +10,7 @@ namespace KEngine
 	public:
 		unsigned int m_RendererID;
 		Shader(const char* vertexShader,const char* fragmentShader);
+		Shader(const char* vertexShader, const char* geometryShader, const char* fragmentShader);
 		~Shader();
 
 		void Bind() const;
