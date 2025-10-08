@@ -17,6 +17,7 @@ IncludeDir["Glad"]="KEngine/vendor/Glad/include"
 IncludeDir["ImGui"]="KEngine/vendor/ImGui"
 IncludeDir["glm"]="KEngine/vendor/glm/glm"
 IncludeDir["SOIL2"]="KEngine/vendor/SOIL2"
+IncludeDir["assimp"]="KEngine/vendor/assimp/include"
 
 include "KEngine/vendor/Glad"
 include "KEngine/vendor/GLFW"
@@ -45,6 +46,8 @@ project"KEngine"
 		"IMGUI_API=__declspec(dllexport)"
 	}
 
+	libdirs { "%{prj.name}/vendor/assimp/lib" }
+
 	includedirs{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
@@ -52,7 +55,8 @@ project"KEngine"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.SOIL2}"
+		"%{IncludeDir.SOIL2}",
+		"%{IncludeDir.assimp}"
 	}
 
 	links{
@@ -60,7 +64,8 @@ project"KEngine"
 		"Glad",
 		"ImGui",
 		"SOIL2",
-		"opengl32.lib"
+		"opengl32.lib",
+		"assimp-vc143-mtd.lib"
 		
 	}
 
@@ -74,9 +79,10 @@ project"KEngine"
 			"KENGINE_BUILD_DLL"
 		}
 
-		postbuildcommands{
-    		"{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
-		}
+		postbuildcommands {
+		'{COPY} "%{cfg.buildtarget.relpath}" "%{cfg.targetdir}/../Sandbox"',
+		'{COPY} "%{prj.location}/vendor/assimp/bin/Debug/assimp-vc143-mtd.dll" "%{cfg.targetdir}/../Sandbox"'
+	}
 		
 		buildoptions { "/utf-8" }
 
