@@ -4,18 +4,23 @@
 
 namespace KEngine {
 	
+
 	class KE_API Mesh {
 	public:
-		Mesh(Vertex v,Index i);
+		Mesh(float* m_Vertices, unsigned int vertexCount, BufferLayout& layout, unsigned int* m_Indexes, unsigned int indexCount);
 		virtual ~Mesh() = default;
 		
 		std::shared_ptr<VertexArray> VAO;
+		std::shared_ptr<VertexBuffer> VBO;
+		std::shared_ptr<IndexBuffer> IBO;
+
 		
+			
 	private:
-		Vertex vertex;
-		Index index;
-
+		std::vector<Vertex> vertices;
+		BufferLayout layout;
+		std::vector<unsigned int> indices;
 		
-
+		
 	};
 }

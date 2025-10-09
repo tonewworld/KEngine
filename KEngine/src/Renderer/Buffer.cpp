@@ -3,7 +3,7 @@
 #include "Renderer.h"
 #include "Platforms/OpenGL/OpenGLBuffer.h"
 namespace KEngine{
-    VertexBuffer* VertexBuffer::Create(Vertex vertex){
+    VertexBuffer* VertexBuffer::Create(std::vector<Vertex> vertex){
         switch(Renderer::GetAPI()){
         case RendererAPI::API::None:
                 //KE_CORE_ASSERT(false,"RendererAPI::None is currently not supported");
@@ -14,7 +14,7 @@ namespace KEngine{
         //KE_CORE_ASSERT(false,"Unknown RendererAPI");
         return nullptr;
     }
-    IndexBuffer* IndexBuffer::Create(Index index){
+    IndexBuffer* IndexBuffer::Create(std::vector<unsigned int> index){
         switch(Renderer::GetAPI()){
         case RendererAPI::API::None:
                 //KE_CORE_ASSERT(false,"RendererAPI::None is currently not supported");

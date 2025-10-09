@@ -307,7 +307,7 @@ class ExampleLayer : public KEngine::Layer {
 		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 		};
-		unsigned int m_Indexes[]{
+		unsigned int m_Indices[]{
 			0,1,2,
 			3,4,5,
 			6,7,8,
@@ -321,15 +321,14 @@ class ExampleLayer : public KEngine::Layer {
 			30,31,32,
 			33,34,35
 		};
-		KEngine::Vertex m_vertex;
-		m_vertex.data = m_Vertices;
-		m_vertex.layout = {
+		
+		KEngine::BufferLayout m_Layout = {
 			{KEngine::ShaderDataType::Float3,"position"} ,
 			{KEngine::ShaderDataType::Float3,"normal"}
 		};
-		KEngine::Index m_index;
-		m_index.data = m_Indexes;
-		m_Mesh.reset(new KEngine::Mesh(m_vertex, m_index));
+		m_Mesh.reset(new KEngine::Mesh(m_Vertices,sizeof(m_Vertices)/m_Layout.GetStride(),
+			m_Layout,
+			m_Indices,sizeof(m_Indices)/ sizeof(unsigned int)));
 
 
 		float l_Vertices[] = {
@@ -375,7 +374,7 @@ class ExampleLayer : public KEngine::Layer {
 		-0.5f,  0.5f,  0.5f,
 		-0.5f,  0.5f, -0.5f
 		};
-		unsigned int l_Indexes[]{
+		unsigned int l_Indices[]{
 			0,1,2,
 			3,4,5,
 			6,7,8,
@@ -389,15 +388,16 @@ class ExampleLayer : public KEngine::Layer {
 			30,31,32,
 			33,34,35
 		};
-		KEngine::Vertex l_vertex;
-		l_vertex.data = l_Vertices;
-		l_vertex.layout = {
-			{KEngine::ShaderDataType::Float3,"position"} };
-		KEngine::Index l_index;
-		l_index.data = l_Indexes;
-		l_Mesh.reset(new KEngine::Mesh(l_vertex, l_index));
 
-		GLfloat quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		KEngine::BufferLayout l_Layout = {
+			{KEngine::ShaderDataType::Float3,"position"} 
+		};
+		l_Mesh.reset(new KEngine::Mesh(l_Vertices, sizeof(l_Vertices) / l_Layout.GetStride() ,
+			l_Layout,
+			l_Indices, sizeof(l_Indices) / sizeof(unsigned int)));
+
+
+		float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 			// Positions   // TexCoords
 			-1.0f,  1.0f,  0.0f, 1.0f,
 			-1.0f, -1.0f,  0.0f, 0.0f,
@@ -411,15 +411,13 @@ class ExampleLayer : public KEngine::Layer {
 			0,1,2,
 			3,4,5
 		};
-		KEngine::Vertex quad_vertex;
-		quad_vertex.data = quad_Vertices;
-		quad_vertex.layout = {
-			{KEngine::ShaderDataType::Float2,"positions"} ,
+		KEngine::BufferLayout quad_Layout = {
+			{KEngine::ShaderDataType::Float2,"position"} ,
 			{KEngine::ShaderDataType::Float2,"texCoords"}
 		};
-		KEngine::Index quad_index;
-		quad_index.data = m_Indexes;
-		quad_Mesh.reset(new KEngine::Mesh(quad_vertex, quad_index));
+		quad_Mesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / quad_Layout.GetStride(),
+			quad_Layout,
+			quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
 
 
 		FBO.reset(KEngine::FrameBuffer::Create());
@@ -436,12 +434,12 @@ class ExampleLayer : public KEngine::Layer {
 		faces.push_back("references\\skybox\\back.jpg");
 		faces.push_back("references\\skybox\\front.jpg");
 
-		textureCube.reset(KEngine::TextureCube::Create());//problem
+		textureCube.reset(KEngine::TextureCube::Create());
 		textureCube->LoadCubemap(faces);
 		
 
 		float sky_Vertices[] = {
-			// Positions          
+			 //Positions          
 			-1.0f,  1.0f, -1.0f,
 			-1.0f, -1.0f, -1.0f,
 			 1.0f, -1.0f, -1.0f,
@@ -484,7 +482,7 @@ class ExampleLayer : public KEngine::Layer {
 			-1.0f, -1.0f,  1.0f,
 			 1.0f, -1.0f,  1.0f
 		};
-		unsigned int sky_Indexes[]{
+		unsigned int sky_Indices[]{
 			0,1,2,
 			3,4,5,
 			6,7,8,
@@ -499,14 +497,12 @@ class ExampleLayer : public KEngine::Layer {
 			33,34,35
 		};
 
-		KEngine::Vertex sky_vertex;
-		sky_vertex.data = sky_Vertices;
-		sky_vertex.layout = {
+		KEngine::BufferLayout sky_Layout = {
 			{KEngine::ShaderDataType::Float3,"position"}
 		};
-		KEngine::Index sky_index;
-		sky_index.data = sky_Indexes;
-		sky_Mesh.reset(new KEngine::Mesh(sky_vertex, sky_index));
+		sky_Mesh.reset(new KEngine::Mesh(sky_Vertices, sizeof(sky_Vertices) / sky_Layout.GetStride() ,
+			sky_Layout,
+			sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int)));
 
 
 		shaderList.clear();
@@ -540,10 +536,6 @@ class ExampleLayer : public KEngine::Layer {
 		//这个函数感觉得改成一个模板函数？
 		matrixUBO->AddUniformData(CalculateVP(mainCamera->GetViewMatrix(), projMatrix), 0);
 		
-		//测试的小点
-		pointShader->SetUniformMatrix4fv(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),"model");
-		KEngine::Renderer::Test();
-
 		//天空盒
 		textureCube->Bind();
 		sky_Shader->SetUniformMatrix4fv(glm::translate(glm::mat4(1.0f),glm::vec3(0.0f)),"model");
@@ -553,10 +545,10 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::Submit(sky_Shader, sky_Mesh);
 		KEngine::Renderer::SetDepthOpenOrClose(true);
 		
-		////光源
-		//l_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f)), "model");
-		//KEngine::Renderer::SetStencilMask(0);
-		//KEngine::Renderer::Submit(l_Shader, l_VAO);
+		//光源
+		l_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f)), "model");
+		KEngine::Renderer::SetStencilMask(0);
+		KEngine::Renderer::Submit(l_Shader, l_Mesh);
 	
 		//物体
 		textureCube->Bind();//Reflect
@@ -570,11 +562,11 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::Submit(m_Shader, m_Mesh);
 
 		////边框
-		//s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),"model");
-		//KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-		//KEngine::Renderer::SetStencilMask(0x00);
-		//KEngine::Renderer::SetDepthOpenOrClose(false);
-		//KEngine::Renderer::Submit(s_Shader, m_Mesh);
+		s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),"model");
+		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		KEngine::Renderer::SetStencilMask(0x00);
+		KEngine::Renderer::SetDepthOpenOrClose(false);
+		KEngine::Renderer::Submit(s_Shader, m_Mesh);
 
 		FBO->Unbind();
 		KEngine::Renderer::SetDepthOpenOrClose(false);

@@ -2,8 +2,15 @@
 #include "Core.h"
 #include "Log.h"
 #include "glm.hpp"
+
 namespace KEngine{
-	
+
+	struct Vertex {
+		glm::vec3 Position;
+		glm::vec3 Normal;
+		glm::vec2 TexCoords;
+	};
+
     enum class ShaderDataType
 	{
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
@@ -86,14 +93,7 @@ namespace KEngine{
         std::vector<BufferElement> m_Elements;
         unsigned int m_Stride=0;
     };
-	struct KE_API Vertex {
-		float* data;
-		BufferLayout layout;
-	};
-	struct KE_API Index {
-		unsigned int* data;
-	};
-
+	
 
     class KE_API VertexBuffer{
     public :
@@ -101,7 +101,7 @@ namespace KEngine{
         virtual ~VertexBuffer() = default;
         virtual void Bind() const =0;
         virtual void Unbind() const =0;
-        static VertexBuffer* Create(Vertex vertex);
+        static VertexBuffer* Create(std::vector<Vertex> vertex);
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
     };
@@ -112,7 +112,7 @@ namespace KEngine{
         virtual void Bind() const =0;
         virtual void Unbind() const =0;
         virtual unsigned int GetCount() const =0;
-        static IndexBuffer* Create(Index index);
+        static IndexBuffer* Create(std::vector<unsigned int>);
     };
 	class KE_API FrameBuffer
 	{

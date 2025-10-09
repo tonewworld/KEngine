@@ -64,8 +64,7 @@ project"KEngine"
 		"Glad",
 		"ImGui",
 		"SOIL2",
-		"opengl32.lib",
-		"assimp-vc143-mtd.lib"
+		"opengl32.lib"
 		
 	}
 

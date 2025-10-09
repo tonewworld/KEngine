@@ -5,10 +5,10 @@
 namespace KEngine{
     
 	//VertexBuffer
-    OpenGLVertexBuffer::OpenGLVertexBuffer(Vertex vertex){
+    OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<Vertex>vertices){
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertex.data), vertex.data, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
     }
     OpenGLVertexBuffer::~OpenGLVertexBuffer(){
         glDeleteBuffers(1,&m_RendererID);
@@ -20,12 +20,12 @@ namespace KEngine{
         glBindBuffer(GL_ARRAY_BUFFER,0);
     }
 	//IndexBuffer
-    OpenGLIndexBuffer::OpenGLIndexBuffer(Index index)
-    :m_Count(sizeof(index.data)/sizeof(unsigned int))
+    OpenGLIndexBuffer::OpenGLIndexBuffer(std::vector<unsigned int> indices)
+    :m_Count(indices.size())
     {
         glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Count*sizeof(unsigned int), index.data, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Count*sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
     }
     OpenGLIndexBuffer::~OpenGLIndexBuffer(){
         glDeleteBuffers(1,&m_RendererID);
