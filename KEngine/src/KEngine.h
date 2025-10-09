@@ -25,6 +25,7 @@
 #include "Renderer/Renderer.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
+#include "Renderer/Mesh.h"
 
 #include "Platforms/OpenGL/OpenGLBuffer.h"
 #include "Platforms/OpenGL/OpenGLVertexArray.h"

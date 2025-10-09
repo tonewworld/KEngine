@@ -27,12 +27,12 @@ namespace KEngine{
 	{
 		glStencilMask(0xFF);
 	}
-	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh)
 	{
 
 		shader->Bind();
-		vertexArray->Bind();
-		RenderCommand::DrawIndexed(vertexArray);
+		mesh->VAO->Bind();
+		RenderCommand::DrawIndexed(mesh->VAO);
 	}
 	void Renderer::SetStencilOpenOrClose(bool tag) {
 		RenderCommand::SetStencilOpenOrClose(tag);

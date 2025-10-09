@@ -46,7 +46,7 @@ project"KEngine"
 		"IMGUI_API=__declspec(dllexport)"
 	}
 
-	libdirs { "%{prj.name}/vendor/assimp/lib" }
+	libdirs { "%{prj.name}/vendor/assimp/lib/Debug" }
 
 	includedirs{
 		"%{prj.name}/src",

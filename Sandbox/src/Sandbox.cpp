@@ -307,17 +307,6 @@ class ExampleLayer : public KEngine::Layer {
 		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 		};
-		m_VAO.reset(KEngine::VertexArray::Create());
-		m_VAO->Bind();
-
-		std::shared_ptr<KEngine::VertexBuffer> m_VBO;
-		m_VBO.reset(KEngine::VertexBuffer::Create(m_Vertices,sizeof(m_Vertices)));
-		KEngine::BufferLayout layout = { 
-			{KEngine::ShaderDataType::Float3,"position"},
-			{KEngine::ShaderDataType::Float3,"normal"}};
-		m_VBO->SetLayout(layout);
-		m_VAO->AddVertexBuffer(m_VBO);
-
 		unsigned int m_Indexes[]{
 			0,1,2,
 			3,4,5,
@@ -332,10 +321,16 @@ class ExampleLayer : public KEngine::Layer {
 			30,31,32,
 			33,34,35
 		};
-		std::shared_ptr<KEngine::IndexBuffer> m_IBO;
-		m_IBO.reset(KEngine::IndexBuffer::Create(m_Indexes, sizeof(m_Indexes) / sizeof(unsigned int)));
-		m_VAO->SetIndexBuffer(m_IBO);
-		
+		KEngine::Vertex m_vertex;
+		m_vertex.data = m_Vertices;
+		m_vertex.layout = {
+			{KEngine::ShaderDataType::Float3,"position"} ,
+			{KEngine::ShaderDataType::Float3,"normal"}
+		};
+		KEngine::Index m_index;
+		m_index.data = m_Indexes;
+		m_Mesh.reset(new KEngine::Mesh(m_vertex, m_index));
+
 
 		float l_Vertices[] = {
 		-0.5f, -0.5f, -0.5f,
@@ -380,17 +375,6 @@ class ExampleLayer : public KEngine::Layer {
 		-0.5f,  0.5f,  0.5f,
 		-0.5f,  0.5f, -0.5f
 		};
-
-		l_VAO.reset(KEngine::VertexArray::Create());
-		l_VAO->Bind();
-
-		std::shared_ptr<KEngine::VertexBuffer> l_VBO;
-		l_VBO.reset(KEngine::VertexBuffer::Create(l_Vertices, sizeof(l_Vertices)));
-		KEngine::BufferLayout l_Layout = {
-			{KEngine::ShaderDataType::Float3,"position"} };
-		l_VBO->SetLayout(l_Layout);
-		l_VAO->AddVertexBuffer(l_VBO);
-
 		unsigned int l_Indexes[]{
 			0,1,2,
 			3,4,5,
@@ -405,13 +389,15 @@ class ExampleLayer : public KEngine::Layer {
 			30,31,32,
 			33,34,35
 		};
-		std::shared_ptr<KEngine::IndexBuffer> l_IBO;
-		l_IBO.reset(KEngine::IndexBuffer::Create(l_Indexes, sizeof(l_Indexes) / sizeof(unsigned int)));
-		l_VAO->SetIndexBuffer(l_IBO);
+		KEngine::Vertex l_vertex;
+		l_vertex.data = l_Vertices;
+		l_vertex.layout = {
+			{KEngine::ShaderDataType::Float3,"position"} };
+		KEngine::Index l_index;
+		l_index.data = l_Indexes;
+		l_Mesh.reset(new KEngine::Mesh(l_vertex, l_index));
 
-		quadVAO.reset(KEngine::VertexArray::Create());
-		quadVAO->Bind();
-		GLfloat quadVertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
+		GLfloat quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 			// Positions   // TexCoords
 			-1.0f,  1.0f,  0.0f, 1.0f,
 			-1.0f, -1.0f,  0.0f, 0.0f,
@@ -421,22 +407,20 @@ class ExampleLayer : public KEngine::Layer {
 			 1.0f, -1.0f,  1.0f, 0.0f,
 			 1.0f,  1.0f,  1.0f, 1.0f
 		};
-		std::shared_ptr<KEngine::VertexBuffer>quadVBO;
-		quadVBO.reset(KEngine::VertexBuffer::Create(quadVertices, sizeof(quadVertices)));
-		KEngine::BufferLayout quadLayout = {
-			{KEngine::ShaderDataType::Float2,"Postition"},
-			{KEngine::ShaderDataType::Float2,"TexCoords"}
-		};
-		quadVBO->SetLayout(quadLayout);
-		quadVAO->AddVertexBuffer(quadVBO);
-
 		unsigned int quadIndexes[] = {
 			0,1,2,
 			3,4,5
 		};
-		std::shared_ptr<KEngine::IndexBuffer> quadIBO;
-		quadIBO.reset(KEngine::IndexBuffer::Create(quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
-		quadVAO->SetIndexBuffer(quadIBO);
+		KEngine::Vertex quad_vertex;
+		quad_vertex.data = quad_Vertices;
+		quad_vertex.layout = {
+			{KEngine::ShaderDataType::Float2,"positions"} ,
+			{KEngine::ShaderDataType::Float2,"texCoords"}
+		};
+		KEngine::Index quad_index;
+		quad_index.data = m_Indexes;
+		quad_Mesh.reset(new KEngine::Mesh(quad_vertex, quad_index));
+
 
 		FBO.reset(KEngine::FrameBuffer::Create());
 		
@@ -456,7 +440,7 @@ class ExampleLayer : public KEngine::Layer {
 		textureCube->LoadCubemap(faces);
 		
 
-		float skyboxVertices[] = {
+		float sky_Vertices[] = {
 			// Positions          
 			-1.0f,  1.0f, -1.0f,
 			-1.0f, -1.0f, -1.0f,
@@ -500,17 +484,6 @@ class ExampleLayer : public KEngine::Layer {
 			-1.0f, -1.0f,  1.0f,
 			 1.0f, -1.0f,  1.0f
 		};
-
-		sky_VAO.reset(KEngine::VertexArray::Create());
-		sky_VAO->Bind();
-		std::shared_ptr<KEngine::VertexBuffer> sky_VBO;
-		sky_VBO.reset(KEngine::VertexBuffer::Create(skyboxVertices, sizeof(skyboxVertices)));
-		KEngine::BufferLayout skyLayout = {
-			{KEngine::ShaderDataType::Float3,"Postition"}
-		};
-		sky_VBO->SetLayout(skyLayout);
-		sky_VAO->AddVertexBuffer(sky_VBO);
-
 		unsigned int sky_Indexes[]{
 			0,1,2,
 			3,4,5,
@@ -525,9 +498,16 @@ class ExampleLayer : public KEngine::Layer {
 			30,31,32,
 			33,34,35
 		};
-		std::shared_ptr<KEngine::IndexBuffer> sky_IBO;
-		sky_IBO.reset(KEngine::IndexBuffer::Create(sky_Indexes, sizeof(sky_Indexes) / sizeof(unsigned int)));
-		sky_VAO->SetIndexBuffer(sky_IBO);
+
+		KEngine::Vertex sky_vertex;
+		sky_vertex.data = sky_Vertices;
+		sky_vertex.layout = {
+			{KEngine::ShaderDataType::Float3,"position"}
+		};
+		KEngine::Index sky_index;
+		sky_index.data = sky_Indexes;
+		sky_Mesh.reset(new KEngine::Mesh(sky_vertex, sky_index));
+
 
 		shaderList.clear();
 		shaderList = {
@@ -570,7 +550,7 @@ class ExampleLayer : public KEngine::Layer {
 		sky_Shader->SetUniformMatrix4fv(CalculateVP(glm::mat4(glm::mat3(mainCamera->GetViewMatrix())), projMatrix), "VP");
 		KEngine::Renderer::SetDepthOpenOrClose(false);
 		KEngine::Renderer::SetStencilMask(0);
-		KEngine::Renderer::Submit(sky_Shader, sky_VAO);
+		KEngine::Renderer::Submit(sky_Shader, sky_Mesh);
 		KEngine::Renderer::SetDepthOpenOrClose(true);
 		
 		////光源
@@ -587,14 +567,14 @@ class ExampleLayer : public KEngine::Layer {
 		m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
 		KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0xFF);
-		KEngine::Renderer::Submit(m_Shader, m_VAO);
+		KEngine::Renderer::Submit(m_Shader, m_Mesh);
 
 		////边框
 		//s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),"model");
 		//KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		//KEngine::Renderer::SetStencilMask(0x00);
 		//KEngine::Renderer::SetDepthOpenOrClose(false);
-		//KEngine::Renderer::Submit(s_Shader, m_VAO);
+		//KEngine::Renderer::Submit(s_Shader, m_Mesh);
 
 		FBO->Unbind();
 		KEngine::Renderer::SetDepthOpenOrClose(false);
@@ -602,7 +582,7 @@ class ExampleLayer : public KEngine::Layer {
 		
 		//屏幕
 		texture->Bind();
-		KEngine::Renderer::Submit(screenShader, quadVAO);
+		KEngine::Renderer::Submit(screenShader, quad_Mesh);
 		
 		KEngine::Renderer::EndScene();
 	}
@@ -615,23 +595,23 @@ class ExampleLayer : public KEngine::Layer {
 	}
 	private:
 		std::shared_ptr<KEngine::Shader> m_Shader;
-		std::shared_ptr<KEngine::VertexArray> m_VAO;
+		std::shared_ptr<KEngine::Mesh> m_Mesh;
 
 		std::shared_ptr<KEngine::Shader> l_Shader;
-		std::shared_ptr<KEngine::VertexArray>l_VAO;
+		std::shared_ptr<KEngine::Mesh> l_Mesh;
 
 		std::shared_ptr<KEngine::Shader> s_Shader;
 
 		std::shared_ptr<KEngine::Shader> screenShader;
-		std::shared_ptr<KEngine::VertexArray>quadVAO;
+		std::shared_ptr<KEngine::Mesh>quad_Mesh;
+
+		std::shared_ptr<KEngine::TextureCube>textureCube;
+		std::shared_ptr<KEngine::Shader>sky_Shader;
+		std::shared_ptr<KEngine::Mesh>sky_Mesh;
 
 		std::shared_ptr<KEngine::FrameBuffer>FBO;
 		std::shared_ptr<KEngine::Texture2D>texture;
 		std::shared_ptr<KEngine::RenderBuffer>RBO;
-
-		std::shared_ptr<KEngine::TextureCube>textureCube;
-		std::shared_ptr<KEngine::Shader>sky_Shader;
-		std::shared_ptr<KEngine::VertexArray>sky_VAO;
 
 		std::shared_ptr<KEngine::Shader>pointShader;
 	

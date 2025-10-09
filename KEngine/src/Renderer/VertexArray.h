@@ -1,5 +1,4 @@
 #pragma once
-
 #include <memory>
 #include "Renderer/Buffer.h"
 

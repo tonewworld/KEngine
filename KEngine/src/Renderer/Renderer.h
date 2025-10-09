@@ -3,7 +3,7 @@
 #include "RenderCommand.h"
 #include "glm.hpp"
 #include "Shader.h"
-
+#include "Mesh.h"
 namespace KEngine{
    
     class KE_API Renderer{
@@ -11,7 +11,7 @@ namespace KEngine{
         static void Init();
         static void BeginScene();
 		static void EndScene();
-        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray);
+        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         
         static void SetStencilOpenOrClose(bool tag);
         static void SetStencilFunc(GLenum func,GLint ref,GLuint mask);

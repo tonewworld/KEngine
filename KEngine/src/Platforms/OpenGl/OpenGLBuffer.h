@@ -5,7 +5,7 @@
 namespace KEngine{
     class KE_API OpenGLVertexBuffer:public VertexBuffer{
     public:
-        OpenGLVertexBuffer(float* vertices,unsigned int size);
+        OpenGLVertexBuffer(Vertex vertex);
         virtual ~OpenGLVertexBuffer();
         virtual void Bind() const override;
         virtual void Unbind() const override;
@@ -19,7 +19,7 @@ namespace KEngine{
     };
     class KE_API OpenGLIndexBuffer:public IndexBuffer{
     public:
-        OpenGLIndexBuffer(unsigned int* indices,unsigned int count);
+        OpenGLIndexBuffer(Index index);
         virtual ~OpenGLIndexBuffer();
         virtual void Bind() const override;
         virtual void Unbind() const override;
