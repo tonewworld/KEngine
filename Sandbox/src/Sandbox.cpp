@@ -264,9 +264,12 @@ class ExampleLayer : public KEngine::Layer {
 				in vec2 texCoords;
 				out vec4 color;
 
+				uniform sampler2D m_Texture;
+
 				void main()
 				{
-					color = vec4(0.8f); //设置四维向量的所有元素为 1.0f
+			
+					color =  texture(m_Texture, texCoords); 
 				}
 
 			)";
@@ -287,7 +290,7 @@ class ExampleLayer : public KEngine::Layer {
 		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
 
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,	
 		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
 		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
 		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
@@ -430,8 +433,8 @@ class ExampleLayer : public KEngine::Layer {
 
 		FBO.reset(KEngine::FrameBuffer::Create());
 		
-		texture.reset(KEngine::Texture2D::Create());
-		FBO->AddTexture(texture->GetRendererID());
+		quad_Texture.reset(KEngine::Texture2D::Create());
+		FBO->AddTexture(quad_Texture->GetRendererID());
 		RBO.reset(KEngine::RenderBuffer::Create());
 
 		std::vector<std::string> faces;
@@ -442,8 +445,8 @@ class ExampleLayer : public KEngine::Layer {
 		faces.push_back("references\\skybox\\back.jpg");
 		faces.push_back("references\\skybox\\front.jpg");
 
-		textureCube.reset(KEngine::TextureCube::Create());
-		textureCube->LoadCubemap(faces);
+		textureCube.reset(KEngine::TextureCube::Create(faces));
+		
 		
 
 		float sky_Vertices[] = {
@@ -580,6 +583,7 @@ class ExampleLayer : public KEngine::Layer {
 		//背包
 		backpack_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), glm::vec3(0.3f)), "model");
 		KEngine::Renderer::SetStencilMask(0);
+		KEngine::Renderer::SetDepthOpenOrClose(true);
 		KEngine::Renderer::Submit(backpack_Shader, backpack_Model);
 
 		FBO->Unbind();
@@ -587,7 +591,7 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::Renderer::SetStencilOpenOrClose(false);
 		
 		//屏幕
-		texture->Bind();
+		quad_Texture->Bind();
 		KEngine::Renderer::Submit(screenShader, quad_Mesh);
 		
 		KEngine::Renderer::EndScene();
@@ -616,7 +620,7 @@ class ExampleLayer : public KEngine::Layer {
 		std::shared_ptr<KEngine::Mesh>sky_Mesh;
 
 		std::shared_ptr<KEngine::FrameBuffer>FBO;
-		std::shared_ptr<KEngine::Texture2D>texture;
+		std::shared_ptr<KEngine::Texture2D>quad_Texture;
 		std::shared_ptr<KEngine::RenderBuffer>RBO;
 
 		std::shared_ptr<KEngine::Shader>backpack_Shader;

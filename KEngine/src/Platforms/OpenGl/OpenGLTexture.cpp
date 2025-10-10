@@ -5,13 +5,35 @@ namespace KEngine
 {
 	OpenGLTexture2D::OpenGLTexture2D()
 	{
-
+		glGenTextures(1, &m_RendererID);
 		Bind();
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1600.f, 900.f, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		Unbind();
 
+	}
+
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
+		:m_Path(path)
+	{
+		std::cout << "[Texture] loading " << path << std::endl;
+		glGenTextures(1, &m_RendererID);
+		
+		int width, height;
+		unsigned char* image = SOIL_load_image(path.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+		Bind();
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		SOIL_free_image_data(image);
+		Unbind();
+		std::cout << "[GL] Texture uploaded: " << m_RendererID
+			<< " (" << width << "x" << height << ")" << std::endl;
 	}
 
 	OpenGLTexture2D::~OpenGLTexture2D()
@@ -28,29 +50,16 @@ namespace KEngine
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
+	void OpenGLTexture2D::LoadTexture()
+	{
+	}
+
 	
 
-	OpenGLTextureCube::OpenGLTextureCube()
+	OpenGLTextureCube::OpenGLTextureCube(std::vector<std::string>& faces) :faces(faces)
 	{
-
-	}
-
-	OpenGLTextureCube::~OpenGLTextureCube()
-	{
-	}
-
-	void OpenGLTextureCube::Bind()
-	{
-		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
-	}
-
-	void OpenGLTextureCube::Unbind()
-	{
-		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-	}
-	void OpenGLTextureCube::LoadCubemap(std::vector<std::string>& faces) {
-		glActiveTexture(GL_TEXTURE0);//maybe as a parameter
-
+		glGenTextures(1, &m_RendererID);
+		
 		int width, height;
 		unsigned char* image;
 
@@ -71,17 +80,18 @@ namespace KEngine
 		Unbind();
 	}
 
+	OpenGLTextureCube::~OpenGLTextureCube()
+	{
+	}
 
-	OpenGLTexture3D::OpenGLTexture3D()
+	void OpenGLTextureCube::Bind()
 	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
-	OpenGLTexture3D::~OpenGLTexture3D()
+
+	void OpenGLTextureCube::Unbind()
 	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	}
-	void OpenGLTexture3D::Bind()
-	{
-	}
-	void OpenGLTexture3D::Unbind()
-	{
-	}
+
 }

@@ -13,6 +13,7 @@ namespace KEngine {
 
 		virtual unsigned int GetRendererID() const = 0;
 		static Texture* Create();
+
 	};
 
 	class KE_API Texture2D :public Texture
@@ -22,25 +23,23 @@ namespace KEngine {
 		virtual ~Texture2D()=default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
+		virtual std::string GetPath() = 0;
+		virtual void LoadTexture() = 0;
 		static Texture2D* Create();
+		static Texture2D* Create(const std::string& path);
+		
 	};
-	class KE_API Texture3D :public Texture{
-		public:
-		Texture3D() = default;
-		virtual ~Texture3D() = default;
-		virtual void Bind() = 0;
-		virtual void Unbind() = 0;
-		static Texture3D* Create();
-	};
+	
 	class KE_API TextureCube :public Texture
 	{
 	public:
+
 		TextureCube() = default;
 		~TextureCube() = default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
-		virtual void LoadCubemap(std::vector<std::string>& faces) = 0;
-		static TextureCube* Create();
+		static TextureCube* Create(std::vector<std::string>& faces);
+
 	};
 }
 

@@ -13,13 +13,12 @@ namespace KEngine
 		Model(const std::string& path);
 		~Model();
 		std::vector<Mesh> meshes;
+		std::shared_ptr<Texture2D> texture;	
 	private:
 		std::string directory;
-
 		/*  私有成员函数   */
 		void loadModel(std::string path);
 		void processNode(aiNode* node, const aiScene* scene);
 		Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-		std::vector<Texture3D> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 	};
 }

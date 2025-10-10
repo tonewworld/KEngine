@@ -16,9 +16,10 @@ namespace KEngine {
 		std::shared_ptr<VertexBuffer> VBO;
 		std::shared_ptr<IndexBuffer> IBO;
 
+
 	private:
 		
-		BufferLayout layout;
+		BufferLayout m_layout;
 		
 		
 		

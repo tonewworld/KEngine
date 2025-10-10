@@ -4,8 +4,10 @@
 
 namespace KEngine
 {
-    Mesh::Mesh(float* m_Vertices, unsigned int floatCount, BufferLayout& layout, unsigned int* m_Indexes, unsigned int indexCount)
-        : layout(layout)
+    Mesh::Mesh(float* m_Vertices, unsigned int floatCount, 
+        BufferLayout& layout, 
+        unsigned int* m_Indexes, unsigned int indexCount)
+		: m_layout(layout)
     {
         std::vector<float> vertices(m_Vertices, m_Vertices + floatCount);
 
@@ -15,7 +17,7 @@ namespace KEngine
         VAO->Bind();
 
         VBO.reset(VertexBuffer::Create(vertices));
-        VBO->SetLayout(layout);
+        VBO->SetLayout(m_layout);
         VAO->AddVertexBuffer(VBO);
 
         IBO.reset(IndexBuffer::Create(indices));

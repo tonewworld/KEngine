@@ -1,5 +1,6 @@
 #include "kepch.h"	
 #include "Model.h"
+#include "SOIL2/SOIL2.h"
 namespace KEngine {
 	Model::Model(const std::string& path)
 	{
@@ -20,8 +21,10 @@ namespace KEngine {
 			std::cout << "ERROR::ASSIMP::" << import.GetErrorString() << std::endl;
 			return;
 		}
-		this->directory = path.substr(0, path.find_last_of('/'));
-
+        size_t lastSlash = path.find_last_of("/\\");
+        directory = (lastSlash != std::string::npos)
+            ? path.substr(0, lastSlash)
+            : ".";
 		this->processNode(scene->mRootNode, scene);
 	}
 
@@ -39,6 +42,8 @@ namespace KEngine {
 			this->processNode(node->mChildren[i], scene);
 		}
 	}
+    //缓存
+    static std::unordered_map<std::string, std::weak_ptr<Texture2D>> sTextureCache;
 
 	Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	{
@@ -49,11 +54,9 @@ namespace KEngine {
         };
         const unsigned floatPerVertex = layout.GetStride() / 4; 
 
-        // 2. 一次性分配好 float 数组
         std::vector<float> vertices;
         vertices.reserve(mesh->mNumVertices * floatPerVertex);
 
-        // 3. 逐顶点写入
         for (unsigned int i = 0; i < mesh->mNumVertices; ++i)
         {
             // position
@@ -70,6 +73,7 @@ namespace KEngine {
             if (mesh->mTextureCoords[0]) {
                 vertices.push_back(mesh->mTextureCoords[0][i].x);
                 vertices.push_back(mesh->mTextureCoords[0][i].y);
+
             }
             else {
                 vertices.push_back(0.0f);
@@ -77,36 +81,40 @@ namespace KEngine {
             }
         }
 
-        // 4. 索引数组
         std::vector<unsigned int> indices;
         indices.reserve(mesh->mNumFaces * 3);
         for (unsigned int i = 0; i < mesh->mNumFaces; ++i)
             for (unsigned int j = 0; j < mesh->mFaces[i].mNumIndices; ++j)
                 indices.push_back(mesh->mFaces[i].mIndices[j]);
 
-        
-       
-        //// Process materials
-        //if (mesh->mMaterialIndex >= 0)
-        //{
-        //    aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        //    // We assume a convention for sampler names in the shaders. Each diffuse texture should be named
-        //    // as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
-        //    // Same applies to other texture as the following list summarizes:
-        //    // Diffuse: texture_diffuseN
-        //    // Specular: texture_specularN
-        //    // Normal: texture_normalN
+        std::shared_ptr<Texture2D> diffuseTex = nullptr;
+        if (mesh->mMaterialIndex >= 0)
+        {
+            aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
+            aiString str;
+            if (mat->GetTextureCount(aiTextureType_DIFFUSE) > 0 &&
+                mat->GetTexture(aiTextureType_DIFFUSE, 0, &str) == AI_SUCCESS)
+            {
+                std::string fileName = str.C_Str();
+                size_t pos = fileName.find_last_of("/\\");
+                if (pos != std::string::npos)
+                    fileName = fileName.substr(pos + 1);
 
-        //    // 1. Diffuse maps
-        //    std::vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-        //    textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        //    // 2. Specular maps
-        //    std::vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-        //    textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-        //}
+                auto it = sTextureCache.find(fileName);
+                if (it != sTextureCache.end() && !it->second.expired())
+                {
+                    diffuseTex = it->second.lock();   
+                }
+                else
+                {      
+                    std::string fullPath = directory + '/' + fileName;
+                    diffuseTex.reset(Texture2D::Create(fullPath));
+                    sTextureCache[fileName] = diffuseTex; 
+                }
+            }
+        }
 
-        // Return a mesh object created from the extracted mesh data
-       // 5. 直接构造 Mesh，不再出现 Vertex 结构
+		this->texture = diffuseTex;
         return Mesh(vertices.data(),
             (unsigned int)vertices.size(),
             layout,
@@ -114,8 +122,7 @@ namespace KEngine {
             (unsigned int)indices.size());
 	}
 
-	std::vector<Texture3D> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
-	{
-		return std::vector<Texture3D>();
-	}
+   
+	
 }
+
