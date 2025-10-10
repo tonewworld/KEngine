@@ -28,10 +28,7 @@ namespace KEngine
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void OpenGLTexture2D::AddToFrameBuffer(std::shared_ptr<FrameBuffer>fbo) {
-		fbo->Bind();
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_RendererID, 0);
-	}
+	
 
 	OpenGLTextureCube::OpenGLTextureCube()
 	{
@@ -72,5 +69,19 @@ namespace KEngine
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 		Unbind();
+	}
+
+
+	OpenGLTexture3D::OpenGLTexture3D()
+	{
+	}
+	OpenGLTexture3D::~OpenGLTexture3D()
+	{
+	}
+	void OpenGLTexture3D::Bind()
+	{
+	}
+	void OpenGLTexture3D::Unbind()
+	{
 	}
 }

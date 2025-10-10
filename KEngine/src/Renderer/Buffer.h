@@ -101,7 +101,7 @@ namespace KEngine{
         virtual ~VertexBuffer() = default;
         virtual void Bind() const =0;
         virtual void Unbind() const =0;
-        static VertexBuffer* Create(std::vector<Vertex> vertex);
+        static VertexBuffer* Create(const std::vector<float>&data);
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void SetLayout(const BufferLayout& layout) = 0;
     };
@@ -122,6 +122,7 @@ namespace KEngine{
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		static FrameBuffer* Create();
+		virtual void AddTexture(unsigned int textureID) = 0;
 	};
 	class KE_API RenderBuffer
 	{

@@ -3,13 +3,13 @@
 #include "Renderer.h"
 #include "Platforms/OpenGL/OpenGLBuffer.h"
 namespace KEngine{
-    VertexBuffer* VertexBuffer::Create(std::vector<Vertex> vertex){
+    VertexBuffer* VertexBuffer::Create(const std::vector<float>& data){
         switch(Renderer::GetAPI()){
         case RendererAPI::API::None:
                 //KE_CORE_ASSERT(false,"RendererAPI::None is currently not supported");
                 return nullptr;
         case RendererAPI::API::OpenGL:
-                return new OpenGLVertexBuffer(vertex);
+                return new OpenGLVertexBuffer(data);
         }
         //KE_CORE_ASSERT(false,"Unknown RendererAPI");
         return nullptr;

@@ -5,10 +5,10 @@
 namespace KEngine{
     
 	//VertexBuffer
-    OpenGLVertexBuffer::OpenGLVertexBuffer(std::vector<Vertex>vertices){
+    OpenGLVertexBuffer::OpenGLVertexBuffer(const std::vector<float>& data){
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW);
     }
     OpenGLVertexBuffer::~OpenGLVertexBuffer(){
         glDeleteBuffers(1,&m_RendererID);
@@ -50,6 +50,11 @@ namespace KEngine{
     void OpenGLFrameBuffer::Unbind()
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    }
+    void OpenGLFrameBuffer::AddTexture(unsigned int textureID)
+    {
+		this->Bind();
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0);
     }
 	//RenderBuffer
     OpenGLRenderBuffer::OpenGLRenderBuffer()

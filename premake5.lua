@@ -46,7 +46,7 @@ project"KEngine"
 		"IMGUI_API=__declspec(dllexport)"
 	}
 
-	libdirs { "%{prj.name}/vendor/assimp/lib/Debug" }
+	libdirs { "%{prj.name}/vendor/assimp/lib" }
 
 	includedirs{
 		"%{prj.name}/src",
@@ -64,7 +64,8 @@ project"KEngine"
 		"Glad",
 		"ImGui",
 		"SOIL2",
-		"opengl32.lib"
+		"opengl32.lib",
+		"assimp-vc143-mtd.lib"
 		
 	}
 
@@ -121,7 +122,8 @@ project"Sandbox"
 		"%{IncludeDir.glm}",
 		"KEngine/vendor/imgui",
 		"%{IncludeDir.GLFW}",	
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.assimp}"
 	}
 
 	links{

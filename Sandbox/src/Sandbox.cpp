@@ -241,29 +241,37 @@ class ExampleLayer : public KEngine::Layer {
 			char* vertexSrc = R"(
 				#version 420 core
 				layout(location=0) in vec3 v_Position;
-
+				layout(location=1) in vec3 v_Normal;
+				layout(location=2) in vec2 v_TexCoords;
+				
 				uniform mat4 model;
 				layout(std140) uniform VPMatrix
 				{
 					mat4 VP;
 				};
+
+				out vec2 texCoords;
+
 				void main()
 				{
 					gl_Position = VP * model * vec4(v_Position,1.0f);
-					gl_PointSize = 0.5f;
+					texCoords = v_TexCoords;
 				}
 			)";
 			char* fragmentSrc = R"(
 				#version 420 core
-				out vec4 FragColor;
+
+				in vec2 texCoords;
+				out vec4 color;
+
 				void main()
 				{
-					FragColor=vec4(1.0f);
+					color = vec4(0.8f); //设置四维向量的所有元素为 1.0f
 				}
+
 			)";
-			pointShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+			backpack_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 		}
-	
 		float m_Vertices[] = {
 		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -326,7 +334,7 @@ class ExampleLayer : public KEngine::Layer {
 			{KEngine::ShaderDataType::Float3,"position"} ,
 			{KEngine::ShaderDataType::Float3,"normal"}
 		};
-		m_Mesh.reset(new KEngine::Mesh(m_Vertices,sizeof(m_Vertices)/m_Layout.GetStride(),
+		m_Mesh.reset(new KEngine::Mesh(m_Vertices,sizeof(m_Vertices)/ sizeof(float),
 			m_Layout,
 			m_Indices,sizeof(m_Indices)/ sizeof(unsigned int)));
 
@@ -392,7 +400,7 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::BufferLayout l_Layout = {
 			{KEngine::ShaderDataType::Float3,"position"} 
 		};
-		l_Mesh.reset(new KEngine::Mesh(l_Vertices, sizeof(l_Vertices) / l_Layout.GetStride() ,
+		l_Mesh.reset(new KEngine::Mesh(l_Vertices, sizeof(l_Vertices) / sizeof(float),
 			l_Layout,
 			l_Indices, sizeof(l_Indices) / sizeof(unsigned int)));
 
@@ -415,7 +423,7 @@ class ExampleLayer : public KEngine::Layer {
 			{KEngine::ShaderDataType::Float2,"position"} ,
 			{KEngine::ShaderDataType::Float2,"texCoords"}
 		};
-		quad_Mesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / quad_Layout.GetStride(),
+		quad_Mesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
 			quad_Layout,
 			quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
 
@@ -423,7 +431,7 @@ class ExampleLayer : public KEngine::Layer {
 		FBO.reset(KEngine::FrameBuffer::Create());
 		
 		texture.reset(KEngine::Texture2D::Create());
-		texture->AddToFrameBuffer(FBO);
+		FBO->AddTexture(texture->GetRendererID());
 		RBO.reset(KEngine::RenderBuffer::Create());
 
 		std::vector<std::string> faces;
@@ -500,17 +508,18 @@ class ExampleLayer : public KEngine::Layer {
 		KEngine::BufferLayout sky_Layout = {
 			{KEngine::ShaderDataType::Float3,"position"}
 		};
-		sky_Mesh.reset(new KEngine::Mesh(sky_Vertices, sizeof(sky_Vertices) / sky_Layout.GetStride() ,
+		sky_Mesh.reset(new KEngine::Mesh(sky_Vertices, sizeof(sky_Vertices) / sizeof(float),
 			sky_Layout,
 			sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int)));
 
+		backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj"));
 
 		shaderList.clear();
 		shaderList = {
 			m_Shader,
 			l_Shader,
 			s_Shader,
-			pointShader
+			backpack_Shader
 		};
 		//一个shader的列表,为他们每一个绑定相同的VP矩阵
 		for (auto& shader : shaderList)
@@ -559,14 +568,19 @@ class ExampleLayer : public KEngine::Layer {
 		m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
 		KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0xFF);
-		KEngine::Renderer::Submit(m_Shader, m_Mesh);
+		//KEngine::Renderer::Submit(m_Shader, m_Mesh);
 
-		////边框
+		//边框
 		s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)),glm::vec3(0.32f)),"model");
 		KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 		KEngine::Renderer::SetStencilMask(0x00);
 		KEngine::Renderer::SetDepthOpenOrClose(false);
-		KEngine::Renderer::Submit(s_Shader, m_Mesh);
+		//KEngine::Renderer::Submit(s_Shader, m_Mesh);
+
+		//背包
+		backpack_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), glm::vec3(0.3f)), "model");
+		KEngine::Renderer::SetStencilMask(0);
+		KEngine::Renderer::Submit(backpack_Shader, backpack_Model);
 
 		FBO->Unbind();
 		KEngine::Renderer::SetDepthOpenOrClose(false);
@@ -605,7 +619,8 @@ class ExampleLayer : public KEngine::Layer {
 		std::shared_ptr<KEngine::Texture2D>texture;
 		std::shared_ptr<KEngine::RenderBuffer>RBO;
 
-		std::shared_ptr<KEngine::Shader>pointShader;
+		std::shared_ptr<KEngine::Shader>backpack_Shader;
+		std::shared_ptr<KEngine::Model>backpack_Model;
 	
 		std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
 

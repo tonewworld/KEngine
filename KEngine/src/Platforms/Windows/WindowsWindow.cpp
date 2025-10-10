@@ -140,10 +140,9 @@ namespace KEngine{
     void WindowsWindow::SetCursorVisable(bool tag)
     {
         if (tag)
-            glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);//这里改了imgui_impl_glfw的文件
+            glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);//这里改了imgui_impl_glfw的文件900多行
         else
             glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-        
     }
 
 }

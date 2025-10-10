@@ -4,17 +4,35 @@
 #include "Buffer.h"
 namespace KEngine {
 
-	class KE_API Texture2D 
+	class KE_API Texture {
+	public:
+		Texture() = default;
+		virtual ~Texture() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+
+		virtual unsigned int GetRendererID() const = 0;
+		static Texture* Create();
+	};
+
+	class KE_API Texture2D :public Texture
 	{
 	public:
 		Texture2D() = default;
 		virtual ~Texture2D()=default;
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
-		virtual void AddToFrameBuffer(std::shared_ptr<FrameBuffer>fbo) = 0;
 		static Texture2D* Create();
 	};
-	class KE_API TextureCube 
+	class KE_API Texture3D :public Texture{
+		public:
+		Texture3D() = default;
+		virtual ~Texture3D() = default;
+		virtual void Bind() = 0;
+		virtual void Unbind() = 0;
+		static Texture3D* Create();
+	};
+	class KE_API TextureCube :public Texture
 	{
 	public:
 		TextureCube() = default;
