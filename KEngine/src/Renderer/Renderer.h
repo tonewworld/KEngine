@@ -15,8 +15,7 @@ namespace KEngine{
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);
 
-        static void ViewRender(std::shared_ptr<Texture2D>& texture);
-
+       
         static void SetStencilOpenOrClose(bool tag);
         static void SetStencilFunc(GLenum func,GLint ref,GLuint mask);
         static void SetStencilMask(GLint tag);

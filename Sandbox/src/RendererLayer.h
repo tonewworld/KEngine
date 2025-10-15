@@ -8,6 +8,7 @@ public:
     void OnUpdate(KEngine::TimeStep ts) override;
     void OnEvent(KEngine::Event& event) override;
     void ImGuiRender() override;
+	void PickWithDepth(float mouseX,float mouseY);
     inline glm::mat4 CalculateVP(glm::mat4 view, glm::mat4 proj) { return proj * view; }
 private:
 	std::shared_ptr<KEngine::Shader> m_Shader;

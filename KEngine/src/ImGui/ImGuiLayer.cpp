@@ -6,7 +6,7 @@
 #include "GLFW/glfw3.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
-
+#include "imgui_internal.h"
 
 
 
@@ -58,7 +58,6 @@ namespace KEngine
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		
 	}
 	void ImGuiLayer::ImGuiEnd()
 	{
@@ -80,6 +79,7 @@ namespace KEngine
 	}
 	void ImGuiLayer::ImGuiRender()
 	{
+		
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 	}	

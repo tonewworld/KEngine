@@ -28,6 +28,7 @@ namespace KEngine{
 	void Renderer::EndScene()
 	{
 		glStencilMask(0xFF);
+		
 	}
 
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh)
@@ -48,17 +49,6 @@ namespace KEngine{
 		}
 	}
 
-	void Renderer::ViewRender(std::shared_ptr<Texture2D>& texture)
-	{
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glClear(GL_COLOR_BUFFER_BIT);
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::Begin("ViewPort");
-		ImVec2 wsize = ImGui::GetContentRegionAvail();
-		ImGui::Image((ImTextureID)(intptr_t)texture->GetRendererID(), wsize, ImVec2(0, 1), ImVec2(1, 0)); // ÌùÍ¼
-		ImGui::End();
-	}
 
 	void Renderer::SetStencilOpenOrClose(bool tag) {
 		RenderCommand::SetStencilOpenOrClose(tag);
