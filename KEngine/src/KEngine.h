@@ -5,8 +5,6 @@
 
 #include"Log.h"
 
-#include"EntryPoint.h"
-
 #include "TimeStep.h"
 
 #include"Layer.h"

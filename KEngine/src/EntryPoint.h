@@ -1,6 +1,5 @@
 #pragma once
 
-
 #ifdef  KENGINE_PLATFORM_WINDOWS
 
 extern KEngine::Application* KEngine::CreateApplication();

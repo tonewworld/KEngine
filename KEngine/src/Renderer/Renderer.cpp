@@ -1,6 +1,8 @@
 #include "kepch.h"
 #include "Renderer.h"
-
+#include "imgui.h"
+#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_glfw.h"
 namespace KEngine{
 	void Renderer::Init()
 	{
@@ -45,6 +47,19 @@ namespace KEngine{
 			Submit(shader, std::make_shared<Mesh>(model->meshes[i]));
 		}
 	}
+
+	void Renderer::ViewRender(std::shared_ptr<Texture2D>& texture)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glClear(GL_COLOR_BUFFER_BIT);
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::Begin("ViewPort");
+		ImVec2 wsize = ImGui::GetContentRegionAvail();
+		ImGui::Image((ImTextureID)(intptr_t)texture->GetRendererID(), wsize, ImVec2(0, 1), ImVec2(1, 0)); // ÌùÍ¼
+		ImGui::End();
+	}
+
 	void Renderer::SetStencilOpenOrClose(bool tag) {
 		RenderCommand::SetStencilOpenOrClose(tag);
 	}
