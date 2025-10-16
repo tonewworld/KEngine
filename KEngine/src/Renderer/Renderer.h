@@ -25,7 +25,8 @@ namespace KEngine{
         
         static void SwitchFrameBuffer(unsigned int frameBuffer);
 
-        static void Test();
+        static std::array<unsigned char,4> ReadPixel(int rx,int ry);
+		static void Test();
         
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:

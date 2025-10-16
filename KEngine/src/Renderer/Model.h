@@ -12,6 +12,7 @@ namespace KEngine
 	class KE_API Model :public Object{
 	public:
 		Model(const std::string& path);
+		Model(const std::string& path, const std::string& name);
 		~Model();
 		std::vector<Mesh> meshes;
 		std::shared_ptr<Texture2D> texture;	

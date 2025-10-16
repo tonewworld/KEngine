@@ -23,6 +23,8 @@ namespace KEngine
 		inline glm::mat4 GetViewMatrix() const { return viewMatrix; }
 		inline void SetViewMatrix(const glm::mat4& matrix) { viewMatrix = matrix; }
 
+		static bool CheckLeftMouseButtonPress();
+
 		void CalculateViewMatrix();
 
 		inline glm::vec3 GetFront()const {

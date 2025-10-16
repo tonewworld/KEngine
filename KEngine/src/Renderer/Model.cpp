@@ -6,6 +6,10 @@ namespace KEngine {
 	{
         this->loadModel(path);
 	}
+    Model::Model(const std::string& path,const std::string& name) :Object(name)
+    {
+        this->loadModel(path);
+    }
 
 	Model::~Model()
 	{

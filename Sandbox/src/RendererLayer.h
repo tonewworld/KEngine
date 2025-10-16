@@ -8,7 +8,7 @@ public:
     void OnUpdate(KEngine::TimeStep ts) override;
     void OnEvent(KEngine::Event& event) override;
     void ImGuiRender() override;
-	void PickWithDepth(float mouseX,float mouseY);
+	void PickWithColor();
     inline glm::mat4 CalculateVP(glm::mat4 view, glm::mat4 proj) { return proj * view; }
 private:
 	std::shared_ptr<KEngine::Shader> m_Shader;
@@ -43,6 +43,7 @@ private:
 
 	std::shared_ptr<KEngine::FrameBuffer> pickFBO;
 	std::shared_ptr<KEngine::Texture2D>   pickTexture;
+	std::shared_ptr<KEngine::RenderBuffer>pickRBO;
 	std::shared_ptr<KEngine::Shader>      pickShader;
 
 	std::vector<std::shared_ptr<KEngine::Object>> Objects;

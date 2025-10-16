@@ -428,6 +428,8 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		l_Layout,
 		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
 		std::string("light")));
+	glm::mat4 lightModel= glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f));
+	l_Mesh->SetModelMatrix(lightModel);
 	Objects.push_back(l_Mesh);
 
 	float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
@@ -454,7 +456,6 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 
 	FBO.reset(KEngine::FrameBuffer::Create());
-
 	quad_Texture.reset(KEngine::Texture2D::Create());
 	FBO->AddTexture(quad_Texture->GetRendererID());
 	RBO.reset(KEngine::RenderBuffer::Create());
@@ -462,6 +463,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	pickFBO.reset(KEngine::FrameBuffer::Create());
 	pickTexture.reset(KEngine::Texture2D::Create());
 	pickFBO->AddTexture(pickTexture->GetRendererID());
+	pickRBO.reset(KEngine::RenderBuffer::Create());
 
 	std::vector<std::string> faces;
 	faces.push_back("references\\skybox\\right.jpg");
@@ -541,9 +543,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		sky_Layout,
 		sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int),
 		std::string("skybox")));
-	Objects.push_back(sky_Mesh);
-	//backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj"));
-
+	//Objects.push_back(sky_Mesh);
+	
+	backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj","backpack"));
+	Objects.push_back(backpack_Model);
 
 	shaderList.clear();
 	shaderList = {
@@ -580,7 +583,7 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 
 	//天空盒
 	textureCube->Bind();
-	sky_Shader->SetUniformMatrix4fv(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), "model");
+	sky_Shader->SetUniformMatrix4fv(sky_Mesh->GetModelMatrix(), "model");
 	sky_Shader->SetUniformMatrix4fv(CalculateVP(glm::mat4(glm::mat3(mainCamera->GetViewMatrix())), projMatrix), "VP");
 	KEngine::Renderer::SetDepthOpenOrClose(false);
 	KEngine::Renderer::SetStencilMask(0);
@@ -588,13 +591,13 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	KEngine::Renderer::SetDepthOpenOrClose(true);
 
 	//光源
-	l_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f)), "model");
+	l_Shader->SetUniformMatrix4fv(l_Mesh->GetModelMatrix(), "model");
 	KEngine::Renderer::SetStencilMask(0);
 	KEngine::Renderer::Submit(l_Shader, l_Mesh);
 
 	//物体
 	textureCube->Bind();//Reflect
-	m_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), glm::vec3(0.3f)), "model");
+	m_Shader->SetUniformMatrix4fv(m_Mesh->GetModelMatrix(), "model");
 	m_Shader->SetUniform3f({ 1.0f,0.5f,0.31f }, "objectColor");
 	m_Shader->SetUniform3f({ 1.0f,1.0f,1.0f }, "lightColor");
 	m_Shader->SetUniform3f(lightPosition, "lightPos");
@@ -604,19 +607,19 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	//KEngine::Renderer::Submit(m_Shader, m_Mesh);
 
 	//边框
-	s_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), glm::vec3(0.32f)), "model");
+	s_Shader->SetUniformMatrix4fv(m_Mesh->GetModelMatrix(), "model");
 	KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
 	KEngine::Renderer::SetStencilMask(0x00);
 	KEngine::Renderer::SetDepthOpenOrClose(false);
 	//KEngine::Renderer::Submit(s_Shader, m_Mesh);
 
 	//背包
-	backpack_Shader->SetUniformMatrix4fv(glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), glm::vec3(0.3f)), "model");
+	backpack_Shader->SetUniformMatrix4fv(backpack_Model->GetModelMatrix(), "model");
 	KEngine::Renderer::SetStencilMask(0);
 	KEngine::Renderer::SetDepthOpenOrClose(true);
-	//KEngine::Renderer::Submit(backpack_Shader, backpack_Model);
+	KEngine::Renderer::Submit(backpack_Shader, backpack_Model);
 
-	PickWithDepth(400.f,500.f);
+	PickWithColor();
 
 	FBO->Unbind();
 	KEngine::Renderer::SetDepthOpenOrClose(false);
@@ -637,62 +640,72 @@ void RendererLayer::ImGuiRender()
 	
 }
 
-void RendererLayer::PickWithDepth(float mouseX, float mouseY)
+void RendererLayer::PickWithColor()
 {
-	auto EncodeIDToColor = [](int id)->glm::vec3 {
-		unsigned char r = id & 0xFF;
-		unsigned char g = (id >> 8) & 0xFF;
-		unsigned char b = (id >> 16) & 0xFF;
-		return glm::vec3(r / 255.0f, g / 255.0f, b / 255.0f);
-		};
-	auto DecodeColorToID = [](unsigned char r, unsigned char g, unsigned char b)->int {
-		return r + (g << 8) + (b << 16);
-		};
-
-	// 离屏渲染到 FBO 的颜色缓冲
-	pickFBO->Bind();
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// 渲染每个对象为其 ID color（只写颜色）
-	for (const auto& obj : Objects)
+	float mouseX = 0.f,mouseY = 0.f;
+	
+	if (KEngine::Camera::CheckLeftMouseButtonPress())
 	{
-		int id = obj->GetID();            // 需要存在
-		glm::vec3 color = EncodeIDToColor(id);
-		glm::mat4 model = obj->GetModelMatrix(); // 需要存在
+		std::pair<float, float> mousePosition = KEngine::Input::GetMousePosition();
+		mouseX = mousePosition.first;
+		mouseY = mousePosition.second;
 
-		pickShader->SetUniformMatrix4fv(model, "model");
-		pickShader->SetUniform3f(color, "pickColor");
+		auto EncodeIDToColor = [](int id)->glm::vec3 {
+			unsigned char r = id & 0xFF;
+			unsigned char g = (id >> 8) & 0xFF;
+			unsigned char b = (id >> 16) & 0xFF;
+			return glm::vec3(r / 255.0f, g / 255.0f, b / 255.0f);
+			};
+		auto DecodeColorToID = [](unsigned char r, unsigned char g, unsigned char b)->int {
+			return r + (g << 8) + (b << 16);
+			};
 
-		// 需要对象能以 shader 绘制自己（或提供 mesh/model 访问）
-		KEngine::Renderer::Submit(pickShader, obj);
-	}
+		// 离屏渲染到 FBO 的颜色缓冲
+		pickFBO->Bind();
+		KEngine::Renderer::Test();
 
-	// 读取像素（窗口坐标到 GL 底部原点）
-	int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
-	int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
-	int rx = static_cast<int>(mouseX);
-	int ry = height - 1 - static_cast<int>(mouseY);
+		// 渲染每个对象为其 ID color（只写颜色）
+		for (const auto& obj : Objects)
+		{
+			int id = obj->GetID();            // 需要存在
+			glm::vec3 color = EncodeIDToColor(id);
+			glm::mat4 model = obj->GetModelMatrix(); // 需要存在
 
-	unsigned char pixel[4] = { 0,0,0,0 };
-	glReadPixels(rx, ry, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
+			pickShader->SetUniformMatrix4fv(model, "model");
+			pickShader->SetUniform3f(color, "pickColor");
 
-	pickFBO->Unbind();
+			// 需要对象能以 shader 绘制自己（或提供 mesh/model 访问）
+			KEngine::Renderer::Submit(pickShader, obj);
+		}
 
-	int pickedID = DecodeColorToID(pixel[0], pixel[1], pixel[2]);
-	if (pickedID == 0) {
-		// 背景或未命中
-		std::cout << "Pick: nothing\n";
-		return;
-	}
+		// 读取像素（窗口坐标到 GL 底部原点）
+		int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
+		int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
+		int rx = static_cast<int>(mouseX);
+		int ry = height - 1 - static_cast<int>(mouseY);
 
-	// 在 Objects 中查找 pickedID（根据你的容器方式调整）
-	for (const auto& obj : Objects) {
-		if (obj->GetID() == pickedID) {
-			std::cout << "Pick: ID=" << pickedID << " Name=" << obj->GetName() << "\n";
-			// 在这里把属性返回、触发事件或填充 UI
+		auto pixel = KEngine::Renderer::ReadPixel(rx, ry);
+		std::cout << "Read pixel at (" << rx << ", " << ry << ") -> RGB: "
+			<< (int)pixel[0] << ", " << (int)pixel[1] << ", " << (int)pixel[2] << std::endl;
+
+		pickFBO->Unbind();
+
+		int pickedID = DecodeColorToID(pixel[0], pixel[1], pixel[2]);
+		if (pickedID == 0) {
+			// 背景或未命中
+			std::cout << "Pick: nothing\n";
 			return;
 		}
+
+		// 在 Objects 中查找 pickedID（根据你的容器方式调整）
+		for (const auto& obj : Objects) {
+			if (obj->GetID() == pickedID) {
+				std::cout << "Pick: ID=" << pickedID << " Name=" << obj->GetName() << "\n";
+				// 在这里把属性返回、触发事件或填充 UI
+				return;
+			}
+		}
+		std::cout << "Pick: unknown ID=" << pickedID << "\n";
 	}
-	std::cout << "Pick: unknown ID=" << pickedID << "\n";
+	return;
 }

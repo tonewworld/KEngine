@@ -59,6 +59,14 @@ namespace KEngine
 		SetPitchRotation(PitchRotation);
 		CalculateViewMatrix();
 	}
+	bool Camera::CheckLeftMouseButtonPress()
+	{
+		if (KEngine::Input::IsMouseButtonPressed(KE_MOUSE_BUTTON_LEFT))
+		{
+			return true;
+		}
+		return false;
+	}
 	void Camera::CalculateViewMatrix()
 	{
 		
