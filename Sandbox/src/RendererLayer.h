@@ -39,5 +39,12 @@ private:
 
 	glm::vec3 lightPosition = glm::vec3(1.2f, 1.0f, 0.0f);
 	glm::mat4 projMatrix;
-	std::unique_ptr<KEngine::Camera>  mainCamera;
+	std::shared_ptr<KEngine::Camera>  mainCamera;
+
+	std::shared_ptr<KEngine::FrameBuffer> pickFBO;
+	std::shared_ptr<KEngine::Texture2D>   pickTexture;
+	std::shared_ptr<KEngine::Shader>      pickShader;
+
+	std::vector<std::shared_ptr<KEngine::Object>> Objects;
+	
 };

@@ -1,15 +1,20 @@
 #pragma once
 #include "Core.h"
+#include "Object.h"
 #include "Renderer/VertexArray.h"
 #include "Texture.h"
 namespace KEngine {
 	
 
-	class KE_API Mesh {
+	class KE_API Mesh:public Object {
 	public:
 		Mesh(float* m_Vertices, unsigned int vertexCount,
 			BufferLayout& layout, 
 			unsigned int* m_Indexes, unsigned int indexCount);
+		Mesh(float* m_Vertices, unsigned int vertexCount,
+			BufferLayout& layout,
+			unsigned int* m_Indexes, unsigned int indexCount,
+			std::string& name);
 		virtual ~Mesh() = default;
 		
 		std::shared_ptr<VertexArray> VAO;

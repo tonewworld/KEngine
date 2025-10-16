@@ -40,12 +40,22 @@ namespace KEngine{
 	}
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model)
 	{
-		shader->Bind(); 
-		if (model->texture)
-			model->texture->Bind();
-		for (unsigned int i = 0; i < model->meshes.size(); i++)
+		if(Mesh* mesh = dynamic_cast<Mesh*>(model.get()))
+			Submit(shader, std::make_shared<Mesh>(*mesh));
+	}
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Object>& object)
+	{
+		if (Mesh* m = dynamic_cast<Mesh*>(object.get()))
 		{
-			Submit(shader, std::make_shared<Mesh>(model->meshes[i]));
+			std::shared_ptr<Mesh> ptr(m, [object](Mesh*) {}); // 不删除，只共享引用计数
+			Submit(shader, ptr);
+			return;
+		}
+		if (Model* md = dynamic_cast<Model*>(object.get()))
+		{
+			std::shared_ptr<Model> ptr(md, [object](Model*) {});
+			Submit(shader, ptr);
+			return;
 		}
 	}
 

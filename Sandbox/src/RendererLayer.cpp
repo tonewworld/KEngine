@@ -273,6 +273,28 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 			)";
 		backpack_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
+	{
+		const char* pickVS = R"(
+				#version 420 core
+				layout(location=0) in vec3 v_Position;
+				uniform mat4 model;
+				layout(std140) uniform VPMatrix { mat4 VP; };
+				void main(){ 
+					gl_Position = VP * model * vec4(v_Position,1.0); 
+				}
+			)";
+
+						const char* pickFS = R"(
+				#version 420 core
+				out vec4 OutColor;
+				uniform vec3 pickColor;
+				void main(){
+					OutColor = vec4(pickColor,1.0);
+				 }			
+			)";
+
+		pickShader.reset(new KEngine::Shader(pickVS, pickFS));
+	}
 	float m_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -337,8 +359,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	};
 	m_Mesh.reset(new KEngine::Mesh(m_Vertices, sizeof(m_Vertices) / sizeof(float),
 		m_Layout,
-		m_Indices, sizeof(m_Indices) / sizeof(unsigned int)));
-
+		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
+		std::string("m")));
+	Objects.push_back(m_Mesh);
 
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
@@ -403,8 +426,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	};
 	l_Mesh.reset(new KEngine::Mesh(l_Vertices, sizeof(l_Vertices) / sizeof(float),
 		l_Layout,
-		l_Indices, sizeof(l_Indices) / sizeof(unsigned int)));
-
+		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
+		std::string("light")));
+	Objects.push_back(l_Mesh);
 
 	float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 		// Positions   // TexCoords
@@ -434,6 +458,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	quad_Texture.reset(KEngine::Texture2D::Create());
 	FBO->AddTexture(quad_Texture->GetRendererID());
 	RBO.reset(KEngine::RenderBuffer::Create());
+
+	pickFBO.reset(KEngine::FrameBuffer::Create());
+	pickTexture.reset(KEngine::Texture2D::Create());
+	pickFBO->AddTexture(pickTexture->GetRendererID());
 
 	std::vector<std::string> faces;
 	faces.push_back("references\\skybox\\right.jpg");
@@ -511,16 +539,19 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	};
 	sky_Mesh.reset(new KEngine::Mesh(sky_Vertices, sizeof(sky_Vertices) / sizeof(float),
 		sky_Layout,
-		sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int)));
-
+		sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int),
+		std::string("skybox")));
+	Objects.push_back(sky_Mesh);
 	//backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj"));
+
 
 	shaderList.clear();
 	shaderList = {
 		m_Shader,
 		l_Shader,
 		s_Shader,
-		backpack_Shader
+		backpack_Shader,
+		pickShader
 	};
 	//一个shader的列表,为他们每一个绑定相同的VP矩阵
 	for (auto& shader : shaderList)
@@ -608,113 +639,60 @@ void RendererLayer::ImGuiRender()
 
 void RendererLayer::PickWithDepth(float mouseX, float mouseY)
 {
-	// 简单颜色编码辅助
 	auto EncodeIDToColor = [](int id)->glm::vec3 {
 		unsigned char r = id & 0xFF;
 		unsigned char g = (id >> 8) & 0xFF;
 		unsigned char b = (id >> 16) & 0xFF;
 		return glm::vec3(r / 255.0f, g / 255.0f, b / 255.0f);
 		};
-
 	auto DecodeColorToID = [](unsigned char r, unsigned char g, unsigned char b)->int {
 		return r + (g << 8) + (b << 16);
 		};
 
-	// 创建一个临时 pick shader（与其它 shader 保持相同的 VP uniform block）
-	char* pickVertex = R"(
-		#version 420 core
-		layout(location=0) in vec3 v_Position;
-		uniform mat4 model;
-		layout(std140) uniform VPMatrix
-		{
-			mat4 VP;
-		};
-		void main()
-		{
-			gl_Position = VP * model * vec4(v_Position,1.0);
-		}
-	)";
-	char* pickFragment = R"(
-		#version 420 core
-		out vec4 FragColor;
-		uniform vec3 pickColor;
-		void main()
-		{
-			FragColor = vec4(pickColor, 1.0);
-		}
-	)";
-
-	// 创建 shader（开销可接受：只在点击时创建一次也可以缓存）
-	std::shared_ptr<KEngine::Shader> pickShader(new KEngine::Shader(pickVertex, pickFragment));
-	// 确保它与其它 shader 使用同一个 VP UBO binding point（你的构造函数里把其他 shader 绑定到 0）
-	pickShader->BindUniformBufferPoint("VPMatrix", 0);
-
-	// 为每个可拾取对象分配ID（不要用0，0表示空背景）
-	const int ID_MainMesh = 1;
-	const int ID_LMesh = 2;
-	const int ID_Backpack = 3; // 如果你有 backpack_Model，可设置并渲染
-
-	std::unordered_map<int, std::string> idToName = {
-		{ID_MainMesh, "MainObject"},
-		{ID_LMesh, "LightCube"},
-		{ID_Backpack, "BackpackModel"}
-	};
-
-	// 离屏渲染到已有 FBO（确保它有颜色附件）
-	FBO->Bind();
+	// 离屏渲染到 FBO 的颜色缓冲
+	pickFBO->Bind();
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	// 渲染每个对象到颜色缓冲（只写颜色），使用唯一颜色表示 ID
-	// Main mesh
+	// 渲染每个对象为其 ID color（只写颜色）
+	for (const auto& obj : Objects)
 	{
-		glm::mat4 model = glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), glm::vec3(0.3f));
+		int id = obj->GetID();            // 需要存在
+		glm::vec3 color = EncodeIDToColor(id);
+		glm::mat4 model = obj->GetModelMatrix(); // 需要存在
+
 		pickShader->SetUniformMatrix4fv(model, "model");
-		glm::vec3 c = EncodeIDToColor(ID_MainMesh);
-		pickShader->SetUniform3f(c, "pickColor");
-		KEngine::Renderer::Submit(pickShader, m_Mesh);
-	}
-	// Light cube
-	{
-		glm::mat4 model = glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f));
-		pickShader->SetUniformMatrix4fv(model, "model");
-		glm::vec3 c = EncodeIDToColor(ID_LMesh);
-		pickShader->SetUniform3f(c, "pickColor");
-		KEngine::Renderer::Submit(pickShader, l_Mesh);
-	}
-	// Backpack（如果存在并已加载）
-	if (backpack_Model)
-	{
-		glm::mat4 model = glm::scale(glm::translate(glm::mat4(1.0f), glm::vec3(0.0f)), glm::vec3(0.3f));
-		pickShader->SetUniformMatrix4fv(model, "model");
-		glm::vec3 c = EncodeIDToColor(ID_Backpack);
-		pickShader->SetUniform3f(c, "pickColor");
-		KEngine::Renderer::Submit(pickShader, backpack_Model); // 假定 Submit 支持 Model
+		pickShader->SetUniform3f(color, "pickColor");
+
+		// 需要对象能以 shader 绘制自己（或提供 mesh/model 访问）
+		KEngine::Renderer::Submit(pickShader, obj);
 	}
 
-	// 读取像素（坐标系：把鼠标 Y 翻转为 OpenGL 底部为原点）
+	// 读取像素（窗口坐标到 GL 底部原点）
 	int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
 	int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
-	int readX = static_cast<int>(mouseX);
-	int readY = height - 1 - static_cast<int>(mouseY);
+	int rx = static_cast<int>(mouseX);
+	int ry = height - 1 - static_cast<int>(mouseY);
 
 	unsigned char pixel[4] = { 0,0,0,0 };
-	glReadPixels(readX, readY, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
+	glReadPixels(rx, ry, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, pixel);
 
-	FBO->Unbind();
+	pickFBO->Unbind();
 
 	int pickedID = DecodeColorToID(pixel[0], pixel[1], pixel[2]);
 	if (pickedID == 0) {
+		// 背景或未命中
 		std::cout << "Pick: nothing\n";
 		return;
 	}
 
-	auto it = idToName.find(pickedID);
-	if (it != idToName.end()) {
-		std::cout << "Pick: ID=" << pickedID << " Name=" << it->second << "\n";
-		// TODO: 在这里把属性返回或发事件，或者查询你对象管理器拿到更详细属性并显示UI
+	// 在 Objects 中查找 pickedID（根据你的容器方式调整）
+	for (const auto& obj : Objects) {
+		if (obj->GetID() == pickedID) {
+			std::cout << "Pick: ID=" << pickedID << " Name=" << obj->GetName() << "\n";
+			// 在这里把属性返回、触发事件或填充 UI
+			return;
+		}
 	}
-	else {
-		std::cout << "Pick: unknown ID=" << pickedID << "\n";
-	}
+	std::cout << "Pick: unknown ID=" << pickedID << "\n";
 }

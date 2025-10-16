@@ -14,6 +14,7 @@ namespace KEngine{
 
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);
+        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Object>& object);
 
        
         static void SetStencilOpenOrClose(bool tag);
