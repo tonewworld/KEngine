@@ -1,5 +1,5 @@
 #include "RendererLayer.h"
-
+#include "imgui.h"
 
 RendererLayer::RendererLayer() :Layer("Renderer") {
 	mainCamera = std::make_unique<KEngine::Camera>();
@@ -506,7 +506,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int),
 		"skybox"));
 	
-	backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj","backpack"));
+	//backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj","backpack"));
 	
 	shaderList.clear();
 	shaderList = {
@@ -525,7 +525,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4)));
 
 
-	Objects.push_back(backpack_Model);
+	//Objects.push_back(backpack_Model);
 	Objects.push_back(l_Mesh);
 	Objects.push_back(m_Mesh);
 	Objects.push_back(sky_Mesh);
@@ -562,7 +562,7 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 	//背包
-	backpack_Model->SetDrawState(nullptr, backpack_Shader, true, true, 0, GL_ALWAYS, 1, 0xFF);
+	//backpack_Model->SetDrawState(nullptr, backpack_Shader, true, true, 0, GL_ALWAYS, 1, 0xFF);
 
 	for (const auto& obj : Objects)
 	{
@@ -587,7 +587,10 @@ void RendererLayer::OnEvent(KEngine::Event& event)
 
 void RendererLayer::ImGuiRender()
 {
-	
+	DrawSceneHierarchy();
+
+	// 绘制检视窗口
+	DrawInspector();
 }
 
 void RendererLayer::PickWithColor()
@@ -658,4 +661,194 @@ void RendererLayer::PickWithColor()
 		std::cout << "Pick: unknown ID=" << pickedID << "\n";
 	}
 	return;
+}
+
+void RendererLayer::DrawSceneHierarchy()
+{
+	if (!m_ShowSceneHierarchy) return;
+
+	ImGui::Begin("SceneManager", &m_ShowSceneHierarchy);
+
+	// 窗口设置
+	ImGui::Text("Objects (%d)", Objects.size());
+	ImGui::Separator();
+
+	// 对象列表
+	for (const auto& obj : Objects) {
+		// 为每个对象创建一个可选择的行
+		bool isSelected = (m_SelectedObjectID == obj->GetID());
+
+		// 使用Selectable来创建可选择项
+		if (ImGui::Selectable(obj->GetName().c_str(), isSelected)) {
+			m_SelectedObjectID = obj->GetID();
+			m_SelectedObject = obj;
+		}
+
+		// 右键菜单
+		if (ImGui::BeginPopupContextItem()) {
+			if (ImGui::MenuItem("Delete")) {
+				// 这里可以添加删除逻辑
+				std::cout << "Delete Object: " << obj->GetName() << std::endl;
+			}
+			if (ImGui::MenuItem("Copy")) {
+				// 这里可以添加复制逻辑
+				std::cout << "Copy Object: " << obj->GetName() << std::endl;
+			}
+			ImGui::EndPopup();
+		}
+
+		// 显示对象基本信息（可选）
+		if (ImGui::IsItemHovered()) {
+			ImGui::BeginTooltip();
+			ImGui::Text("ID: %d", obj->GetID());
+			ImGui::Text("Type: %s", typeid(*obj).name());
+			ImGui::EndTooltip();
+		}
+	}
+
+	// 添加对象按钮
+	ImGui::Separator();
+	if (ImGui::Button("+ Add Object")) {
+		// 这里可以弹出添加对象的菜单
+		ImGui::OpenPopup("add_object_popup");
+	}
+
+	// 添加对象弹出菜单
+	if (ImGui::BeginPopup("add_object_popup")) {
+		if (ImGui::MenuItem("Cube")) {
+			// 添加立方体逻辑
+			std::cout << "Add Cube" << std::endl;
+		}
+		if (ImGui::MenuItem("Light")) {
+			// 添加光源逻辑
+			std::cout << "Add Light" << std::endl;
+		}
+		if (ImGui::MenuItem("Model")) {
+			// 添加模型逻辑
+			std::cout << "Add Model" << std::endl;
+		}
+		ImGui::EndPopup();
+	}
+
+	ImGui::End();
+}
+
+void RendererLayer::DrawInspector()
+{
+	if (!m_ShowInspector) return;
+
+	ImGui::Begin("Inspector", &m_ShowInspector);
+
+	if (m_SelectedObject) {
+		// 显示选中对象的名称和ID
+		ImGui::Text("Name: %s", m_SelectedObject->GetName().c_str());
+		ImGui::Text("ID: %d", m_SelectedObject->GetID());
+		ImGui::Separator();
+
+		// 绘制对象属性
+		DrawObjectProperties(m_SelectedObject);
+	}
+	else {
+		ImGui::Text("Nothing Selected");
+		ImGui::Text("Selected one thing to check its attribution");
+	}
+
+	ImGui::End();
+}
+
+void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object)
+{
+	// 变换组件
+	if (ImGui::CollapsingHeader("Transition", ImGuiTreeNodeFlags_DefaultOpen)) {
+		glm::mat4 modelMatrix = object->GetModelMatrix();
+		glm::vec3 position, rotation, scale;
+
+		// 从模型矩阵中分解出位置、旋转、缩放
+		// 注意：这是一个简化的分解，实际项目中可能需要更复杂的方法
+		position = glm::vec3(modelMatrix[3]);
+		scale = glm::vec3(
+			glm::length(glm::vec3(modelMatrix[0])),
+			glm::length(glm::vec3(modelMatrix[1])),
+			glm::length(glm::vec3(modelMatrix[2]))
+		);
+
+		// 位置
+		float pos[3] = { position.x, position.y, position.z };
+		if (ImGui::DragFloat3("Position", pos, 0.1f)) {
+			// 更新位置
+			glm::mat4 newModel = glm::translate(glm::mat4(1.0f), glm::vec3(pos[0], pos[1], pos[2]));
+			// 保持原有的旋转和缩放
+			// 这里需要根据你的对象系统来实现完整的变换更新
+			object->SetModelMatrix(newModel);
+		}
+
+		// 缩放
+		float scl[3] = { scale.x, scale.y, scale.z };
+		if (ImGui::DragFloat3("Scale", scl, 0.1f, 0.01f, 100.0f)) {
+			// 更新缩放
+			glm::mat4 newModel = glm::scale(glm::mat4(1.0f), glm::vec3(scl[0], scl[1], scl[2]));
+			// 保持原有的位置和旋转
+			object->SetModelMatrix(newModel);
+		}
+	}
+
+	// 渲染组件
+	if (ImGui::CollapsingHeader("Render")) {
+		// 显示使用的着色器
+		if (object->shader) {
+			ImGui::Text("Shader: %s", "Allocated"); // 可以显示着色器名称
+		}
+		else {
+			ImGui::Text("Shader: null");
+		}
+
+		// 显示材质属性（如果有）
+		ImGui::Text("Matertial Attribution:");
+		ImGui::Indent();
+
+		// 这里可以根据对象类型显示不同的材质属性
+		if (object->GetName() == "light") {
+			ImGui::Text("Type: light");
+		}
+		else if (object->GetName() == "skybox") {
+			ImGui::Text("Type: skybox");
+		}
+		else {
+			ImGui::Text("Type: Mesh");
+		}
+
+		ImGui::Unindent();
+	}
+
+	// 其他组件可以根据需要添加
+	if (ImGui::CollapsingHeader("Other Attribution")) {
+		// 显示对象类型
+		ImGui::Text("Object Attribution: %s", typeid(*object).name());
+
+		// 显示顶点数等信息（如果可用）
+		if (auto mesh = std::dynamic_pointer_cast<KEngine::Mesh>(object)) {
+			// 这里可以显示网格的详细信息
+			ImGui::Text("Mesh Data:");
+			ImGui::Indent();
+			ImGui::Text("Vertics: %d", /* 获取顶点数 */ 0);
+			ImGui::Text("Triangles: %d", /* 获取三角形数 */ 0);
+			ImGui::Unindent();
+		}
+
+		if (auto model = std::dynamic_pointer_cast<KEngine::Model>(object)) {
+			ImGui::Text("Model:");
+			ImGui::Indent();
+			ImGui::Text("Path: %s", /* 获取模型路径 */ "references/backpack/backpack.obj");
+			ImGui::Unindent();
+		}
+	}
+
+	// 自定义属性扩展点
+	if (ImGui::CollapsingHeader("Custom Attribution")) {
+		/*ImGui::BulletText("物理属性");
+		ImGui::BulletText("脚本组件");
+		ImGui::BulletText("动画组件");
+		ImGui::BulletText("粒子系统");*/
+		// ... 更多自定义组件
+	}
 }

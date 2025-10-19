@@ -46,5 +46,15 @@ private:
 	std::shared_ptr<KEngine::Shader>      pickShader;
 
 	std::vector<std::shared_ptr<KEngine::Object>> Objects;
+
+	bool m_ShowSceneHierarchy = true;
+	bool m_ShowInspector = true;
+	int m_SelectedObjectID = -1;
+	std::shared_ptr<KEngine::Object> m_SelectedObject = nullptr;
+
+	// 场景管理器相关方法
+	void DrawSceneHierarchy();
+	void DrawInspector();
+	void DrawObjectProperties(std::shared_ptr<KEngine::Object> object);
 	
 };
