@@ -14,7 +14,7 @@ namespace KEngine {
 		Mesh(float* m_Vertices, unsigned int vertexCount,
 			BufferLayout& layout,
 			unsigned int* m_Indexes, unsigned int indexCount,
-			std::string& name);
+			const std::string& name);
 		virtual ~Mesh() = default;
 		
 		std::shared_ptr<VertexArray> VAO;

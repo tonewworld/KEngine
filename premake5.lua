@@ -69,6 +69,11 @@ project"KEngine"
 		
 	}
 
+	postbuildcommands {
+		'{COPY} "%{cfg.buildtarget.relpath}" "%{cfg.targetdir}/../Sandbox"',
+		'{COPY} "%{prj.location}/vendor/assimp/bin/Debug/assimp-vc143-mtd.dll" "%{cfg.targetdir}/../Sandbox"'
+		}
+
 	filter"system:windows"
 	    cppdialect"C++17"
 		staticruntime"On"
@@ -79,10 +84,7 @@ project"KEngine"
 			"KENGINE_BUILD_DLL"
 		}
 
-		postbuildcommands {
-		'{COPY} "%{cfg.buildtarget.relpath}" "%{cfg.targetdir}/../Sandbox"',
-		'{COPY} "%{prj.location}/vendor/assimp/bin/Debug/assimp-vc143-mtd.dll" "%{cfg.targetdir}/../Sandbox"'
-	}
+		
 		
 		buildoptions { "/utf-8" }
 

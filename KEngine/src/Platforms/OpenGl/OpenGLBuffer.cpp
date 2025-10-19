@@ -106,11 +106,12 @@ namespace KEngine{
 		glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
 	
-    void OpenGLUniformBuffer::AddUniformData(glm::mat4& data,std::size_t offset)
+    void OpenGLUniformBuffer::AddVPMatrix(glm::mat4& view,glm::mat4& proj,std::size_t offset)
     {
         
         Bind();
-		glBufferSubData(GL_UNIFORM_BUFFER, offset, 2 * sizeof(glm::mat4), glm::value_ptr(data));
+		glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(glm::mat4), glm::value_ptr(view));
+		glBufferSubData(GL_UNIFORM_BUFFER, offset + sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(proj));
         Unbind();
     }
 

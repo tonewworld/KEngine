@@ -5,6 +5,7 @@ class RendererLayer : public KEngine::Layer {
 public:
     RendererLayer();
     void OnAttach() override;
+	void OnDetach() override;
     void OnUpdate(KEngine::TimeStep ts) override;
     void OnEvent(KEngine::Event& event) override;
     void ImGuiRender() override;
@@ -16,8 +17,6 @@ private:
 
 	std::shared_ptr<KEngine::Shader> l_Shader;
 	std::shared_ptr<KEngine::Mesh> l_Mesh;
-
-	std::shared_ptr<KEngine::Shader> s_Shader;
 
 	std::shared_ptr<KEngine::Shader> screenShader;
 	std::shared_ptr<KEngine::Mesh>quad_Mesh;

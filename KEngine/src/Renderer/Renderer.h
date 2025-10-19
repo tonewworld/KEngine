@@ -12,6 +12,8 @@ namespace KEngine{
         static void BeginScene();
 		static void EndScene();
 
+		static void ColorPickBegin();
+
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Object>& object);
@@ -26,7 +28,6 @@ namespace KEngine{
         static void SwitchFrameBuffer(unsigned int frameBuffer);
 
         static std::array<unsigned char,4> ReadPixel(int rx,int ry);
-		static void Test();
         
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:

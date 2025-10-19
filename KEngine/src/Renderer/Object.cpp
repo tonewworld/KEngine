@@ -1,7 +1,32 @@
 #include "kepch.h"
 #include "Object.h"
-
+#include "Renderer.h"
 namespace KEngine {
-    // 从 1 开始分配 ID，避免 0（保留为“无对象”）
+
     unsigned int Object::IDCounter = 0;
+	void Object::SetDrawState(std::shared_ptr<Texture>texture,
+		std::shared_ptr<Shader>shader,
+		bool depthTest,
+		bool stencilTest, unsigned int stencilMask, 
+		GLenum func, GLint ref, GLuint mask)
+	{
+		this->texture = texture;
+		this->shader = shader;
+		this->depthTest = depthTest;
+		this->stencilTest = stencilTest;
+		this->stencilMask = stencilMask;
+		this->func = func;
+		this->ref = ref;
+		this->mask = mask;
+	}
+	void Object::Draw(std::shared_ptr<Shader>shader)
+    {
+		Renderer::SetDepthOpenOrClose(depthTest);
+		Renderer::SetStencilOpenOrClose(stencilTest);
+		Renderer::SetStencilMask(stencilMask);
+		Renderer::SetStencilFunc(func, ref, mask);
+		if(texture)
+			texture->Bind();
+		Renderer::Submit(shader, shared_from_this());
+    }
 }

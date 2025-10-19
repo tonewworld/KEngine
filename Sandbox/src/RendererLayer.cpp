@@ -17,7 +17,8 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				uniform mat4 model;
 				layout(std140) uniform VPMatrix
 				{
-					mat4 VP;
+					mat4 view;
+					mat4 proj;
 				};
 
 				out VS_OUT {
@@ -28,7 +29,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 				void main()
 				{
-					gl_Position = VP * model * vec4(v_Position,1.0);
+					gl_Position = proj * view * model * vec4(v_Position,1.0);
 					vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
 					vs_out.normal = normalize(mat3(transpose(inverse(model))) * v_Normal);
 				}
@@ -81,34 +82,14 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					vec3 fragPos;
 				} fs_in;
 
-				uniform vec3 lightPos;
 				uniform vec3 viewPos;
-				uniform vec3 lightColor;
-				uniform vec3 objectColor;
 				
 				//Reflect
 				uniform samplerCube skybox;	
 
 				void main()
 				{
-					// Ambient
-					float ambientStrength = 0.1f;
-					vec3 ambient = ambientStrength * lightColor;
-  	
-					// Diffuse 
-					vec3 lightDir = normalize(lightPos - fs_in.fragPos);
-					float diff = max(dot(fs_in.normal, lightDir), 0.0);
-					vec3 diffuse = diff * lightColor;
-    
-					// Specular
-					float specularStrength = 0.5f;
-					vec3 viewDir = normalize(viewPos - fs_in.fragPos);
-					vec3 reflectDir = reflect(-lightDir, fs_in.normal);  
-					float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-					vec3 specular = specularStrength * spec * lightColor;  
-        
-					vec3 result = (ambient+diffuse+specular) * objectColor;
-
+				
 					//Reflect
 					vec3 I = normalize(fs_in.fragPos - viewPos);
 					vec3 R = reflect(I, fs_in.normal);
@@ -127,12 +108,13 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				uniform mat4 model;
 				layout(std140) uniform VPMatrix
 				{
-					mat4 VP;
+					mat4 view;
+					mat4 proj;
 				};
 
 				void main()
 				{
-					gl_Position = VP * model * vec4(v_Position,1.0);
+					gl_Position = proj * view * model * vec4(v_Position,1.0);
 				}
 			)";
 		char* fragmentSrc = R"(
@@ -147,36 +129,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 			)";
 		l_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
-	{
-		char* vertexSrc = R"(
-				#version 420 core
-				layout(location=0) in vec3 v_Position;
-				layout(location=1) in vec3 v_Normal;
-
-				
-				uniform mat4 model;
-				layout(std140) uniform VPMatrix
-				{
-					mat4 VP;
-				};
-				void main()
-				{
-					gl_Position = VP * model * vec4(v_Position,1.0);
-				}
-			)";
-		char* fragmentSrc = R"(#version 420 core
-				out vec4 FragColor;
-				
-				void main()
-				{
-					FragColor = vec4(0.7f);
-				}
-			)";
-
-		s_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
-
-	}
-
+	
 	{
 		char* vertexSrc = R"(
 				#version 420 core
@@ -213,11 +166,15 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				out vec3 TexCoords;
 
 				uniform mat4 model;
-				uniform mat4 VP;
-				
+				layout(std140) uniform VPMatrix
+				{
+					mat4 view;
+					mat4 proj;
+				};
+
 				void main()
 				{
-					gl_Position =  VP * model * vec4(position, 1.0);  
+					gl_Position = proj * mat4(mat3(view)) * model * vec4(position, 1.0);  
 					TexCoords = position;
 				}
 				)";
@@ -245,14 +202,16 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				uniform mat4 model;
 				layout(std140) uniform VPMatrix
 				{
-					mat4 VP;
+					mat4 view;
+					mat4 proj;
 				};
+
 
 				out vec2 texCoords;
 
 				void main()
 				{
-					gl_Position = VP * model * vec4(v_Position,1.0f);
+					gl_Position = proj * view * model * vec4(v_Position,1.0f);
 					texCoords = v_TexCoords;
 				}
 			)";
@@ -278,9 +237,14 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				#version 420 core
 				layout(location=0) in vec3 v_Position;
 				uniform mat4 model;
-				layout(std140) uniform VPMatrix { mat4 VP; };
+				layout(std140) uniform VPMatrix
+				{
+					mat4 view;
+					mat4 proj;
+				};
+
 				void main(){ 
-					gl_Position = VP * model * vec4(v_Position,1.0); 
+					gl_Position = proj * view * model * vec4(v_Position,1.0); 
 				}
 			)";
 
@@ -360,9 +324,8 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	m_Mesh.reset(new KEngine::Mesh(m_Vertices, sizeof(m_Vertices) / sizeof(float),
 		m_Layout,
 		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
-		std::string("m")));
-	Objects.push_back(m_Mesh);
-
+		"m"));
+	
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
 	 0.5f, -0.5f, -0.5f,
@@ -427,11 +390,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	l_Mesh.reset(new KEngine::Mesh(l_Vertices, sizeof(l_Vertices) / sizeof(float),
 		l_Layout,
 		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
-		std::string("light")));
+		"light"));
 	glm::mat4 lightModel= glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f));
 	l_Mesh->SetModelMatrix(lightModel);
-	Objects.push_back(l_Mesh);
-
+	
 	float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 		// Positions   // TexCoords
 		-1.0f,  1.0f,  0.0f, 1.0f,
@@ -542,19 +504,17 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	sky_Mesh.reset(new KEngine::Mesh(sky_Vertices, sizeof(sky_Vertices) / sizeof(float),
 		sky_Layout,
 		sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int),
-		std::string("skybox")));
-	//Objects.push_back(sky_Mesh);
+		"skybox"));
 	
 	backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj","backpack"));
-	Objects.push_back(backpack_Model);
-
+	
 	shaderList.clear();
 	shaderList = {
 		m_Shader,
 		l_Shader,
-		s_Shader,
 		backpack_Shader,
-		pickShader
+		pickShader,
+		sky_Shader
 	};
 	//一个shader的列表,为他们每一个绑定相同的VP矩阵
 	for (auto& shader : shaderList)
@@ -564,11 +524,24 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	//生成uniform缓冲对象
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4)));
 
+
+	Objects.push_back(backpack_Model);
+	Objects.push_back(l_Mesh);
+	Objects.push_back(m_Mesh);
+	Objects.push_back(sky_Mesh);
+
 }
 
 void RendererLayer::OnAttach() {
 	KEngine::Renderer::Init();
 
+}
+void RendererLayer::OnDetach()
+{
+	FBO.reset();
+	RBO.reset();
+	pickFBO.reset();
+	pickRBO.reset();
 }
 void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 
@@ -578,56 +551,33 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	mainCamera->Control(ts.GetTimeStep());
 
 	//填充数据到uniform缓冲对象
-	//这个函数感觉得改成一个模板函数？
-	matrixUBO->AddUniformData(CalculateVP(mainCamera->GetViewMatrix(), projMatrix), 0);
+	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
 
 	//天空盒
-	textureCube->Bind();
-	sky_Shader->SetUniformMatrix4fv(sky_Mesh->GetModelMatrix(), "model");
-	sky_Shader->SetUniformMatrix4fv(CalculateVP(glm::mat4(glm::mat3(mainCamera->GetViewMatrix())), projMatrix), "VP");
-	KEngine::Renderer::SetDepthOpenOrClose(false);
-	KEngine::Renderer::SetStencilMask(0);
-	KEngine::Renderer::Submit(sky_Shader, sky_Mesh);
-	KEngine::Renderer::SetDepthOpenOrClose(true);
-
+	sky_Mesh->SetModelMatrix(glm::scale(glm::mat4(1.0f), glm::vec3(100.0f)));
+	sky_Mesh->SetDrawState(textureCube,sky_Shader, true, true, 0);
 	//光源
-	l_Shader->SetUniformMatrix4fv(l_Mesh->GetModelMatrix(), "model");
-	KEngine::Renderer::SetStencilMask(0);
-	KEngine::Renderer::Submit(l_Shader, l_Mesh);
-
+	l_Mesh->SetDrawState(nullptr, l_Shader, true, false, 0);
 	//物体
-	textureCube->Bind();//Reflect
-	m_Shader->SetUniformMatrix4fv(m_Mesh->GetModelMatrix(), "model");
-	m_Shader->SetUniform3f({ 1.0f,0.5f,0.31f }, "objectColor");
-	m_Shader->SetUniform3f({ 1.0f,1.0f,1.0f }, "lightColor");
-	m_Shader->SetUniform3f(lightPosition, "lightPos");
 	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
-	KEngine::Renderer::SetStencilFunc(GL_ALWAYS, 1, 0xFF);
-	KEngine::Renderer::SetStencilMask(0xFF);
-	//KEngine::Renderer::Submit(m_Shader, m_Mesh);
-
-	//边框
-	s_Shader->SetUniformMatrix4fv(m_Mesh->GetModelMatrix(), "model");
-	KEngine::Renderer::SetStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-	KEngine::Renderer::SetStencilMask(0x00);
-	KEngine::Renderer::SetDepthOpenOrClose(false);
-	//KEngine::Renderer::Submit(s_Shader, m_Mesh);
-
+	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 	//背包
-	backpack_Shader->SetUniformMatrix4fv(backpack_Model->GetModelMatrix(), "model");
-	KEngine::Renderer::SetStencilMask(0);
-	KEngine::Renderer::SetDepthOpenOrClose(true);
-	KEngine::Renderer::Submit(backpack_Shader, backpack_Model);
+	backpack_Model->SetDrawState(nullptr, backpack_Shader, true, true, 0, GL_ALWAYS, 1, 0xFF);
+
+	for (const auto& obj : Objects)
+	{
+		obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+		obj->Draw(obj->shader);
+	}
+	FBO->Unbind();
 
 	PickWithColor();
 
-	FBO->Unbind();
-	KEngine::Renderer::SetDepthOpenOrClose(false);
-	KEngine::Renderer::SetStencilOpenOrClose(false);
-
-	quad_Texture->Bind();
-	KEngine::Renderer::Submit(screenShader, quad_Mesh);
+	quad_Mesh->SetDrawState(quad_Texture, screenShader, false, false);
+	quad_Mesh->Draw(screenShader);
 	
+
+
 	KEngine::Renderer::EndScene();
 }
 
@@ -662,7 +612,7 @@ void RendererLayer::PickWithColor()
 
 		// 离屏渲染到 FBO 的颜色缓冲
 		pickFBO->Bind();
-		KEngine::Renderer::Test();
+		KEngine::Renderer::ColorPickBegin();
 
 		// 渲染每个对象为其 ID color（只写颜色）
 		for (const auto& obj : Objects)

@@ -65,7 +65,7 @@ namespace KEngine{
         virtual void Bind() override;
         virtual void Unbind() override;
         
-        virtual void AddUniformData(glm::mat4& data , std::size_t offset = 0) override ;
+        virtual void AddVPMatrix(glm::mat4& view ,glm::mat4& proj,std::size_t offset = 0) override ;
     };
 
 }

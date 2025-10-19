@@ -28,7 +28,7 @@ namespace KEngine
     Mesh::Mesh(float* m_Vertices, unsigned int floatCount,
         BufferLayout& layout,
         unsigned int* m_Indexes, unsigned int indexCount,
-        std::string& name)
+        const std::string& name)
         :Object(name)
     {
         this->m_layout = layout;

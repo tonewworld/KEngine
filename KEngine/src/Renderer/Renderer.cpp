@@ -13,21 +13,10 @@ namespace KEngine{
 	{
 		RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		RenderCommand::Clear();
-		//深度测试
-		RenderCommand::SetDepthOpenOrClose(true);
-		//模板测试
-		RenderCommand::SetStencilOpenOrClose(true);
-		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-		RenderCommand::SetStencilMask(0x00);
-		
-		glEnable(GL_PROGRAM_POINT_SIZE);
 
-		//面剔除
-		//glEnable(GL_CULL_FACE);
 	}
 	void Renderer::EndScene()
 	{
-		glStencilMask(0xFF);
 		
 	}
 
@@ -87,10 +76,10 @@ namespace KEngine{
 		return pixel;
 	}
 
-	void Renderer::Test()
+	void Renderer::ColorPickBegin()
 	{
 		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);                             
 		glDepthFunc(GL_LEQUAL);
 	}
