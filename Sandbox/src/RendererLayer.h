@@ -33,10 +33,14 @@ private:
 	std::shared_ptr<KEngine::Object> m_SelectedObject = nullptr;
 
 	std::shared_ptr<TestScene> testScene;
+	std::shared_ptr<KEngine::Scene> currentScene;
+	std::vector<std::shared_ptr<KEngine::Scene>> sceneList;
 
 	// 场景管理器相关方法
 	void DrawSceneHierarchy();
 	void DrawInspector();
 	void DrawObjectProperties(std::shared_ptr<KEngine::Object> object);
+	void DrawSceneList();          // 绘制场景列表窗口
+	void SwitchToScene(int index); // 切换场景接口
 	
 };

@@ -1,12 +1,16 @@
 #include "KEngine.h"
 class TestScene :public KEngine::Scene {
 public:
-	TestScene();
+	TestScene(std::string name);
 	~TestScene();
-
-	void OnUpdate(KEngine::TimeStep ts);
-	std::vector<std::shared_ptr<KEngine::Object>> Objects;
+	inline virtual std::string GetName() override { return name; }
+	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
+	virtual void OnUpdate(KEngine::TimeStep ts)override;
+	virtual void Init()override;
+	virtual void Destroy()override;
 private:
+	std::string name;
+	std::vector<std::shared_ptr<KEngine::Object>> Objects;
 
 	std::shared_ptr<KEngine::Shader> m_Shader;
 	std::shared_ptr<KEngine::Mesh> m_Mesh;

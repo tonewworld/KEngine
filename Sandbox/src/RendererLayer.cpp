@@ -92,7 +92,8 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	FBO->AddTexture(quad_Texture->GetRendererID());
 	RBO.reset(KEngine::RenderBuffer::Create());
 
-	testScene.reset(new TestScene());
+	testScene.reset(new TestScene("testScene"));
+	sceneList.push_back(testScene);
 }
 
 void RendererLayer::OnAttach() {
@@ -108,24 +109,25 @@ void RendererLayer::OnDetach()
 }
 void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 
+	
 	FBO->Bind();
 	KEngine::Renderer::BeginScene();
-	//选择场景并做个场景选择的imgui
-	testScene->OnUpdate(ts);
-	for (const auto& obj : testScene->Objects)
+	
+	if(currentScene)
 	{
-		obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
-		obj->Draw(obj->shader);
+		currentScene->OnUpdate(ts);
+		for (const auto& obj : currentScene->GetObjectsInScene())
+		{
+			obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+			obj->Draw(obj->shader);
+		}
+		PickWithColor();
 	}
 	FBO->Unbind();
-
-	PickWithColor();
 
 	quad_Mesh->SetDrawState(quad_Texture, screenShader, false, false);
 	quad_Mesh->Draw(screenShader);
 	
-
-
 	KEngine::Renderer::EndScene();
 }
 
@@ -139,6 +141,8 @@ void RendererLayer::ImGuiRender()
 
 	// 绘制检视窗口
 	DrawInspector();
+
+	DrawSceneList();
 }
 
 void RendererLayer::PickWithColor()
@@ -166,7 +170,7 @@ void RendererLayer::PickWithColor()
 		KEngine::Renderer::ColorPickBegin();
 
 		// 渲染每个对象为其 ID color（只写颜色）
-		for (const auto& obj : testScene->Objects)
+		for (const auto& obj : currentScene->GetObjectsInScene())
 		{
 			int id = obj->GetID();            // 需要存在
 			glm::vec3 color = EncodeIDToColor(id);
@@ -199,7 +203,7 @@ void RendererLayer::PickWithColor()
 		}
 
 		// 在 Objects 中查找 pickedID（根据你的容器方式调整）
-		for (const auto& obj : testScene->Objects) {
+		for (const auto& obj : currentScene->GetObjectsInScene()) {
 			if (obj->GetID() == pickedID) {
 				std::cout << "Pick: ID=" << pickedID << " Name=" << obj->GetName() << "\n";
 				// 在这里把属性返回、触发事件或填充 UI
@@ -213,16 +217,16 @@ void RendererLayer::PickWithColor()
 
 void RendererLayer::DrawSceneHierarchy()
 {
-	if (!m_ShowSceneHierarchy) return;
+	if (!m_ShowSceneHierarchy||!currentScene) return;
 
 	ImGui::Begin("SceneManager", &m_ShowSceneHierarchy);
 
 	// 窗口设置
-	ImGui::Text("Objects (%d)", testScene->Objects.size());
+	ImGui::Text("Objects (%d)", currentScene->GetObjectsInScene().size());
 	ImGui::Separator();
 
 	// 对象列表
-	for (const auto& obj : testScene->Objects) {
+	for (const auto& obj : currentScene->GetObjectsInScene()) {
 		// 为每个对象创建一个可选择的行
 		bool isSelected = (m_SelectedObjectID == obj->GetID());
 
@@ -399,4 +403,39 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
 		ImGui::BulletText("粒子系统");*/
 		// ... 更多自定义组件
 	}
+}
+void RendererLayer::DrawSceneList()
+{
+	ImGui::Begin("Scenes");
+
+	for (size_t i = 0; i < sceneList.size(); ++i)
+	{
+		const auto& sc = sceneList[i];
+		ImGui::PushID(static_cast<int>(i));
+
+		// 主项
+		bool selected = (currentScene == sc);
+		if (ImGui::Selectable(sc->GetName().c_str(), selected))
+			SwitchToScene(static_cast<int>(i));
+
+		// 右键菜单
+		if (ImGui::BeginPopupContextItem())
+		{
+			if (ImGui::MenuItem("Switch to this scene"))
+				if (currentScene != sc)
+				SwitchToScene(static_cast<int>(i));
+			ImGui::EndPopup();
+		}
+
+		ImGui::PopID();
+	}
+	ImGui::End();
+}
+void RendererLayer::SwitchToScene(int index)
+{
+	if (index < 0 || index >= static_cast<int>(sceneList.size())) return;
+	if(currentScene)
+		currentScene->Destroy();
+	currentScene = sceneList[index];
+	currentScene->Init();
 }

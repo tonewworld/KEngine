@@ -1,6 +1,35 @@
 #include "TestScene.h"
 
-TestScene::TestScene()
+TestScene::TestScene(std::string name):name(name)
+{
+	
+}
+
+TestScene::~TestScene()
+{
+	
+	
+}
+void TestScene::OnUpdate(KEngine::TimeStep ts) {
+	mainCamera->Control(ts.GetTimeStep());
+
+	//填充数据到uniform缓冲对象
+	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
+	//天空盒
+	sky_Mesh->SetModelMatrix(glm::scale(glm::mat4(1.0f), glm::vec3(100.0f)));
+	sky_Mesh->SetDrawState(textureCube, sky_Shader, true, true, 0);
+	//光源
+	l_Mesh->SetDrawState(nullptr, l_Shader, true, false, 0);
+	//物体
+	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
+	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
+
+	//背包
+	backpack_Model->SetDrawState(nullptr, backpack_Shader, true, true, 0, GL_ALWAYS, 1, 0xFF);
+
+}
+
+void TestScene::Init()
 {
 	mainCamera = std::make_unique<KEngine::Camera>();
 	projMatrix = glm::perspective(glm::radians(45.f), (float)
@@ -130,7 +159,7 @@ TestScene::TestScene()
 		l_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
 
-	
+
 	{
 		char* vertexSrc = R"(
 				#version 420 core
@@ -204,7 +233,7 @@ TestScene::TestScene()
 			)";
 		backpack_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
-	
+
 	float m_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -340,9 +369,6 @@ TestScene::TestScene()
 	glm::mat4 lightModel = glm::scale(glm::translate(glm::mat4(1.0f), lightPosition), glm::vec3(0.01f));
 	l_Mesh->SetModelMatrix(lightModel);
 
-
-	
-
 	std::vector<std::string> faces;
 	faces.push_back("references\\skybox\\right.jpg");
 	faces.push_back("references\\skybox\\left.jpg");
@@ -352,8 +378,6 @@ TestScene::TestScene()
 	faces.push_back("references\\skybox\\front.jpg");
 
 	textureCube.reset(KEngine::TextureCube::Create(faces));
-
-
 
 	float sky_Vertices[] = {
 		//Positions          
@@ -422,7 +446,7 @@ TestScene::TestScene()
 		sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int),
 		"skybox"));
 
-	//backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj","backpack"));
+	backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj", "backpack"));
 
 	shaderList.clear();
 	shaderList = {
@@ -440,32 +464,20 @@ TestScene::TestScene()
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4)));
 
 
-	//Objects.push_back(backpack_Model);
+	Objects.push_back(backpack_Model);
 	Objects.push_back(l_Mesh);
 	Objects.push_back(m_Mesh);
 	Objects.push_back(sky_Mesh);
 }
 
-TestScene::~TestScene()
+void TestScene::Destroy()
 {
-	
-	
-}
-void TestScene::OnUpdate(KEngine::TimeStep ts) {
-	mainCamera->Control(ts.GetTimeStep());
-
-	//填充数据到uniform缓冲对象
-	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
-	//天空盒
-	sky_Mesh->SetModelMatrix(glm::scale(glm::mat4(1.0f), glm::vec3(100.0f)));
-	sky_Mesh->SetDrawState(textureCube, sky_Shader, true, true, 0);
-	//光源
-	l_Mesh->SetDrawState(nullptr, l_Shader, true, false, 0);
-	//物体
-	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
-	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
-
-	//背包
-	//backpack_Model->SetDrawState(nullptr, backpack_Shader, true, true, 0, GL_ALWAYS, 1, 0xFF);
+	m_Mesh.reset();
+	l_Mesh.reset();
+	textureCube.reset();
+	sky_Mesh.reset();
+	backpack_Model.reset();
+	matrixUBO.reset();
+	Objects.clear();
 
 }
