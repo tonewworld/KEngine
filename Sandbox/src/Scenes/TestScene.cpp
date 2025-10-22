@@ -63,50 +63,10 @@ void TestScene::Init()
 					vs_out.normal = normalize(mat3(transpose(inverse(model))) * v_Normal);
 				}
 			)";
-		char* geometrySrc = R"(
-				#version 420 core
-				layout (triangles) in;
-				layout (triangle_strip, max_vertices = 9) out;
-
-				in VS_OUT {
-					vec3 normal;
-					vec3 fragPos;
-				} gs_in[];
-				
-				out GS_OUT {
-					vec3 normal;
-					vec3 fragPos;
-				} gs_out;
-
-				//没用到
-				/*const float MAGNITUDE = 0.2f;
-
-				void GenerateLine(int index)
-				{
-					gl_Position = gl_in[index].gl_Position;
-					EmitVertex();
-					gl_Position = gl_in[index].gl_Position + vec4(gs_in[index].normal, 0.0f) * MAGNITUDE;
-					EmitVertex();
-					EndPrimitive();
-				}*/
-
-				void main()
-				{
-					//GenerateLine(0); // First vertex normal
-					//GenerateLine(1); // Second vertex normal
-					//GenerateLine(2); // Third vertex normal
-					 for (int i = 0; i < 3; ++i) {
-						gl_Position = gl_in[i].gl_Position;
-						gs_out.normal = gs_in[i].normal;
-						gs_out.fragPos = gs_in[i].fragPos;
-						EmitVertex();
-					}
-					EndPrimitive();
-				}
-			)";
+		
 		char* fragmentSrc = R"(#version 420 core
 				out vec4 FragColor;
-				in GS_OUT {
+				in VS_OUT {
 					vec3 normal;
 					vec3 fragPos;
 				} fs_in;
@@ -126,7 +86,7 @@ void TestScene::Init()
 				}
 			)";
 
-		m_Shader.reset(new KEngine::Shader(vertexSrc, geometrySrc, fragmentSrc));
+		m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 
 	}
 	{
@@ -461,7 +421,7 @@ void TestScene::Init()
 		shader->BindUniformBufferPoint("VPMatrix", 0);
 	}
 	//生成uniform缓冲对象
-	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4)));
+	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4),0));
 
 
 	Objects.push_back(backpack_Model);

@@ -93,7 +93,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	RBO.reset(KEngine::RenderBuffer::Create());
 
 	testScene.reset(new TestScene("testScene"));
+	materialScene.reset(new MaterialScene("materialScene"));
 	sceneList.push_back(testScene);
+	sceneList.push_back(materialScene);
 }
 
 void RendererLayer::OnAttach() {

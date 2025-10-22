@@ -81,14 +81,13 @@ namespace KEngine{
         glBindRenderbuffer(GL_RENDERBUFFER, 0);
     }
 
-	unsigned int OpenGLUniformBuffer::m_BindingPoint = 0;
 
-    OpenGLUniformBuffer::OpenGLUniformBuffer(unsigned int size)
+    OpenGLUniformBuffer::OpenGLUniformBuffer(unsigned int size,unsigned int bindingPoint)
     {
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_UNIFORM_BUFFER, m_RendererID);
 		glBufferData(GL_UNIFORM_BUFFER, size, NULL, GL_STATIC_DRAW);
-		glBindBufferRange(GL_UNIFORM_BUFFER, 0, m_RendererID, 0, size);
+		glBindBufferRange(GL_UNIFORM_BUFFER, bindingPoint, m_RendererID, 0, size);
 		
     }
 
@@ -112,6 +111,20 @@ namespace KEngine{
         Bind();
 		glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(glm::mat4), glm::value_ptr(view));
 		glBufferSubData(GL_UNIFORM_BUFFER, offset + sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(proj));
+        Unbind();
+    }
+
+    void OpenGLUniformBuffer::AddVec3(glm::vec3& vec, std::size_t offset)
+    {
+        Bind();
+        glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(glm::vec3), glm::value_ptr(vec));
+        Unbind();
+    }
+
+    void OpenGLUniformBuffer::AddFloat(float& f, std::size_t offset)
+    {
+        Bind();
+		glBufferSubData(GL_UNIFORM_BUFFER, offset, sizeof(float), &f);
         Unbind();
     }
 

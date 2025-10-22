@@ -58,14 +58,15 @@ namespace KEngine{
     {
     private:
 		unsigned int m_RendererID;
-		static unsigned int m_BindingPoint;
     public:
-        OpenGLUniformBuffer(unsigned int size);
+        OpenGLUniformBuffer(unsigned int size,unsigned int bindingPoint);
         virtual ~OpenGLUniformBuffer();
         virtual void Bind() override;
         virtual void Unbind() override;
         
         virtual void AddVPMatrix(glm::mat4& view ,glm::mat4& proj,std::size_t offset = 0) override ;
+		virtual void AddVec3(glm::vec3& vec, std::size_t offset) override;
+		virtual void AddFloat(float& f, std::size_t offset);
     };
 
 }

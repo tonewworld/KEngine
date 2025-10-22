@@ -39,7 +39,7 @@ namespace KEngine
 		}
 		
 	private:
-		glm::vec3 position = { 0,0,1 };
+		glm::vec3 position = { 0,0,2 };
 
 		float yawRotation = 0.f;
 		float pitchRotation = 0.f;

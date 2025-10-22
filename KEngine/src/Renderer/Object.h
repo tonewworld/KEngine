@@ -4,6 +4,12 @@
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
 namespace KEngine {
+	struct KE_API Material {
+		glm::vec3 ambient;
+		glm::vec3 diffuse;
+		glm::vec3 specular;
+		float shininess;
+	};
 
 	class KE_API Object : public std::enable_shared_from_this<Object> {
 	private:
@@ -20,6 +26,8 @@ namespace KEngine {
 		GLuint mask = 0xFF;
 
 		std::shared_ptr<Texture> texture;
+	protected:
+		Material material;
 	public:
 		Object() { ID = ++IDCounter; }
 		Object(const std::string& name) : name(name) { ID = ++IDCounter; }
@@ -31,6 +39,9 @@ namespace KEngine {
 
 		inline glm::mat4 GetModelMatrix() const { return model; }
 		inline void SetModelMatrix(const glm::mat4& m) { model = m; }
+
+		inline Material& GetMaterial() { return material; }
+		inline void SetMaterial(const Material& mat) { material = mat; }
 
 		std::shared_ptr<Shader> shader;
 		void SetDrawState(std::shared_ptr<Texture>texture = nullptr,

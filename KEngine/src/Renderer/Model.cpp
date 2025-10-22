@@ -2,10 +2,6 @@
 #include "Model.h"
 #include "SOIL2/SOIL2.h"
 namespace KEngine {
-	Model::Model(const std::string& path):Object()
-	{
-        this->loadModel(path);
-	}
     Model::Model(const std::string& path,const std::string& name) :Object(name)
     {
         this->loadModel(path);

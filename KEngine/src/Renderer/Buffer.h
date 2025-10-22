@@ -136,8 +136,10 @@ namespace KEngine{
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		virtual void AddVPMatrix(glm::mat4& view, glm::mat4& proj, std::size_t offset = 0) = 0;
+		virtual void AddVec3(glm::vec3& vec, std::size_t offset) = 0;
+		virtual void AddFloat(float& f, std::size_t offset) = 0;
 		//这里要输入size
-		static UniformBuffer* Create(unsigned int size);
+		static UniformBuffer* Create(unsigned int size,unsigned int bindingPoint);
 	};
 
 }

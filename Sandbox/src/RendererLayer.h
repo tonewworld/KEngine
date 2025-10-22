@@ -1,6 +1,7 @@
 #pragma once
 #include <KEngine.h>
-#include "TestScene.h"
+#include "Scenes/TestScene.h"
+#include "Scenes/MaterialScene.h"
 class RendererLayer : public KEngine::Layer {
 public:
     RendererLayer();
@@ -33,6 +34,7 @@ private:
 	std::shared_ptr<KEngine::Object> m_SelectedObject = nullptr;
 
 	std::shared_ptr<TestScene> testScene;
+	std::shared_ptr<MaterialScene>materialScene;
 	std::shared_ptr<KEngine::Scene> currentScene;
 	std::vector<std::shared_ptr<KEngine::Scene>> sceneList;
 

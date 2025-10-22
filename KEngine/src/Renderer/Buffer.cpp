@@ -47,13 +47,13 @@ namespace KEngine{
         //KE_CORE_ASSERT(false, "Unknown RendererAPI");
         return nullptr;
     }
-    UniformBuffer* UniformBuffer::Create(unsigned int size) {
+    UniformBuffer* UniformBuffer::Create(unsigned int size,unsigned int bindingPoint) {
         switch (Renderer::GetAPI()) {
         case RendererAPI::API::None:
             //KE_CORE_ASSERT(false, "RendererAPI::None is currently not supported");
             return nullptr;
         case RendererAPI::API::OpenGL:
-            return new OpenGLUniformBuffer(size);
+            return new OpenGLUniformBuffer(size, bindingPoint);
         }
         //KE_CORE_ASSERT(false, "Unknown RendererAPI");
         return nullptr;
