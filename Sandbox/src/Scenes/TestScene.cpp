@@ -21,7 +21,6 @@ void TestScene::OnUpdate(KEngine::TimeStep ts) {
 	//光源
 	l_Mesh->SetDrawState(nullptr, l_Shader, true, false, 0);
 	//物体
-	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 
 	//背包

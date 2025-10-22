@@ -62,24 +62,21 @@ void MaterialScene::Init()
 
 					void main()
 					{
-						FragColor = vec4(1.0f);
 				
-						// 环境光
-						vec3 ambient = lightColor * Material.ambient;
+						vec3 Ambient = lightColor * ambient;
 
-						// 漫反射 
 						vec3 norm = normalize(fs_in.normal);
 						vec3 lightDir = normalize(lightPos - fs_in.fragPos);
 						float diff = max(dot(norm, lightDir), 0.0);
-						vec3 diffuse = lightColor * (diff * Material.diffuse);
+						vec3 Diffuse = lightColor * (diff * diffuse);
 
-						// 镜面光
 						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
 						vec3 reflectDir = reflect(-lightDir, norm);  
-						float spec = pow(max(dot(viewDir, reflectDir), 0.0), Material.shininess);
-						vec3 specular = lightColor * (spec * Material.specular);  
+						float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+						vec3 Specular = lightColor * (spec * specular);  
 
-						vec3 result = ambient + diffuse + specular;
+						vec3 result = Ambient + Diffuse + Specular;
+						FragColor = vec4(result,1.0f);
 					}
 				)";
 
@@ -187,6 +184,8 @@ void MaterialScene::Init()
 		glm::vec3(0.5f,0.5f,0.5f),
 		32.0f
 		});
+	glm::mat4 objectModel = glm::scale(glm::translate(glm::mat4(1.0f), m_Position),glm::vec3(1.2f));
+	m_Mesh->SetModelMatrix(objectModel);
 
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
