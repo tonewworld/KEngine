@@ -27,6 +27,7 @@
 #include "Renderer/Model.h"
 #include "Renderer/Object.h"
 #include "Renderer/Scene.h"
+#include "Renderer/Light.h"
 
 #include "Platforms/OpenGL/OpenGLBuffer.h"
 #include "Platforms/OpenGL/OpenGLVertexArray.h"
