@@ -25,7 +25,6 @@ private:
 	std::shared_ptr<KEngine::UniformBuffer> materialUBO;
 	std::shared_ptr<KEngine::UniformBuffer> pointLightUBO;
 
-	glm::vec3 pl_Position = glm::vec3(1.2f, 1.0f, 0.0f);
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	std::vector<std::shared_ptr<KEngine::Shader>> vpSL;
 };

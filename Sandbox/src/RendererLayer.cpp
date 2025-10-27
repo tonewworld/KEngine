@@ -120,6 +120,7 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 		currentScene->OnUpdate(ts);
 		for (const auto& obj : currentScene->GetObjectsInScene())
 		{
+			obj->UpdateModelMatrix();
 			obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
 			obj->Draw(obj->shader);
 		}
@@ -313,37 +314,29 @@ void RendererLayer::DrawInspector()
 void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object)
 {
 	// 变换组件
-	if (ImGui::CollapsingHeader("Transition", ImGuiTreeNodeFlags_DefaultOpen)) {
-		glm::mat4 modelMatrix = object->GetModelMatrix();
-		glm::vec3 position, rotation, scale;
+	if (ImGui::CollapsingHeader("Transition", ImGuiTreeNodeFlags_DefaultOpen)) { 
+        // 直接使用对象的属性，不需要从矩阵分解
+        glm::vec3 position = object->GetPosition();
+        glm::vec3 rotation = object->GetRotation();
+        glm::vec3 scale = object->GetScale();
 
-		// 从模型矩阵中分解出位置、旋转、缩放
-		// 注意：这是一个简化的分解，实际项目中可能需要更复杂的方法
-		position = glm::vec3(modelMatrix[3]);
-		scale = glm::vec3(
-			glm::length(glm::vec3(modelMatrix[0])),
-			glm::length(glm::vec3(modelMatrix[1])),
-			glm::length(glm::vec3(modelMatrix[2]))
-		);
+        // 位置
+        float pos[3] = { position.x, position.y, position.z };
+        if (ImGui::DragFloat3("Position", pos, 0.1f)) {
+            object->SetPosition(glm::vec3(pos[0], pos[1], pos[2]));
+        }
 
-		// 位置
-		float pos[3] = { position.x, position.y, position.z };
-		if (ImGui::DragFloat3("Position", pos, 0.1f)) {
-			// 更新位置
-			glm::mat4 newModel = glm::translate(glm::mat4(1.0f), glm::vec3(pos[0], pos[1], pos[2]));
-			// 保持原有的旋转和缩放
-			// 这里需要根据你的对象系统来实现完整的变换更新
-			object->SetModelMatrix(newModel);
-		}
+        // 旋转
+        float rot[3] = { rotation.x, rotation.y, rotation.z };
+        if (ImGui::DragFloat3("Rotation", rot, 1.0f)) {
+            object->SetRotation(glm::vec3(rot[0], rot[1], rot[2]));
+        }
 
-		// 缩放
-		float scl[3] = { scale.x, scale.y, scale.z };
-		if (ImGui::DragFloat3("Scale", scl, 0.1f, 0.01f, 100.0f)) {
-			// 更新缩放
-			glm::mat4 newModel = glm::scale(glm::mat4(1.0f), glm::vec3(scl[0], scl[1], scl[2]));
-			// 保持原有的位置和旋转
-			object->SetModelMatrix(newModel);
-		}
+        // 缩放
+        float scl[3] = { scale.x, scale.y, scale.z };
+        if (ImGui::DragFloat3("Scale", scl, 0.1f, 0.01f, 100.0f)) {
+            object->SetScale(glm::vec3(scl[0], scl[1], scl[2]));
+        }
 	}
 
 	// 渲染组件

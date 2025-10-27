@@ -1,7 +1,7 @@
 #pragma once
 #include "core.h"
 #include "glad/glad.h"
-#include "Buffer.h"
+
 namespace KEngine {
 
 	class KE_API Texture {

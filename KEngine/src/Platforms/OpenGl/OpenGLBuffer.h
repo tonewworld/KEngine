@@ -67,6 +67,8 @@ namespace KEngine{
         virtual void AddVPMatrix(glm::mat4& view ,glm::mat4& proj,std::size_t offset = 0) override ;
 		virtual void AddVec3(glm::vec3& vec, std::size_t offset) override;
 		virtual void AddFloat(float& f, std::size_t offset);
+        void AddMaterial(MaterialUboData& material) ;
+		
     };
 
 }

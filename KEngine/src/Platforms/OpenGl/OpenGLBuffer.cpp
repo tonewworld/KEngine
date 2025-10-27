@@ -128,4 +128,11 @@ namespace KEngine{
         Unbind();
     }
 
+    void OpenGLUniformBuffer::AddMaterial(MaterialUboData& material)
+    {
+        Bind();
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Material), &material);
+        Unbind();
+    }
+
 }

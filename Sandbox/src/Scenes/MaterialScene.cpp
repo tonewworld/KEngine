@@ -50,13 +50,22 @@ void MaterialScene::Init()
 						vec3 fragPos;
 					} fs_in;
 
-					layout(std140) uniform Material{
-						vec3 m_Ambient;
-						vec3 m_Diffuse;
-						vec3 m_Specular;
-						float m_Shininess;
+					
+					struct Material{
+						vec3 Ambient;
+						float _pad0;
+						vec3 Diffuse;
+						float _pad1;
+						vec3 Specular;
+						float _pad2;
+						float Shininess;
+						float _pad3[3];
 					};
-					layout(std140) uniform PointLight{
+					layout(std140,binding=1) uniform MaterialUboData{
+						Material material;
+					};
+
+					layout(std140,binding=2) uniform PointLight{
 						vec3 pl_Position;
 						vec3 pl_Ambient;
 						vec3 pl_Diffuse;
@@ -69,20 +78,19 @@ void MaterialScene::Init()
 
 					void main()
 					{
-					
-						vec3 ambient = lightColor * pl_Ambient * m_Ambient;
+						vec3 ambient = lightColor * pl_Ambient * material.Ambient;
 
 						vec3 norm = normalize(fs_in.normal);
 						vec3 lightDir = normalize(pl_Position - fs_in.fragPos);
 						float diff = max(dot(norm, lightDir), 0.0);
-						vec3 diffuse = lightColor * (diff * pl_Diffuse * m_Diffuse);
+						vec3 diffuse = lightColor * (diff * pl_Diffuse * material.Diffuse);
 
 						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
 						vec3 reflectDir = reflect(-lightDir, norm);  
-						float spec = pow(max(dot(viewDir, reflectDir), 0.0), m_Shininess);
-						vec3 specular = lightColor * (spec * pl_Specular * m_Specular);  
+						float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.Shininess);
+						vec3 specular = lightColor * (spec * pl_Specular * material.Specular);  
 
-						vec3 result = ambient + diffuse + specular;
+						vec3 result = ambient + diffuse + specular ;
 						FragColor = vec4(result,1.0f);
 					}
 				)";
@@ -191,9 +199,7 @@ void MaterialScene::Init()
 		glm::vec3(0.5f,0.5f,0.5f),
 		32.0f
 		});
-	glm::mat4 objectModel = glm::scale(glm::translate(glm::mat4(1.0f), m_Position),glm::vec3(0.5f));
-	m_Mesh->SetModelMatrix(objectModel);
-
+	
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
 	 0.5f, -0.5f, -0.5f,
@@ -260,13 +266,11 @@ void MaterialScene::Init()
 		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
 		"light"));
 	pointLight->SetLightAttributes({
-		glm::vec3(1.0f, 1.0f, 0.0f),
 		glm::vec3(0.2f,0.2f,0.2f),
 		glm::vec3(0.5f,0.5f,0.5f),
 		glm::vec3(1.0f,1.0f,1.0f)
 		});
-	pointLight->SetModelMatrix(glm::scale(glm::translate(glm::mat4(1.0f), pointLight->GetLightAttributes().position), glm::vec3(0.2f)));
-
+	
 	vpSL.clear();
 	vpSL = {
 		m_Shader,
@@ -278,12 +282,12 @@ void MaterialScene::Init()
 		shader->BindUniformBufferPoint("VPMatrix", 0);
 	}
 	
-	m_Shader->BindUniformBufferPoint("Material", 1);
+	m_Shader->BindUniformBufferPoint("MaterialUboData", 1);
 	m_Shader->BindUniformBufferPoint("PointLight", 2);
 	
 	//生成uniform缓冲对象
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4),0));
-	materialUBO.reset(KEngine::UniformBuffer::Create(4 * sizeof(glm::vec4),1));
+	materialUBO.reset(KEngine::UniformBuffer::Create(sizeof(KEngine::MaterialUboData),1));
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(4 * sizeof(glm::vec4), 2));
 
 	Objects.push_back(m_Mesh);
@@ -292,24 +296,24 @@ void MaterialScene::Init()
 void MaterialScene::OnUpdate(KEngine::TimeStep ts)
 {
 	mainCamera->Control(ts.GetTimeStep());
-	//填充数据到uniform缓冲对象
+
+	// 填充数据到uniform缓冲对象
 	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
 
-	//光源
-	pointLight->SetDrawState(nullptr, l_Shader, true, false, 0);
-	//物体
+	// 设置着色器uniform
 	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
-	pointLightUBO->AddVec3(glm::vec3(pointLight->GetModelMatrix()[3]), 0);
+
+	// 更新光源UBO - 使用实际的光源属性位置
+	pointLightUBO->AddVec3(pointLight->GetPosition(), 0);
 	pointLightUBO->AddVec3(pointLight->GetLightAttributes().ambient, sizeof(glm::vec4));
-	pointLightUBO->AddVec3(pointLight->GetLightAttributes().diffuse, sizeof(glm::vec4)*2);
-	pointLightUBO->AddVec3(pointLight->GetLightAttributes().specular, sizeof(glm::vec4)*3);
+	pointLightUBO->AddVec3(pointLight->GetLightAttributes().diffuse, sizeof(glm::vec4) * 2);
+	pointLightUBO->AddVec3(pointLight->GetLightAttributes().specular, sizeof(glm::vec4) * 3);
 
-	materialUBO->AddVec3(m_Mesh->GetMaterial().ambient, 0);
-	materialUBO->AddVec3(m_Mesh->GetMaterial().diffuse, sizeof(glm::vec4));
-	materialUBO->AddVec3(m_Mesh->GetMaterial().specular, sizeof(glm::vec4) * 2);
-	materialUBO->AddFloat(m_Mesh->GetMaterial().shininess, sizeof(glm::vec4) * 3);
+	// 更新材质UBO
+	materialUBO->AddMaterial(KEngine::MaterialUboData{ m_Mesh->GetMaterial()});
+	// 设置绘制状态（实际绘制在 RendererLayer 中完成）
+	pointLight->SetDrawState(nullptr, l_Shader, true, false, 0);
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
-
 }
 void MaterialScene::Destroy()
 {

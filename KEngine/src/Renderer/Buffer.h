@@ -2,7 +2,7 @@
 #include "Core.h"
 #include "Log.h"
 #include "glm.hpp"
-
+#include "Object.h"
 namespace KEngine{
 
     enum class ShaderDataType
@@ -138,6 +138,7 @@ namespace KEngine{
 		virtual void AddVPMatrix(glm::mat4& view, glm::mat4& proj, std::size_t offset = 0) = 0;
 		virtual void AddVec3(glm::vec3& vec, std::size_t offset) = 0;
 		virtual void AddFloat(float& f, std::size_t offset) = 0;
+		virtual void AddMaterial(MaterialUboData& material) = 0;
 		//这里要输入size
 		static UniformBuffer* Create(unsigned int size,unsigned int bindingPoint);
 	};

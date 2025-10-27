@@ -16,6 +16,7 @@ void TestScene::OnUpdate(KEngine::TimeStep ts) {
 	//填充数据到uniform缓冲对象
 	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
 	//天空盒
+	//这里可能存在bug
 	sky_Mesh->SetModelMatrix(glm::scale(glm::mat4(1.0f), glm::vec3(100.0f)));
 	sky_Mesh->SetDrawState(textureCube, sky_Shader, true, true, 0);
 	//光源
