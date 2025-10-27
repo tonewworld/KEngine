@@ -35,6 +35,13 @@ namespace KEngine{
 		for (unsigned int i = 0; i < model->meshes.size(); i++)
 			Submit(shader, std::make_shared<Mesh>(model->meshes[i]));
 	}
+	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Light>& light)
+	{
+
+		shader->Bind();
+		light->VAO->Bind();
+		RenderCommand::DrawIndexed(light->VAO);
+	}
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Object>& object)
 	{
 		if (Mesh* m = dynamic_cast<Mesh*>(object.get()))
@@ -46,6 +53,12 @@ namespace KEngine{
 		if (Model* md = dynamic_cast<Model*>(object.get()))
 		{
 			std::shared_ptr<Model> ptr(md, [object](Model*) {});
+			Submit(shader, ptr);
+			return;
+		}
+		if (Light* md = dynamic_cast<Light*>(object.get()))
+		{
+			std::shared_ptr<Light> ptr(md, [object](Light*) {});
 			Submit(shader, ptr);
 			return;
 		}

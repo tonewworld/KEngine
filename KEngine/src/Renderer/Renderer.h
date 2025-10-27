@@ -4,6 +4,7 @@
 #include "glm.hpp"
 #include "Shader.h"
 #include "Model.h"
+#include "Light.h"
 namespace KEngine{
    
     class KE_API Renderer{
@@ -16,6 +17,7 @@ namespace KEngine{
 
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);
+        static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Light>& model);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Object>& object);
 
        
