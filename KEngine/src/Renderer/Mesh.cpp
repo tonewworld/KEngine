@@ -6,7 +6,7 @@ namespace KEngine
 {
  
     Mesh::Mesh(float* m_Vertices, unsigned int floatCount,
-        BufferLayout& layout,
+        BufferLayout layout,
         unsigned int* m_Indexes, unsigned int indexCount,
         const std::string& name)
         :Object(name)

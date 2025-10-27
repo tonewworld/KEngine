@@ -2,6 +2,7 @@
 #include "OpenGLBuffer.h"
 #include "glad/glad.h"
 #include <gtc/type_ptr.hpp>
+#include "Renderer/Light.h"
 namespace KEngine{
     
 	//VertexBuffer
@@ -131,7 +132,22 @@ namespace KEngine{
     void OpenGLUniformBuffer::AddMaterial(MaterialUboData& material)
     {
         Bind();
-		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Material), &material);
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(MaterialUboData), &material);
+        Unbind();
+    }
+
+    void OpenGLUniformBuffer::AddPointLight(const std::vector<std::shared_ptr<PointLight>>& plList) {
+        Bind();
+
+        size_t lightBytes = plList.size() * sizeof(PointLightUboData);
+        for (size_t i = 0; i < plList.size(); ++i) {
+            PointLightUboData ubo(plList[i]->GetPosition(),plList[i]->GetLightAttributes());
+            glBufferSubData(GL_UNIFORM_BUFFER, i * sizeof(PointLightUboData), sizeof(ubo), &ubo);
+        }
+
+        int count = static_cast<int>(plList.size());
+        glBufferSubData(GL_UNIFORM_BUFFER, 10 * sizeof(PointLightUboData), sizeof(count), &count);
+
         Unbind();
     }
 

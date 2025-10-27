@@ -72,6 +72,7 @@ namespace KEngine {
 		inline glm::mat4 GetModelMatrix() const { return model; }
 		inline void SetModelMatrix(const glm::mat4& mat) { model = mat; }
 		inline void UpdateModelMatrix() {
+			model = glm::mat4(1.0f);
 			model = glm::translate(model, m_Position);
 			model = glm::rotate(model, glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // X÷·
 			model = glm::rotate(model, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // Y÷·  

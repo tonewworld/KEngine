@@ -19,7 +19,9 @@ private:
 	std::shared_ptr<KEngine::Mesh> m_Mesh;
 
 	std::shared_ptr<KEngine::Shader> l_Shader;
-	std::shared_ptr<KEngine::Light> pointLight;
+	std::shared_ptr<KEngine::PointLight> pointLight0;
+	std::shared_ptr<KEngine::PointLight> pointLight1;
+	std::vector<std::shared_ptr<KEngine::PointLight>> plList;
 
 	std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
 	std::shared_ptr<KEngine::UniformBuffer> materialUBO;

@@ -3,16 +3,32 @@
 #include "Object.h"
 #include "VertexArray.h"
 namespace KEngine {
-	struct LightAttri {
+	struct KE_API PointLightAttri {
 		glm::vec3 ambient;
 		glm::vec3 diffuse;
 		glm::vec3 specular;
+		glm::vec3 color;
+	};
+	struct alignas(16) KE_API PointLightUboData {
+		glm::vec3 Position; float _pad0;
+		glm::vec3 Ambient;  float _pad1;
+		glm::vec3 Diffuse;  float _pad2;
+		glm::vec3 Specular; float _pad3;
+		glm::vec3 Color;    float _pad4;
+		PointLightUboData(glm::vec3 position,PointLightAttri pla)
+			:Position(position), _pad0(0),
+			Ambient(pla.ambient), _pad1(0),
+			Diffuse(pla.diffuse), _pad2(0),
+			Specular(pla.specular), _pad3(0),
+			Color(pla.color),_pad4(0)
+		{
+		}
 	};
 
 	class KE_API Light :public Object {
 	public:
 		Light(float* m_Vertices, unsigned int vertexCount,
-			BufferLayout& layout,
+			BufferLayout layout,
 			unsigned int* m_Indexes, unsigned int indexCount,
 			const std::string& name = "Mesh");
 		virtual ~Light() = default;
@@ -21,13 +37,27 @@ namespace KEngine {
 		std::shared_ptr<VertexBuffer> VBO;
 		std::shared_ptr<IndexBuffer> IBO;
 
-		void SetLightAttributes(const LightAttri& attri) { m_LightAttri = attri; }
-		LightAttri& GetLightAttributes() { return m_LightAttri; }
 	private:
 
 		BufferLayout m_layout;
-		LightAttri m_LightAttri;
 
 
 	};
-}
+	class KE_API PointLight :public Light {
+	public:
+		PointLight(float* m_Vertices, unsigned int vertexCount,
+			BufferLayout layout,
+			unsigned int* m_Indexes, unsigned int indexCount,
+			const std::string& name = "Mesh")
+			:Light(m_Vertices, vertexCount,
+				layout,
+				m_Indexes, indexCount,
+				name) {
+		}
+		void SetLightAttributes(const PointLightAttri& attri) { m_LightAttri = attri; }
+		PointLightAttri& GetLightAttributes() { return m_LightAttri; }
+	private:
+		PointLightAttri m_LightAttri;
+	};
+
+};

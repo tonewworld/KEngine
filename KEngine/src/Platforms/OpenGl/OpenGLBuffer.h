@@ -10,7 +10,7 @@ namespace KEngine{
         virtual void Bind() const override;
         virtual void Unbind() const override;
 		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
-		virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		virtual void SetLayout(const BufferLayout layout) override { m_Layout = layout; }
     private:
         unsigned int m_RendererID;
 
@@ -67,8 +67,8 @@ namespace KEngine{
         virtual void AddVPMatrix(glm::mat4& view ,glm::mat4& proj,std::size_t offset = 0) override ;
 		virtual void AddVec3(glm::vec3& vec, std::size_t offset) override;
 		virtual void AddFloat(float& f, std::size_t offset);
-        void AddMaterial(MaterialUboData& material) ;
-		
+        virtual void AddMaterial(MaterialUboData& material) ;
+        virtual void AddPointLight(const std::vector<std::shared_ptr<PointLight>>& plList);
     };
 
 }

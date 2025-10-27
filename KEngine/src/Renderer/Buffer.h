@@ -4,7 +4,7 @@
 #include "glm.hpp"
 #include "Object.h"
 namespace KEngine{
-
+	class PointLight;//前向声明
     enum class ShaderDataType
 	{
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
@@ -59,7 +59,7 @@ namespace KEngine{
 			return 0;
 		}
     };
-    class BufferLayout {
+    class KE_API BufferLayout {
     public:
         BufferLayout() { }
         BufferLayout(const std::initializer_list<BufferElement>& elements):m_Elements(elements) {
@@ -97,7 +97,7 @@ namespace KEngine{
         virtual void Unbind() const =0;
         static VertexBuffer* Create(const std::vector<float>&data);
 		virtual const BufferLayout& GetLayout() const = 0;
-		virtual void SetLayout(const BufferLayout& layout) = 0;
+		virtual void SetLayout(const BufferLayout layout) = 0;
     };
     class KE_API IndexBuffer{
     public :
@@ -139,6 +139,7 @@ namespace KEngine{
 		virtual void AddVec3(glm::vec3& vec, std::size_t offset) = 0;
 		virtual void AddFloat(float& f, std::size_t offset) = 0;
 		virtual void AddMaterial(MaterialUboData& material) = 0;
+		virtual void AddPointLight(const std::vector<std::shared_ptr<PointLight>>& plList) = 0;
 		//这里要输入size
 		static UniformBuffer* Create(unsigned int size,unsigned int bindingPoint);
 	};

@@ -17,7 +17,7 @@ void TestScene::OnUpdate(KEngine::TimeStep ts) {
 	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
 	//天空盒
 	//这里可能存在bug
-	sky_Mesh->SetModelMatrix(glm::scale(glm::mat4(1.0f), glm::vec3(100.0f)));
+	sky_Mesh->SetScale(glm::vec3(50.0f));
 	sky_Mesh->SetDrawState(textureCube, sky_Shader, true, true, 0);
 	//光源
 	l_Mesh->SetDrawState(nullptr, l_Shader, true, false, 0);
