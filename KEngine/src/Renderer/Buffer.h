@@ -5,6 +5,7 @@
 #include "Object.h"
 namespace KEngine{
 	class PointLight;//前向声明
+	class ParallelLight;
     enum class ShaderDataType
 	{
 		None = 0, Float, Float2, Float3, Float4, Mat3, Mat4, Int, Int2, Int3, Int4, Bool
@@ -116,7 +117,7 @@ namespace KEngine{
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		static FrameBuffer* Create();
-		virtual void AddTexture(unsigned int textureID) = 0;
+		virtual void AddTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable) = 0;
 	};
 	class KE_API RenderBuffer
 	{
@@ -139,7 +140,8 @@ namespace KEngine{
 		virtual void AddVec3(glm::vec3& vec, std::size_t offset) = 0;
 		virtual void AddFloat(float& f, std::size_t offset) = 0;
 		virtual void AddMaterial(MaterialUboData& material) = 0;
-		virtual void AddPointLight(const std::vector<std::shared_ptr<PointLight>>& plList) = 0;
+		virtual void AddPointLight(const std::vector<std::shared_ptr<PointLight>>& pointLightList) = 0;
+		virtual void AddParallelLight(const std::vector<std::shared_ptr<ParallelLight>>& parallelLightList) = 0;
 		//这里要输入size
 		static UniformBuffer* Create(unsigned int size,unsigned int bindingPoint);
 	};

@@ -38,7 +38,7 @@ namespace KEngine{
         virtual void Bind() override ;
         virtual void Unbind() override ;
         static OpenGLFrameBuffer* Create();
-        virtual void AddTexture(unsigned int textureID) override;
+        virtual void AddTexture(GLint type,unsigned int textureID,GLboolean drawable,GLboolean readable) override;
     };
 
     class KE_API OpenGLRenderBuffer :public RenderBuffer
@@ -68,7 +68,8 @@ namespace KEngine{
 		virtual void AddVec3(glm::vec3& vec, std::size_t offset) override;
 		virtual void AddFloat(float& f, std::size_t offset);
         virtual void AddMaterial(MaterialUboData& material) ;
-        virtual void AddPointLight(const std::vector<std::shared_ptr<PointLight>>& plList);
+        virtual void AddPointLight(const std::vector<std::shared_ptr<PointLight>>& pointLightList);
+        virtual void AddParallelLight(const std::vector<std::shared_ptr<ParallelLight>>& parallelLightList);
     };
 
 }

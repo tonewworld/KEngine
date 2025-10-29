@@ -52,10 +52,12 @@ namespace KEngine{
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
-    void OpenGLFrameBuffer::AddTexture(unsigned int textureID)
+    void OpenGLFrameBuffer::AddTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable)
     {
 		this->Bind();
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, type, GL_TEXTURE_2D, textureID, 0);
+        glDrawBuffer(drawable);
+        glReadBuffer(readable);
     }
 	//RenderBuffer
     OpenGLRenderBuffer::OpenGLRenderBuffer()
@@ -136,19 +138,32 @@ namespace KEngine{
         Unbind();
     }
 
-    void OpenGLUniformBuffer::AddPointLight(const std::vector<std::shared_ptr<PointLight>>& plList) {
+    void OpenGLUniformBuffer::AddPointLight(const std::vector<std::shared_ptr<PointLight>>& pointLightList) {
         Bind();
 
-        size_t lightBytes = plList.size() * sizeof(PointLightUboData);
-        for (size_t i = 0; i < plList.size(); ++i) {
-            PointLightUboData ubo(plList[i]->GetPosition(),plList[i]->GetLightAttributes());
+        size_t lightBytes = pointLightList.size() * sizeof(PointLightUboData);
+        for (size_t i = 0; i < pointLightList.size(); ++i) {
+            PointLightUboData ubo(pointLightList[i]->GetPosition(), pointLightList[i]->GetLightAttributes());
             glBufferSubData(GL_UNIFORM_BUFFER, i * sizeof(PointLightUboData), sizeof(ubo), &ubo);
         }
 
-        int count = static_cast<int>(plList.size());
+        int count = static_cast<int>(pointLightList.size());
         glBufferSubData(GL_UNIFORM_BUFFER, 10 * sizeof(PointLightUboData), sizeof(count), &count);
 
         Unbind();
     }
 
+    void OpenGLUniformBuffer::AddParallelLight(const std::vector<std::shared_ptr<ParallelLight>>& parallelLightList) {
+        Bind();
+
+        size_t lightBytes = parallelLightList.size() * sizeof(ParallelLightUboData);
+        for (size_t i = 0; i < parallelLightList.size(); ++i) {
+            ParallelLightUboData ubo(parallelLightList[i]->GetLightAttributes());
+            glBufferSubData(GL_UNIFORM_BUFFER, i * sizeof(ParallelLightUboData), sizeof(ubo), &ubo);
+        }
+        int count = static_cast<int>(parallelLightList.size());
+        glBufferSubData(GL_UNIFORM_BUFFER, 10 * sizeof(ParallelLightUboData), sizeof(count), &count);
+
+        Unbind();
+    }
 }

@@ -26,6 +26,7 @@ namespace KEngine {
 		virtual std::string GetPath() = 0;
 		virtual void LoadTexture() = 0;
 		static Texture2D* Create();
+		static Texture2D* Create(GLint type,unsigned int width,unsigned int height);
 		static Texture2D* Create(const std::string& path);
 		
 	};
@@ -41,5 +42,6 @@ namespace KEngine {
 		static TextureCube* Create(std::vector<std::string>& faces);
 
 	};
+
 }
 

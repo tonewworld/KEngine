@@ -31,7 +31,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	}
 	pickFBO.reset(KEngine::FrameBuffer::Create());
 	pickTexture.reset(KEngine::Texture2D::Create());
-	pickFBO->AddTexture(pickTexture->GetRendererID());
+	pickFBO->AddTexture(GL_COLOR_ATTACHMENT0,pickTexture->GetRendererID(),GL_TRUE,GL_TRUE);
 	pickRBO.reset(KEngine::RenderBuffer::Create());
 
 	pickShader->BindUniformBufferPoint("VPMatrix", 0);
@@ -89,8 +89,14 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 	FBO.reset(KEngine::FrameBuffer::Create());
 	quad_Texture.reset(KEngine::Texture2D::Create());
-	FBO->AddTexture(quad_Texture->GetRendererID());
+	FBO->AddTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
 	RBO.reset(KEngine::RenderBuffer::Create());
+
+	depthFBO.reset(KEngine::FrameBuffer::Create());
+	unsigned int SHADOW_WIDTH = 1024;
+	unsigned int SHADOW_HEIGHT = 1024;
+	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT));
+	depthFBO->AddTexture(GL_DEPTH_COMPONENT,depthTexture->GetRendererID(),GL_FALSE,GL_FALSE);
 
 	testScene.reset(new TestScene("testScene"));
 	materialScene.reset(new MaterialScene("materialScene"));

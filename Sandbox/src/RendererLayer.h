@@ -26,7 +26,8 @@ private:
 	std::shared_ptr<KEngine::RenderBuffer>pickRBO;
 	std::shared_ptr<KEngine::Shader>      pickShader;
 
-	
+	std::shared_ptr<KEngine::FrameBuffer> depthFBO;
+	std::shared_ptr<KEngine::Texture2D>   depthTexture;
 
 	bool m_ShowSceneHierarchy = true;
 	bool m_ShowInspector = true;

@@ -10,6 +10,7 @@ namespace KEngine
 		std::string m_Path;
 	public:
 		OpenGLTexture2D();
+		OpenGLTexture2D(GLint type,unsigned int width, unsigned int height);
 		OpenGLTexture2D(const std::string& path);
 		virtual ~OpenGLTexture2D();
 		virtual void Bind() override;
