@@ -65,6 +65,32 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 		screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
+	{
+		char* vertexSrc = R"(
+				#version 420 core
+				layout(location = 0) in vec3 v_Position;
+
+				uniform mat4 model;
+				uniform mat4 lightSpaceMatrix;
+
+				void main()
+				{
+					gl_Position = lightSpaceMatrix * model * vec4(v_Position, 1.0);
+				}
+				)";
+		char* fragmentSrc = R"(
+				#version 420 core
+				out vec4  FragColor;
+
+				void main()
+				{
+					 float depth = gl_FragCoord.z;
+					 FragColor = vec4(vec3(depth), 1.0);
+				}
+				)";
+
+		shadowShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+	}
 	float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 		// Positions   // TexCoords
 		-1.0f,  1.0f,  0.0f, 1.0f,
@@ -116,26 +142,46 @@ void RendererLayer::OnDetach()
 	pickRBO.reset();
 }
 void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
-
 	
-	FBO->Bind();
-	KEngine::Renderer::BeginScene();
+	  // 光源位置（假设是点光源或聚光灯）
+	glm::vec3 lightPos = glm::vec3(2.0f, 4.0f, -2.0f);
+
+	// 透视投影矩阵（从光源视角）
+	glm::mat4 lightProjection = glm::perspective(glm::radians(45.f), (float)
+		KEngine::Application::s_Instance->GetWindow().GetWidth()
+		/ KEngine::Application::s_Instance->GetWindow().GetHeight(),
+		0.1f, 300.f);
+
+	// 光源视角矩阵
+	glm::mat4 lightView = glm::lookAt(
+		lightPos,                    // 光源位置
+		glm::vec3(0.0f, 0.0f, 0.0f), // 看向场景中心
+		glm::vec3(0.0f, 1.0f, 0.0f)  // 上方向
+	);
+
+	m_LightSpaceMatrix = lightProjection * lightView;
+
 	
 	if(currentScene)
 	{
+
 		currentScene->OnUpdate(ts);
+		PickWithColor();
+		CalculateShadow();
+		/*FBO->Bind();
+		KEngine::Renderer::BeginScene();
+
 		for (const auto& obj : currentScene->GetObjectsInScene())
 		{
 			obj->UpdateModelMatrix();
 			obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
 			obj->Draw(obj->shader);
 		}
-		PickWithColor();
+		FBO->Unbind();*/
 	}
-	FBO->Unbind();
-
-	quad_Mesh->SetDrawState(quad_Texture, screenShader, false, false);
-	quad_Mesh->Draw(screenShader);
+	
+	quad_Mesh->SetDrawState(depthTexture, shadowShader, false, false);
+	quad_Mesh->Draw(shadowShader);
 	
 	KEngine::Renderer::EndScene();
 }
@@ -222,6 +268,31 @@ void RendererLayer::PickWithColor()
 		std::cout << "Pick: unknown ID=" << pickedID << "\n";
 	}
 	return;
+}
+
+void RendererLayer::CalculateShadow()
+{
+	unsigned int SHADOW_WIDTH = 1024;
+	unsigned int SHADOW_HEIGHT = 1024;
+	// 1. 渲染深度图
+	depthFBO->Bind();
+	/*glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);*/
+	KEngine::RenderCommand::Clear();
+	shadowShader->Bind();
+	shadowShader->SetUniformMatrix4fv(m_LightSpaceMatrix, "lightSpaceMatrix");
+
+	for (const auto& obj : currentScene->GetObjectsInScene())
+	{
+		glm::mat4 model = obj->GetModelMatrix();
+		shadowShader->SetUniformMatrix4fv(model, "model");
+		obj->Draw(shadowShader); // 用深度着色器绘制
+	}
+	depthFBO->Unbind();
+
+	// 2. 恢复视口
+	/*int w = KEngine::Application::s_Instance->GetWindow().GetWidth();
+	int h = KEngine::Application::s_Instance->GetWindow().GetHeight();
+	glViewport(0, 0, w, h);*/
 }
 
 void RendererLayer::DrawSceneHierarchy()

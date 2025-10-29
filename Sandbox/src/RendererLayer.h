@@ -11,6 +11,7 @@ public:
     void OnEvent(KEngine::Event& event) override;
     void ImGuiRender() override;
 	void PickWithColor();
+	void CalculateShadow();
     inline glm::mat4 CalculateVP(glm::mat4 view, glm::mat4 proj) { return proj * view; }
 private:
 
@@ -28,6 +29,8 @@ private:
 
 	std::shared_ptr<KEngine::FrameBuffer> depthFBO;
 	std::shared_ptr<KEngine::Texture2D>   depthTexture;
+	std::shared_ptr<KEngine::Shader>	  shadowShader;
+	glm::mat4 m_LightSpaceMatrix;
 
 	bool m_ShowSceneHierarchy = true;
 	bool m_ShowInspector = true;

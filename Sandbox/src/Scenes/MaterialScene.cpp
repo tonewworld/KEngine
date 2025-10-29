@@ -91,6 +91,8 @@ void MaterialScene::Init()
 					};
 
 					uniform vec3 viewPos;
+					/*uniform sampler2D shadowMap;
+					uniform mat4 lightSpaceMatrix;*/
 
 					vec3 CalculatePointLight(){
 						vec3 norm    = normalize(fs_in.normal);
@@ -120,6 +122,18 @@ void MaterialScene::Init()
 						}
 						return total;
 					}
+					/*float CalculateShadow(vec4 fragPosLightSpace){
+						vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+						projCoords = projCoords * 0.5 + 0.5; // ±ä»»µ½ [0,1]
+
+						float closestDepth = texture(shadowMap, projCoords.xy).r;
+						float currentDepth = projCoords.z;
+
+						float bias = 0.005;
+						float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+						return shadow;
+	
+					}*/
 					vec3 CalculateParallelLight(){
 						vec3 norm    = normalize(fs_in.normal);
 						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
@@ -140,7 +154,7 @@ void MaterialScene::Init()
 						}
 						return total;
 					}
-
+					
 					void main() {
 						FragColor = vec4(CalculatePointLight() + CalculateParallelLight(), 1.0);
 					}
