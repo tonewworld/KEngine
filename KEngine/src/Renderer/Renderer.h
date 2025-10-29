@@ -14,6 +14,8 @@ namespace KEngine{
 		static void EndScene();
 
 		static void ColorPickBegin();
+        static void ShadowBegin();
+        static void ShadowEnd();
 
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);

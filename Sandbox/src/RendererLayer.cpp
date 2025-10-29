@@ -84,8 +84,8 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 				void main()
 				{
-					 float depth = gl_FragCoord.z;
-					 FragColor = vec4(vec3(depth), 1.0);
+					float depth = gl_FragCoord.z;
+					FragColor = vec4(vec3(depth), 1.0);
 				}
 				)";
 
@@ -119,10 +119,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	RBO.reset(KEngine::RenderBuffer::Create());
 
 	depthFBO.reset(KEngine::FrameBuffer::Create());
-	unsigned int SHADOW_WIDTH = 1024;
-	unsigned int SHADOW_HEIGHT = 1024;
-	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT));
-	depthFBO->AddTexture(GL_DEPTH_COMPONENT,depthTexture->GetRendererID(),GL_FALSE,GL_FALSE);
+	int w = KEngine::Application::s_Instance->GetWindow().GetWidth();
+	int h = KEngine::Application::s_Instance->GetWindow().GetHeight();
+	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, w, h));
+	depthFBO->AddTexture(GL_DEPTH_ATTACHMENT,depthTexture->GetRendererID(),GL_FALSE,GL_FALSE);
 
 	testScene.reset(new TestScene("testScene"));
 	materialScene.reset(new MaterialScene("materialScene"));
@@ -143,45 +143,52 @@ void RendererLayer::OnDetach()
 }
 void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	
-	  // 光源位置（假设是点光源或聚光灯）
-	glm::vec3 lightPos = glm::vec3(2.0f, 4.0f, -2.0f);
-
-	// 透视投影矩阵（从光源视角）
-	glm::mat4 lightProjection = glm::perspective(glm::radians(45.f), (float)
-		KEngine::Application::s_Instance->GetWindow().GetWidth()
-		/ KEngine::Application::s_Instance->GetWindow().GetHeight(),
-		0.1f, 300.f);
-
-	// 光源视角矩阵
-	glm::mat4 lightView = glm::lookAt(
-		lightPos,                    // 光源位置
-		glm::vec3(0.0f, 0.0f, 0.0f), // 看向场景中心
-		glm::vec3(0.0f, 1.0f, 0.0f)  // 上方向
-	);
-
-	m_LightSpaceMatrix = lightProjection * lightView;
-
+	
 	
 	if(currentScene)
 	{
+		// 使用透视投影而不是正交投影
+		glm::vec3 lightDir = currentScene->GetParallelLightInScene()[0]->GetLightAttributes().direct;
+		// 透视投影矩阵（从光源视角）
+		glm::mat4 lightProjection = glm::perspective(
+			glm::radians(90.0f),  // 视野角度
+			1.0f,                 // 宽高比 1:1
+			1.0f,                 // 近平面
+			100.0f                // 远平面
+		);
+
+		// 光源位置 - 在场景上方稍远处
+		glm::vec3 lightPos = glm::vec3(0.0f, 0.0f, 5.0f);
+
+		// 光源视角矩阵
+		glm::mat4 lightView = glm::lookAt(
+			lightPos,                    // 光源位置
+			glm::vec3(0.0f, 0.0f, 0.0f), // 看向场景中心
+			glm::vec3(0.0f, 1.0f, 0.0f)  // 上方向
+		);
+
+		m_LightSpaceMatrix = lightProjection * lightView;
 
 		currentScene->OnUpdate(ts);
 		PickWithColor();
 		CalculateShadow();
-		/*FBO->Bind();
+		FBO->Bind();
 		KEngine::Renderer::BeginScene();
 
 		for (const auto& obj : currentScene->GetObjectsInScene())
 		{
 			obj->UpdateModelMatrix();
 			obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+			depthTexture->Bind(5); 
+			obj->shader->SetUniform1i(5, "shadowMap");
+			obj->shader->SetUniformMatrix4fv(m_LightSpaceMatrix, "lightSpaceMatrix");
 			obj->Draw(obj->shader);
 		}
-		FBO->Unbind();*/
+		FBO->Unbind();
 	}
 	
-	quad_Mesh->SetDrawState(depthTexture, shadowShader, false, false);
-	quad_Mesh->Draw(shadowShader);
+	quad_Mesh->SetDrawState(quad_Texture, screenShader, false, false);
+	quad_Mesh->Draw(screenShader);
 	
 	KEngine::Renderer::EndScene();
 }
@@ -257,7 +264,7 @@ void RendererLayer::PickWithColor()
 			return;
 		}
 
-		// 在 Objects 中查找 pickedID（根据你的容器方式调整）
+		// 在 Objects 中查找 pickedID
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
 			if (obj->GetID() == pickedID) {
 				std::cout << "Pick: ID=" << pickedID << " Name=" << obj->GetName() << "\n";
@@ -272,12 +279,11 @@ void RendererLayer::PickWithColor()
 
 void RendererLayer::CalculateShadow()
 {
-	unsigned int SHADOW_WIDTH = 1024;
-	unsigned int SHADOW_HEIGHT = 1024;
+	
 	// 1. 渲染深度图
 	depthFBO->Bind();
-	/*glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);*/
-	KEngine::RenderCommand::Clear();
+	
+	KEngine::Renderer::ShadowBegin();
 	shadowShader->Bind();
 	shadowShader->SetUniformMatrix4fv(m_LightSpaceMatrix, "lightSpaceMatrix");
 
@@ -289,10 +295,8 @@ void RendererLayer::CalculateShadow()
 	}
 	depthFBO->Unbind();
 
-	// 2. 恢复视口
-	/*int w = KEngine::Application::s_Instance->GetWindow().GetWidth();
-	int h = KEngine::Application::s_Instance->GetWindow().GetHeight();
-	glViewport(0, 0, w, h);*/
+	
+	
 }
 
 void RendererLayer::DrawSceneHierarchy()

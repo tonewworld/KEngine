@@ -14,6 +14,7 @@ namespace KEngine
 		OpenGLTexture2D(const std::string& path);
 		virtual ~OpenGLTexture2D();
 		virtual void Bind() override;
+		virtual void Bind(unsigned int slot) override;
 		virtual void Unbind() override;
 		inline virtual std::string GetPath() override { return m_Path; }
 		virtual void LoadTexture() override;

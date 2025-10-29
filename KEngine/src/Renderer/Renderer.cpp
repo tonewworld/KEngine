@@ -3,6 +3,7 @@
 #include "imgui.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "backends/imgui_impl_glfw.h"
+#include "Application.h"
 namespace KEngine{
 	void Renderer::Init()
 	{
@@ -95,6 +96,20 @@ namespace KEngine{
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);                             
 		glDepthFunc(GL_LEQUAL);
+	}
+
+	void Renderer::ShadowBegin()
+	{
+	
+		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+	}
+
+	void Renderer::ShadowEnd()
+	{
+		
 	}
 	
 	

@@ -57,6 +57,12 @@ namespace KEngine
 		glBindTexture(GL_TEXTURE_2D, m_RendererID);
 	}
 
+	void OpenGLTexture2D::Bind(unsigned int slot)
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
+		glBindTexture(GL_TEXTURE_2D, m_RendererID);
+	}
+
 	void OpenGLTexture2D::Unbind()
 	{
 		glBindTexture(GL_TEXTURE_2D, 0);

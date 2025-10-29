@@ -22,6 +22,7 @@ namespace KEngine {
 		Texture2D() = default;
 		virtual ~Texture2D()=default;
 		virtual void Bind() = 0;
+		virtual void Bind(unsigned int slot) = 0;
 		virtual void Unbind() = 0;
 		virtual std::string GetPath() = 0;
 		virtual void LoadTexture() = 0;

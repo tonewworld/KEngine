@@ -29,17 +29,21 @@ void MaterialScene::Init()
 						mat4 proj;
 					};
 				
+					uniform mat4 lightSpaceMatrix;	
+					
 					out VS_OUT {
 						vec3 normal;
 						vec3 fragPos;
+						vec4 fragPosLightSpace;
 					} vs_out;
-								
+							
 
 					void main()
 					{
 						gl_Position = proj * view * model * vec4(v_Position,1.0);
 						vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
 						vs_out.normal = normalize(mat3(transpose(inverse(model))) * v_Normal);
+						vs_out.fragPosLightSpace = lightSpaceMatrix * vec4(vs_out.fragPos, 1.0); 
 					}
 				)";
 		
@@ -48,6 +52,7 @@ void MaterialScene::Init()
 					in VS_OUT {
 						vec3 normal;
 						vec3 fragPos;
+						vec4 fragPosLightSpace;
 					} fs_in;
 
 					
@@ -91,8 +96,8 @@ void MaterialScene::Init()
 					};
 
 					uniform vec3 viewPos;
-					/*uniform sampler2D shadowMap;
-					uniform mat4 lightSpaceMatrix;*/
+					uniform sampler2D shadowMap;
+					uniform mat4 lightSpaceMatrix;
 
 					vec3 CalculatePointLight(){
 						vec3 norm    = normalize(fs_in.normal);
@@ -122,18 +127,25 @@ void MaterialScene::Init()
 						}
 						return total;
 					}
-					/*float CalculateShadow(vec4 fragPosLightSpace){
+					 float CalculateShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir) {
+					
 						vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-						projCoords = projCoords * 0.5 + 0.5; // ±ä»»µ½ [0,1]
-
+        
+						projCoords = projCoords * 0.5 + 0.5;
+        
+						if(projCoords.z > 1.0)
+							return 0.0;
+            
 						float closestDepth = texture(shadowMap, projCoords.xy).r;
+        
 						float currentDepth = projCoords.z;
-
-						float bias = 0.005;
+        
+						float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
+        
 						float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+        
 						return shadow;
-	
-					}*/
+					}
 					vec3 CalculateParallelLight(){
 						vec3 norm    = normalize(fs_in.normal);
 						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
@@ -141,6 +153,9 @@ void MaterialScene::Init()
 
 						for (int i = 0; i < parallelLightCount; ++i) {
 							vec3 lightDir = normalize(-parallelLightList[i].Direct);
+
+							vec4 fragPosLightSpace = lightSpaceMatrix * vec4(fs_in.fragPos, 1.0);
+							float shadow = CalculateShadow(fragPosLightSpace, norm, lightDir);
 
 							vec3 ambient  = parallelLightList[i].Color * parallelLightList[i].Ambient * material.Ambient;
 							float diff    = max(dot(norm, lightDir), 0.0);
@@ -150,13 +165,14 @@ void MaterialScene::Init()
 							float spec      = pow(max(dot(viewDir, reflectDir), 0.0), material.Shininess);
 							vec3 specular   = parallelLightList[i].Color * parallelLightList[i].Specular * material.Specular * spec;
 
-							total += ambient + diffuse + specular;
+							 total += ambient + (1.0 - shadow) * (diffuse + specular);
 						}
 						return total;
 					}
 					
 					void main() {
-						FragColor = vec4(CalculatePointLight() + CalculateParallelLight(), 1.0);
+						
+						FragColor = vec4(CalculateParallelLight(), 1.0);
 					}
 				)";
 
@@ -274,7 +290,8 @@ void MaterialScene::Init()
 		glm::vec3(0.5f,0.5f,0.5f),
 		32.0f
 		});
-	
+	m_Mesh1->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
 	 0.5f, -0.5f, -0.5f,
@@ -402,8 +419,8 @@ void MaterialScene::Init()
 
 	Objects.push_back(m_Mesh);
 	Objects.push_back(m_Mesh1);
-	Objects.push_back(pointLight0);
-	Objects.push_back(pointLight1);
+	//Objects.push_back(pointLight0);
+	//Objects.push_back(pointLight1);
 }
 void MaterialScene::OnUpdate(KEngine::TimeStep ts)
 {

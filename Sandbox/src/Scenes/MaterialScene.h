@@ -5,6 +5,7 @@ public:
 	~MaterialScene();
 	inline virtual std::string GetName() override { return name; }
 	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
+	inline std::vector<std::shared_ptr<KEngine::ParallelLight>>GetParallelLightInScene()override { return parallelLightList; }
 	virtual void Init()override;
 	virtual void OnUpdate(KEngine::TimeStep ts)override;
 	virtual void Destroy()override;
