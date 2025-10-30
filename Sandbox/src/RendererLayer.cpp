@@ -147,28 +147,6 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	
 	if(currentScene)
 	{
-		// 使用透视投影而不是正交投影
-		glm::vec3 lightDir = currentScene->GetParallelLightInScene()[0]->GetLightAttributes().direct;
-		// 透视投影矩阵（从光源视角）
-		glm::mat4 lightProjection = glm::perspective(
-			glm::radians(90.0f),  // 视野角度
-			1.0f,                 // 宽高比 1:1
-			1.0f,                 // 近平面
-			100.0f                // 远平面
-		);
-
-		// 光源位置 - 在场景上方稍远处
-		glm::vec3 lightPos = glm::vec3(0.0f, 0.0f, 5.0f);
-
-		// 光源视角矩阵
-		glm::mat4 lightView = glm::lookAt(
-			lightPos,                    // 光源位置
-			glm::vec3(0.0f, 0.0f, 0.0f), // 看向场景中心
-			glm::vec3(0.0f, 1.0f, 0.0f)  // 上方向
-		);
-
-		m_LightSpaceMatrix = lightProjection * lightView;
-
 		currentScene->OnUpdate(ts);
 		PickWithColor();
 		CalculateShadow();
@@ -181,7 +159,7 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 			obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
 			depthTexture->Bind(5); 
 			obj->shader->SetUniform1i(5, "shadowMap");
-			obj->shader->SetUniformMatrix4fv(m_LightSpaceMatrix, "lightSpaceMatrix");
+			obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
 			obj->Draw(obj->shader);
 		}
 		FBO->Unbind();
@@ -282,10 +260,10 @@ void RendererLayer::CalculateShadow()
 	
 	// 1. 渲染深度图
 	depthFBO->Bind();
-	
 	KEngine::Renderer::ShadowBegin();
+
 	shadowShader->Bind();
-	shadowShader->SetUniformMatrix4fv(m_LightSpaceMatrix, "lightSpaceMatrix");
+	shadowShader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
 
 	for (const auto& obj : currentScene->GetObjectsInScene())
 	{
@@ -295,7 +273,7 @@ void RendererLayer::CalculateShadow()
 	}
 	depthFBO->Unbind();
 
-	
+	KEngine::Renderer::ShadowEnd();
 	
 }
 

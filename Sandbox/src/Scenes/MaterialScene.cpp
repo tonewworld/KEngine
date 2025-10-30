@@ -111,13 +111,8 @@ void MaterialScene::Init()
 							float diff    = max(dot(norm, lightDir), 0.0);
 							vec3 diffuse  = pointLightList[i].Color * pointLightList[i].Diffuse * material.Diffuse * diff;
 
-							vec3 reflectDir = reflect(-lightDir, norm);
 							vec3 halfwayDir = normalize(lightDir + viewDir);
-							float spec;
-							if(i==0)//blin 
-								spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
-							else//no blin
-								spec      = pow(max(dot(viewDir,reflectDir), 0.0), material.Shininess);
+							float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
 							vec3 specular   = pointLightList[i].Color * pointLightList[i].Specular * material.Specular * spec;
 
 							float distance    = length(pointLightList[i].Position - fs_in.fragPos);
@@ -133,17 +128,30 @@ void MaterialScene::Init()
         
 						projCoords = projCoords * 0.5 + 0.5;
         
-						if(projCoords.z > 1.0)
-							return 0.0;
-            
+						
+						if(projCoords.x < 0.0 || projCoords.x > 1.0 || 
+						   projCoords.y < 0.0 || projCoords.y > 1.0 ||
+						   projCoords.z < 0.0 || projCoords.z > 1.0) {
+							return 0.0; 
+    }
 						float closestDepth = texture(shadowMap, projCoords.xy).r;
         
 						float currentDepth = projCoords.z;
         
 						float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
         
-						float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
-        
+						float shadow = 0.0;
+						vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+						for(int x = -1; x <= 1; ++x)
+						{
+							for(int y = -1; y <= 1; ++y)
+							{
+								float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
+								shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
+							}    
+						}
+						shadow /= 9.0;
+
 						return shadow;
 					}
 					vec3 CalculateParallelLight(){
@@ -172,7 +180,7 @@ void MaterialScene::Init()
 					
 					void main() {
 						
-						FragColor = vec4(CalculateParallelLight(), 1.0);
+						FragColor = vec4(CalculatePointLight() + CalculateParallelLight(), 1.0);
 					}
 				)";
 
@@ -390,7 +398,7 @@ void MaterialScene::Init()
 		glm::vec3(1.0f,1.0f,1.0f),
 		glm::vec3(1.0f,1.0f,1.0f)
 		});
-
+	parallelLight0->SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
 	vpSL.clear();
 	vpSL = {
 		m_Shader,
@@ -412,8 +420,8 @@ void MaterialScene::Init()
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 3));
 
-	pointLightList.push_back(pointLight0);
-	pointLightList.push_back(pointLight1);
+	//pointLightList.push_back(pointLight0);
+	//pointLightList.push_back(pointLight1);
 	
 	parallelLightList.push_back(parallelLight0);
 
@@ -442,6 +450,7 @@ void MaterialScene::OnUpdate(KEngine::TimeStep ts)
 	pointLight1->SetDrawState(nullptr, l_Shader, true, false, 0);
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 	m_Mesh1->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
+
 }
 void MaterialScene::Destroy()
 {

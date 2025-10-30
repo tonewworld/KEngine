@@ -30,8 +30,7 @@ private:
 	std::shared_ptr<KEngine::FrameBuffer> depthFBO;
 	std::shared_ptr<KEngine::Texture2D>   depthTexture;
 	std::shared_ptr<KEngine::Shader>	  shadowShader;
-	glm::mat4 m_LightSpaceMatrix;
-
+	
 	bool m_ShowSceneHierarchy = true;
 	bool m_ShowInspector = true;
 	int m_SelectedObjectID = -1;

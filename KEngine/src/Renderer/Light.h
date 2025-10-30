@@ -94,7 +94,15 @@ namespace KEngine {
 		}
 		void SetLightAttributes(const ParallelLightAttri& attri) { m_LightAttri = attri; }
 		ParallelLightAttri& GetLightAttributes() { return m_LightAttri; }
+		glm::mat4 CalculateLightSpace();
 	private:
+		glm::mat4 lightProjection = glm::perspective(
+			glm::radians(90.0f),  // 视野角度
+			1.0f,                 // 宽高比 1:1
+			1.0f,                 // 近平面
+			100.0f                // 远平面
+		);
+
 		ParallelLightAttri m_LightAttri;
 	};
 };

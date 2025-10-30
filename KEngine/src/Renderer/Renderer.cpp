@@ -105,11 +105,12 @@ namespace KEngine{
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
+		glCullFace(GL_FRONT);
 	}
 
 	void Renderer::ShadowEnd()
 	{
-		
+		glCullFace(GL_BACK);
 	}
 	
 	
