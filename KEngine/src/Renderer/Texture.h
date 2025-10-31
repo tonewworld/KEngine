@@ -39,9 +39,10 @@ namespace KEngine {
 		TextureCube() = default;
 		~TextureCube() = default;
 		virtual void Bind() = 0;
+		virtual void Bind(unsigned int slot) = 0;
 		virtual void Unbind() = 0;
 		static TextureCube* Create(std::vector<std::string>& faces);
-
+		static TextureCube* Create(GLint type, unsigned int width, unsigned int height);
 	};
 
 }

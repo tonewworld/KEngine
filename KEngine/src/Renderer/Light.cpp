@@ -28,7 +28,18 @@ namespace KEngine
 
         VAO->Unbind();
     }
-    
+    std::vector<glm::mat4> PointLight::CalculateLightSpace()
+    {
+        std::vector<glm::mat4> shadowTransforms;
+        auto lightPos = this->GetPosition();
+        shadowTransforms[0] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0));
+        shadowTransforms[1] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0));
+        shadowTransforms[2] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0));
+        shadowTransforms[3] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.0, 0.0, -1.0));
+        shadowTransforms[4] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, -1.0, 0.0));
+        shadowTransforms[5] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0));
+        return shadowTransforms;
+    }
     glm::mat4 ParallelLight::CalculateLightSpace()
     {
         // 使用正交投影

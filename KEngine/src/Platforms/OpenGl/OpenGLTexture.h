@@ -27,9 +27,11 @@ namespace KEngine
 		unsigned int m_RendererID;
 		std::vector<std::string> faces;
 	public:
+		OpenGLTextureCube(GLint type, unsigned int width, unsigned int height);
 		OpenGLTextureCube(std::vector<std::string>& faces);
 		virtual ~OpenGLTextureCube();
 		virtual void Bind() override;
+		virtual void Bind(unsigned int slot);
 		virtual void Unbind() override;
 		inline virtual unsigned int GetRendererID() const override { return m_RendererID; }
 	};

@@ -77,8 +77,17 @@ namespace KEngine {
 		}
 		void SetLightAttributes(const PointLightAttri& attri) { m_LightAttri = attri; }
 		PointLightAttri& GetLightAttributes() { return m_LightAttri; }
+		std::vector<glm::mat4> CalculateLightSpace();
 	private:
+
+		glm::mat4 lightProjection = glm::perspective(
+			glm::radians(90.0f),  // 视野角度
+			1.0f,                 // 宽高比 1:1
+			1.0f,                 // 近平面
+			100.0f                // 远平面
+		);
 		PointLightAttri m_LightAttri;
+
 	};
 
 	class KE_API ParallelLight :public Light {
@@ -96,12 +105,7 @@ namespace KEngine {
 		ParallelLightAttri& GetLightAttributes() { return m_LightAttri; }
 		glm::mat4 CalculateLightSpace();
 	private:
-		glm::mat4 lightProjection = glm::perspective(
-			glm::radians(90.0f),  // 视野角度
-			1.0f,                 // 宽高比 1:1
-			1.0f,                 // 近平面
-			100.0f                // 远平面
-		);
+		
 
 		ParallelLightAttri m_LightAttri;
 	};

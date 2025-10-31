@@ -5,6 +5,7 @@ public:
 	~TestScene();
 	inline virtual std::string GetName() override { return name; }
 	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
+	inline std::vector<std::shared_ptr<KEngine::PointLight>>GetPointLightInScene()override { return pointLightList; }
 	inline std::vector<std::shared_ptr<KEngine::ParallelLight>>GetParallelLightInScene()override { return parallelLightList; }
 	virtual void OnUpdate(KEngine::TimeStep ts)override;
 	virtual void Init()override;
@@ -29,6 +30,7 @@ private:
 	std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
 
 	std::vector<std::shared_ptr<KEngine::Shader>> shaderList;
+	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
 	std::vector<std::shared_ptr<KEngine::ParallelLight>> parallelLightList;
 
 	glm::vec3 lightPosition = glm::vec3(1.2f, 1.0f, 0.0f);

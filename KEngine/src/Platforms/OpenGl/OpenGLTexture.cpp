@@ -76,6 +76,25 @@ namespace KEngine
 
 	
 
+	OpenGLTextureCube::OpenGLTextureCube(GLint type, unsigned int width, unsigned int height)
+	{
+		glGenTextures(1, &m_RendererID);
+		
+		Bind();
+
+		for (GLint i = 0; i < 6; ++i) {
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, type,
+				width, height, 0, type, GL_FLOAT, NULL);
+		}
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+		Unbind();
+
+	}
+
 	OpenGLTextureCube::OpenGLTextureCube(std::vector<std::string>& faces) :faces(faces)
 	{
 		glGenTextures(1, &m_RendererID);
@@ -106,6 +125,12 @@ namespace KEngine
 
 	void OpenGLTextureCube::Bind()
 	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
+	}
+
+	void OpenGLTextureCube::Bind(unsigned int slot)
+	{
+		glActiveTexture(GL_TEXTURE0 + slot);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, m_RendererID);
 	}
 

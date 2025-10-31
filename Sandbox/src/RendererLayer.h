@@ -2,6 +2,7 @@
 #include <KEngine.h>
 #include "Scenes/TestScene.h"
 #include "Scenes/MaterialScene.h"
+#include "Scenes/OmniShadow.h"
 class RendererLayer : public KEngine::Layer {
 public:
     RendererLayer();
@@ -30,6 +31,10 @@ private:
 	std::shared_ptr<KEngine::FrameBuffer> depthFBO;
 	std::shared_ptr<KEngine::Texture2D>   depthTexture;
 	std::shared_ptr<KEngine::Shader>	  shadowShader;
+
+	std::shared_ptr<KEngine::FrameBuffer> depthCubeFBO;
+	std::shared_ptr<KEngine::TextureCube> depthCubeTexture;
+	std::shared_ptr<KEngine::Shader>      shadowCubeShader;
 	
 	bool m_ShowSceneHierarchy = true;
 	bool m_ShowInspector = true;
@@ -38,6 +43,7 @@ private:
 
 	std::shared_ptr<TestScene> testScene;
 	std::shared_ptr<MaterialScene>materialScene;
+	std::shared_ptr<OmniShadow>omniShadowScene;
 	std::shared_ptr<KEngine::Scene> currentScene;
 	std::vector<std::shared_ptr<KEngine::Scene>> sceneList;
 
