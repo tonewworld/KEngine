@@ -28,9 +28,9 @@ namespace KEngine
 
         VAO->Unbind();
     }
-    std::vector<glm::mat4> PointLight::CalculateLightSpace()
+    std::array<glm::mat4,6> PointLight::CalculateLightSpace()
     {
-        std::vector<glm::mat4> shadowTransforms;
+        std::array<glm::mat4,6> shadowTransforms;
         auto lightPos = this->GetPosition();
         shadowTransforms[0] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0));
         shadowTransforms[1] = lightProjection * glm::lookAt(lightPos, lightPos + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0));

@@ -31,6 +31,7 @@ void TestScene::OnUpdate(KEngine::TimeStep ts) {
 
 void TestScene::Init()
 {
+	
 	mainCamera = std::make_unique<KEngine::Camera>();
 	projMatrix = glm::perspective(glm::radians(45.f), (float)
 		KEngine::Application::s_Instance->GetWindow().GetWidth()
@@ -418,16 +419,17 @@ void TestScene::Init()
 	//一个shader的列表,为他们每一个绑定相同的VP矩阵
 	for (auto& shader : shaderList)
 	{
-		shader->BindUniformBufferPoint("VPMatrix", 0);
+		shader->BindUniformBufferPoint("VPMatrix", 4);
 	}
 	//生成uniform缓冲对象
-	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4),0));
+	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4),4));
 
 
 	Objects.push_back(backpack_Model);
 	Objects.push_back(l_Mesh);
 	Objects.push_back(m_Mesh);
 	Objects.push_back(sky_Mesh);
+
 }
 
 void TestScene::Destroy()

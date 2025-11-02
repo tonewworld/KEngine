@@ -21,7 +21,6 @@ namespace KEngine{
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Light>& model);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Object>& object);
-
        
         static void SetStencilOpenOrClose(bool tag);
         static void SetStencilFunc(GLenum func,GLint ref,GLuint mask);
@@ -33,6 +32,7 @@ namespace KEngine{
 
         static std::array<unsigned char,4> ReadPixel(int rx,int ry);
         
+        static void ResetGLState();
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
     private:
        

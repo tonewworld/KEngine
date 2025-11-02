@@ -7,6 +7,7 @@ namespace KEngine {
 	class KE_API Scene {
 	
 	public:
+		bool isInited = false;
 		Scene() = default;
 		virtual ~Scene() = default;
 		virtual std::string GetName() = 0;

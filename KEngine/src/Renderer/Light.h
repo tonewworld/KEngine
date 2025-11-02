@@ -77,7 +77,7 @@ namespace KEngine {
 		}
 		void SetLightAttributes(const PointLightAttri& attri) { m_LightAttri = attri; }
 		PointLightAttri& GetLightAttributes() { return m_LightAttri; }
-		std::vector<glm::mat4> CalculateLightSpace();
+		std::array<glm::mat4,6> CalculateLightSpace();
 	private:
 
 		glm::mat4 lightProjection = glm::perspective(

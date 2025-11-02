@@ -11,6 +11,7 @@ MaterialScene::~MaterialScene()
 
 void MaterialScene::Init()
 {
+
 	mainCamera = std::make_unique<KEngine::Camera>();
 	projMatrix = glm::perspective(glm::radians(45.f), (float)
 		KEngine::Application::s_Instance->GetWindow().GetWidth()
@@ -56,7 +57,7 @@ void MaterialScene::Init()
 					} fs_in;
 
 					
-					layout(std140,binding=1) uniform MaterialUboData{
+					layout(std140) uniform MaterialUboData{
 						vec3 Ambient;
 						float _pad0;
 						vec3 Diffuse;
@@ -75,7 +76,7 @@ void MaterialScene::Init()
 						vec3 Color;	   float _pad4;
 					};
 					
-					layout(std140,binding=2) uniform PointLightUboData{
+					layout(std140) uniform PointLightUboData{
 						PointLight pointLightList[10];
 						int pointLightCount;
 						int _pad0[3];
@@ -89,7 +90,7 @@ void MaterialScene::Init()
 						vec3 Color;	   float _pad4;
 					};
 					
-					layout(std140,binding=3) uniform ParallelLightUboData{
+					layout(std140) uniform ParallelLightUboData{
 						ParallelLight parallelLightList[10];
 						int parallelLightCount;
 						int _pad1[3];
@@ -420,15 +421,16 @@ void MaterialScene::Init()
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 3));
 
-	//pointLightList.push_back(pointLight0);
-	//pointLightList.push_back(pointLight1);
+	pointLightList.push_back(pointLight0);
+	pointLightList.push_back(pointLight1);
 	
 	parallelLightList.push_back(parallelLight0);
 
 	Objects.push_back(m_Mesh);
 	Objects.push_back(m_Mesh1);
-	//Objects.push_back(pointLight0);
-	//Objects.push_back(pointLight1);
+	Objects.push_back(pointLight0);
+	Objects.push_back(pointLight1);
+
 }
 void MaterialScene::OnUpdate(KEngine::TimeStep ts)
 {
@@ -451,6 +453,7 @@ void MaterialScene::OnUpdate(KEngine::TimeStep ts)
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 	m_Mesh1->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 
+	
 }
 void MaterialScene::Destroy()
 {
@@ -458,7 +461,13 @@ void MaterialScene::Destroy()
 	m_Mesh1.reset();
 	pointLight0.reset();
 	pointLight1.reset();
+
 	matrixUBO.reset();
 	materialUBO.reset();
+	pointLightUBO.reset();
+	parallelLightUBO.reset();
+
 	Objects.clear();
+	pointLightList.clear();
+	parallelLightList.clear();
 }

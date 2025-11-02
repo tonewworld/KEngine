@@ -215,21 +215,20 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 
 			if (currentScene->GetParallelLightInScene().size() != 0)
 			{
-				depthTexture->Bind(5);
-				obj->shader->SetUniform1i(5, "shadowMap");
+				depthTexture->Bind();
 				obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
 			}
 			if (currentScene->GetPointLightInScene().size() != 0) {
-				depthCubeTexture->Bind(6);
-				obj->shader->SetUniform1i(6, "shadowCubeMap");
+				depthCubeTexture->Bind();
 				obj->shader->SetUniform1f(25.0f, "far_plane");
 			}
 			
 			obj->Draw(obj->shader);
 		}
-		FBO->Unbind();
 	}
 	
+	FBO->Unbind();
+
 	quad_Mesh->SetDrawState(quad_Texture, screenShader, false, false);
 	quad_Mesh->Draw(screenShader);
 	
@@ -343,6 +342,7 @@ void RendererLayer::CalculateShadow()
 
 	KEngine::Renderer::ShadowEnd();
 	
+	//pointlight
 	depthCubeFBO->Bind();
 	KEngine::Renderer::ShadowBegin();
 
@@ -358,7 +358,7 @@ void RendererLayer::CalculateShadow()
 	for (const auto& obj : currentScene->GetObjectsInScene())
 	{
 		glm::mat4 model = obj->GetModelMatrix();
-		shadowShader->SetUniformMatrix4fv(model, "model");
+		shadowCubeShader->SetUniformMatrix4fv(model, "model");
 		obj->Draw(shadowCubeShader); // 用深度着色器绘制
 	}
 
@@ -558,7 +558,8 @@ void RendererLayer::DrawSceneList()
 		// 主项
 		bool selected = (currentScene == sc);
 		if (ImGui::Selectable(sc->GetName().c_str(), selected))
-			SwitchToScene(static_cast<int>(i));
+			if (currentScene != sc)
+				SwitchToScene(static_cast<int>(i));
 
 		// 右键菜单
 		if (ImGui::BeginPopupContextItem())
@@ -578,6 +579,7 @@ void RendererLayer::SwitchToScene(int index)
 	if (index < 0 || index >= static_cast<int>(sceneList.size())) return;
 	if(currentScene)
 		currentScene->Destroy();
+	KEngine::Renderer::ResetGLState();
 	currentScene = sceneList[index];
 	currentScene->Init();
 }

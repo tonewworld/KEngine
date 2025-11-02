@@ -113,5 +113,27 @@ namespace KEngine{
 		glCullFace(GL_BACK);
 	}
 	
-	
+	void Renderer::ResetGLState() {
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		// 重置纹理绑定
+		/*for (int i = 0; i < 8; i++) {
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+		}*/
+
+		// 重置其他OpenGL状态
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_BLEND);
+		glDisable(GL_CULL_FACE);
+
+		// 重置视口
+		int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
+		int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
+		glViewport(0, 0, width, height);
+
+		// 清除错误状态
+		while (glGetError() != GL_NO_ERROR);
+	}
 }
