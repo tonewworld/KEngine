@@ -52,12 +52,35 @@ namespace KEngine{
     {
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
-    void OpenGLFrameBuffer::AddTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable)
+    void OpenGLFrameBuffer::Add2DTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable)
     {
 		this->Bind();
 		glFramebufferTexture2D(GL_FRAMEBUFFER, type, GL_TEXTURE_2D, textureID, 0);
         glDrawBuffer(drawable);
         glReadBuffer(readable);
+       /* GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+        if (status != GL_FRAMEBUFFER_COMPLETE) {
+            std::cout << "[ERROR] depthFBO not complete! 0x" << std::hex << status << std::endl;
+        }
+        else {
+            std::cout << "[OK] depthFBO is complete!" << std::endl;
+        }*/
+
+    }
+    void OpenGLFrameBuffer::AddTexture(GLint type, GLuint textureID, GLboolean drawable, GLboolean readable)
+    {
+        this->Bind();
+        glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, textureID, 0);
+        glDrawBuffer(drawable);
+        glReadBuffer(readable);
+       /* GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+        if (status != GL_FRAMEBUFFER_COMPLETE) {
+            std::cout << "[ERROR] depthCubeFBO not complete! 0x" << std::hex << status << std::endl;
+        }
+        else {
+            std::cout << "[OK] depthCubeFBO is complete!" << std::endl;
+        }*/
+        this->Unbind();
     }
 	//RenderBuffer
     OpenGLRenderBuffer::OpenGLRenderBuffer()

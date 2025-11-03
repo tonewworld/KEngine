@@ -113,7 +113,7 @@ void OmniShadow::Init()
 						float bias = 0.05; 
 						float shadow = currentDepth -  bias > closestDepth ? 1.0 : 0.0;
 
-
+						
 						return shadow;
 					}
 
@@ -136,10 +136,11 @@ void OmniShadow::Init()
 
 							//float distance    = length(pointLightList[i].Position - fs_in.fragPos);
 							//float attenuation = 1.0 / (1.0 + 0.09*distance + 0.032*distance*distance);
-							 ambient=0;
-							 total += (ambient + (1.0 - pointShadow) * (diffuse + specular)) ;
+							 
+							 total += ambient  + diffuse + specular ;
 
 						}
+						
 						return total;
 					}
 					
@@ -201,7 +202,7 @@ void OmniShadow::Init()
 					
 					void main() {
 						
-						FragColor = vec4(CalculatePointLight(fs_in.fragPos,viewPos), 1.0);
+						FragColor =CalculatePointShadow(fs_in.fragPos, pointLightList[0].Position);
 					}
 				)";
 
@@ -232,7 +233,7 @@ void OmniShadow::Init()
 				
 					void main()
 					{
-						color = vec4(1.0f);
+						color = vec4(0.5f);
 					}
 
 				)";
@@ -392,7 +393,7 @@ void OmniShadow::Init()
 		glm::vec3(1.0f,1.0f,1.0f),
 		glm::vec3(1.0f,1.0f,1.0f)
 		});
-	pointLight0->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
+	pointLight0->SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
 	pointLight0->SetScale(glm::vec3(0.2f));
 
 	pointLight1.reset(new KEngine::PointLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
@@ -407,7 +408,7 @@ void OmniShadow::Init()
 		});
 	pointLight1->SetPosition(glm::vec3(-1.0f, 1.2f, 0.0f));
 	pointLight1->SetScale(glm::vec3(0.2f));
-
+	
 	
 	vpSL.clear();
 	vpSL = {
@@ -429,7 +430,7 @@ void OmniShadow::Init()
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 
 	pointLightList.push_back(pointLight0);
-	pointLightList.push_back(pointLight1);
+	//pointLightList.push_back(pointLight1);
 
 
 	Objects.push_back(m_Mesh);

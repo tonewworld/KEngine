@@ -38,7 +38,8 @@ namespace KEngine{
         virtual void Bind() override ;
         virtual void Unbind() override ;
         static OpenGLFrameBuffer* Create();
-        virtual void AddTexture(GLint type,unsigned int textureID,GLboolean drawable,GLboolean readable) override;
+        virtual void Add2DTexture(GLint type,unsigned int textureID,GLboolean drawable,GLboolean readable) override;
+        virtual void AddTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable) override;
     };
 
     class KE_API OpenGLRenderBuffer :public RenderBuffer

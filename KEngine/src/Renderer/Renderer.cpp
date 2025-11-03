@@ -100,7 +100,10 @@ namespace KEngine{
 
 	void Renderer::ShadowBegin()
 	{
-	
+		GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		if (status != GL_FRAMEBUFFER_COMPLETE) {
+			std::cout << "[ERROR] depthCubeFBO not complete! 0x" << std::hex << status << std::endl;
+		}
 		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
@@ -111,6 +114,8 @@ namespace KEngine{
 	void Renderer::ShadowEnd()
 	{
 		glCullFace(GL_BACK);
+		
+
 	}
 	
 	void Renderer::ResetGLState() {

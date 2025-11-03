@@ -31,7 +31,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	}
 	pickFBO.reset(KEngine::FrameBuffer::Create());
 	pickTexture.reset(KEngine::Texture2D::Create());
-	pickFBO->AddTexture(GL_COLOR_ATTACHMENT0,pickTexture->GetRendererID(),GL_TRUE,GL_TRUE);
+	pickFBO->Add2DTexture(GL_COLOR_ATTACHMENT0,pickTexture->GetRendererID(),GL_TRUE,GL_TRUE);
 	pickRBO.reset(KEngine::RenderBuffer::Create());
 
 	pickShader->BindUniformBufferPoint("VPMatrix", 0);
@@ -165,14 +165,14 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 	FBO.reset(KEngine::FrameBuffer::Create());
 	quad_Texture.reset(KEngine::Texture2D::Create());
-	FBO->AddTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
+	FBO->Add2DTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
 	RBO.reset(KEngine::RenderBuffer::Create());
 
 	depthFBO.reset(KEngine::FrameBuffer::Create());
-	int w = KEngine::Application::s_Instance->GetWindow().GetWidth();
-	int h = KEngine::Application::s_Instance->GetWindow().GetHeight();
+	int w = 1024;
+	int h = 1024;
 	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, w, h));
-	depthFBO->AddTexture(GL_DEPTH_ATTACHMENT,depthTexture->GetRendererID(),GL_FALSE,GL_FALSE);
+	depthFBO->Add2DTexture(GL_DEPTH_ATTACHMENT,depthTexture->GetRendererID(),GL_FALSE,GL_FALSE);
 	depthCubeFBO.reset(KEngine::FrameBuffer::Create());
 	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, w, h));
 	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_FALSE, GL_FALSE);
@@ -215,11 +215,11 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 
 			if (currentScene->GetParallelLightInScene().size() != 0)
 			{
-				depthTexture->Bind();
+				depthTexture->Bind(GL_TEXTURE2);
 				obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
 			}
 			if (currentScene->GetPointLightInScene().size() != 0) {
-				depthCubeTexture->Bind();
+				depthCubeTexture->Bind(GL_TEXTURE3);
 				obj->shader->SetUniform1f(25.0f, "far_plane");
 			}
 			
@@ -363,6 +363,9 @@ void RendererLayer::CalculateShadow()
 	}
 
 	KEngine::Renderer::ShadowEnd();
+
+	
+	depthCubeFBO->Unbind();
 }
 
 void RendererLayer::DrawSceneHierarchy()
