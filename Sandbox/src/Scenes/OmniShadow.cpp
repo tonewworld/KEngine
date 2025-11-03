@@ -107,63 +107,13 @@ void OmniShadow::Init()
 					float CalculatePointShadow(vec3 fragPos, vec3 lightPos) {
 
 						vec3 fragToLight = fragPos - lightPos;
-						float currentDepth = length(fragToLight);
-    
-						float shadow = 0.0;
-    
+						float closestDepth = texture(shadowCubeMap,fragToLight).r;
+						closestDepth*=far_plane;
+						float currentDepth=length(fragToLight);
+						float bias = 0.05; 
+						float shadow = currentDepth -  bias > closestDepth ? 1.0 : 0.0;
 
-						vec3 lightDir = normalize(fragToLight);
-						vec3 normal = normalize(fs_in.normal);
-						float bias = 0.5;
-    
 
-						int samples = 20;
-						float viewDistance = length(viewPos - fragPos);
-    
-
-						float diskRadius = 0.05;
-						if (viewDistance > 0.0) {
-							diskRadius = (0.5 + (viewDistance / far_plane)) / 50.0;
-						}
-    
-  
-						vec3 gridSamplingDisk[20] = vec3[](
-							vec3(1,1,1), vec3(1,-1,1), vec3(-1,-1,1), vec3(-1,1,1),
-							vec3(1,1,-1), vec3(1,-1,-1), vec3(-1,-1,-1), vec3(-1,1,-1),
-							vec3(1,1,0), vec3(1,-1,0), vec3(-1,-1,0), vec3(-1,1,0),
-							vec3(1,0,1), vec3(-1,0,1), vec3(1,0,-1), vec3(-1,0,-1),
-							vec3(0,1,1), vec3(0,-1,1), vec3(0,-1,-1), vec3(0,1,-1)
-						);
-    
-
-						if (currentDepth < 0.1) { 
-    
-							for(int i = 0; i < samples; ++i) {
-								float closestDepth = texture(shadowCubeMap, fragToLight + gridSamplingDisk[i] * diskRadius).r;
-								closestDepth *= far_plane;
-            
-          
-								if(currentDepth + bias < closestDepth) {
-									shadow += 1.0;
-								}
-							}
-						} else {
-      
-							for(int i = 0; i < samples; ++i) {
-								float closestDepth = texture(shadowCubeMap, fragToLight + gridSamplingDisk[i] * diskRadius).r;
-								closestDepth *= far_plane;
-            
-								if(currentDepth - bias > closestDepth) {
-									shadow += 1.0;
-								}
-							}
-						}
-    
-						shadow /= float(samples);
-    
-    
-						shadow = pow(shadow, 0.5); 
-    
 						return shadow;
 					}
 
@@ -184,9 +134,10 @@ void OmniShadow::Init()
 							float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
 							vec3 specular   = pointLightList[i].Color * pointLightList[i].Specular * material.Specular * spec;
 
-							float distance    = length(pointLightList[i].Position - fs_in.fragPos);
-							float attenuation = 1.0 / (1.0 + 0.09*distance + 0.032*distance*distance);
-							 total += (ambient + (1.0 - pointShadow) * (diffuse + specular)) * attenuation;
+							//float distance    = length(pointLightList[i].Position - fs_in.fragPos);
+							//float attenuation = 1.0 / (1.0 + 0.09*distance + 0.032*distance*distance);
+							 ambient=0;
+							 total += (ambient + (1.0 - pointShadow) * (diffuse + specular)) ;
 
 						}
 						return total;
@@ -441,7 +392,7 @@ void OmniShadow::Init()
 		glm::vec3(1.0f,1.0f,1.0f),
 		glm::vec3(1.0f,1.0f,1.0f)
 		});
-	pointLight0->SetPosition(glm::vec3(1.0f, 1.2f, 0.0f));
+	pointLight0->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	pointLight0->SetScale(glm::vec3(0.2f));
 
 	pointLight1.reset(new KEngine::PointLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
@@ -484,7 +435,7 @@ void OmniShadow::Init()
 	Objects.push_back(m_Mesh);
 	Objects.push_back(m_Mesh1);
 	Objects.push_back(pointLight0);
-	Objects.push_back(pointLight1);
+	//Objects.push_back(pointLight1);
 
 
 }
