@@ -171,7 +171,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	depthFBO.reset(KEngine::FrameBuffer::Create());
 	int w = 1024;
 	int h = 1024;
-	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, w, h));
+	int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
+	int height=KEngine::Application::s_Instance->GetWindow().GetHeight();
+	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, width, height));//problem
 	depthFBO->Add2DTexture(GL_DEPTH_ATTACHMENT,depthTexture->GetRendererID(),GL_FALSE,GL_FALSE);
 	depthCubeFBO.reset(KEngine::FrameBuffer::Create());
 	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, w, h));
@@ -215,12 +217,16 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 
 			if (currentScene->GetParallelLightInScene().size() != 0)
 			{
-				depthTexture->Bind(GL_TEXTURE2);
+				obj->shader->Bind();
+				obj->shader->SetUniform1i(2,"shadowMap");
+				depthTexture->Bind(2);
 				obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
 			}
 			if (currentScene->GetPointLightInScene().size() != 0) {
-				depthCubeTexture->Bind(GL_TEXTURE3);
-				obj->shader->SetUniform1f(25.0f, "far_plane");
+				obj->shader->Bind();
+				obj->shader->SetUniform1i(3,"shadowCubeMap");
+				depthCubeTexture->Bind(3);
+				obj->shader->SetUniform1f(25.f, "far_plane");
 			}
 			
 			obj->Draw(obj->shader);
@@ -323,49 +329,52 @@ void RendererLayer::CalculateShadow()
 {
 	
 	//parallel
-	depthFBO->Bind();
-	KEngine::Renderer::ShadowBegin();
-
-	shadowShader->Bind();
 	if (currentScene->GetParallelLightInScene().size() != 0) {
+		depthFBO->Bind();
+		KEngine::Renderer::ParallelLightShadowBegin();
+		shadowShader->Bind();
 		
 		shadowShader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
 
-	}
-	for (const auto& obj : currentScene->GetObjectsInScene())
-	{
-		glm::mat4 model = obj->GetModelMatrix();
-		shadowShader->SetUniformMatrix4fv(model, "model");
-		obj->Draw(shadowShader); // 用深度着色器绘制
-	}
-	depthFBO->Unbind();
+		for (const auto& obj : currentScene->GetObjectsInScene())
+		{
+			if (obj->GetIsLight())
+				continue;
+			glm::mat4 model = obj->GetModelMatrix();
+			shadowShader->SetUniformMatrix4fv(model, "model");
+			obj->Draw(shadowShader); // 用深度着色器绘制
+		}
+		depthFBO->Unbind();
 
-	KEngine::Renderer::ShadowEnd();
+		KEngine::Renderer::ParallelLightShadowEnd();
 	
+	}
 	//pointlight
-	depthCubeFBO->Bind();
-	KEngine::Renderer::ShadowBegin();
-
-	shadowCubeShader->Bind();
 	if (currentScene->GetPointLightInScene().size() != 0) {
-		for (int i = 0; i < 6; ++i) {
-			std::string tmp = "shadowMatrices[" + std::to_string(i) + "]";
-			shadowCubeShader->SetUniformMatrix4fv(currentScene->GetPointLightInScene()[0]->CalculateLightSpace()[i],tmp.c_str() );
+		depthCubeFBO->Bind();
+		KEngine::Renderer::PointLightShadowBegin();
+
+		const auto& matrices = currentScene->GetPointLightInScene()[0]->CalculateLightSpace();
+		shadowCubeShader->Bind();
+		for (int i = 0; i < 6; ++i)
+		{
+			shadowCubeShader->SetUniformMatrix4fv(matrices[i], ("shadowMatrices[" + std::to_string(i) + "]").c_str());
 		}
 		shadowCubeShader->SetUniform3f(currentScene->GetPointLightInScene()[0]->GetPosition(), "lightPos");
 		shadowCubeShader->SetUniform1f(25.f, "far_plane");
-	}
-	for (const auto& obj : currentScene->GetObjectsInScene())
-	{
-		glm::mat4 model = obj->GetModelMatrix();
-		shadowCubeShader->SetUniformMatrix4fv(model, "model");
-		obj->Draw(shadowCubeShader); // 用深度着色器绘制
-	}
+		for (const auto& obj : currentScene->GetObjectsInScene())
+		{
+			if (obj->GetIsLight())
+				continue;
+			glm::mat4 model = obj->GetModelMatrix();
+			shadowCubeShader->SetUniformMatrix4fv(model, "model");
+			obj->Draw(shadowCubeShader); // 用深度着色器绘制
+		}
 
-	KEngine::Renderer::ShadowEnd();
+		KEngine::Renderer::PointLightShadowEnd();
 
-	
-	depthCubeFBO->Unbind();
+		depthCubeFBO->Unbind();
+	}
 }
 
 void RendererLayer::DrawSceneHierarchy()

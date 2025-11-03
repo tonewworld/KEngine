@@ -134,7 +134,7 @@ void MaterialScene::Init()
 						   projCoords.y < 0.0 || projCoords.y > 1.0 ||
 						   projCoords.z < 0.0 || projCoords.z > 1.0) {
 							return 0.0; 
-    }
+						}
 						float closestDepth = texture(shadowMap, projCoords.xy).r;
         
 						float currentDepth = projCoords.z;
@@ -421,15 +421,15 @@ void MaterialScene::Init()
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 3));
 
-	pointLightList.push_back(pointLight0);
-	pointLightList.push_back(pointLight1);
+	//pointLightList.push_back(pointLight0);
+	//pointLightList.push_back(pointLight1);
 	
 	parallelLightList.push_back(parallelLight0);
 
 	Objects.push_back(m_Mesh);
 	Objects.push_back(m_Mesh1);
-	Objects.push_back(pointLight0);
-	Objects.push_back(pointLight1);
+	//Objects.push_back(pointLight0);
+	//Objects.push_back(pointLight1);
 
 }
 void MaterialScene::OnUpdate(KEngine::TimeStep ts)

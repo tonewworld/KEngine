@@ -42,7 +42,7 @@ namespace KEngine {
 		GLenum func = GL_ALWAYS;
 		GLint ref = 0;
 		GLuint mask = 0xFF;
-
+		bool isLight = false;
 		std::shared_ptr<Texture> texture;
 	protected:
 		Material material;
@@ -90,5 +90,8 @@ namespace KEngine {
 			unsigned int stencilMask = 0,
 			GLenum func = GL_ALWAYS, GLint ref = 0, GLuint mask = 0xFF);
 		void Draw(std::shared_ptr<Shader>);
+
+		bool GetIsLight() { return isLight; }
+		void SetIsLight(bool tag) { isLight = tag; }
 	};
 }

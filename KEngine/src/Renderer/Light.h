@@ -83,7 +83,7 @@ namespace KEngine {
 		glm::mat4 lightProjection = glm::perspective(
 			glm::radians(90.0f),  // 视野角度
 			1.0f,                 // 宽高比 1:1
-			1.0f,                 // 近平面
+			0.1f,                 // 近平面
 			25.0f                // 远平面
 		);
 		PointLightAttri m_LightAttri;

@@ -97,25 +97,38 @@ namespace KEngine{
 		glEnable(GL_DEPTH_TEST);                             
 		glDepthFunc(GL_LEQUAL);
 	}
-
-	void Renderer::ShadowBegin()
+	void Renderer::ParallelLightShadowBegin()
 	{
-		GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-		if (status != GL_FRAMEBUFFER_COMPLETE) {
-			std::cout << "[ERROR] depthCubeFBO not complete! 0x" << std::hex << status << std::endl;
-		}
 		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		
 		glClear(GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 		glCullFace(GL_FRONT);
 	}
 
-	void Renderer::ShadowEnd()
+	void Renderer::ParallelLightShadowEnd()
 	{
 		glCullFace(GL_BACK);
-		
 
+	}
+	void Renderer::PointLightShadowBegin()
+	{
+		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glViewport(0, 0, 1024, 1024);//hack
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+		glCullFace(GL_FRONT);
+	}
+
+	void Renderer::PointLightShadowEnd()
+	{
+		glCullFace(GL_BACK);
+		int w = KEngine::Application::s_Instance->GetWindow().GetWidth();
+		int h = KEngine::Application::s_Instance->GetWindow().GetHeight();
+		glViewport(0, 0, w, h);
+		
 	}
 	
 	void Renderer::ResetGLState() {
@@ -140,5 +153,30 @@ namespace KEngine{
 
 		// Çå³ý´íÎó×´Ì¬
 		while (glGetError() != GL_NO_ERROR);
+	}
+	void Renderer::Debug()
+	{
+		unsigned int debugCube;
+		glGenTextures(1, &debugCube);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, debugCube);
+
+		const int size = 1024;
+		const int count = size * size;
+		std::vector<float> color(count); 
+
+		for (int i = 0; i < 6; ++i) {
+			std::fill(color.begin(), color.end(), 0.5f); 
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_R32F,
+				size, size, 0, GL_RED, GL_FLOAT, color.data());
+		}
+
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+		glActiveTexture(GL_TEXTURE3);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, debugCube);
 	}
 }

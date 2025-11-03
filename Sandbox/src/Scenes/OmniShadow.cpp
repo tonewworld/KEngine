@@ -107,23 +107,23 @@ void OmniShadow::Init()
 					float CalculatePointShadow(vec3 fragPos, vec3 lightPos) {
 
 						vec3 fragToLight = fragPos - lightPos;
-						float closestDepth = texture(shadowCubeMap,fragToLight).r;
-						closestDepth*=far_plane;
+						float closestDepth = texture(shadowCubeMap,fragToLight).r * far_plane;
 						float currentDepth=length(fragToLight);
-						float bias = 0.05; 
-						float shadow = currentDepth -  bias > closestDepth ? 1.0 : 0.0;
-
 						
+						float bias=0.05;
+						float shadow = currentDepth -bias> closestDepth ? 1.0 : 0.0;
+
 						return shadow;
 					}
-
-					vec3 CalculatePointLight(vec3 fragPos,vec3 lightPos){
+					
+					vec3 CalculatePointLight(){
 						vec3 norm    = normalize(fs_in.normal);
 						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
 						vec3 total   = vec3(0.0);          
 
 						for (int i = 0; i < pointLightCount; ++i) {
-							float pointShadow = CalculatePointShadow(fs_in.fragPos, pointLightList[i].Position);
+							
+							float pointShadow =CalculatePointShadow(fs_in.fragPos, pointLightList[i].Position);
 							vec3 lightDir = normalize(pointLightList[i].Position - fs_in.fragPos);
 
 							vec3 ambient  = pointLightList[i].Color * pointLightList[i].Ambient * material.Ambient;
@@ -134,11 +134,11 @@ void OmniShadow::Init()
 							float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
 							vec3 specular   = pointLightList[i].Color * pointLightList[i].Specular * material.Specular * spec;
 
-							//float distance    = length(pointLightList[i].Position - fs_in.fragPos);
-							//float attenuation = 1.0 / (1.0 + 0.09*distance + 0.032*distance*distance);
+							float distance    = length(pointLightList[i].Position - fs_in.fragPos);
+							float attenuation = 1.0 / (1.0 + 0.09*distance + 0.032*distance*distance);
 							 
-							 total += ambient  + diffuse + specular ;
-
+							total += (ambient +(1.0 - pointShadow) *( diffuse + specular))*vec3(1.0f) *attenuation;
+							
 						}
 						
 						return total;
@@ -202,7 +202,7 @@ void OmniShadow::Init()
 					
 					void main() {
 						
-						FragColor =CalculatePointShadow(fs_in.fragPos, pointLightList[0].Position);
+						FragColor =vec4(CalculatePointLight()+CalculateParallelLight(),1.0f);
 					}
 				)";
 
@@ -393,8 +393,9 @@ void OmniShadow::Init()
 		glm::vec3(1.0f,1.0f,1.0f),
 		glm::vec3(1.0f,1.0f,1.0f)
 		});
-	pointLight0->SetPosition(glm::vec3(0.0f, 2.0f, 0.0f));
+	pointLight0->SetPosition(glm::vec3(-2.0f, 2.0f, 0.0f));
 	pointLight0->SetScale(glm::vec3(0.2f));
+	pointLight0->SetIsLight(true);
 
 	pointLight1.reset(new KEngine::PointLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
 		l_Layout,
@@ -408,7 +409,7 @@ void OmniShadow::Init()
 		});
 	pointLight1->SetPosition(glm::vec3(-1.0f, 1.2f, 0.0f));
 	pointLight1->SetScale(glm::vec3(0.2f));
-	
+	pointLight1->SetIsLight(true);
 	
 	vpSL.clear();
 	vpSL = {

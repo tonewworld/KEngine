@@ -14,8 +14,10 @@ namespace KEngine{
 		static void EndScene();
 
 		static void ColorPickBegin();
-        static void ShadowBegin();
-        static void ShadowEnd();
+        static void ParallelLightShadowBegin();
+        static void ParallelLightShadowEnd();
+        static void PointLightShadowBegin();
+        static void PointLightShadowEnd();
 
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);
@@ -34,6 +36,7 @@ namespace KEngine{
         
         static void ResetGLState();
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
+        static void Debug();
     private:
        
     };
