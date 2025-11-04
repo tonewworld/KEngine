@@ -1,8 +1,9 @@
 #pragma once
 #include <KEngine.h>
-#include "Scenes/TestScene.h"
+#include "Scenes/Skybox.h"
 #include "Scenes/ParaShadow.h"
-#include "Scenes/OmniAndParaShadow.h"
+#include "Scenes/OmniShadow.h"
+#include "Scenes/NormalMapping.h"
 class RendererLayer : public KEngine::Layer {
 public:
     RendererLayer();
@@ -27,10 +28,10 @@ private:
 	std::shared_ptr<KEngine::Texture2D>   pickTexture;
 	std::shared_ptr<KEngine::RenderBuffer>pickRBO;
 	std::shared_ptr<KEngine::Shader>      pickShader;
-
+	
+	std::shared_ptr<KEngine::FrameBuffer> depthFBO;
+	std::shared_ptr<KEngine::Texture2D>   depthTexture;
 	std::shared_ptr<KEngine::Shader>	  shadowShader;
-	std::vector<std::shared_ptr<KEngine::FrameBuffer>> parallelDepthFBOs;
-	std::vector<std::shared_ptr<KEngine::Texture2D>> parallelDepthTextures;
 
 	std::shared_ptr<KEngine::FrameBuffer> depthCubeFBO;
 	std::shared_ptr<KEngine::TextureCube> depthCubeTexture;
@@ -43,9 +44,10 @@ private:
 	int m_SelectedObjectID = -1;
 	std::shared_ptr<KEngine::Object> m_SelectedObject = nullptr;
 
-	std::shared_ptr<TestScene> testScene;
-	std::shared_ptr<ParaShadow>ParaShadowScene;
-	std::shared_ptr<OmniAndParaShadow>OmniAndParaShadowScene;
+	std::shared_ptr<Skybox> skyboxScene;
+	std::shared_ptr<ParaShadow>paraShadowScene;
+	std::shared_ptr<OmniShadow>omniShadowScene;
+	std::shared_ptr<NormalMapping>normalMappingScene;
 	std::shared_ptr<KEngine::Scene> currentScene;
 	std::vector<std::shared_ptr<KEngine::Scene>> sceneList;
 

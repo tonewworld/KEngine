@@ -33,6 +33,8 @@ namespace KEngine
 		virtual void Bind() override;
 		virtual void Bind(unsigned int slot);
 		virtual void Unbind() override;
+		virtual std::string GetPath() { return "null"; }
+		virtual void LoadTexture() {}
 		inline virtual unsigned int GetRendererID() const override { return m_RendererID; }
 	};
 

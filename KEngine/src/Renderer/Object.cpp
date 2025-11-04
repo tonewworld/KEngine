@@ -26,7 +26,7 @@ namespace KEngine {
 		Renderer::SetStencilMask(stencilMask);
 		Renderer::SetStencilFunc(func, ref, mask);
 		if(texture)
-			texture->Bind();
+			texture->Bind(texture->GetTexSlot());
 		Renderer::Submit(shader, shared_from_this());
     }
 }

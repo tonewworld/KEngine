@@ -1,15 +1,15 @@
-#include "ParaShadow.h"
+#include "NormalMapping.h"
 
-ParaShadow::ParaShadow(std::string name) :name(name)
+NormalMapping::NormalMapping(std::string name) :name(name)
 {
 }
 
-ParaShadow::~ParaShadow()
+NormalMapping::~NormalMapping()
 {
 	Destroy();
 }
 
-void ParaShadow::Init()
+void NormalMapping::Init()
 {
 
 	mainCamera = std::make_unique<KEngine::Camera>();
@@ -22,37 +22,47 @@ void ParaShadow::Init()
 					#version 420 core
 					layout(location=0) in vec3 v_Position;
 					layout(location=1) in vec3 v_Normal;
+					layout(location = 2) in vec2 v_TexCoord; 
+					layout(location = 3) in vec3 v_Tangent;  
 
 					uniform mat4 model;
 					layout(std140) uniform VPMatrix
 					{
 						mat4 view;
 						mat4 proj;
+					
 					};
-			
+					
 					out VS_OUT {
-						vec3 normal;
 						vec3 fragPos;
+						vec2 texCoord;
+						mat3 TBN;
 					} vs_out;
 							
 
 					void main()
 					{
 						gl_Position = proj * view * model * vec4(v_Position,1.0);
-						vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
-						vs_out.normal = normalize(mat3(transpose(inverse(model))) * v_Normal);
+
+						vec3 T = normalize(mat3(model) * v_Tangent);
+						vec3 N = normalize(mat3(transpose(inverse(model))) * v_Normal);
+						T = normalize(T - dot(T, N) * N);
+						vec3 B = cross(N, T);
 						
+						vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
+						vs_out.texCoord=v_TexCoord;
+						vs_out.TBN=mat3(T,B,N);
 					}
 				)";
-		
+
 		char* fragmentSrc = R"(#version 420 core
 					out vec4 FragColor;
 					in VS_OUT {
-						vec3 normal;
 						vec3 fragPos;
+						vec2 texCoord;
+						mat3 TBN;
 					} fs_in;
 
-					
 					layout(std140) uniform MaterialUboData{
 						vec3 Ambient;
 						float _pad0;
@@ -63,7 +73,6 @@ void ParaShadow::Init()
 						float Shininess;
 						float _pad3[3];
 					}material;
-
 
 					struct ParallelLight{
 						vec3 Direct;   float _pad0;
@@ -80,74 +89,41 @@ void ParaShadow::Init()
 					};
 
 					uniform vec3 viewPos;
-					uniform sampler2D shadowMap;
-					uniform mat4 lightSpaceMatrix;
+					uniform sampler2D u_DiffuseMap;  
+					uniform sampler2D u_NormalMap;    
 
-					 float CalculateParallelLightShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir) {
-					
-						vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-        
-						projCoords = projCoords * 0.5 + 0.5;
-        
-						
-						if(projCoords.x < 0.0 || projCoords.x > 1.0 || 
-						   projCoords.y < 0.0 || projCoords.y > 1.0 ||
-						   projCoords.z < 0.0 || projCoords.z > 1.0) {
-							return 0.0; 
-						}
-						float closestDepth = texture(shadowMap, projCoords.xy).r;
-        
-						float currentDepth = projCoords.z;
-        
-						float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
-        
-						float shadow = 0.0;
-						vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-						for(int x = -1; x <= 1; ++x)
-						{
-							for(int y = -1; y <= 1; ++y)
-							{
-								float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
-								shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
-							}    
-						}
-						shadow /= 9.0;
-						
-						
-						return shadow;
-					}
 					vec3 CalculateParallelLight(){
-						vec3 norm    = normalize(fs_in.normal);
+						vec3 baseColor = texture(u_DiffuseMap, fs_in.texCoord).rgb;
+						vec3 normalTangent = texture(u_NormalMap, fs_in.texCoord).rgb * 2.0 - 1.0;
+						vec3 norm = normalize(fs_in.TBN * normalTangent); 
+
 						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
 						vec3 total   = vec3(0.0);          
 
 						for (int i = 0; i < parallelLightCount; ++i) {
 							vec3 lightDir = normalize(-parallelLightList[i].Direct);
 
-							vec4 fragPosLightSpace = lightSpaceMatrix * vec4(fs_in.fragPos, 1.0);
-							float shadow = CalculateParallelLightShadow(fragPosLightSpace, norm, lightDir);
-
-							vec3 ambient  = parallelLightList[i].Color * parallelLightList[i].Ambient * material.Ambient;
+							vec3 ambient  = parallelLightList[i].Color * parallelLightList[i].Ambient * baseColor;
 							float diff    = max(dot(norm, lightDir), 0.0);
-							vec3 diffuse  = parallelLightList[i].Color * parallelLightList[i].Diffuse * material.Diffuse * diff;
+							vec3 diffuse  = parallelLightList[i].Color * parallelLightList[i].Diffuse * baseColor * diff;
 
-						vec3 halfwayDir = normalize(lightDir + viewDir);
-						float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
-						vec3 specular   = parallelLightList[i].Color * parallelLightList[i].Specular * material.Specular * spec;
+							vec3 halfwayDir = normalize(lightDir + viewDir);
+							float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
+							vec3 specular   = parallelLightList[i].Color * parallelLightList[i].Specular * baseColor * spec;
 
-							 total += ambient + (1.0 - shadow) * (diffuse + specular);
+							 total += ambient + diffuse + specular;
 						}
 						return total;
 					}
 					
 					void main() {
 						
-						FragColor = vec4(CalculateParallelLight(), 1.0);
+						FragColor =vec4(CalculateParallelLight(),1.0f);
 					}
 				)";
 
 		m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
-
+	
 	}
 
 	{
@@ -173,55 +149,63 @@ void ParaShadow::Init()
 				
 					void main()
 					{
-						color = vec4(1.0f);
+						color = vec4(0.5f);
 					}
 
 				)";
 		l_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
 
+
 	float m_Vertices[] = {
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		// px, py, pz,  nx, ny, nz,  u, v,  tx, ty, tz
+		//位置                 //法向量              //uv          //切线
+		 0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   1.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   0.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   0.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   1.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   0.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,   0.0f,  0.0f,  1.0f,   1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
 
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 
+		 -0.5f, -0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   1.0f, 0.0f,  -1.0f, 0.0f, 0.0f,
+		  0.5f, -0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   0.0f, 0.0f,  -1.0f, 0.0f, 0.0f,
+		  0.5f,  0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   0.0f, 1.0f,  -1.0f, 0.0f, 0.0f,
+		 -0.5f, -0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   1.0f, 0.0f,  -1.0f, 0.0f, 0.0f,
+		  0.5f,  0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   0.0f, 1.0f,  -1.0f, 0.0f, 0.0f,
+		 -0.5f,  0.5f, -0.5f,   0.0f,  0.0f, -1.0f,   1.0f, 1.0f,  -1.0f, 0.0f, 0.0f,
 
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
 
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		  0.5f, -0.5f, -0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 0.0f,   0.0f, 0.0f, 1.0f,
+		  0.5f, -0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 0.0f,   0.0f, 0.0f, 1.0f,
+		  0.5f,  0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+		  0.5f, -0.5f, -0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 0.0f,   0.0f, 0.0f, 1.0f,
+		  0.5f,  0.5f,  0.5f,   1.0f,  0.0f,  0.0f,   0.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+		  0.5f,  0.5f, -0.5f,   1.0f,  0.0f,  0.0f,   1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
 
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
 
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+		  -0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,   0.0f, 0.0f, -1.0f,
+		  -0.5f, -0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,   0.0f, 0.0f,   0.0f, 0.0f, -1.0f,
+		  -0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,   0.0f, 0.0f, -1.0f,
+		  -0.5f, -0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,   1.0f, 0.0f,   0.0f, 0.0f, -1.0f,
+		  -0.5f,  0.5f, -0.5f,  -1.0f,  0.0f,  0.0f,   0.0f, 1.0f,   0.0f, 0.0f, -1.0f,
+		  -0.5f,  0.5f,  0.5f,  -1.0f,  0.0f,  0.0f,   1.0f, 1.0f,   0.0f, 0.0f, -1.0f,
+
+
+		  -0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+		   0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+		   0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+		  -0.5f,  0.5f,  0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+		   0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+		  -0.5f,  0.5f, -0.5f,   0.0f,  1.0f,  0.0f,   0.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+
+
+		  -0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 1.0f,  -1.0f, 0.0f, 0.0f,
+		   0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 1.0f,  -1.0f, 0.0f, 0.0f,
+		   0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 0.0f,  -1.0f, 0.0f, 0.0f,
+		  -0.5f, -0.5f, -0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 1.0f,  -1.0f, 0.0f, 0.0f,
+		   0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   1.0f, 0.0f,  -1.0f, 0.0f, 0.0f,
+		  -0.5f, -0.5f,  0.5f,   0.0f, -1.0f,  0.0f,   0.0f, 0.0f,  -1.0f, 0.0f, 0.0f
 	};
 	unsigned int m_Indices[]{
 		0,1,2,
@@ -240,7 +224,9 @@ void ParaShadow::Init()
 
 	KEngine::BufferLayout m_Layout = {
 		{KEngine::ShaderDataType::Float3,"position"} ,
-		{KEngine::ShaderDataType::Float3,"normal"}
+		{KEngine::ShaderDataType::Float3,"normal"},
+		{KEngine::ShaderDataType::Float2, "v_TexCoord"},
+		{KEngine::ShaderDataType::Float3, "v_Tangent"}  
 	};
 	m_Mesh.reset(new KEngine::Mesh(m_Vertices, sizeof(m_Vertices) / sizeof(float),
 		m_Layout,
@@ -251,16 +237,12 @@ void ParaShadow::Init()
 		glm::vec3(0.5f,0.5f,0.5f),
 		32.0f
 		});
-	m_Mesh1.reset(new KEngine::Mesh(m_Vertices, sizeof(m_Vertices) / sizeof(float),
-		m_Layout,
-		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
-		"m1"));
-	m_Mesh1->SetMaterial({ glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(0.5f,0.5f,0.5f),
-		32.0f
-		});
-	m_Mesh1->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+	m_DiffuseMap.reset(KEngine::Texture2D::Create("references/normalMapping/brickwall.jpg"));
+	m_DiffuseMap->SetTexSlot(1);
+	m_NormalMap.reset(KEngine::Texture2D::Create("references/normalMapping/brickwall_normal.jpg"));
+	m_NormalMap->SetTexSlot(2);
+	m_Mesh->diffuseMap = m_DiffuseMap;
+	m_Mesh->normalMap = m_NormalMap;
 
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
@@ -323,12 +305,13 @@ void ParaShadow::Init()
 	KEngine::BufferLayout l_Layout = {
 		{KEngine::ShaderDataType::Float3,"position"}
 	};
+	
 	parallelLight0.reset(new KEngine::ParallelLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
 		l_Layout,
 		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
 		"parallelLight0"));
 	parallelLight0->SetLightAttributes({
-		glm::vec3( 0.f, 0.f,-1.f),
+		glm::vec3(0.f, 0.f,-1.f),
 		glm::vec3(0.2f,0.2f,0.2f),
 		glm::vec3(0.5f,0.5f,0.5f),
 		glm::vec3(1.0f,1.0f,1.0f),
@@ -337,6 +320,7 @@ void ParaShadow::Init()
 	parallelLight0->SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
 	parallelLight0->SetScale(glm::vec3(0.2f));
 	parallelLight0->SetIsLight(true);
+
 
 	vpSL.clear();
 	vpSL = {
@@ -348,48 +332,42 @@ void ParaShadow::Init()
 	{
 		shader->BindUniformBufferPoint("VPMatrix", 0);
 	}
-	
+
 	m_Shader->BindUniformBufferPoint("MaterialUboData", 1);
 	m_Shader->BindUniformBufferPoint("ParallelLightUboData", 2);
-	
-	//生成uniform缓冲对象
-	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4),0));
-	materialUBO.reset(KEngine::UniformBuffer::Create(sizeof(KEngine::MaterialUboData),1));
-	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 
+	//生成uniform缓冲对象
+	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4), 0));
+	materialUBO.reset(KEngine::UniformBuffer::Create(sizeof(KEngine::MaterialUboData), 1));
+	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 
 	parallelLightList.push_back(parallelLight0);
 
 	Objects.push_back(m_Mesh);
-	Objects.push_back(m_Mesh1);
 	Objects.push_back(parallelLight0);
 
 }
-void ParaShadow::OnUpdate(KEngine::TimeStep ts)
+void NormalMapping::OnUpdate(KEngine::TimeStep ts)
 {
 	mainCamera->Control(ts.GetTimeStep());
 
 	// 填充数据到uniform缓冲对象
 	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
-
 	// 设置着色器uniform
 	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
-	m_Shader->SetUniform1i(29, "shadowMap");
+	m_Shader->SetUniform1i(1, "u_DiffuseMap"); 
+	m_Shader->SetUniform1i(2, "u_NormalMap");
 	// 填充UBO
-	materialUBO->AddMaterial(KEngine::MaterialUboData{ m_Mesh->GetMaterial()});
+	materialUBO->AddMaterial(KEngine::MaterialUboData{ m_Mesh->GetMaterial() });
 	parallelLightUBO->AddParallelLight(parallelLightList);
 
-	// 设置绘制状态
 	parallelLight0->SetDrawState(nullptr, l_Shader, true, false, 0);
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
-	m_Mesh1->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 
-	
 }
-void ParaShadow::Destroy()
+void NormalMapping::Destroy()
 {
 	m_Mesh.reset();
-	m_Mesh1.reset();
 	parallelLight0.reset();
 
 	matrixUBO.reset();

@@ -64,6 +64,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				)";
 
 		screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+		screenShader->SetUniform1i(31, "screenTexture");
 	}
 	{
 		char* vertexSrc = R"(
@@ -84,8 +85,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 				void main()
 				{
-					float depth = gl_FragCoord.z;
-					FragColor = vec4(vec3(depth), 1.0);
+					
 				}
 				)";
 
@@ -165,6 +165,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 	FBO.reset(KEngine::FrameBuffer::Create());
 	quad_Texture.reset(KEngine::Texture2D::Create());
+	quad_Texture->SetTexSlot(31);
 	FBO->Add2DTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
 	RBO.reset(KEngine::RenderBuffer::Create());
 
@@ -172,27 +173,23 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	int h = 1024;//纹理分辨率
 	int numParallelLights = 4; 
 
-	for (int i = 0; i < numParallelLights; ++i) {
-		std::shared_ptr<KEngine::FrameBuffer> depthFBO;
-		depthFBO.reset(KEngine::FrameBuffer::Create());
-		std::shared_ptr<KEngine::Texture2D> depthTexture;
-		depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, w, h));
-		depthFBO->Add2DTexture(GL_DEPTH_ATTACHMENT, depthTexture->GetRendererID(), GL_FALSE, GL_FALSE);
-		parallelDepthFBOs.push_back(depthFBO);
-		parallelDepthTextures.push_back(depthTexture);
-	}
+	depthFBO.reset(KEngine::FrameBuffer::Create());
+	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, w, h));
+	depthFBO->Add2DTexture(GL_DEPTH_ATTACHMENT, depthTexture->GetRendererID(), GL_NONE, GL_NONE);
 
 	depthCubeFBO.reset(KEngine::FrameBuffer::Create());
 	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, w, h));
-	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_FALSE, GL_FALSE);
+	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_NONE, GL_NONE);
 
-	testScene.reset(new TestScene("testScene"));
-	ParaShadowScene.reset(new ParaShadow("ParaShadow"));
-	OmniAndParaShadowScene.reset(new OmniAndParaShadow("OmniAndParaShadow"));
+	skyboxScene.reset(new Skybox("SkyboxScene"));
+	paraShadowScene.reset(new ParaShadow("ParaShadow"));
+	omniShadowScene.reset(new OmniShadow("OmniShadow"));
+	normalMappingScene.reset(new NormalMapping("NormalMapping"));
 
-	sceneList.push_back(testScene);
-	sceneList.push_back(ParaShadowScene);
-	sceneList.push_back(OmniAndParaShadowScene);
+	sceneList.push_back(skyboxScene);
+	sceneList.push_back(paraShadowScene);
+	sceneList.push_back(omniShadowScene);
+	sceneList.push_back(normalMappingScene);
 }
 
 void RendererLayer::OnAttach() {
@@ -224,18 +221,13 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 			obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
 
 			obj->shader->Bind();
-			for (int i = 0; i < currentScene->GetParallelLightInScene().size(); ++i) {
-				parallelDepthTextures[i]->Bind(i);
-				obj->shader->SetUniform1i(i, ("shadowMaps[" + std::to_string(i) + "]").c_str());
-				obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[i]->CalculateLightSpace(), ("lightSpaceMatrices[" + std::to_string(i) + "]").c_str());
-				
+			if (currentScene->GetParallelLightInScene().size() != 0) {
+				depthTexture->Bind(29);
+				obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
 			}
 			
 			if (currentScene->GetPointLightInScene().size() != 0) {
-				obj->shader->Bind();
-				depthCubeTexture->Bind(0);
-				obj->shader->SetUniform1i(0,"shadowCubeMap");
-				obj->shader->SetUniform1f(25.f, "far_plane");
+				depthCubeTexture->Bind(30);
 			}
 			
 			obj->Draw(obj->shader);
@@ -339,11 +331,7 @@ void RendererLayer::CalculateShadow()
 {
 	
 	//parallel
-	int lightIndex = 0;
 	for (const auto& light : currentScene->GetParallelLightInScene()) {
-		if (lightIndex >= parallelDepthFBOs.size()) break; // 超过支持的光源数量
-
-		auto depthFBO = parallelDepthFBOs[lightIndex];
 		
 		depthFBO->Bind();
 		KEngine::Renderer::ParallelLightShadowBegin();
@@ -362,7 +350,6 @@ void RendererLayer::CalculateShadow()
 		depthFBO->Unbind();
 
 		KEngine::Renderer::ParallelLightShadowEnd();
-		lightIndex++;
 	}
 	//pointlight
 	for (const auto& light : currentScene->GetPointLightInScene()) {

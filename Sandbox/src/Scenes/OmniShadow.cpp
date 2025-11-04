@@ -1,15 +1,15 @@
-#include "OmniAndParaShadow.h"
+#include "OmniShadow.h"
 
-OmniAndParaShadow::OmniAndParaShadow(std::string name) :name(name)
+OmniShadow::OmniShadow(std::string name) :name(name)
 {
 }
 
-OmniAndParaShadow::~OmniAndParaShadow()
+OmniShadow::~OmniShadow()
 {
 	Destroy();
 }
 
-void OmniAndParaShadow::Init()
+void OmniShadow::Init()
 {
 	
 	mainCamera = std::make_unique<KEngine::Camera>();
@@ -77,24 +77,7 @@ void OmniAndParaShadow::Init()
 						int _pad0[3];
 					};
 
-					struct ParallelLight{
-						vec3 Direct;   float _pad0;
-						vec3 Ambient;  float _pad1;
-						vec3 Diffuse;  float _pad2;
-						vec3 Specular; float _pad3;
-						vec3 Color;	   float _pad4;
-					};
-					
-					layout(std140,binding=3) uniform ParallelLightUboData{
-						ParallelLight parallelLightList[10];
-						int parallelLightCount;
-						int _pad1[3];
-					};
-
 					uniform vec3 viewPos;
-
-					uniform sampler2D shadowMaps[4];
-					uniform mat4 lightSpaceMatrices[4];	
 
 					uniform samplerCube shadowCubeMap;
 					uniform float far_plane;
@@ -139,70 +122,14 @@ void OmniAndParaShadow::Init()
 						return total;
 					}
 					
-					 float CalculateParallelLightShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir,int index) {
-					
-						vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-        
-						projCoords = projCoords * 0.5 + 0.5;
-        
-						
-						if(projCoords.x < 0.0 || projCoords.x > 1.0 || 
-						   projCoords.y < 0.0 || projCoords.y > 1.0 ||
-						   projCoords.z < 0.0 || projCoords.z > 1.0) {
-							return 0.0; 
-    }
-						float closestDepth = texture(shadowMaps[index], projCoords.xy).r;
-        
-						float currentDepth = projCoords.z;
-        
-						float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
-        
-						float shadow = 0.0;
-						vec2 texelSize = 1.0 / textureSize(shadowMaps[index], 0);
-						for(int x = -1; x <= 1; ++x)
-						{
-							for(int y = -1; y <= 1; ++y)
-							{
-								float pcfDepth = texture(shadowMaps[index], projCoords.xy + vec2(x, y) * texelSize).r; 
-								shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
-							}    
-						}
-						shadow /= 9.0;
-
-						return shadow;
-					}
-					vec3 CalculateParallelLight(){
-						vec3 norm    = normalize(fs_in.normal);
-						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
-						vec3 total   = vec3(0.0);          
-
-						for (int i = 0; i < parallelLightCount; ++i) {
-							vec3 lightDir = normalize(-parallelLightList[i].Direct);
-
-							vec4 fragPosLightSpace = lightSpaceMatrices[i] * vec4(fs_in.fragPos, 1.0);
-							float shadow = CalculateParallelLightShadow(fragPosLightSpace, norm, lightDir,i);
-
-							vec3 ambient  = parallelLightList[i].Color * parallelLightList[i].Ambient * material.Ambient;
-							float diff    = max(dot(norm, lightDir), 0.0);
-							vec3 diffuse  = parallelLightList[i].Color * parallelLightList[i].Diffuse * material.Diffuse * diff;
-
-							vec3 reflectDir = reflect(-lightDir, norm);
-							float spec      = pow(max(dot(viewDir, reflectDir), 0.0), material.Shininess);
-							vec3 specular   = parallelLightList[i].Color * parallelLightList[i].Specular * material.Specular * spec;
-
-							 total += ambient + (1.0 - shadow) * (diffuse + specular);
-						}
-						return total;
-					}
-					
 					void main() {
 						
-						FragColor =vec4(CalculatePointLight()+CalculateParallelLight(),1.0f);
+						FragColor =vec4(CalculatePointLight(),1.0f);
 					}
 				)";
 
 		m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
-
+		
 	}
 
 	{
@@ -392,50 +319,7 @@ void OmniAndParaShadow::Init()
 	pointLight0->SetScale(glm::vec3(0.2f));
 	pointLight0->SetIsLight(true);
 
-	pointLight1.reset(new KEngine::PointLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
-		l_Layout,
-		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
-		"pointLight1"));
-	pointLight1->SetLightAttributes({
-		glm::vec3(0.2f,0.2f,0.2f),
-		glm::vec3(0.5f,0.5f,0.5f),
-		glm::vec3(1.0f,1.0f,1.0f),
-		glm::vec3(1.0f,1.0f,1.0f)
-		});
-	pointLight1->SetPosition(glm::vec3(-1.0f, 1.2f, 0.0f));
-	pointLight1->SetScale(glm::vec3(0.2f));
-	pointLight1->SetIsLight(true);
 	
-	parallelLight0.reset(new KEngine::ParallelLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
-		l_Layout,
-		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
-		"parallelLight0"));
-	parallelLight0->SetLightAttributes({
-		glm::vec3(0.f, 0.f,-1.f),
-		glm::vec3(0.2f,0.2f,0.2f),
-		glm::vec3(0.5f,0.5f,0.5f),
-		glm::vec3(1.0f,1.0f,1.0f),
-		glm::vec3(1.0f,1.0f,1.0f)
-		});
-	parallelLight0->SetPosition(glm::vec3(0.0f, 0.0f, 2.0f));
-	parallelLight0->SetScale(glm::vec3((0.2f)));
-	parallelLight0->SetIsLight(true);
-
-	parallelLight1.reset(new KEngine::ParallelLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
-		l_Layout,
-		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
-		"parallelLight1"));
-	parallelLight1->SetLightAttributes({
-		glm::vec3(1.f, 0.f,0.f),
-		glm::vec3(0.2f,0.2f,0.2f),
-		glm::vec3(0.5f,0.5f,0.5f),
-		glm::vec3(1.0f,1.0f,1.0f),
-		glm::vec3(1.0f,1.0f,1.0f)
-		});
-	parallelLight1->SetPosition(glm::vec3(0.0f, 0.0f, 2.0f));
-	parallelLight1->SetScale(glm::vec3((0.2f)));
-	parallelLight1->SetIsLight(true);
-
 
 	vpSL.clear();
 	vpSL = {
@@ -450,30 +334,22 @@ void OmniAndParaShadow::Init()
 
 	m_Shader->BindUniformBufferPoint("MaterialUboData", 1);
 	m_Shader->BindUniformBufferPoint("PointLightUboData", 2);
-	m_Shader->BindUniformBufferPoint("ParallelLightUboData", 3);
 	
 	//生成uniform缓冲对象
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4), 0));
 	materialUBO.reset(KEngine::UniformBuffer::Create(sizeof(KEngine::MaterialUboData), 1));
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
-	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::ParallelLightUboData), 3));
-
+	
 	pointLightList.push_back(pointLight0);
-	//pointLightList.push_back(pointLight1);
-
-	parallelLightList.push_back(parallelLight0);
-	//parallelLightList.push_back(parallelLight1);
-
+	
+	
 	Objects.push_back(m_Mesh);
 	Objects.push_back(m_Mesh1);
 	Objects.push_back(pointLight0);
-	//Objects.push_back(pointLight1);
-	Objects.push_back(parallelLight0);
-	//Objects.push_back(parallelLight1);
-
+	
 
 }
-void OmniAndParaShadow::OnUpdate(KEngine::TimeStep ts)
+void OmniShadow::OnUpdate(KEngine::TimeStep ts)
 {
 	mainCamera->Control(ts.GetTimeStep());
 
@@ -482,30 +358,27 @@ void OmniAndParaShadow::OnUpdate(KEngine::TimeStep ts)
 
 	// 设置着色器uniform
 	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
-
+	m_Shader->SetUniform1i(30, "shadowCubeMap");
+	m_Shader->SetUniform1f(25.f, "far_plane");
 	// 填充UBO
 	materialUBO->AddMaterial(KEngine::MaterialUboData{ m_Mesh->GetMaterial() });
 	pointLightUBO->AddPointLight(pointLightList);
-	parallelLightUBO->AddParallelLight(parallelLightList);
 	// 设置绘制状态
 	pointLight0->SetDrawState(nullptr, l_Shader, true, false, 0);
-	pointLight1->SetDrawState(nullptr, l_Shader, true, false, 0);
-	parallelLight0->SetDrawState(nullptr, l_Shader, true, false, 0);
-	parallelLight1->SetDrawState(nullptr, l_Shader, true, false, 0);
+
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 	m_Mesh1->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 
 }
-void OmniAndParaShadow::Destroy()
+void OmniShadow::Destroy()
 {
 	m_Mesh.reset();
 	m_Mesh1.reset();
 	pointLight0.reset();
-	pointLight1.reset();
+
 	matrixUBO.reset();
 	materialUBO.reset();
 	pointLightUBO.reset();
-	parallelLightUBO.reset();
 
 	Objects.clear();
 	pointLightList.clear();

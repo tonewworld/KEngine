@@ -22,8 +22,7 @@ private:
 	std::shared_ptr<KEngine::Mesh> m_Mesh1;
 
 	std::shared_ptr<KEngine::Shader> l_Shader;
-	std::shared_ptr<KEngine::PointLight> pointLight0;
-	std::shared_ptr<KEngine::PointLight> pointLight1;
+
 	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
 
 	std::shared_ptr<KEngine::ParallelLight>parallelLight0;
@@ -31,7 +30,6 @@ private:
 
 	std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
 	std::shared_ptr<KEngine::UniformBuffer> materialUBO;
-	std::shared_ptr<KEngine::UniformBuffer> pointLightUBO; 
 	std::shared_ptr<KEngine::UniformBuffer> parallelLightUBO;
 
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);

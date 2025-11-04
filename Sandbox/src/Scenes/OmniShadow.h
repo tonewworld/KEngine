@@ -1,8 +1,8 @@
 #include "KEngine.h"
-class OmniAndParaShadow :public KEngine::Scene {
+class OmniShadow :public KEngine::Scene {
 public:
-	OmniAndParaShadow(std::string name);
-	~OmniAndParaShadow();
+	OmniShadow(std::string name);
+	~OmniShadow();
 	inline virtual std::string GetName() override { return name; }
 	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
 	inline std::vector<std::shared_ptr<KEngine::PointLight>>GetPointLightInScene()override { return pointLightList; }
@@ -23,17 +23,13 @@ private:
 
 	std::shared_ptr<KEngine::Shader> l_Shader;
 	std::shared_ptr<KEngine::PointLight> pointLight0;
-	std::shared_ptr<KEngine::PointLight> pointLight1;
 	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
 
-	std::shared_ptr<KEngine::ParallelLight>parallelLight0;
-	std::shared_ptr<KEngine::ParallelLight>parallelLight1;
 	std::vector<std::shared_ptr<KEngine::ParallelLight>> parallelLightList;
 
 	std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
 	std::shared_ptr<KEngine::UniformBuffer> materialUBO;
 	std::shared_ptr<KEngine::UniformBuffer> pointLightUBO;
-	std::shared_ptr<KEngine::UniformBuffer> parallelLightUBO;
 
 	glm::vec3 m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	std::vector<std::shared_ptr<KEngine::Shader>> vpSL;

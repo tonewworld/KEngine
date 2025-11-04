@@ -14,6 +14,10 @@ namespace KEngine {
 			const std::string& name = "Mesh");
 		virtual ~Mesh() = default;
 		
+		std::shared_ptr<Texture2D> diffuseMap;
+		std::shared_ptr<Texture2D> normalMap;
+		unsigned int diffuseSlot = 1;
+		unsigned int normalSlot = 2;
 		std::shared_ptr<VertexArray> VAO;
 		std::shared_ptr<VertexBuffer> VBO;
 		std::shared_ptr<IndexBuffer> IBO;

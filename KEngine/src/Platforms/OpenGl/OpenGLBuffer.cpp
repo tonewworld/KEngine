@@ -10,6 +10,7 @@ namespace KEngine{
 		glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
     OpenGLVertexBuffer::~OpenGLVertexBuffer(){
         glDeleteBuffers(1,&m_RendererID);
@@ -27,6 +28,7 @@ namespace KEngine{
         glGenBuffers(1, &m_RendererID);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, m_Count*sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
     OpenGLIndexBuffer::~OpenGLIndexBuffer(){
         glDeleteBuffers(1,&m_RendererID);

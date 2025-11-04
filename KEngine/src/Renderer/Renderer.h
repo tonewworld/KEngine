@@ -36,7 +36,7 @@ namespace KEngine{
         
         static void ResetGLState();
         inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
-        static void Debug(std::shared_ptr<KEngine::Object>obj);
+        static void Debug();
     private:
        
     };

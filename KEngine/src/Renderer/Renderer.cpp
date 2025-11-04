@@ -25,6 +25,10 @@ namespace KEngine{
 	{
 
 		shader->Bind();
+		if (mesh->diffuseMap)
+			mesh->diffuseMap->Bind(mesh->diffuseSlot);
+		if (mesh->normalMap)
+			mesh->normalMap->Bind(mesh->normalSlot);
 		mesh->VAO->Bind();
 		RenderCommand::DrawIndexed(mesh->VAO);
 	}
@@ -156,11 +160,10 @@ namespace KEngine{
 		// Çå³ý´íÎó×´Ì¬
 		while (glGetError() != GL_NO_ERROR);
 	}
-	void Renderer::Debug(std::shared_ptr<KEngine::Object>obj)
+	void Renderer::Debug()
 	{
-		GLenum err;
-		err = glGetError();
-		if (err != GL_NO_ERROR)
-			std::cout << "[ERROR] after SetUniform1i : 0x" << std::hex << err << std::dec << std::endl;
+		
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			std::cerr << "Depth FBO not complete!" << std::endl;
 	}
 }

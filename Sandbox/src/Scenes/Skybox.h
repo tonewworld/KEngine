@@ -1,8 +1,8 @@
 #include "KEngine.h"
-class TestScene :public KEngine::Scene {
+class Skybox :public KEngine::Scene {
 public:
-	TestScene(std::string name);
-	~TestScene();
+	Skybox(std::string name);
+	~Skybox();
 	inline virtual std::string GetName() override { return name; }
 	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
 	inline std::vector<std::shared_ptr<KEngine::PointLight>>GetPointLightInScene()override { return pointLightList; }
