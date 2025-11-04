@@ -228,20 +228,22 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 				parallelDepthTextures[i]->Bind(i);
 				obj->shader->SetUniform1i(i, ("shadowMaps[" + std::to_string(i) + "]").c_str());
 				obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[i]->CalculateLightSpace(), ("lightSpaceMatrices[" + std::to_string(i) + "]").c_str());
+				
 			}
 			
 			if (currentScene->GetPointLightInScene().size() != 0) {
 				obj->shader->Bind();
-				obj->shader->SetUniform1i(3,"shadowCubeMap");
-				depthCubeTexture->Bind(3);
+				depthCubeTexture->Bind(0);
+				obj->shader->SetUniform1i(0,"shadowCubeMap");
 				obj->shader->SetUniform1f(25.f, "far_plane");
 			}
 			
 			obj->Draw(obj->shader);
+			
 		}
+		FBO->Unbind();
 	}
 	
-	FBO->Unbind();
 
 	quad_Mesh->SetDrawState(quad_Texture, screenShader, false, false);
 	quad_Mesh->Draw(screenShader);
@@ -342,8 +344,7 @@ void RendererLayer::CalculateShadow()
 		if (lightIndex >= parallelDepthFBOs.size()) break; // 超过支持的光源数量
 
 		auto depthFBO = parallelDepthFBOs[lightIndex];
-		auto depthTexture = parallelDepthTextures[lightIndex];
-
+		
 		depthFBO->Bind();
 		KEngine::Renderer::ParallelLightShadowBegin();
 		shadowShader->Bind();
@@ -384,9 +385,9 @@ void RendererLayer::CalculateShadow()
 			obj->Draw(shadowCubeShader); 
 		}
 
+		KEngine::Renderer::PointLightShadowEnd();
 		depthCubeFBO->Unbind();
 
-		KEngine::Renderer::PointLightShadowEnd();
 	}
 }
 

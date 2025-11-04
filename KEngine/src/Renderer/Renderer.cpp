@@ -156,10 +156,11 @@ namespace KEngine{
 		// Çå³ý´íÎó×´Ì¬
 		while (glGetError() != GL_NO_ERROR);
 	}
-	void Renderer::Debug()
+	void Renderer::Debug(std::shared_ptr<KEngine::Object>obj)
 	{
-		GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-		if (status != GL_FRAMEBUFFER_COMPLETE)
-			std::cout << "FBO not complete! " << status << std::endl;
+		GLenum err;
+		err = glGetError();
+		if (err != GL_NO_ERROR)
+			std::cout << "[ERROR] after SetUniform1i : 0x" << std::hex << err << std::dec << std::endl;
 	}
 }

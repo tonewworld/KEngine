@@ -139,7 +139,7 @@ void OmniAndParaShadow::Init()
 						return total;
 					}
 					
-					 float CalculateParallelLightShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir) {
+					 float CalculateParallelLightShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir,int index) {
 					
 						vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
         
@@ -151,19 +151,19 @@ void OmniAndParaShadow::Init()
 						   projCoords.z < 0.0 || projCoords.z > 1.0) {
 							return 0.0; 
     }
-						float closestDepth = texture(shadowMaps[0], projCoords.xy).r;
+						float closestDepth = texture(shadowMaps[index], projCoords.xy).r;
         
 						float currentDepth = projCoords.z;
         
 						float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
         
 						float shadow = 0.0;
-						vec2 texelSize = 1.0 / textureSize(shadowMaps[0], 0);
+						vec2 texelSize = 1.0 / textureSize(shadowMaps[index], 0);
 						for(int x = -1; x <= 1; ++x)
 						{
 							for(int y = -1; y <= 1; ++y)
 							{
-								float pcfDepth = texture(shadowMaps[0], projCoords.xy + vec2(x, y) * texelSize).r; 
+								float pcfDepth = texture(shadowMaps[index], projCoords.xy + vec2(x, y) * texelSize).r; 
 								shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        
 							}    
 						}
@@ -180,7 +180,7 @@ void OmniAndParaShadow::Init()
 							vec3 lightDir = normalize(-parallelLightList[i].Direct);
 
 							vec4 fragPosLightSpace = lightSpaceMatrices[i] * vec4(fs_in.fragPos, 1.0);
-							float shadow = CalculateParallelLightShadow(fragPosLightSpace, norm, lightDir);
+							float shadow = CalculateParallelLightShadow(fragPosLightSpace, norm, lightDir,i);
 
 							vec3 ambient  = parallelLightList[i].Color * parallelLightList[i].Ambient * material.Ambient;
 							float diff    = max(dot(norm, lightDir), 0.0);
@@ -417,9 +417,25 @@ void OmniAndParaShadow::Init()
 		glm::vec3(1.0f,1.0f,1.0f),
 		glm::vec3(1.0f,1.0f,1.0f)
 		});
-	parallelLight0->SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
+	parallelLight0->SetPosition(glm::vec3(0.0f, 0.0f, 2.0f));
 	parallelLight0->SetScale(glm::vec3((0.2f)));
 	parallelLight0->SetIsLight(true);
+
+	parallelLight1.reset(new KEngine::ParallelLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
+		l_Layout,
+		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
+		"parallelLight1"));
+	parallelLight1->SetLightAttributes({
+		glm::vec3(1.f, 0.f,0.f),
+		glm::vec3(0.2f,0.2f,0.2f),
+		glm::vec3(0.5f,0.5f,0.5f),
+		glm::vec3(1.0f,1.0f,1.0f),
+		glm::vec3(1.0f,1.0f,1.0f)
+		});
+	parallelLight1->SetPosition(glm::vec3(0.0f, 0.0f, 2.0f));
+	parallelLight1->SetScale(glm::vec3((0.2f)));
+	parallelLight1->SetIsLight(true);
+
 
 	vpSL.clear();
 	vpSL = {
@@ -446,12 +462,14 @@ void OmniAndParaShadow::Init()
 	//pointLightList.push_back(pointLight1);
 
 	parallelLightList.push_back(parallelLight0);
+	//parallelLightList.push_back(parallelLight1);
 
 	Objects.push_back(m_Mesh);
 	Objects.push_back(m_Mesh1);
 	Objects.push_back(pointLight0);
 	//Objects.push_back(pointLight1);
 	Objects.push_back(parallelLight0);
+	//Objects.push_back(parallelLight1);
 
 
 }
@@ -473,6 +491,7 @@ void OmniAndParaShadow::OnUpdate(KEngine::TimeStep ts)
 	pointLight0->SetDrawState(nullptr, l_Shader, true, false, 0);
 	pointLight1->SetDrawState(nullptr, l_Shader, true, false, 0);
 	parallelLight0->SetDrawState(nullptr, l_Shader, true, false, 0);
+	parallelLight1->SetDrawState(nullptr, l_Shader, true, false, 0);
 	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 	m_Mesh1->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 

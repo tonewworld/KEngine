@@ -27,6 +27,7 @@ private:
 	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
 
 	std::shared_ptr<KEngine::ParallelLight>parallelLight0;
+	std::shared_ptr<KEngine::ParallelLight>parallelLight1;
 	std::vector<std::shared_ptr<KEngine::ParallelLight>> parallelLightList;
 
 	std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
