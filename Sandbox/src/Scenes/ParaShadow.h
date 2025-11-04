@@ -1,8 +1,8 @@
 #include "KEngine.h"
-class MaterialScene :public KEngine::Scene {
+class ParaShadow :public KEngine::Scene {
 public:
-	MaterialScene(std::string name);
-	~MaterialScene();
+	ParaShadow(std::string name);
+	~ParaShadow();
 	inline virtual std::string GetName() override { return name; }
 	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
 	inline std::vector<std::shared_ptr<KEngine::PointLight>>GetPointLightInScene()override { return pointLightList; }

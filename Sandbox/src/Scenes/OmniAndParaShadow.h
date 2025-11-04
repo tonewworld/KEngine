@@ -1,8 +1,8 @@
 #include "KEngine.h"
-class OmniShadow :public KEngine::Scene {
+class OmniAndParaShadow :public KEngine::Scene {
 public:
-	OmniShadow(std::string name);
-	~OmniShadow();
+	OmniAndParaShadow(std::string name);
+	~OmniAndParaShadow();
 	inline virtual std::string GetName() override { return name; }
 	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
 	inline std::vector<std::shared_ptr<KEngine::PointLight>>GetPointLightInScene()override { return pointLightList; }
@@ -26,6 +26,7 @@ private:
 	std::shared_ptr<KEngine::PointLight> pointLight1;
 	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
 
+	std::shared_ptr<KEngine::ParallelLight>parallelLight0;
 	std::vector<std::shared_ptr<KEngine::ParallelLight>> parallelLightList;
 
 	std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
