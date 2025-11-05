@@ -26,6 +26,9 @@ void NormalMapping::Init()
 					layout(location = 3) in vec3 v_Tangent;  
 
 					uniform mat4 model;
+					uniform vec3 viewPos;
+					uniform vec3 lightPos;
+
 					layout(std140) uniform VPMatrix
 					{
 						mat4 view;
@@ -36,7 +39,9 @@ void NormalMapping::Init()
 					out VS_OUT {
 						vec3 fragPos;
 						vec2 texCoord;
-						mat3 TBN;
+						vec3 tangentLightPos;
+						vec3 tangentViewPos;
+						vec3 tangentFragPos;
 					} vs_out;
 							
 
@@ -51,7 +56,12 @@ void NormalMapping::Init()
 						
 						vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
 						vs_out.texCoord=v_TexCoord;
-						vs_out.TBN=mat3(T,B,N);
+
+						mat3 TBN = transpose(mat3(T, B, N));  
+						vs_out.tangentLightPos = TBN * lightPos;
+						vs_out.tangentViewPos  = TBN * viewPos;
+						vs_out.tangentFragPos  = TBN * vs_out.fragPos;
+						
 					}
 				)";
 
@@ -60,7 +70,9 @@ void NormalMapping::Init()
 					in VS_OUT {
 						vec3 fragPos;
 						vec2 texCoord;
-						mat3 TBN;
+						vec3 tangentLightPos;
+						vec3 tangentViewPos;
+						vec3 tangentFragPos;
 					} fs_in;
 
 					layout(std140) uniform MaterialUboData{
@@ -74,42 +86,41 @@ void NormalMapping::Init()
 						float _pad3[3];
 					}material;
 
-					struct ParallelLight{
-						vec3 Direct;   float _pad0;
+					struct PointLight{
+						vec3 Position; float _pad0;
 						vec3 Ambient;  float _pad1;
 						vec3 Diffuse;  float _pad2;
 						vec3 Specular; float _pad3;
 						vec3 Color;	   float _pad4;
 					};
 					
-					layout(std140) uniform ParallelLightUboData{
-						ParallelLight parallelLightList[10];
-						int parallelLightCount;
-						int _pad1[3];
+					layout(std140,binding=2) uniform PointLightUboData{
+						PointLight pointLightList[10];
+						int pointLightCount;
+						int _pad0[3];
 					};
-
-					uniform vec3 viewPos;
+					
 					uniform sampler2D u_DiffuseMap;  
 					uniform sampler2D u_NormalMap;    
 
-					vec3 CalculateParallelLight(){
+					vec3 CalculatePointLight(){
 						vec3 baseColor = texture(u_DiffuseMap, fs_in.texCoord).rgb;
 						vec3 normalTangent = texture(u_NormalMap, fs_in.texCoord).rgb * 2.0 - 1.0;
-						vec3 norm = normalize(fs_in.TBN * normalTangent); 
+						vec3 norm = normalize(normalTangent); 
 
-						vec3 viewDir = normalize(viewPos - fs_in.fragPos);
+						vec3 viewDir = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
 						vec3 total   = vec3(0.0);          
 
-						for (int i = 0; i < parallelLightCount; ++i) {
-							vec3 lightDir = normalize(-parallelLightList[i].Direct);
+						for (int i = 0; i < pointLightCount; ++i) {
+							vec3 lightDir = normalize(fs_in.tangentLightPos-fs_in.tangentFragPos);
 
-							vec3 ambient  = parallelLightList[i].Color * parallelLightList[i].Ambient * baseColor;
+							vec3 ambient  = pointLightList[i].Color * pointLightList[i].Ambient * baseColor;
 							float diff    = max(dot(norm, lightDir), 0.0);
-							vec3 diffuse  = parallelLightList[i].Color * parallelLightList[i].Diffuse * baseColor * diff;
+							vec3 diffuse  = pointLightList[i].Color * pointLightList[i].Diffuse * baseColor * diff;
 
 							vec3 halfwayDir = normalize(lightDir + viewDir);
 							float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
-							vec3 specular   = parallelLightList[i].Color * parallelLightList[i].Specular * baseColor * spec;
+							vec3 specular   = pointLightList[i].Color * pointLightList[i].Specular * baseColor * spec;
 
 							 total += ambient + diffuse + specular;
 						}
@@ -118,7 +129,7 @@ void NormalMapping::Init()
 					
 					void main() {
 						
-						FragColor =vec4(CalculateParallelLight(),1.0f);
+						FragColor =vec4(CalculatePointLight(),1.0f);
 					}
 				)";
 
@@ -241,9 +252,9 @@ void NormalMapping::Init()
 	m_DiffuseMap->SetTexSlot(1);
 	m_NormalMap.reset(KEngine::Texture2D::Create("references/normalMapping/brickwall_normal.jpg"));
 	m_NormalMap->SetTexSlot(2);
-	m_Mesh->diffuseMap = m_DiffuseMap;
-	m_Mesh->normalMap = m_NormalMap;
-
+	m_Mesh->AddTexture(m_DiffuseMap);
+	m_Mesh->AddTexture(m_NormalMap);
+	
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
 	 0.5f, -0.5f, -0.5f,
@@ -305,21 +316,20 @@ void NormalMapping::Init()
 	KEngine::BufferLayout l_Layout = {
 		{KEngine::ShaderDataType::Float3,"position"}
 	};
-	
-	parallelLight0.reset(new KEngine::ParallelLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
+	pointLight0.reset(new KEngine::PointLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
 		l_Layout,
 		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
-		"parallelLight0"));
-	parallelLight0->SetLightAttributes({
-		glm::vec3(0.f, 0.f,-1.f),
+		"pointLight0"));
+	pointLight0->SetLightAttributes({
 		glm::vec3(0.2f,0.2f,0.2f),
 		glm::vec3(0.5f,0.5f,0.5f),
 		glm::vec3(1.0f,1.0f,1.0f),
 		glm::vec3(1.0f,1.0f,1.0f)
 		});
-	parallelLight0->SetPosition(glm::vec3(0.0f, 0.0f, 5.0f));
-	parallelLight0->SetScale(glm::vec3(0.2f));
-	parallelLight0->SetIsLight(true);
+	pointLight0->SetPosition(glm::vec3(-2.0f, 2.0f, 0.0f));
+	pointLight0->SetScale(glm::vec3(0.2f));
+	pointLight0->SetIsLight(true);
+
 
 
 	vpSL.clear();
@@ -334,17 +344,17 @@ void NormalMapping::Init()
 	}
 
 	m_Shader->BindUniformBufferPoint("MaterialUboData", 1);
-	m_Shader->BindUniformBufferPoint("ParallelLightUboData", 2);
+	m_Shader->BindUniformBufferPoint("PointLightUboData", 2);
 
 	//生成uniform缓冲对象
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4), 0));
 	materialUBO.reset(KEngine::UniformBuffer::Create(sizeof(KEngine::MaterialUboData), 1));
-	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
+	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 
-	parallelLightList.push_back(parallelLight0);
+	pointLightList.push_back(pointLight0);
 
 	Objects.push_back(m_Mesh);
-	Objects.push_back(parallelLight0);
+	Objects.push_back(pointLight0);
 
 }
 void NormalMapping::OnUpdate(KEngine::TimeStep ts)
@@ -355,24 +365,25 @@ void NormalMapping::OnUpdate(KEngine::TimeStep ts)
 	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
 	// 设置着色器uniform
 	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
+	m_Shader->SetUniform3f(pointLight0->GetPosition(), "lightPos");
 	m_Shader->SetUniform1i(1, "u_DiffuseMap"); 
 	m_Shader->SetUniform1i(2, "u_NormalMap");
 	// 填充UBO
 	materialUBO->AddMaterial(KEngine::MaterialUboData{ m_Mesh->GetMaterial() });
-	parallelLightUBO->AddParallelLight(parallelLightList);
+	pointLightUBO->AddPointLight(pointLightList);
 
-	parallelLight0->SetDrawState(nullptr, l_Shader, true, false, 0);
-	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
+	pointLight0->SetDrawState(l_Shader, true, false, 0);
+	m_Mesh->SetDrawState(m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 
 }
 void NormalMapping::Destroy()
 {
 	m_Mesh.reset();
-	parallelLight0.reset();
+	pointLight0.reset();
 
 	matrixUBO.reset();
 	materialUBO.reset();
-	parallelLightUBO.reset();
+	pointLightUBO.reset();
 
 	Objects.clear();
 	pointLightList.clear();

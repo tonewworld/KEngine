@@ -4,13 +4,12 @@
 namespace KEngine {
 
     unsigned int Object::IDCounter = 0;
-	void Object::SetDrawState(std::shared_ptr<Texture>texture,
+	void Object::SetDrawState(
 		std::shared_ptr<Shader>shader,
 		bool depthTest,
 		bool stencilTest, unsigned int stencilMask, 
 		GLenum func, GLint ref, GLuint mask)
 	{
-		this->texture = texture;
 		this->shader = shader;
 		this->depthTest = depthTest;
 		this->stencilTest = stencilTest;
@@ -25,8 +24,10 @@ namespace KEngine {
 		Renderer::SetStencilOpenOrClose(stencilTest);
 		Renderer::SetStencilMask(stencilMask);
 		Renderer::SetStencilFunc(func, ref, mask);
-		if(texture)
+		shader->Bind();
+		for (const auto& texture : textures) {
 			texture->Bind(texture->GetTexSlot());
+		}
 		Renderer::Submit(shader, shared_from_this());
     }
 }

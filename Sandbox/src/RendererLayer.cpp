@@ -168,6 +168,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	quad_Texture->SetTexSlot(31);
 	FBO->Add2DTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
 	RBO.reset(KEngine::RenderBuffer::Create());
+	quad_Mesh->AddTexture(quad_Texture);
 
 	int w = 1024;
 	int h = 1024;//ÎÆÀí·Ö±æÂÊ
@@ -237,7 +238,7 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	}
 	
 
-	quad_Mesh->SetDrawState(quad_Texture, screenShader, false, false);
+	quad_Mesh->SetDrawState(screenShader, false, false);
 	quad_Mesh->Draw(screenShader);
 	
 	KEngine::Renderer::EndScene();

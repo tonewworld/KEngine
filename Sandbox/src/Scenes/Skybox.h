@@ -17,9 +17,6 @@ private:
 	std::shared_ptr<KEngine::Shader> m_Shader;
 	std::shared_ptr<KEngine::Mesh> m_Mesh;
 
-	std::shared_ptr<KEngine::Shader> l_Shader;
-	std::shared_ptr<KEngine::Mesh> l_Mesh;
-
 	std::shared_ptr<KEngine::TextureCube>textureCube;
 	std::shared_ptr<KEngine::Shader>sky_Shader;
 	std::shared_ptr<KEngine::Mesh>sky_Mesh;
@@ -33,7 +30,6 @@ private:
 	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
 	std::vector<std::shared_ptr<KEngine::ParallelLight>> parallelLightList;
 
-	glm::vec3 lightPosition = glm::vec3(1.2f, 1.0f, 0.0f);
 	glm::mat4 projMatrix;
 	std::shared_ptr<KEngine::Camera>  mainCamera;
 

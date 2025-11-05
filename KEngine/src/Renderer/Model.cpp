@@ -114,7 +114,7 @@ namespace KEngine {
             }
         }
 
-		this->texture = diffuseTex;
+		this->AddTexture(diffuseTex);
         return Mesh(vertices.data(),
             (unsigned int)vertices.size(),
             layout,

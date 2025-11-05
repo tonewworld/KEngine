@@ -380,9 +380,9 @@ void ParaShadow::OnUpdate(KEngine::TimeStep ts)
 	parallelLightUBO->AddParallelLight(parallelLightList);
 
 	// ÉèÖÃ»æÖÆ×´Ì¬
-	parallelLight0->SetDrawState(nullptr, l_Shader, true, false, 0);
-	m_Mesh->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
-	m_Mesh1->SetDrawState(nullptr, m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
+	parallelLight0->SetDrawState(l_Shader, true, false, 0);
+	m_Mesh->SetDrawState(m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
+	m_Mesh1->SetDrawState(m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 
 	
 }

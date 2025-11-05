@@ -43,7 +43,8 @@ namespace KEngine {
 		GLint ref = 0;
 		GLuint mask = 0xFF;
 		bool isLight = false;
-		std::shared_ptr<Texture> texture;
+
+		std::vector<std::shared_ptr<Texture>> textures;
 	protected:
 		Material material;
 	public:
@@ -80,11 +81,14 @@ namespace KEngine {
 			model = glm::scale(model, m_Scale);
 		}
 
+		virtual void AddTexture(std::shared_ptr<Texture>texture) { textures.push_back(texture); }
+		virtual std::vector < std::shared_ptr<Texture>> GetTextures() { return textures; }
+
 		inline Material& GetMaterial() { return material; }
 		inline void SetMaterial(const Material& mat) { material = mat; }
 
 		std::shared_ptr<Shader> shader;
-		void SetDrawState(std::shared_ptr<Texture>texture = nullptr,
+		void SetDrawState(
 			std::shared_ptr<Shader>shader = nullptr,
 			bool depthTest = false, bool stencilTest = false,
 			unsigned int stencilMask = 0,
