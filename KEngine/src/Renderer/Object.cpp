@@ -28,6 +28,13 @@ namespace KEngine {
 		for (const auto& texture : textures) {
 			texture->Bind(texture->GetTexSlot());
 		}
+		if(!GetIsLight())
+		{
+			shader->SetUniform1b(this->UseBlin(), "useBlin");
+			shader->SetUniform1b(this->UseNormalMap(), "useNormalMap");
+			shader->SetUniform1i(this->UseParallaxMapMode(), "useParallaxMapMode");
+		}
+			
 		Renderer::Submit(shader, shared_from_this());
     }
 }

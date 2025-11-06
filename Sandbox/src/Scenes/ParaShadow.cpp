@@ -82,6 +82,7 @@ void ParaShadow::Init()
 					uniform vec3 viewPos;
 					uniform sampler2D shadowMap;
 					uniform mat4 lightSpaceMatrix;
+					uniform bool useBlin;
 
 					 float CalculateParallelLightShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir) {
 					
@@ -131,11 +132,18 @@ void ParaShadow::Init()
 							float diff    = max(dot(norm, lightDir), 0.0);
 							vec3 diffuse  = parallelLightList[i].Color * parallelLightList[i].Diffuse * material.Diffuse * diff;
 
-						vec3 halfwayDir = normalize(lightDir + viewDir);
-						float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
-						vec3 specular   = parallelLightList[i].Color * parallelLightList[i].Specular * material.Specular * spec;
+							vec3 halfwayDir = normalize(lightDir + viewDir);
+							vec3 reflectDir = reflect(-lightDir,norm);
 
-							 total += ambient + (1.0 - shadow) * (diffuse + specular);
+							float spec;
+							if(useBlin)
+								spec = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
+							else
+								spec = pow(max(dot(viewDir,reflectDir),0.0),material.Shininess);
+						
+							vec3 specular   = parallelLightList[i].Color * parallelLightList[i].Specular * material.Specular * spec;
+
+							total += ambient + (1.0 - shadow) * (diffuse + specular);
 						}
 						return total;
 					}

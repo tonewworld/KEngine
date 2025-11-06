@@ -44,6 +44,10 @@ namespace KEngine {
 		GLuint mask = 0xFF;
 		bool isLight = false;
 
+		bool useBlin = true;
+		bool useNormalMap = true;
+		int useParallaxMapMode = 1;
+
 		std::vector<std::shared_ptr<Texture>> textures;
 	protected:
 		Material material;
@@ -97,5 +101,9 @@ namespace KEngine {
 
 		bool GetIsLight() { return isLight; }
 		void SetIsLight(bool tag) { isLight = tag; }
+
+		bool& UseBlin() { return useBlin; }
+		bool& UseNormalMap() { return useNormalMap; }
+		int& UseParallaxMapMode() { return useParallaxMapMode; }
 	};
 }

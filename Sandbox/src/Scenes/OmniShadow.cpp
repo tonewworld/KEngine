@@ -78,7 +78,7 @@ void OmniShadow::Init()
 					};
 
 					uniform vec3 viewPos;
-
+					uniform bool useBlin;
 					uniform samplerCube shadowCubeMap;
 					uniform float far_plane;
 
@@ -107,9 +107,13 @@ void OmniShadow::Init()
 							vec3 ambient  = pointLightList[i].Color * pointLightList[i].Ambient * material.Ambient;
 							float diff    = max(dot(norm, lightDir), 0.0);
 							vec3 diffuse  = pointLightList[i].Color * pointLightList[i].Diffuse * material.Diffuse * diff;
-
 							vec3 halfwayDir = normalize(lightDir + viewDir);
-							float spec      = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
+							vec3 reflectDir = reflect(-lightDir,norm);
+							float spec;
+							if(useBlin)
+								spec = pow(max(dot(norm,halfwayDir), 0.0), material.Shininess);
+							else
+								spec = pow(max(dot(viewDir,reflectDir),0.0),material.Shininess);
 							vec3 specular   = pointLightList[i].Color * pointLightList[i].Specular * material.Specular * spec;
 
 							float distance    = length(pointLightList[i].Position - fs_in.fragPos);
@@ -360,6 +364,7 @@ void OmniShadow::OnUpdate(KEngine::TimeStep ts)
 	m_Shader->SetUniform3f(mainCamera->GetPosition(), "viewPos");
 	m_Shader->SetUniform1i(30, "shadowCubeMap");
 	m_Shader->SetUniform1f(25.f, "far_plane");
+
 	// Ìî³äUBO
 	materialUBO->AddMaterial(KEngine::MaterialUboData{ m_Mesh->GetMaterial() });
 	pointLightUBO->AddPointLight(pointLightList);

@@ -186,11 +186,13 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	paraShadowScene.reset(new ParaShadow("ParaShadow"));
 	omniShadowScene.reset(new OmniShadow("OmniShadow"));
 	normalMappingScene.reset(new NormalMapping("NormalMapping"));
+	parallaxMappingScene.reset(new ParallaxMapping("ParallaxMapping"));
 
 	sceneList.push_back(skyboxScene);
 	sceneList.push_back(paraShadowScene);
 	sceneList.push_back(omniShadowScene);
 	sceneList.push_back(normalMappingScene);
+	sceneList.push_back(parallaxMappingScene);
 }
 
 void RendererLayer::OnAttach() {
@@ -500,26 +502,37 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
         }
 	}
 
-	// 渲染组件
+
 	if (ImGui::CollapsingHeader("Render")) {
-		// 显示使用的着色器
+
 		if (object->shader) {
-			ImGui::Text("Shader: %s", "Allocated"); // 可以显示着色器名称
+			ImGui::Text("Shader: %s", "Allocated");
+			if(!object->GetIsLight())
+			{
+				ImGui::Checkbox("BlinPhon: ", &object->UseBlin());
+				ImGui::Checkbox("NormalMap: ", &object->UseNormalMap());
+
+				ImGui::Separator();
+				ImGui::Text("ParallaxMap :");
+				std::array<std::string, 4> algo{ "Close", "Simple", "Steep","Occlusion"};
+				for (std::size_t i = 0; i < algo.size(); ++i)
+				{
+					ImGui::RadioButton(algo[i].data(), &object->UseParallaxMapMode(), static_cast<int>(i));
+				}
+			
+			}
 		}
 		else {
 			ImGui::Text("Shader: null");
 		}
 
-		// 显示材质属性（如果有）
+
 		ImGui::Text("Matertial Attribution:");
 		ImGui::Indent();
 
-		// 这里可以根据对象类型显示不同的材质属性
-		if (object->GetName() == "light") {
+	
+		if (object->GetIsLight()) {//将来这里可能要做枚举
 			ImGui::Text("Type: light");
-		}
-		else if (object->GetName() == "skybox") {
-			ImGui::Text("Type: skybox");
 		}
 		else {
 			ImGui::Text("Type: Mesh");
@@ -528,25 +541,15 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
 		ImGui::Unindent();
 	}
 
-	// 其他组件可以根据需要添加
-	if (ImGui::CollapsingHeader("Other Attribution")) {
-		// 显示对象类型
-		ImGui::Text("Object Attribution: %s", typeid(*object).name());
 
-		// 显示顶点数等信息（如果可用）
-		if (auto mesh = std::dynamic_pointer_cast<KEngine::Mesh>(object)) {
-			// 这里可以显示网格的详细信息
-			ImGui::Text("Mesh Data:");
-			ImGui::Indent();
-			ImGui::Text("Vertics: %d", /* 获取顶点数 */ 0);
-			ImGui::Text("Triangles: %d", /* 获取三角形数 */ 0);
-			ImGui::Unindent();
-		}
+	if (ImGui::CollapsingHeader("Other Attribution")) {
+
+		ImGui::Text("Object Attribution: %s", typeid(*object).name());
 
 		if (auto model = std::dynamic_pointer_cast<KEngine::Model>(object)) {
 			ImGui::Text("Model:");
 			ImGui::Indent();
-			ImGui::Text("Path: %s", /* 获取模型路径 */ "references/backpack/backpack.obj");
+			ImGui::Text("Path: %s", model->GetPath());
 			ImGui::Unindent();
 		}
 	}

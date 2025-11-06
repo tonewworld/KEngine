@@ -4,6 +4,7 @@
 namespace KEngine {
     Model::Model(const std::string& path,const std::string& name) :Object(name)
     {
+        this->path = path;
         this->loadModel(path);
     }
 

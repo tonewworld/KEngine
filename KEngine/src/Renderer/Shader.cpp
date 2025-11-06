@@ -130,6 +130,13 @@ namespace KEngine
 		unsigned int location = glGetUniformLocation(m_RendererID, name);
 		glUniform1f(location, value);
 	}
+
+	void Shader::SetUniform1b(bool tag, const char* name)
+	{
+		this->Bind();
+		unsigned int location = glGetUniformLocation(m_RendererID, name);
+		glUniform1i(location, tag);
+	}
 	
 	void Shader::BindUniformBufferPoint(const char* name,unsigned int number)
 	{
