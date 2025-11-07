@@ -80,7 +80,6 @@ namespace KEngine
 	void ImGuiLayer::ImGuiRender()
 	{
 		
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		
 	}	
 }

@@ -7,23 +7,52 @@ namespace KEngine
 	{
 		glGenTextures(1, &m_RendererID);
 		Bind();
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1600.f, 900.f, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1600, 900, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		Unbind();
 
 	}
 
-	OpenGLTexture2D::OpenGLTexture2D(GLint type,unsigned int width, unsigned int height)
+	OpenGLTexture2D::OpenGLTexture2D(GLint internalFormat, unsigned int width, unsigned int height)
 	{
 		glGenTextures(1, &m_RendererID);
 		Bind();
-		glTexImage2D(GL_TEXTURE_2D, 0, type, width, height, 0, type, GL_UNSIGNED_BYTE, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+		// 选择外部 format 和 data type，保证与 internalFormat 匹配
+		GLenum externalFormat = GL_RGB;
+		GLenum dataType = GL_UNSIGNED_BYTE;
+
+		if (internalFormat == GL_R16F || internalFormat == GL_R32F) {
+			externalFormat = GL_RED;
+			dataType = GL_FLOAT;
+		}
+		else if (internalFormat == GL_RGB16F || internalFormat == GL_RGB32F) {
+			externalFormat = GL_RGB;
+			dataType = GL_FLOAT;
+		}
+		else if (internalFormat == GL_RGBA16F || internalFormat == GL_RGBA32F) {
+			externalFormat = GL_RGBA;
+			dataType = GL_FLOAT;
+		}
+		else if (internalFormat == GL_DEPTH_COMPONENT || internalFormat == GL_DEPTH_COMPONENT16 || internalFormat == GL_DEPTH_COMPONENT24 || internalFormat == GL_DEPTH_COMPONENT32) {
+			externalFormat = GL_DEPTH_COMPONENT;
+			dataType = GL_FLOAT;
+		}
+		else {
+			// 其他常见格式按 RGB/UNSIGNED_BYTE 处理
+			externalFormat = (internalFormat == GL_RGBA ? GL_RGBA : GL_RGB);
+			dataType = GL_UNSIGNED_BYTE;
+		}
+
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, externalFormat, dataType, NULL);
+
+		// 对浮点纹理使用线性过滤，一般不使用 mipmap（如果需要请生成 mipmap 并设置 MIN_FILTER）
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (dataType == GL_FLOAT) ? GL_LINEAR : GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+		float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 		Unbind();
 	}
@@ -76,24 +105,37 @@ namespace KEngine
 
 	
 
-	OpenGLTextureCube::OpenGLTextureCube(GLint type, unsigned int width, unsigned int height)
+	OpenGLTextureCube::OpenGLTextureCube(GLint internalFormat, unsigned int width, unsigned int height)
 	{
 		glGenTextures(1, &m_RendererID);
 		
 		Bind();
 
+		// 选择外部 format 和 data type 与 internalFormat 匹配
+		GLenum externalFormat = GL_RGB;
+		GLenum dataType = GL_UNSIGNED_BYTE;
+		if (internalFormat == GL_DEPTH_COMPONENT || internalFormat == GL_DEPTH_COMPONENT24 || internalFormat == GL_DEPTH_COMPONENT32) {
+			externalFormat = GL_DEPTH_COMPONENT;
+			dataType = GL_FLOAT;
+		}
+		else if (internalFormat == GL_RGBA || internalFormat == GL_RGBA16F || internalFormat == GL_RGBA32F) {
+			externalFormat = GL_RGBA;
+			dataType = (internalFormat == GL_RGBA ? GL_UNSIGNED_BYTE : GL_FLOAT);
+		}
+		else {
+			externalFormat = GL_RGB;
+			dataType = (internalFormat == GL_RGB ? GL_UNSIGNED_BYTE : GL_FLOAT);
+		}
+
 		for (GLint i = 0; i < 6; ++i) {
-			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, type,
-				1024, 1024, 0, type, GL_FLOAT, NULL);
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalFormat,
+				width, height, 0, externalFormat, dataType, NULL);
 		}
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-		
-
-		
 		Unbind();
 
 	}

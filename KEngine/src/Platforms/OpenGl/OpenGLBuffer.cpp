@@ -1,4 +1,4 @@
-    #include "kepch.h"
+#include "kepch.h"
     #include "OpenGLBuffer.h"
     #include "glad/glad.h"
     #include <gtc/type_ptr.hpp>
@@ -56,43 +56,64 @@
         }
         void OpenGLFrameBuffer::Add2DTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable)
         {
-		    this->Bind();
-		    glFramebufferTexture2D(GL_FRAMEBUFFER, type, GL_TEXTURE_2D, textureID, 0);
-            glDrawBuffer(drawable);
-            glReadBuffer(readable);
-           /* GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-            if (status != GL_FRAMEBUFFER_COMPLETE) {
-                std::cout << "[ERROR] depthFBO not complete! 0x" << std::hex << status << std::endl;
-            }
-            else {
-                std::cout << "[OK] depthFBO is complete!" << std::endl;
-            }*/
+            this->Bind();
+            glFramebufferTexture2D(GL_FRAMEBUFFER, type, GL_TEXTURE_2D, textureID, 0);
 
+            // draw/read buffer 只对颜色附件有效
+            if (type >= GL_COLOR_ATTACHMENT0 && type <= GL_COLOR_ATTACHMENT31) {
+                glDrawBuffer(drawable ? type : GL_NONE);
+                glReadBuffer(readable ? type : GL_NONE);
+            } else {
+                glDrawBuffer(GL_NONE);
+                glReadBuffer(GL_NONE);
+            }
+
+            GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (status != GL_FRAMEBUFFER_COMPLETE) {
+                std::cout << "[ERROR] Framebuffer not complete after Add2DTexture! 0x" << std::hex << status << std::dec << std::endl;
+            }
         }
         void OpenGLFrameBuffer::Add2DTextures(GLint type, unsigned int* textureID, GLboolean drawable, GLboolean readable,const int count)
         {
             this->Bind();
             std::vector<GLenum> attachments(count);
             for (int i = 0; i < count; i++) {
-                glFramebufferTexture2D(GL_FRAMEBUFFER, type + i, GL_TEXTURE_2D, textureID[i], 0);
-                attachments[i] = type + i;
+                GLenum attach = static_cast<GLenum>(type + i);
+                glFramebufferTexture2D(GL_FRAMEBUFFER, attach, GL_TEXTURE_2D, textureID[i], 0);
+                attachments[i] = attach;
             }
-            glDrawBuffers(count, attachments.data());
 
+            if (type >= GL_COLOR_ATTACHMENT0 && type <= GL_COLOR_ATTACHMENT31) {
+                glDrawBuffers(count, attachments.data());
+                glReadBuffer(readable ? attachments[0] : GL_NONE);
+            } else {
+                glDrawBuffer(GL_NONE);
+                glReadBuffer(GL_NONE);
+            }
+
+            GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (status != GL_FRAMEBUFFER_COMPLETE) {
+                std::cout << "ERROR: HDR FBO not complete! 0x" << std::hex << status << std::dec << std::endl;
+            }
         }
         void OpenGLFrameBuffer::AddTexture(GLint type, GLuint textureID, GLboolean drawable, GLboolean readable)
         {
             this->Bind();
-            glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, textureID, 0);
-            glDrawBuffer(drawable);
-            glReadBuffer(readable);
-           /* GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-            if (status != GL_FRAMEBUFFER_COMPLETE) {
-                std::cout << "[ERROR] depthCubeFBO not complete! 0x" << std::hex << status << std::endl;
+            // 使用传入的 type（例如 GL_DEPTH_ATTACHMENT）
+            glFramebufferTexture(GL_FRAMEBUFFER, type, textureID, 0);
+
+            if (type >= GL_COLOR_ATTACHMENT0 && type <= GL_COLOR_ATTACHMENT31) {
+                glDrawBuffer(drawable ? type : GL_NONE);
+                glReadBuffer(readable ? type : GL_NONE);
+            } else {
+                glDrawBuffer(GL_NONE);
+                glReadBuffer(GL_NONE);
             }
-            else {
-                std::cout << "[OK] depthCubeFBO is complete!" << std::endl;
-            }*/
+
+            GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (status != GL_FRAMEBUFFER_COMPLETE) {
+                std::cout << "[ERROR] Framebuffer not complete after AddTexture! 0x" << std::hex << status << std::dec << std::endl;
+            }
             this->Unbind();
         }
         void OpenGLFrameBuffer::AddRenderBuffer(GLint type, unsigned int renderBufferID)
@@ -100,6 +121,7 @@
             this->Bind();
             glFramebufferRenderbuffer(GL_FRAMEBUFFER, type, GL_RENDERBUFFER, renderBufferID);
             this->Unbind();
+            
 		}
 	    //RenderBuffer
         OpenGLRenderBuffer::OpenGLRenderBuffer(GLint type, const int width, const int height)

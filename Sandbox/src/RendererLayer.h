@@ -1,5 +1,6 @@
 #pragma once
 #include <KEngine.h>
+#include "RendererConfig.h"
 #include "Scenes/Skybox.h"
 #include "Scenes/ParaShadow.h"
 #include "Scenes/OmniShadow.h"
@@ -13,10 +14,19 @@ public:
     void OnUpdate(KEngine::TimeStep ts) override;
     void OnEvent(KEngine::Event& event) override;
     void ImGuiRender() override;
+	void SetSceneAttri();
 	void PickWithColor();
 	void CalculateShadow();
+	void HDRandBloom();
+
     inline glm::mat4 CalculateVP(glm::mat4 view, glm::mat4 proj) { return proj * view; }
 private:
+
+	RendererConfig m_Config;
+
+	
+	
+	bool m_ShowGlobalSettings = true;
 
 	std::shared_ptr<KEngine::Shader> screenShader;
 	std::shared_ptr<KEngine::Mesh>quad_Mesh;
@@ -44,6 +54,10 @@ private:
 	std::shared_ptr<KEngine::Shader>      hdrShader;
 	std::shared_ptr<KEngine::RenderBuffer>hdrRBO;
 
+	std::shared_ptr<KEngine::FrameBuffer> pingpongFBO[2];
+	std::shared_ptr<KEngine::Texture2D>   pingpongTexture[2];
+	std::shared_ptr<KEngine::Shader>      blurShader;
+
 	bool m_ShowSceneHierarchy = true;
 	bool m_ShowInspector = true;
 	int m_SelectedObjectID = -1;
@@ -63,5 +77,6 @@ private:
 	void DrawObjectProperties(std::shared_ptr<KEngine::Object> object);
 	void DrawSceneList();          // 绘制场景列表窗口
 	void SwitchToScene(int index); // 切换场景接口
+	void DrawGlobalSettings();
 	
 };

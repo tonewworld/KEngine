@@ -2,6 +2,9 @@
 #include "imgui.h"
 
 RendererLayer::RendererLayer() :Layer("Renderer") {
+	m_Config.windowWidth = KEngine::Application::s_Instance->GetWindow().GetWidth();
+	m_Config.windowHeight = KEngine::Application::s_Instance->GetWindow().GetHeight();
+
 	{
 		const char* pickVS = R"(
 				#version 420 core
@@ -47,20 +50,39 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				}
 				)";
 		char* fragmentSrc = R"(
-				#version 420 core
+				out vec4 FragColor;
 				in vec2 TexCoords;
-				out vec4 color;
 
-				uniform sampler2D screenTexture;
+				uniform sampler2D scene;
+				uniform sampler2D bloomBlur;
+				uniform bool hdr;
+				uniform bool bloom;
+				uniform bool gamma;
+				uniform float exposure;
 
 				void main()
-				{
-					color =vec4(vec3(texture(screenTexture,TexCoords)),1.f);
+				{             
+					const float g = 2.2;
+					vec3 hdrColor = texture(scene, TexCoords).rgb;      
+					vec3 bloomColor = texture(bloomBlur, TexCoords).rgb;
+					if(bloom)
+						hdrColor += bloomColor; 
+					vec3 result;
+					if(hdr){
+						result = vec3(1.0) - exp(-hdrColor * exposure);
+					}
+					else{
+						 result = clamp(hdrColor, 0.0, 1.0);
+					}		
+					if(gamma){
+						result = pow(result, vec3(1.0 / g));
+					}	
+					   
+					FragColor = vec4(result, 1.0f);
 				}
 				)";
 
 		screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
-		screenShader->SetUniform1i(11, "screenTexture");
 	}
 	{
 		char* vertexSrc = R"(
@@ -153,18 +175,40 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				)";
 		char* fragmentSrc = R"(
 				#version 420 core
+				out vec4 FragColor;
 				in vec2 TexCoords;
-				out vec4 color;
 
-				uniform sampler2D screenTexture;
+				uniform sampler2D image;
+
+				uniform bool horizontal;
+
+				uniform float weight[5] = float[] (0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216);
 
 				void main()
-				{
-					color =vec4(vec3(texture(screenTexture,TexCoords)),1.f);
+				{             
+					vec2 tex_offset = 1.0 / textureSize(image, 0); // gets size of single texel
+					vec3 result = texture(image, TexCoords).rgb * weight[0]; // current fragment's contribution
+					if(horizontal)
+					{
+						for(int i = 1; i < 5; ++i)
+						{
+							result += texture(image, TexCoords + vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
+							result += texture(image, TexCoords - vec2(tex_offset.x * i, 0.0)).rgb * weight[i];
+						}
+					}
+					else
+					{
+						for(int i = 1; i < 5; ++i)
+						{
+							result += texture(image, TexCoords + vec2(0.0, tex_offset.y * i)).rgb * weight[i];
+							result += texture(image, TexCoords - vec2(0.0, tex_offset.y * i)).rgb * weight[i];
+						}
+					}
+					FragColor = vec4(result, 1.0);
 				}
 				)";
 
-		hdrShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+		blurShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
 	float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 		// Positions   // TexCoords
@@ -188,42 +232,42 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		quad_Layout,
 		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
 
-
-	int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
-	int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
-
-	int w = 1024;
-	int h = 1024;//纹理分辨率
-	int numParallelLights = 4; 
+	m_Config.textureResolutions.shadowMap = 1024;
 
 	FBO.reset(KEngine::FrameBuffer::Create());
 	quad_Texture.reset(KEngine::Texture2D::Create());
-	quad_Texture->SetTexSlot(31);
+	quad_Texture->SetTexSlot(TEX_SLOT_QUAD);
 	FBO->Add2DTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
-	RBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8,width,height));
+	RBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8,m_Config.windowWidth, m_Config.windowHeight));
 	
 	pickFBO.reset(KEngine::FrameBuffer::Create());
 	pickTexture.reset(KEngine::Texture2D::Create());
 	pickFBO->Add2DTexture(GL_COLOR_ATTACHMENT0, pickTexture->GetRendererID(), GL_TRUE, GL_TRUE);
-	pickRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, width, height));
+	pickRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
 
 	depthFBO.reset(KEngine::FrameBuffer::Create());
-	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, w, h));
+	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, m_Config.textureResolutions.shadowMap, m_Config.textureResolutions.shadowMap));
 	depthFBO->Add2DTexture(GL_DEPTH_ATTACHMENT, depthTexture->GetRendererID(), GL_NONE, GL_NONE);
 
 	depthCubeFBO.reset(KEngine::FrameBuffer::Create());
-	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, w, h));
+	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, m_Config.textureResolutions.shadowMap, m_Config.textureResolutions.shadowMap));
 	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_NONE, GL_NONE);
 
 	hdrFBO.reset(KEngine::FrameBuffer::Create());
-	hdrTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, width, height));
-	bloomTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, width, height));
-	hdrRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH_COMPONENT,width,height));
-	bloomTexture->SetTexSlot(11);
+	hdrTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+	hdrTexture->SetTexSlot(TEX_SLOT_SCENE);
+	bloomTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+	hdrRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
 	unsigned int hdrTextures[2] = {hdrTexture->GetRendererID(),bloomTexture->GetRendererID()};
-	hdrFBO->AddRenderBuffer(GL_DEPTH_ATTACHMENT, hdrRBO->GetRendererID());
+	hdrFBO->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, hdrRBO->GetRendererID());
 	hdrFBO->Add2DTextures(GL_COLOR_ATTACHMENT0, hdrTextures, GL_TRUE, GL_TRUE, 2);
 
+	for (int i = 0; i < 2; i++) {
+		pingpongFBO[i].reset(KEngine::FrameBuffer::Create());
+		pingpongTexture[i].reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+		pingpongFBO[i]->Add2DTexture(GL_COLOR_ATTACHMENT0, pingpongTexture[i]->GetRendererID(), GL_TRUE, GL_TRUE);
+	}
+	pingpongTexture[0]->SetTexSlot(TEX_SLOT_BLOOM_BLUR);
 
 	skyboxScene.reset(new Skybox("SkyboxScene"));
 	paraShadowScene.reset(new ParaShadow("ParaShadow"));
@@ -258,36 +302,21 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 		currentScene->OnUpdate(ts);
 		PickWithColor();
 		CalculateShadow();
-
-		hdrFBO->Bind();
-		KEngine::Renderer::Debug();
-		KEngine::Renderer::BeginScene();
-
-		for (const auto& obj : currentScene->GetObjectsInScene())
-		{
-			obj->UpdateModelMatrix();
-			obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
-
-			obj->shader->Bind();
-			if (currentScene->GetParallelLightInScene().size() != 0) {
-				depthTexture->Bind(29);
-				obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
-			}
-			
-			if (currentScene->GetPointLightInScene().size() != 0) {
-				depthCubeTexture->Bind(30);
-			}
-			
-			obj->Draw(obj->shader);
-			
-		}
-		hdrFBO->Unbind();
+		HDRandBloom();
+		SetSceneAttri();
 	}
 	
-	quad_Mesh->AddTexture(bloomTexture);
+	
+	screenShader->SetUniform1i(TEX_SLOT_SCENE, "scene");
+	screenShader->SetUniform1i(TEX_SLOT_BLOOM_BLUR, "bloomBlur");
+
+
+	quad_Mesh->AddTexture(pingpongTexture[0]);
+	quad_Mesh->AddTexture(hdrTexture);
+	
+	KEngine::Renderer::BeginScene();
 	quad_Mesh->SetDrawState(screenShader, false, false);
 	quad_Mesh->Draw(screenShader);
-	
 	KEngine::Renderer::EndScene();
 }
 
@@ -303,6 +332,16 @@ void RendererLayer::ImGuiRender()
 	DrawInspector();
 
 	DrawSceneList();
+
+	DrawGlobalSettings();
+}
+
+void RendererLayer::SetSceneAttri()
+{
+	screenShader->SetUniform1f(m_Config.renderSettings.exposure, "exposure");
+	screenShader->SetUniform1b(m_Config.renderSettings.enableBloom, "bloom");
+	screenShader->SetUniform1b(m_Config.renderSettings.enableHDR, "hdr");
+	screenShader->SetUniform1b(m_Config.renderSettings.enableGamma, "gamma");
 }
 
 void RendererLayer::PickWithColor()
@@ -350,27 +389,25 @@ void RendererLayer::PickWithColor()
 		int ry = height - 1 - static_cast<int>(mouseY);
 
 		auto pixel = KEngine::Renderer::ReadPixel(rx, ry);
-		std::cout << "Read pixel at (" << rx << ", " << ry << ") -> RGB: "
-			<< (int)pixel[0] << ", " << (int)pixel[1] << ", " << (int)pixel[2] << std::endl;
-
+	
 		pickFBO->Unbind();
 
 		int pickedID = DecodeColorToID(pixel[0], pixel[1], pixel[2]);
 		if (pickedID == 0) {
-			// 背景或未命中
-			std::cout << "Pick: nothing\n";
+			
 			return;
 		}
 
 		// 在 Objects 中查找 pickedID
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
 			if (obj->GetID() == pickedID) {
-				std::cout << "Pick: ID=" << pickedID << " Name=" << obj->GetName() << "\n";
-				// 在这里把属性返回、触发事件或填充 UI
+				m_SelectedObjectID = pickedID;
+				m_SelectedObject = obj;
+			
 				return;
 			}
 		}
-		std::cout << "Pick: unknown ID=" << pickedID << "\n";
+		
 	}
 	return;
 }
@@ -424,6 +461,57 @@ void RendererLayer::CalculateShadow()
 		depthCubeFBO->Unbind();
 
 	}
+}
+
+void RendererLayer::HDRandBloom()
+{
+	//hdr
+	hdrFBO->Bind();
+	KEngine::Renderer::BeginScene();
+
+	for (const auto& obj : currentScene->GetObjectsInScene())
+	{
+		obj->UpdateModelMatrix();
+		obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+
+		obj->shader->Bind();
+		if (currentScene->GetParallelLightInScene().size() != 0) {
+			depthTexture->Bind(TEX_SLOT_SHADOW_PARA);
+			obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
+		}
+
+		if (currentScene->GetPointLightInScene().size() != 0) {
+			depthCubeTexture->Bind(TEX_SLOT_SHADOW_CUBE);
+		}
+
+		obj->Draw(obj->shader);
+
+	}
+	hdrFBO->Unbind();
+	//bloom
+	bool horizontal = true, first_iteration = true;
+	GLuint amount = 10;
+	blurShader->Bind();
+	blurShader->SetUniform1i(TEX_SLOT_BLOOM_SHADER, "image");
+	for (GLuint i = 0; i < amount; i++)
+	{
+		pingpongFBO[horizontal]->Bind();
+		blurShader->SetUniform1b(horizontal, "horizontal");
+		if (first_iteration) {
+			bloomTexture->Bind(TEX_SLOT_BLOOM_SHADER);
+		}
+		else {
+			pingpongTexture[!horizontal]->Bind(TEX_SLOT_BLOOM_SHADER);
+		}
+		quad_Mesh->SetDrawState(blurShader, false, false);
+		quad_Mesh->Draw(blurShader);
+
+		horizontal = !horizontal;
+		if (first_iteration)
+			first_iteration = false;
+	}
+	pingpongFBO[!horizontal]->Unbind();
+
 }
 
 void RendererLayer::DrawSceneHierarchy()
@@ -548,7 +636,7 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
 	}
 
 
-	if (ImGui::CollapsingHeader("Render")) {
+	if (ImGui::CollapsingHeader("Render", ImGuiTreeNodeFlags_DefaultOpen)) {
 
 		if (object->shader) {
 			ImGui::Text("Shader: %s", "Allocated");
@@ -644,4 +732,91 @@ void RendererLayer::SwitchToScene(int index)
 	KEngine::Renderer::ResetGLState();
 	currentScene = sceneList[index];
 	currentScene->Init();
+}
+
+void RendererLayer::DrawGlobalSettings()
+{
+	if (!m_ShowGlobalSettings) return;
+
+	ImGui::Begin("Global Render Settings", &m_ShowGlobalSettings);
+
+	// ========== Post-Processing Settings ==========
+	if (ImGui::CollapsingHeader("Post-Processing", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		// Exposure slider
+		ImGui::SliderFloat("Exposure", &m_Config.renderSettings.exposure, 0.1f, 5.0f, "%.2f");
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Control scene exposure\nLow=darker, High=brighter");
+
+		// Bloom toggle
+		ImGui::Checkbox("Enable Bloom", &m_Config.renderSettings.enableBloom);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Enable bloom effect\nGlowing objects will produce halo");
+
+		// HDR toggle
+		ImGui::Checkbox("Enable HDR", &m_Config.renderSettings.enableHDR);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Enable HDR rendering\nAllow color values to exceed 1.0");
+
+		// Gamma correction toggle
+		ImGui::Checkbox("Enable Gamma Correction", &m_Config.renderSettings.enableGamma);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Enable Gamma correction\nCorrect color space");
+	}
+
+	// ========== Performance Info ==========
+	if (ImGui::CollapsingHeader("Performance", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		// FPS
+		ImGui::Text("FPS: %.1f", ImGui::GetIO().Framerate);
+		ImGui::SameLine();
+		ImGui::Text(" (%.2f ms/frame)", 1000.0f / ImGui::GetIO().Framerate);
+
+		// Post-processing time (optional)
+		static float bloomTime = 0.0f;
+		ImGui::Text("Bloom Blur: %.2f ms", bloomTime);
+	}
+
+	// ========== Window Info ==========
+	if (ImGui::CollapsingHeader("Window Info", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
+		int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
+
+		ImGui::Text("Window Size: %d x %d", width, height);
+
+		// Display all FBO resolutions
+		if (ImGui::TreeNode("Framebuffer Resolutions"))
+		{
+			ImGui::Text("HDR FBO: %d x %d", width, height);
+			ImGui::Text("Shadow Map: 1024 x 1024");
+			ImGui::Text("Pick FBO: %d x %d", width, height);
+			ImGui::TreePop();
+		}
+	}
+
+	// ========== Quick Presets ==========
+	if (ImGui::CollapsingHeader("Presets", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		if (ImGui::Button("Day Time")) {
+			m_Config.renderSettings.exposure = 1.5f;
+			m_Config.renderSettings.enableBloom = true;
+			m_Config.renderSettings.enableHDR = true;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Night Mode")) {
+			m_Config.renderSettings.exposure = 0.5f;
+			m_Config.renderSettings.enableBloom = true;
+			m_Config.renderSettings.enableHDR = true;
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("LDR Mode")) {
+			m_Config.renderSettings.exposure = 1.0f;
+			m_Config.renderSettings.enableBloom = false;
+			m_Config.renderSettings.enableHDR = false;
+			m_Config.renderSettings.enableGamma = true;
+		}
+	}
+
+	ImGui::End();
 }

@@ -157,9 +157,6 @@ namespace KEngine{
 	void Renderer::Debug()
 	{
 		
-		GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-		if (status != GL_FRAMEBUFFER_COMPLETE) {
-			std::cout << "ERROR: HDR FBO not complete! 0x" << std::hex << status << std::endl;
-		}
+		
 	}
 }
