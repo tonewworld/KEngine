@@ -38,7 +38,11 @@ private:
 	std::shared_ptr<KEngine::TextureCube> depthCubeTexture;
 	std::shared_ptr<KEngine::Shader>      shadowCubeShader;
 	
-	
+	std::shared_ptr<KEngine::FrameBuffer> hdrFBO;
+	std::shared_ptr<KEngine::Texture2D>   hdrTexture;
+	std::shared_ptr<KEngine::Texture2D>   bloomTexture;
+	std::shared_ptr<KEngine::Shader>      hdrShader;
+	std::shared_ptr<KEngine::RenderBuffer>hdrRBO;
 
 	bool m_ShowSceneHierarchy = true;
 	bool m_ShowInspector = true;

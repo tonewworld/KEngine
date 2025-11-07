@@ -29,11 +29,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 		pickShader.reset(new KEngine::Shader(pickVS, pickFS));
 	}
-	pickFBO.reset(KEngine::FrameBuffer::Create());
-	pickTexture.reset(KEngine::Texture2D::Create());
-	pickFBO->Add2DTexture(GL_COLOR_ATTACHMENT0,pickTexture->GetRendererID(),GL_TRUE,GL_TRUE);
-	pickRBO.reset(KEngine::RenderBuffer::Create());
-
+	
 	pickShader->BindUniformBufferPoint("VPMatrix", 0);
 
 	{
@@ -64,7 +60,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				)";
 
 		screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
-		screenShader->SetUniform1i(31, "screenTexture");
+		screenShader->SetUniform1i(11, "screenTexture");
 	}
 	{
 		char* vertexSrc = R"(
@@ -141,6 +137,35 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 		shadowCubeShader.reset(new KEngine::Shader(vertexSrc, geometrySrc,fragmentSrc));
 	}
+	{
+		char* vertexSrc = R"(
+				#version 420 core
+				layout (location = 0) in vec3 position;
+				layout (location = 1) in vec2 texCoords;
+
+				out vec2 TexCoords;
+
+				void main()
+				{
+					gl_Position = vec4(position, 1.0f);
+					TexCoords = texCoords;
+				}
+				)";
+		char* fragmentSrc = R"(
+				#version 420 core
+				in vec2 TexCoords;
+				out vec4 color;
+
+				uniform sampler2D screenTexture;
+
+				void main()
+				{
+					color =vec4(vec3(texture(screenTexture,TexCoords)),1.f);
+				}
+				)";
+
+		hdrShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+	}
 	float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 		// Positions   // TexCoords
 		-1.0f,  1.0f,  0.0f, 1.0f,
@@ -163,16 +188,24 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		quad_Layout,
 		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
 
-	FBO.reset(KEngine::FrameBuffer::Create());
-	quad_Texture.reset(KEngine::Texture2D::Create());
-	quad_Texture->SetTexSlot(31);
-	FBO->Add2DTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
-	RBO.reset(KEngine::RenderBuffer::Create());
-	quad_Mesh->AddTexture(quad_Texture);
+
+	int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
+	int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
 
 	int w = 1024;
 	int h = 1024;//ÎÆÀí·Ö±æÂÊ
 	int numParallelLights = 4; 
+
+	FBO.reset(KEngine::FrameBuffer::Create());
+	quad_Texture.reset(KEngine::Texture2D::Create());
+	quad_Texture->SetTexSlot(31);
+	FBO->Add2DTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
+	RBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8,width,height));
+	
+	pickFBO.reset(KEngine::FrameBuffer::Create());
+	pickTexture.reset(KEngine::Texture2D::Create());
+	pickFBO->Add2DTexture(GL_COLOR_ATTACHMENT0, pickTexture->GetRendererID(), GL_TRUE, GL_TRUE);
+	pickRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, width, height));
 
 	depthFBO.reset(KEngine::FrameBuffer::Create());
 	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, w, h));
@@ -181,6 +214,16 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	depthCubeFBO.reset(KEngine::FrameBuffer::Create());
 	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, w, h));
 	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_NONE, GL_NONE);
+
+	hdrFBO.reset(KEngine::FrameBuffer::Create());
+	hdrTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, width, height));
+	bloomTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, width, height));
+	hdrRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH_COMPONENT,width,height));
+	bloomTexture->SetTexSlot(11);
+	unsigned int hdrTextures[2] = {hdrTexture->GetRendererID(),bloomTexture->GetRendererID()};
+	hdrFBO->AddRenderBuffer(GL_DEPTH_ATTACHMENT, hdrRBO->GetRendererID());
+	hdrFBO->Add2DTextures(GL_COLOR_ATTACHMENT0, hdrTextures, GL_TRUE, GL_TRUE, 2);
+
 
 	skyboxScene.reset(new Skybox("SkyboxScene"));
 	paraShadowScene.reset(new ParaShadow("ParaShadow"));
@@ -215,7 +258,9 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 		currentScene->OnUpdate(ts);
 		PickWithColor();
 		CalculateShadow();
-		FBO->Bind();
+
+		hdrFBO->Bind();
+		KEngine::Renderer::Debug();
 		KEngine::Renderer::BeginScene();
 
 		for (const auto& obj : currentScene->GetObjectsInScene())
@@ -236,10 +281,10 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 			obj->Draw(obj->shader);
 			
 		}
-		FBO->Unbind();
+		hdrFBO->Unbind();
 	}
 	
-
+	quad_Mesh->AddTexture(bloomTexture);
 	quad_Mesh->SetDrawState(screenShader, false, false);
 	quad_Mesh->Draw(screenShader);
 	

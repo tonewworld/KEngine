@@ -157,7 +157,9 @@ namespace KEngine{
 	void Renderer::Debug()
 	{
 		
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-			std::cerr << "Depth FBO not complete!" << std::endl;
+		GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		if (status != GL_FRAMEBUFFER_COMPLETE) {
+			std::cout << "ERROR: HDR FBO not complete! 0x" << std::hex << status << std::endl;
+		}
 	}
 }
