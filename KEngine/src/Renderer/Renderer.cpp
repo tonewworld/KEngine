@@ -21,6 +21,76 @@ namespace KEngine{
 		
 	}
 
+	void Renderer::GeometryPassBegin()
+	{
+		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+	}
+
+	void Renderer::GeometryPassEnd()
+	{
+
+	}
+	void Renderer::LightingPassBegin()
+	{
+		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_DEPTH_TEST);
+	}
+
+	void Renderer::LightingPassEnd()
+	{
+	}
+	void Renderer::HDRandBloomBegin()
+	{
+		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_DEPTH_TEST);
+	}
+
+	void Renderer::HDRandBloomEnd()
+	{
+	}
+
+	void Renderer::ScreenPassBegin()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_DEPTH_TEST);
+	}
+
+	void Renderer::ScreenPassEnd()
+	{
+	}
+	void Renderer::ForwardRenderPassBegin()
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glDisable(GL_CULL_FACE);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+	}
+
+	void Renderer::ForwardRenderPassEnd()
+	{
+		glDisable(GL_BLEND);
+	}
+
+	void Renderer::BlitFrameBuffer(std::shared_ptr<FrameBuffer>fbo,unsigned int width,unsigned int height)
+	{
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, fbo->GetRendererID());
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		glBlitFramebuffer(
+			0, 0, width, height,
+			0, 0, width, height,
+			GL_DEPTH_BUFFER_BIT, GL_NEAREST
+		);
+	}
+
 	void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh)
 	{
 

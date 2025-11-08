@@ -19,6 +19,21 @@ namespace KEngine{
         static void PointLightShadowBegin();
         static void PointLightShadowEnd();
 
+        //重构
+        static void GeometryPassBegin();
+        static void GeometryPassEnd();
+        static void LightingPassBegin();
+        static void LightingPassEnd();
+        static void HDRandBloomBegin();
+        static void HDRandBloomEnd();
+        static void ScreenPassBegin();
+        static void ScreenPassEnd();
+
+        //前向渲染
+        static void ForwardRenderPassBegin();
+        static void ForwardRenderPassEnd();
+        static void BlitFrameBuffer(std::shared_ptr<FrameBuffer>,unsigned int width,unsigned int height);
+
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Mesh>& mesh);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model);
         static void Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Light>& model);

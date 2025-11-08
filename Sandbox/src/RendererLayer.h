@@ -14,10 +14,16 @@ public:
     void OnUpdate(KEngine::TimeStep ts) override;
     void OnEvent(KEngine::Event& event) override;
     void ImGuiRender() override;
-	void SetSceneAttri();
 	void PickWithColor();
 	void CalculateShadow();
+	//延迟着色重构
+	void GeometryPass();
+	void LightingPass();
 	void HDRandBloom();
+	void ScreenPass();
+
+	//前向渲染
+	void ForwardRenderPass();
 
     inline glm::mat4 CalculateVP(glm::mat4 view, glm::mat4 proj) { return proj * view; }
 private:
@@ -28,18 +34,8 @@ private:
 	
 	bool m_ShowGlobalSettings = true;
 
-	std::shared_ptr<KEngine::Shader> screenShader;
-	std::shared_ptr<KEngine::Mesh>quad_Mesh;
-	std::shared_ptr<KEngine::FrameBuffer>FBO;
-	std::shared_ptr<KEngine::Texture2D>quad_Texture;
-	std::shared_ptr<KEngine::RenderBuffer>RBO;
-
-
-	std::shared_ptr<KEngine::FrameBuffer> pickFBO;
-	std::shared_ptr<KEngine::Texture2D>   pickTexture;
-	std::shared_ptr<KEngine::RenderBuffer>pickRBO;
-	std::shared_ptr<KEngine::Shader>      pickShader;
 	
+
 	std::shared_ptr<KEngine::FrameBuffer> depthFBO;
 	std::shared_ptr<KEngine::Texture2D>   depthTexture;
 	std::shared_ptr<KEngine::Shader>	  shadowShader;
@@ -48,15 +44,48 @@ private:
 	std::shared_ptr<KEngine::TextureCube> depthCubeTexture;
 	std::shared_ptr<KEngine::Shader>      shadowCubeShader;
 	
-	std::shared_ptr<KEngine::FrameBuffer> hdrFBO;
-	std::shared_ptr<KEngine::Texture2D>   hdrTexture;
-	std::shared_ptr<KEngine::Texture2D>   bloomTexture;
-	std::shared_ptr<KEngine::Shader>      hdrShader;
-	std::shared_ptr<KEngine::RenderBuffer>hdrRBO;
+	//前向渲染
+	std::shared_ptr<KEngine::Shader>      forwardShader;	
 
+	//延迟着色
+	//重构:几何管线
+	std::shared_ptr<KEngine::Shader>      geometryPassShader;
+	std::shared_ptr<KEngine::FrameBuffer> gBuffer;
+	std::shared_ptr<KEngine::Texture2D>   gPosition;
+	std::shared_ptr<KEngine::Texture2D>   gNormal;
+	std::shared_ptr<KEngine::Texture2D>   gAlbedoSpec;
+	std::shared_ptr<KEngine::RenderBuffer>gRBO;
+	std::shared_ptr<KEngine::UniformBuffer>materialUBO;
+	std::shared_ptr<KEngine::UniformBuffer>matrixUBO;
+
+	//重构：光照管线
+	std::shared_ptr<KEngine::Mesh>        lightingPassMesh;
+
+	std::shared_ptr<KEngine::Shader>      lightingPassShader;
+	std::shared_ptr<KEngine::FrameBuffer> lightingFBO;
+	std::shared_ptr<KEngine::Texture2D>   lightingTexture;
+	std::shared_ptr<KEngine::Texture2D>   bloomTexture;
+	std::shared_ptr<KEngine::RenderBuffer>lightingRBO;
+
+	std::shared_ptr<KEngine::UniformBuffer>pointLightUBO;
+	std::shared_ptr<KEngine::UniformBuffer>parallelLightUBO;
+
+	//重构：后期处理管线
+	std::shared_ptr<KEngine::Mesh>        postProcessMesh;
+	int m_FinalBloomIndex = 0;
 	std::shared_ptr<KEngine::FrameBuffer> pingpongFBO[2];
 	std::shared_ptr<KEngine::Texture2D>   pingpongTexture[2];
-	std::shared_ptr<KEngine::Shader>      blurShader;
+	std::shared_ptr<KEngine::Shader>      hdrAndBlurShader;
+
+	//重构：屏幕渲染管线
+	std::shared_ptr<KEngine::Shader> screenShader;
+	std::shared_ptr<KEngine::Mesh>quad_Mesh;
+
+	//颜色拾取
+	std::shared_ptr<KEngine::FrameBuffer> pickFBO;
+	std::shared_ptr<KEngine::Texture2D>   pickTexture;
+	std::shared_ptr<KEngine::RenderBuffer>pickRBO;
+	std::shared_ptr<KEngine::Shader>      pickShader;
 
 	bool m_ShowSceneHierarchy = true;
 	bool m_ShowInspector = true;

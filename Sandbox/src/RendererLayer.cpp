@@ -32,58 +32,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 		pickShader.reset(new KEngine::Shader(pickVS, pickFS));
 	}
-	
 	pickShader->BindUniformBufferPoint("VPMatrix", 0);
-
-	{
-		char* vertexSrc = R"(
-				#version 420 core
-				layout (location = 0) in vec2 position;
-				layout (location = 1) in vec2 texCoords;
-
-				out vec2 TexCoords;
-
-				void main()
-				{
-					gl_Position = vec4(position.x, position.y, 0.0f, 1.0f);
-					TexCoords = texCoords;
-				}
-				)";
-		char* fragmentSrc = R"(
-				out vec4 FragColor;
-				in vec2 TexCoords;
-
-				uniform sampler2D scene;
-				uniform sampler2D bloomBlur;
-				uniform bool hdr;
-				uniform bool bloom;
-				uniform bool gamma;
-				uniform float exposure;
-
-				void main()
-				{             
-					const float g = 2.2;
-					vec3 hdrColor = texture(scene, TexCoords).rgb;      
-					vec3 bloomColor = texture(bloomBlur, TexCoords).rgb;
-					if(bloom)
-						hdrColor += bloomColor; 
-					vec3 result;
-					if(hdr){
-						result = vec3(1.0) - exp(-hdrColor * exposure);
-					}
-					else{
-						 result = clamp(hdrColor, 0.0, 1.0);
-					}		
-					if(gamma){
-						result = pow(result, vec3(1.0 / g));
-					}	
-					   
-					FragColor = vec4(result, 1.0f);
-				}
-				)";
-
-		screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
-	}
 	{
 		char* vertexSrc = R"(
 				#version 420 core
@@ -157,19 +106,324 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				}
 				)";
 
-		shadowCubeShader.reset(new KEngine::Shader(vertexSrc, geometrySrc,fragmentSrc));
+		shadowCubeShader.reset(new KEngine::Shader(vertexSrc, geometrySrc, fragmentSrc));
 	}
 	{
 		char* vertexSrc = R"(
 				#version 420 core
-				layout (location = 0) in vec3 position;
+				layout(location=0) in vec3 v_Position;
+				layout(location=1) in vec3 v_Normal;
+		
+				uniform mat4 model;
+				layout(std140) uniform VPMatrix {
+					mat4 view;
+					mat4 proj;
+				};
+		
+				void main() {
+					gl_Position = proj * view * model * vec4(v_Position, 1.0);
+				}
+				)";
+
+		char* fragmentSrc = R"(
+				#version 420 core
+				out vec4 FragColor;
+				uniform sampler2D cubeMap;
+				uniform bool useCubeMap;
+				void main() {
+					FragColor = vec4(1.0);
+					if(useCubeMap) 
+						FragColor=texture(cubeMap,vec2(0.0,0.0));
+				}
+				)";
+
+		forwardShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+		forwardShader->BindUniformBufferPoint("VPMatrix", 0);
+	}
+	{
+		char* vertexSrc = R"(
+					#version 420 core
+					layout(location=0) in vec3 v_Position;
+					layout(location=1) in vec3 v_Normal;
+					layout(location=2) in vec2 v_TexCoord;
+					layout(location=3) in vec3 v_Tangent;
+
+					uniform mat4 model;
+					uniform vec3 viewPos;
+					layout(std140) uniform VPMatrix
+					{
+						mat4 view;
+						mat4 proj;
+					};
+					
+					out VS_OUT {
+						vec3 fragPos;
+						vec2 texCoord;
+						mat3 TBN;				
+						vec3 tangentViewPos;
+						vec3 tangentFragPos;
+					} vs_out;
+							
+					void main()
+					{
+						gl_Position = proj * view * model * vec4(v_Position,1.0);
+						vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
+						vs_out.texCoord = v_TexCoord;
+
+						vec3 T = normalize(mat3(model) * v_Tangent);
+						vec3 N = normalize(mat3(transpose(inverse(model))) * v_Normal);
+						T = normalize(T - dot(T, N) * N);
+						vec3 B = cross(N, T);
+						vs_out.TBN = mat3(T, B, N);
+
+						vs_out.tangentViewPos = vs_out.TBN * viewPos;
+						vs_out.tangentFragPos = vs_out.TBN * vs_out.fragPos;
+					}
+
+				)";
+
+		char* fragmentSrc = R"(#version 420 core
+					layout(location=0) out vec3 gPosition;
+					layout(location=1) out vec3 gNormal;
+					layout(location=2) out vec4 gALbedoSpec;
+
+					layout(std140) uniform MaterialUboData{
+						vec3 Ambient;
+						float _pad0;
+						vec3 Diffuse;
+						float _pad1;
+						vec3 Specular;
+						float _pad2;
+						float Shininess;
+						float _pad3[3];
+					}material;
+					uniform bool useDiffuseMap;
+					uniform sampler2D u_DiffuseMap;
+					uniform bool useNormalMap;
+					uniform sampler2D u_NormalMap;
+					uniform int useParallaxMapMode;
+					uniform sampler2D u_ParallaxMap;
+
+					float heightScale= 0.1;
+
+					in VS_OUT {
+						vec3 fragPos;
+						vec2 texCoord;
+						mat3 TBN;
+						vec3 tangentViewPos;
+						vec3 tangentFragPos;
+					} fs_in;
+					vec2 ParallaxMapping(vec2 texCoord, vec3 viewDir)
+					{
+						switch(useParallaxMapMode) {
+							case 1: { 
+								float height = texture(u_ParallaxMap, texCoord).r;
+								vec2 p = viewDir.xy / viewDir.z * (height * heightScale);
+								return texCoord - p;
+							}
+							case 2: { 
+								const float minLayerNum = 8.0;
+								const float maxLayerNum = 32.0;
+								float layerNum = mix(maxLayerNum, minLayerNum, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
+								const float layerDepth = 1.0 / layerNum;
+								float currentLayerDepth = 0.0;
+								vec2 p = viewDir.xy * heightScale;
+								vec2 deltaTexCoord = p / layerNum;
+								vec2 currentTexCoord = texCoord;
+								float currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+                
+								while(currentDepth > currentLayerDepth) {
+									currentTexCoord -= deltaTexCoord;
+									currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+									currentLayerDepth += layerDepth;    
+								}
+								return currentTexCoord;
+							}
+							case 3: { 
+								const float minLayerNum = 8.0;
+								const float maxLayerNum = 32.0;
+								float layerNum = mix(maxLayerNum, minLayerNum, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
+								const float layerDepth = 1.0 / layerNum;
+								float currentLayerDepth = 0.0;
+								vec2 p = viewDir.xy * heightScale;
+								vec2 deltaTexCoord = p / layerNum;
+								vec2 currentTexCoord = texCoord;
+								float currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+                
+								while(currentDepth > currentLayerDepth) {
+									currentTexCoord -= deltaTexCoord;
+									currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+									currentLayerDepth += layerDepth;    
+								}
+                
+								vec2 prevTexCoord = currentTexCoord + deltaTexCoord;
+								float prevDepth = texture(u_ParallaxMap, prevTexCoord).r;
+								float weight = currentLayerDepth - currentDepth;
+								weight /= (currentLayerDepth - prevDepth) + 0.00001; 
+                
+								return prevTexCoord * weight + currentTexCoord * (1.0 - weight);
+							}
+							default:
+								return texCoord;
+						}
+					}
+
+					void main() {
+						
+						gPosition=fs_in.fragPos;
+						vec3 finalNormal = normalize(fs_in.TBN[2]);
+						vec3 viewDir = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
+						vec2 texCoord = fs_in.texCoord;
+						if(useParallaxMapMode > 0 && heightScale > 0.0) {
+							texCoord = ParallaxMapping(fs_in.texCoord, viewDir);
+							texCoord = clamp(texCoord, 0.02, 0.98); 
+						}
+						if (useNormalMap) {
+							vec3 tangentNormal = texture(u_NormalMap, texCoord).rgb * 2.0 - 1.0;
+							finalNormal = normalize(fs_in.TBN * tangentNormal);
+						}
+						gNormal = finalNormal;
+						vec3 color = material.Diffuse;
+						if(useDiffuseMap){
+							color = texture(u_DiffuseMap,fs_in.texCoord).rgb;
+						}		
+						gALbedoSpec = vec4(color, material.Specular.r);
+
+					}
+				)";
+
+		geometryPassShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+
+	}
+	geometryPassShader->BindUniformBufferPoint("VPMatrix", 0);
+	geometryPassShader->BindUniformBufferPoint("MaterialUboData", 1);
+	{
+		char* vertexSrc = R"(
+				#version 420 core
+				layout(location = 0) in vec2 v_Position;
+				layout(location = 1) in vec2 v_TexCoords;
+				out vec2 TexCoords;	
+				void main()
+				{
+					gl_Position = vec4(v_Position,0.0,1.0);
+					TexCoords=v_TexCoords;
+				}
+				)";
+		char* fragmentSrc = R"(
+				#version 420 core
+				layout(location=0) out vec4 FragColor;
+				layout(location=1) out vec4 BrightColor;
+
+				in vec2 TexCoords;
+
+				uniform sampler2D gPosition;
+				uniform sampler2D gNormal;
+				uniform sampler2D gAlbedoSpec;
+
+				struct PointLight {
+					vec3 Position;
+					vec3 Color;
+					vec3 Ambient;
+					vec3 Diffuse;
+					vec3 Specular;
+				};
+
+				layout(std140) uniform PointLightUboData {
+					PointLight pointLightList[10];
+					int pointLightCount;
+					int _pad0[3];
+				};
+
+				struct ParallelLight {
+					vec3 Direction;
+					vec3 Color;
+					vec3 Ambient;
+					vec3 Diffuse;
+					vec3 Specular;
+				};
+
+				layout(std140) uniform ParallelLightUboData {
+					ParallelLight parallelLightList[10];
+					int parallelLightCount;
+					int _pad1[3];
+				};
+
+				uniform vec3 viewPos;
+				float Shininess = 32.0f;
+
+				vec3 calculatePointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength);
+				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength);
+
+				void main() {
+					vec3 fragPos = texture(gPosition, TexCoords).rgb;
+					vec3 normal = texture(gNormal, TexCoords).rgb;
+					vec4 albedoSpec = texture(gAlbedoSpec, TexCoords);
+    
+					vec3 albedo = albedoSpec.rgb;
+					float specularStrength = albedoSpec.a;
+    
+					vec3 viewDir = normalize(viewPos - fragPos);
+					vec3 lightingResult = vec3(0.1) * albedo; 
+    
+					for(int i = 0; i < pointLightCount; i++) {
+						lightingResult += calculatePointLight(pointLightList[i], fragPos, normal, viewDir, albedo, specularStrength);
+					}
+    
+					for(int i = 0; i < parallelLightCount; i++) {
+						lightingResult += calculateParallelLight(parallelLightList[i], fragPos, normal, viewDir, albedo, specularStrength);
+					}
+    
+					FragColor = vec4(lightingResult, 1.0);
+    
+					float brightness = dot(lightingResult, vec3(0.2126, 0.7152, 0.0722));
+					BrightColor = brightness > 1.0 ? vec4(lightingResult, 1.0) : vec4(0.0);
+				}
+
+				vec3 calculatePointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength) {
+					vec3 lightDir = normalize(light.Position - fragPos);
+
+					float diff = max(dot(normal, lightDir), 0.0);
+					vec3 diffuse = light.Color * diff * albedo * light.Diffuse;
+    
+					vec3 reflectDir = reflect(-lightDir, normal);
+					float spec = pow(max(dot(viewDir, reflectDir), 0.0), Shininess);
+					vec3 specular = light.Color * spec * specularStrength * light.Specular;
+
+					float distance = length(light.Position - fragPos);
+					float attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
+    
+					return (diffuse + specular) * attenuation;
+				}
+
+				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength) {
+					vec3 lightDir = normalize(-light.Direction);
+    
+					float diff = max(dot(normal, lightDir), 0.0);
+					vec3 diffuse = light.Color * diff * albedo * light.Diffuse;
+
+					vec3 reflectDir = reflect(-lightDir, normal);
+					float spec = pow(max(dot(viewDir, reflectDir), 0.0), Shininess);
+					vec3 specular = light.Color * spec * specularStrength * light.Specular;
+    
+					return diffuse + specular;
+				}
+			)";
+
+		lightingPassShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+	}
+	lightingPassShader->BindUniformBufferPoint("PointLightUboData", 2);
+	lightingPassShader->BindUniformBufferPoint("ParallelLightUboData", 3);
+	{
+		char* vertexSrc = R"(
+				#version 420 core
+				layout (location = 0) in vec2 position;
 				layout (location = 1) in vec2 texCoords;
 
 				out vec2 TexCoords;
 
 				void main()
 				{
-					gl_Position = vec4(position, 1.0f);
+					gl_Position = vec4(position,0.0f,1.0f);
 					TexCoords = texCoords;
 				}
 				)";
@@ -208,7 +462,56 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				}
 				)";
 
-		blurShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+		hdrAndBlurShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+	}
+	{
+		char* vertexSrc = R"(
+				#version 420 core
+				layout (location = 0) in vec2 position;
+				layout (location = 1) in vec2 texCoords;
+
+				out vec2 TexCoords;
+
+				void main()
+				{
+					gl_Position = vec4(position.x, position.y, 0.0f, 1.0f);
+					TexCoords = texCoords;
+				}
+				)";
+		char* fragmentSrc = R"(
+				out vec4 FragColor;
+				in vec2 TexCoords;
+
+				uniform sampler2D scene;
+				uniform sampler2D bloomBlur;
+				uniform bool hdr;
+				uniform bool bloom;
+				uniform bool gamma;
+				uniform float exposure;
+
+				void main()
+				{             
+					const float g = 2.2;
+					vec3 hdrColor = texture(scene, TexCoords).rgb;      
+					vec3 bloomColor = texture(bloomBlur, TexCoords).rgb;
+					if(bloom)
+						hdrColor += bloomColor; 
+					vec3 result;
+					if(hdr){
+						result = vec3(1.0) - exp(-hdrColor * exposure);
+					}
+					else{
+						 result = clamp(hdrColor, 0.0, 1.0);
+					}		
+					if(gamma){
+						result = pow(result, vec3(1.0 / g));
+					}	
+					   
+					FragColor = vec4(result, 1.0f);
+				}
+				)";
+
+		screenShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
 	float quad_Vertices[] = {   // Vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
 		// Positions   // TexCoords
@@ -228,17 +531,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		{KEngine::ShaderDataType::Float2,"position"} ,
 		{KEngine::ShaderDataType::Float2,"texCoords"}
 	};
-	quad_Mesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
-		quad_Layout,
-		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
-
+	
 	m_Config.textureResolutions.shadowMap = 1024;
 
-	FBO.reset(KEngine::FrameBuffer::Create());
-	quad_Texture.reset(KEngine::Texture2D::Create());
-	quad_Texture->SetTexSlot(TEX_SLOT_QUAD);
-	FBO->Add2DTexture(GL_COLOR_ATTACHMENT0,quad_Texture->GetRendererID(),GL_TRUE,GL_TRUE);
-	RBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8,m_Config.windowWidth, m_Config.windowHeight));
 	
 	pickFBO.reset(KEngine::FrameBuffer::Create());
 	pickTexture.reset(KEngine::Texture2D::Create());
@@ -253,21 +548,58 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, m_Config.textureResolutions.shadowMap, m_Config.textureResolutions.shadowMap));
 	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_NONE, GL_NONE);
 
-	hdrFBO.reset(KEngine::FrameBuffer::Create());
-	hdrTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
-	hdrTexture->SetTexSlot(TEX_SLOT_SCENE);
-	bloomTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
-	hdrRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
-	unsigned int hdrTextures[2] = {hdrTexture->GetRendererID(),bloomTexture->GetRendererID()};
-	hdrFBO->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, hdrRBO->GetRendererID());
-	hdrFBO->Add2DTextures(GL_COLOR_ATTACHMENT0, hdrTextures, GL_TRUE, GL_TRUE, 2);
+	
+	//重构：几何管线
+	gBuffer.reset(KEngine::FrameBuffer::Create());
+	gPosition.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+	gNormal.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+	gAlbedoSpec.reset(KEngine::Texture2D::Create(GL_RGBA, m_Config.windowWidth, m_Config.windowHeight));
+	unsigned int gTextures[3] = { gPosition->GetRendererID(), gNormal->GetRendererID(),gAlbedoSpec->GetRendererID() };
+	gBuffer->Add2DTextures(GL_COLOR_ATTACHMENT0, gTextures, GL_TRUE, GL_TRUE, 3);
+	gRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
+	gBuffer->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, gRBO->GetRendererID());
+	gPosition->SetTexSlot(TEX_SLOT_GPOSITION);
+	gNormal->SetTexSlot(TEX_SLOT_GNORMAL);
+	gAlbedoSpec->SetTexSlot(TEX_SLOT_GALBEDOSPEC);
+	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4), 0));
+	materialUBO.reset(KEngine::UniformBuffer::Create(4 * sizeof(glm::vec4), 1));
 
+	//重构：光照管线
+	lightingPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
+		quad_Layout,
+		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
+	lightingPassMesh->AddTexture(gPosition);
+	lightingPassMesh->AddTexture(gNormal);
+	lightingPassMesh->AddTexture(gAlbedoSpec);
+
+	lightingFBO.reset(KEngine::FrameBuffer::Create());
+	lightingTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+	lightingTexture->SetTexSlot(TEX_SLOT_SCENE);
+	bloomTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+	unsigned int lightTextures[2] = { lightingTexture->GetRendererID(),bloomTexture->GetRendererID() };
+	lightingFBO->Add2DTextures(GL_COLOR_ATTACHMENT0, lightTextures, GL_TRUE, GL_TRUE, 2);
+	lightingRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
+	lightingFBO->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, lightingRBO->GetRendererID());
+	
+	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
+	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::ParallelLightUboData), 3));
+
+	//重构：后处理
+	postProcessMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
+		quad_Layout,
+		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
 	for (int i = 0; i < 2; i++) {
 		pingpongFBO[i].reset(KEngine::FrameBuffer::Create());
 		pingpongTexture[i].reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
 		pingpongFBO[i]->Add2DTexture(GL_COLOR_ATTACHMENT0, pingpongTexture[i]->GetRendererID(), GL_TRUE, GL_TRUE);
 	}
-	pingpongTexture[0]->SetTexSlot(TEX_SLOT_BLOOM_BLUR);
+
+	//重构：屏幕渲染
+	quad_Mesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
+		quad_Layout,
+		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
+	quad_Mesh->AddTexture(lightingTexture);
+	quad_Mesh->AddTexture(pingpongTexture[0]);
 
 	skyboxScene.reset(new Skybox("SkyboxScene"));
 	paraShadowScene.reset(new ParaShadow("ParaShadow"));
@@ -288,36 +620,25 @@ void RendererLayer::OnAttach() {
 }
 void RendererLayer::OnDetach()
 {
-	FBO.reset();
-	RBO.reset();
-	pickFBO.reset();
-	pickRBO.reset();
+
 }
 void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	
+	if (!currentScene)return;
 	
+	//CalculateShadow();
 	
-	if(currentScene)
-	{
-		currentScene->OnUpdate(ts);
-		PickWithColor();
-		CalculateShadow();
-		HDRandBloom();
-		SetSceneAttri();
-	}
+	currentScene->OnUpdate(ts);
+	//重构
+	GeometryPass();
+	LightingPass();
+	HDRandBloom();
 	
+	ScreenPass();
+	ForwardRenderPass();
 	
-	screenShader->SetUniform1i(TEX_SLOT_SCENE, "scene");
-	screenShader->SetUniform1i(TEX_SLOT_BLOOM_BLUR, "bloomBlur");
+	PickWithColor();
 
-
-	quad_Mesh->AddTexture(pingpongTexture[0]);
-	quad_Mesh->AddTexture(hdrTexture);
-	
-	KEngine::Renderer::BeginScene();
-	quad_Mesh->SetDrawState(screenShader, false, false);
-	quad_Mesh->Draw(screenShader);
-	KEngine::Renderer::EndScene();
 }
 
 void RendererLayer::OnEvent(KEngine::Event& event)
@@ -336,13 +657,6 @@ void RendererLayer::ImGuiRender()
 	DrawGlobalSettings();
 }
 
-void RendererLayer::SetSceneAttri()
-{
-	screenShader->SetUniform1f(m_Config.renderSettings.exposure, "exposure");
-	screenShader->SetUniform1b(m_Config.renderSettings.enableBloom, "bloom");
-	screenShader->SetUniform1b(m_Config.renderSettings.enableHDR, "hdr");
-	screenShader->SetUniform1b(m_Config.renderSettings.enableGamma, "gamma");
-}
 
 void RendererLayer::PickWithColor()
 {
@@ -425,11 +739,10 @@ void RendererLayer::CalculateShadow()
 		shadowShader->SetUniformMatrix4fv(light->CalculateLightSpace(), "lightSpaceMatrix");
 
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
-			if (obj->GetIsLight())
-				continue;
+		
 			glm::mat4 model = obj->GetModelMatrix();
 			shadowShader->SetUniformMatrix4fv(model, "model");
-			obj->Draw(shadowShader); 
+			obj->Draw(); 
 		}
 
 		depthFBO->Unbind();
@@ -450,11 +763,10 @@ void RendererLayer::CalculateShadow()
 		shadowCubeShader->SetUniform1f(25.f, "far_plane");
 
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
-			if (obj->GetIsLight())
-				continue;
+			
 			glm::mat4 model = obj->GetModelMatrix();
 			shadowCubeShader->SetUniformMatrix4fv(model, "model");
-			obj->Draw(shadowCubeShader); 
+			obj->Draw(); 
 		}
 
 		KEngine::Renderer::PointLightShadowEnd();
@@ -463,55 +775,129 @@ void RendererLayer::CalculateShadow()
 	}
 }
 
-void RendererLayer::HDRandBloom()
-{
-	//hdr
-	hdrFBO->Bind();
-	KEngine::Renderer::BeginScene();
 
+void RendererLayer::GeometryPass()
+{
+	gBuffer->Bind();
+	KEngine::Renderer::GeometryPassBegin();
 	for (const auto& obj : currentScene->GetObjectsInScene())
 	{
+		if (!obj->UseDelayRender())continue;
+		obj->SetDrawState(geometryPassShader, true, false);
 		obj->UpdateModelMatrix();
-		obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
-
-		obj->shader->Bind();
-		if (currentScene->GetParallelLightInScene().size() != 0) {
-			depthTexture->Bind(TEX_SLOT_SHADOW_PARA);
-			obj->shader->SetUniformMatrix4fv(currentScene->GetParallelLightInScene()[0]->CalculateLightSpace(), "lightSpaceMatrix");
+		geometryPassShader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+		geometryPassShader->SetUniform3f(currentScene->GetMainCamera()->GetPosition(), "viewPos");
+		if (obj->GetDiffuseMap()) {
+			geometryPassShader->SetUniform1b(obj->UseDiffuseMap(), "useDiffuseMap");
+			geometryPassShader->SetUniform1i(TEX_SLOT_DIFFUSE_MAP, "u_DiffuseMap");
+		}
+		else {
+			geometryPassShader->SetUniform1b(false, "useDiffuseMap");
 		}
 
-		if (currentScene->GetPointLightInScene().size() != 0) {
-			depthCubeTexture->Bind(TEX_SLOT_SHADOW_CUBE);
+		if (obj->GetNormalMap()) {
+			geometryPassShader->SetUniform1b(obj->UseNormalMap(), "useNormalMap");
+			geometryPassShader->SetUniform1i(TEX_SLOT_NORMAL_MAP, "u_NormalMap");
 		}
-
-		obj->Draw(obj->shader);
-
+		else {
+			geometryPassShader->SetUniform1b(false, "useNormalMap");
+		}
+		if(obj->GetParallaxMap()){
+			geometryPassShader->SetUniform1i(obj->UseParallaxMapMode(), "useParallaxMapMode");
+			geometryPassShader->SetUniform1i(TEX_SLOT_PARALLAX_MAP, "u_ParallaxMap");
+		}
+		else{
+			geometryPassShader->SetUniform1i(0, "useParallaxMapMode");
+		}
+		materialUBO->AddMaterial(KEngine::MaterialUboData{ obj->GetMaterial() });
+		matrixUBO->AddVPMatrix(currentScene->GetMainCamera()->GetViewMatrix(), currentScene->GetMainCamera()->GetProjMatrix(), 0);
+		obj->Draw();
 	}
-	hdrFBO->Unbind();
+	KEngine::Renderer::GeometryPassEnd();
+	gBuffer->Unbind();
+	
+}
+
+void RendererLayer::LightingPass()
+{
+	lightingFBO->Bind();
+	KEngine::Renderer::LightingPassBegin();
+	lightingPassShader->Bind();
+	lightingPassMesh->SetDrawState(lightingPassShader, false, false);
+	lightingPassShader->SetUniform1i(TEX_SLOT_GPOSITION, "gPosition");
+	lightingPassShader->SetUniform1i(TEX_SLOT_GNORMAL, "gNormal");
+	lightingPassShader->SetUniform1i(TEX_SLOT_GALBEDOSPEC, "gAlbedoSpec");
+
+	pointLightUBO->AddPointLight(currentScene->GetPointLightInScene());
+	parallelLightUBO->AddParallelLight(currentScene->GetParallelLightInScene());
+
+	lightingPassShader->SetUniform3f(currentScene->GetMainCamera()->GetPosition(), "viewPos");
+	lightingPassMesh->Draw();
+	KEngine::Renderer::LightingPassEnd();
+	lightingFBO->Unbind();
+}
+void RendererLayer::HDRandBloom()
+{
 	//bloom
 	bool horizontal = true, first_iteration = true;
 	GLuint amount = 10;
-	blurShader->Bind();
-	blurShader->SetUniform1i(TEX_SLOT_BLOOM_SHADER, "image");
+	hdrAndBlurShader->Bind();
+	hdrAndBlurShader->SetUniform1i(TEX_SLOT_BLOOM_BLUR, "image");
 	for (GLuint i = 0; i < amount; i++)
 	{
 		pingpongFBO[horizontal]->Bind();
-		blurShader->SetUniform1b(horizontal, "horizontal");
+		KEngine::Renderer::HDRandBloomBegin();
+		hdrAndBlurShader->SetUniform1b(horizontal, "horizontal");
 		if (first_iteration) {
-			bloomTexture->Bind(TEX_SLOT_BLOOM_SHADER);
+			bloomTexture->Bind(TEX_SLOT_BLOOM_BLUR);
 		}
 		else {
-			pingpongTexture[!horizontal]->Bind(TEX_SLOT_BLOOM_SHADER);
+			pingpongTexture[!horizontal]->Bind(TEX_SLOT_BLOOM_BLUR);
 		}
-		quad_Mesh->SetDrawState(blurShader, false, false);
-		quad_Mesh->Draw(blurShader);
+		postProcessMesh->SetDrawState(hdrAndBlurShader, false, false);
+		postProcessMesh->Draw();
 
 		horizontal = !horizontal;
 		if (first_iteration)
 			first_iteration = false;
 	}
+	m_FinalBloomIndex = !horizontal ? 1 : 0;
+	KEngine::Renderer::HDRandBloomEnd();
 	pingpongFBO[!horizontal]->Unbind();
 
+}
+
+void RendererLayer::ScreenPass()
+{
+	KEngine::Renderer::ScreenPassBegin();
+
+	lightingTexture->Bind(TEX_SLOT_SCENE);
+	pingpongTexture[m_FinalBloomIndex]->Bind(TEX_SLOT_BLOOM_BLUR);
+
+	screenShader->SetUniform1f(m_Config.renderSettings.exposure, "exposure");
+	screenShader->SetUniform1b(m_Config.renderSettings.enableBloom, "bloom");
+	screenShader->SetUniform1b(m_Config.renderSettings.enableHDR, "hdr");
+	screenShader->SetUniform1b(m_Config.renderSettings.enableGamma, "gamma");
+	screenShader->SetUniform1i(TEX_SLOT_SCENE, "scene");
+	screenShader->SetUniform1i(TEX_SLOT_BLOOM_BLUR, "bloomBlur");
+	quad_Mesh->SetDrawState(screenShader, false, false);
+	quad_Mesh->Draw();
+	KEngine::Renderer::ScreenPassEnd();
+}
+
+void RendererLayer::ForwardRenderPass()
+{
+	KEngine::Renderer::BlitFrameBuffer(gBuffer, m_Config.windowWidth, m_Config.windowHeight);
+	KEngine::Renderer::ForwardRenderPassBegin();
+	forwardShader->Bind();
+	for (const auto& obj : currentScene->GetObjectsInScene()) {
+		if (obj->UseDelayRender())continue;
+		obj->UpdateModelMatrix();
+		obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+		matrixUBO->AddVPMatrix(currentScene->GetMainCamera()->GetViewMatrix(), currentScene->GetMainCamera()->GetProjMatrix(), 0);
+		obj->Draw();
+	}
+	KEngine::Renderer::ForwardRenderPassEnd();
 }
 
 void RendererLayer::DrawSceneHierarchy()
@@ -640,36 +1026,25 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
 
 		if (object->shader) {
 			ImGui::Text("Shader: %s", "Allocated");
-			if(!object->GetIsLight())
-			{
-				ImGui::Checkbox("BlinPhon: ", &object->UseBlin());
-				ImGui::Checkbox("NormalMap: ", &object->UseNormalMap());
-
-				ImGui::Separator();
-				ImGui::Text("ParallaxMap :");
-				std::array<std::string, 4> algo{ "Close", "Simple", "Steep","Occlusion"};
-				for (std::size_t i = 0; i < algo.size(); ++i)
-				{
-					ImGui::RadioButton(algo[i].data(), &object->UseParallaxMapMode(), static_cast<int>(i));
-				}
 			
+			ImGui::Checkbox("BlinPhon: ", &object->UseBlin());
+			ImGui::Checkbox("NormalMap: ", &object->UseNormalMap());
+
+			ImGui::Separator();
+			ImGui::Text("ParallaxMap :");
+			std::array<std::string, 4> algo{ "Close", "Simple", "Steep","Occlusion"};
+			for (std::size_t i = 0; i < algo.size(); ++i)
+			{
+				ImGui::RadioButton(algo[i].data(), &object->UseParallaxMapMode(), static_cast<int>(i));
 			}
+			
 		}
 		else {
 			ImGui::Text("Shader: null");
 		}
 
-
 		ImGui::Text("Matertial Attribution:");
 		ImGui::Indent();
-
-	
-		if (object->GetIsLight()) {//将来这里可能要做枚举
-			ImGui::Text("Type: light");
-		}
-		else {
-			ImGui::Text("Type: Mesh");
-		}
 
 		ImGui::Unindent();
 	}

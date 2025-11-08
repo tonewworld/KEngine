@@ -42,12 +42,18 @@ namespace KEngine {
 		GLenum func = GL_ALWAYS;
 		GLint ref = 0;
 		GLuint mask = 0xFF;
-		bool isLight = false;
-
+	
 		bool useBlin = true;
-		bool useNormalMap = true;
+		bool useDiffuseMap = false;
+		bool useNormalMap = false;
+		bool useCubeMap = false;
 		int useParallaxMapMode = 1;
 
+		bool delayRender = true;
+		std::shared_ptr<Texture2D> diffuseMap;
+		std::shared_ptr<Texture2D> normalMap;
+		std::shared_ptr<Texture2D> parallaxMap;
+		std::shared_ptr<TextureCube> cubeMap;
 		std::vector<std::shared_ptr<Texture>> textures;
 	protected:
 		Material material;
@@ -87,9 +93,19 @@ namespace KEngine {
 
 		virtual void AddTexture(std::shared_ptr<Texture>texture) { textures.push_back(texture); }
 		virtual std::vector < std::shared_ptr<Texture>> GetTextures() { return textures; }
-
+	
 		inline Material& GetMaterial() { return material; }
 		inline void SetMaterial(const Material& mat) { material = mat; }
+
+		inline std::shared_ptr<Texture2D>GetDiffuseMap() { return diffuseMap; }
+		inline void SetDiffuseMap(std::shared_ptr<Texture2D>tex) { diffuseMap = tex; }
+		inline std::shared_ptr<Texture2D>GetNormalMap() { return normalMap; }
+		inline void SetNormalMap(std::shared_ptr<Texture2D>tex) { normalMap = tex; }
+		inline std::shared_ptr<Texture2D>GetParallaxMap() { return parallaxMap; }
+		inline void SetParallaxMap(std::shared_ptr<Texture2D>tex) { parallaxMap = tex; }
+		inline std::shared_ptr<TextureCube>GetCubeMap() { return cubeMap; }
+		inline void SetCubeMap(std::shared_ptr<TextureCube>tex) { cubeMap = tex; }
+
 
 		std::shared_ptr<Shader> shader;
 		void SetDrawState(
@@ -97,13 +113,15 @@ namespace KEngine {
 			bool depthTest = false, bool stencilTest = false,
 			unsigned int stencilMask = 0,
 			GLenum func = GL_ALWAYS, GLint ref = 0, GLuint mask = 0xFF);
-		void Draw(std::shared_ptr<Shader>);
+		void Draw();
 
-		bool GetIsLight() { return isLight; }
-		void SetIsLight(bool tag) { isLight = tag; }
-
+	
 		bool& UseBlin() { return useBlin; }
+		bool& UseDiffuseMap() { return useDiffuseMap; }
 		bool& UseNormalMap() { return useNormalMap; }
+		bool& UseCubeMap() { return useCubeMap; }
 		int& UseParallaxMapMode() { return useParallaxMapMode; }
+
+		bool& UseDelayRender() { return delayRender; }
 	};
 }

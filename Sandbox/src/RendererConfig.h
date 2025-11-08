@@ -6,8 +6,12 @@
 #define TEX_SLOT_SHADOW_PARA  29  // 平行光阴影
 #define TEX_SLOT_SHADOW_CUBE  30  // 点光源阴影
 #define TEX_SLOT_QUAD         31  // 全屏四边形
-#define TEX_SLOT_BLOOM_SHADER 26  // blurshader
-
+#define TEX_SLOT_GPOSITION    25 
+#define TEX_SLOT_GNORMAL      24
+#define TEX_SLOT_GALBEDOSPEC  23
+#define TEX_SLOT_NORMAL_MAP   22
+#define TEX_SLOT_DIFFUSE_MAP  21
+#define TEX_SLOT_PARALLAX_MAP 20
 // 分辨率配置（保留动态性）
 struct RendererConfig {
     int windowWidth = 0;

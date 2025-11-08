@@ -3,7 +3,7 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "Input.h"
-
+#include "Application.h"
 namespace KEngine
 {
 	class KE_API Camera
@@ -22,6 +22,9 @@ namespace KEngine
 
 		inline glm::mat4 GetViewMatrix() const { return viewMatrix; }
 		inline void SetViewMatrix(const glm::mat4& matrix) { viewMatrix = matrix; }
+
+		inline glm::mat4 GetProjMatrix() const { return projMatrix; }
+		inline void SetProjMatrix(const glm::mat4& matrix) { projMatrix = matrix; }
 
 		static bool CheckLeftMouseButtonPress();
 
@@ -50,6 +53,10 @@ namespace KEngine
 
 		float moveSpeed=0.4f;
 		glm::mat4 viewMatrix;
+		glm::mat4 projMatrix= glm::perspective(glm::radians(45.f), (float)
+			KEngine::Application::s_Instance->GetWindow().GetWidth()
+			/ KEngine::Application::s_Instance->GetWindow().GetHeight(),
+			0.1f, 300.f);
 	};
 
 }

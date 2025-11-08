@@ -18,7 +18,7 @@ namespace KEngine {
 		this->ref = ref;
 		this->mask = mask;
 	}
-	void Object::Draw(std::shared_ptr<Shader>shader)
+	void Object::Draw()
     {
 		Renderer::SetDepthOpenOrClose(depthTest);
 		Renderer::SetStencilOpenOrClose(stencilTest);
@@ -28,13 +28,7 @@ namespace KEngine {
 		for (const auto& texture : textures) {
 			texture->Bind(texture->GetTexSlot());
 		}
-		if(!GetIsLight())
-		{
-			shader->SetUniform1b(this->UseBlin(), "useBlin");
-			shader->SetUniform1b(this->UseNormalMap(), "useNormalMap");
-			shader->SetUniform1i(this->UseParallaxMapMode(), "useParallaxMapMode");
-		}
-			
+
 		Renderer::Submit(shader, shared_from_this());
     }
 }

@@ -4,6 +4,7 @@ public:
 	Skybox(std::string name);
 	~Skybox();
 	inline virtual std::string GetName() override { return name; }
+	inline virtual std::shared_ptr<KEngine::Camera>GetMainCamera()override { return mainCamera; }
 	inline std::vector<std::shared_ptr<KEngine::Object>> GetObjectsInScene() override { return Objects; }
 	inline std::vector<std::shared_ptr<KEngine::PointLight>>GetPointLightInScene()override { return pointLightList; }
 	inline std::vector<std::shared_ptr<KEngine::ParallelLight>>GetParallelLightInScene()override { return parallelLightList; }
@@ -24,13 +25,10 @@ private:
 	std::shared_ptr<KEngine::Shader>backpack_Shader;
 	std::shared_ptr<KEngine::Model>backpack_Model;
 
-	std::shared_ptr<KEngine::UniformBuffer> matrixUBO;
-
-	std::vector<std::shared_ptr<KEngine::Shader>> shaderList;
 	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
 	std::vector<std::shared_ptr<KEngine::ParallelLight>> parallelLightList;
 
-	glm::mat4 projMatrix;
+
 	std::shared_ptr<KEngine::Camera>  mainCamera;
 
 

@@ -117,6 +117,7 @@ namespace KEngine{
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		static FrameBuffer* Create();
+		virtual unsigned int GetRendererID() = 0;
 		virtual void Add2DTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable) = 0;
 		virtual void AddTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable) = 0;
 		virtual void Add2DTextures(GLint type, unsigned int* textureID, GLboolean drawable, GLboolean readable,const int count) = 0;

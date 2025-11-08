@@ -38,6 +38,7 @@ namespace KEngine{
         virtual void Bind() override ;
         virtual void Unbind() override ;
         static OpenGLFrameBuffer* Create();
+        inline virtual unsigned int GetRendererID() override{ return m_RendererID; }
         virtual void Add2DTexture(GLint type,unsigned int textureID,GLboolean drawable,GLboolean readable) override;
         virtual void AddTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable) override;
         virtual void Add2DTextures(GLint type, unsigned int* textureIDs, GLboolean drawable, GLboolean readable, const int count) override;

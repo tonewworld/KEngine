@@ -16,17 +16,14 @@ void Skybox::Init()
 {
 	
 	mainCamera = std::make_unique<KEngine::Camera>();
-	projMatrix = glm::perspective(glm::radians(45.f), (float)
-		KEngine::Application::s_Instance->GetWindow().GetWidth()
-		/ KEngine::Application::s_Instance->GetWindow().GetHeight(),
-		0.1f, 300.f);
+
 	{
 		char* vertexSrc = R"(
 				#version 420 core
 				layout(location=0) in vec3 v_Position;
 				layout(location=1) in vec3 v_Normal;
 
-				
+
 				uniform mat4 model;
 				layout(std140) uniform VPMatrix
 				{
@@ -71,7 +68,8 @@ void Skybox::Init()
 			)";
 
 		m_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
-
+		m_Shader->Bind();
+		m_Shader->SetUniform1i(1, "skybox");
 	}
 	
 
@@ -218,7 +216,8 @@ void Skybox::Init()
 		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
 		"m"));
 	m_Mesh->SetPosition(glm::vec3(1, 0, 0));
-
+	m_Mesh->UseDelayRender() = false;
+	m_Mesh->SetDrawState(m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
 	
 	float sky_Vertices[] = {
 		//Positions          
@@ -286,9 +285,14 @@ void Skybox::Init()
 		sky_Layout,
 		sky_Indices, sizeof(sky_Indices) / sizeof(unsigned int),
 		"skybox"));
+	sky_Mesh->UseDelayRender() = false;
+	sky_Mesh->SetDrawState(sky_Shader, true, true, 0);
+	sky_Mesh->SetScale(glm::vec3(50.0f));
 
 	backpack_Model.reset(new KEngine::Model("references\\backpack\\backpack.obj", "backpack"));
 	backpack_Model->SetPosition(glm::vec3(-3, 0, 0));
+	backpack_Model->UseDelayRender() = false;
+	backpack_Model->SetDrawState(backpack_Shader, true, true, 0, GL_ALWAYS, 1, 0xFF);
 
 	std::vector<std::string> faces;
 	faces.push_back("references\\skybox\\right.jpg");
@@ -300,47 +304,20 @@ void Skybox::Init()
 
 	textureCube.reset(KEngine::TextureCube::Create(faces));
 	textureCube->SetTexSlot(1);
+
 	m_Mesh->AddTexture(textureCube);
 	sky_Mesh->AddTexture(textureCube);
 
 
-	shaderList.clear();
-	shaderList = {
-		m_Shader,
-		backpack_Shader,
-		sky_Shader
-	};
-	//一个shader的列表,为他们每一个绑定相同的VP矩阵
-	for (auto& shader : shaderList)
-	{
-		shader->BindUniformBufferPoint("VPMatrix", 0);
-	}
-	//生成uniform缓冲对象
-	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4),0));
-
-
+	Objects.push_back(sky_Mesh);
 	Objects.push_back(backpack_Model);
 	Objects.push_back(m_Mesh);
-	Objects.push_back(sky_Mesh);
 
 }
 void Skybox::OnUpdate(KEngine::TimeStep ts) {
 	mainCamera->Control(ts.GetTimeStep());
 
-	//填充数据到uniform缓冲对象
-	matrixUBO->AddVPMatrix(mainCamera->GetViewMatrix(), projMatrix, 0);
-
-	m_Shader->SetUniform1i(1, "skybox");
-
-	//天空盒
-	sky_Mesh->SetScale(glm::vec3(50.0f));
-	sky_Mesh->SetDrawState(sky_Shader, true, true, 0);
 	
-	//物体
-	m_Mesh->SetDrawState(m_Shader, true, false, 1, GL_LESS, 1, 0xFF);
-
-	//背包
-	backpack_Model->SetDrawState(backpack_Shader, true, true, 0, GL_ALWAYS, 1, 0xFF);
 
 }
 void Skybox::Destroy()
@@ -350,7 +327,7 @@ void Skybox::Destroy()
 	backpack_Model.reset();
 
 	textureCube.reset();
-	matrixUBO.reset();
+
 
 	Objects.clear();
 
