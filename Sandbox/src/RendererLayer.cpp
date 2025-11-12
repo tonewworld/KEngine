@@ -332,37 +332,43 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					uniform float radius;
 
 					uniform vec2 noiseScale;
-
+					
+					uniform mat4 view;
 					uniform mat4 projection;
 
 					void main()
 					{
-						vec3 fragPos = texture(gPositionDepth, TexCoords).xyz;
-						float fragDepth = texture(gPositionDepth, TexCoords).a;
+						// read world-space position from G-buffer and convert to view-space
+						vec3 fragPosWorld = texture(gPositionDepth, TexCoords).xyz;
+						vec3 fragPos = (view * vec4(fragPosWorld, 1.0)).xyz;
+						float fragDepth = fragPos.z;
 
 						vec3 normal = texture(gNormal, TexCoords).rgb;
 						vec3 randomVec = texture(texNoise, TexCoords * noiseScale).xyz;
-						
+                        
 						vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
 						vec3 bitangent = cross(normal, tangent);
 						mat3 TBN = mat3(tangent, bitangent, normal);
-						
+                        
 						float occlusion = 0.0;
 						for(int i = 0; i < kernelSize; ++i)
 						{
-						
+							// sample in world space, then transform to view space for projection/depth comparison
 							vec3 sampleVec = TBN * samples[i]; 
-							vec3 samplePos = fragPos + sampleVec * radius; 
+							vec3 samplePosWorld = fragPosWorld + sampleVec * radius; 
+							vec3 samplePosView = (view * vec4(samplePosWorld, 1.0)).xyz;
         
-							vec4 offset = projection * vec4(samplePos, 1.0);//ÕâÀïÒª×ª»»µ½ÊÓÍ¼¿Õ¼ä
+							vec4 offset = projection * vec4(samplePosView, 1.0);
 							offset.xyz /= offset.w;
 							vec2 sampleUV = offset.xy * 0.5 + 0.5; 
 
 							if(sampleUV.x < 0.0 || sampleUV.x > 1.0 || sampleUV.y < 0.0 || sampleUV.y > 1.0)
 								continue;        
 
-							float sampleDepth = -texture(gPositionDepth, sampleUV).a;
-							float sampleViewDepth = samplePos.z;        
+							// read world-space position at sample and convert to view-space depth
+							vec3 samplePosWorldFromTex = texture(gPositionDepth, sampleUV).xyz;
+							float sampleDepth = (view * vec4(samplePosWorldFromTex, 1.0)).z;
+							float sampleViewDepth = samplePosView.z;        
 							float rangeCheck = smoothstep(0.0, 1.0, radius / (abs(fragDepth - sampleViewDepth) + 1e-5));
 
 							occlusion += (sampleDepth >= sampleViewDepth ? 1.0 : 0.0) * rangeCheck;         
@@ -518,10 +524,8 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					vec3 fragToLight = fragPos - lightPos;
 					float currentDepth = length(fragToLight);
     
-					// ²ÉÑùÁ¢·½ÌåÌùÍ¼
 					float closestDepth = texture(shadowCubeMap, fragToLight).r * farPlane;
     
-					// Ìí¼Óbias
 					float bias = 0.05;
 					return currentDepth - bias > closestDepth ? 1.0 : 0.0;
 				}
@@ -544,15 +548,13 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				}
 				float CalculateParallelShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
 				{
-					// Ö´ĞĞÍ¸ÊÓ³ı·¨
+			
 					vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-					// ±ä»»µ½[0,1]·¶Î§
+			
 					projCoords = projCoords * 0.5 + 0.5;
-					
-					// »ñÈ¡µ±Ç°fragmentÔÚ¹âÔ´ÊÓ½ÇÏÂµÄÉî¶È
+
 					float currentDepth = projCoords.z;
-    
-					// PCFÈíÒõÓ°²ÉÑù
+
 					float shadow = 0.0;
 					vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
 					for(int x = -1; x <= 1; ++x)
@@ -724,7 +726,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_NONE, GL_NONE);
 	depthCubeTexture->SetTexSlot(TEX_SLOT_DEPTH_CUBE_MAP);
 
-	//ÖØ¹¹£º¼¸ºÎ¹ÜÏß
+	//é‡æ„ï¼šå‡ ä½•ç®¡çº¿
 	gBuffer.reset(KEngine::FrameBuffer::Create());
 	gPosition.reset(KEngine::Texture2D::Create(GL_RGBA16F, m_Config.windowWidth, m_Config.windowHeight));
 	gNormal.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
@@ -739,7 +741,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4), 0));
 	materialUBO.reset(KEngine::UniformBuffer::Create(4 * sizeof(glm::vec4), 1));
 
-	//SSAO¹ÜÏß
+	//SSAOç®¡çº¿
 	ssaoPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
 		quad_Layout,
 		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
@@ -758,7 +760,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		);
 		sample = glm::normalize(sample);
 		sample *= RandFloat();
-		if (sample.z < 0.0f) sample.z = -sample.z; // Ç¿ÖÆÔÚ·¨Ïß·½ÏòµÄ°ëÇòÄÚ
+		if (sample.z < 0.0f) sample.z = -sample.z;
 		GLfloat scale = GLfloat(i) / 64.0f;
 		scale = 0.1f + scale * scale * (1.0f - 0.1f);
 		sample *= scale;
@@ -779,16 +781,17 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	ssaoPassMesh->AddTexture(gPosition);
 	ssaoPassMesh->AddTexture(gNormal);
 	ssaoPassMesh->AddTexture(ssaoNoiseTexture);
-	//SSAOÄ£ºı¹ÜÏß
+	//SSAOæ¨¡ç³Šç®¡çº¿
 	ssaoBlurPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
 		quad_Layout,
 		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
 	ssaoBlurFBO.reset(KEngine::FrameBuffer::Create());
 	ssaoBlurTexture.reset(KEngine::Texture2D::Create(GL_R16F, m_Config.windowWidth, m_Config.windowHeight));
+	ssaoBlurTexture->SetTexSlot(TEX_SLOT_SSAO_BLUR_OUTPUT);
 	ssaoBlurFBO->Add2DTexture(GL_COLOR_ATTACHMENT0, ssaoBlurTexture->GetRendererID(), GL_TRUE, GL_TRUE);
 	ssaoBlurPassMesh->AddTexture(ssaoTexture);
 
-	//ÖØ¹¹£º¹âÕÕ¹ÜÏß
+	//é‡æ„ï¼šå…‰ç…§ç®¡çº¿
 	lightingPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
 		quad_Layout,
 		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
@@ -811,7 +814,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::ParallelLightUboData), 3));
 
-	//ÖØ¹¹£ººó´¦Àí
+	//é‡æ„ï¼šåå¤„ç†
 	postProcessMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
 		quad_Layout,
 		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
@@ -821,7 +824,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		pingpongFBO[i]->Add2DTexture(GL_COLOR_ATTACHMENT0, pingpongTexture[i]->GetRendererID(), GL_TRUE, GL_TRUE);
 	}
 
-	//ÖØ¹¹£ºÆÁÄ»äÖÈ¾
+	//é‡æ„ï¼šå±å¹•æ¸²æŸ“
 	quad_Mesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
 		quad_Layout,
 		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
@@ -854,9 +857,9 @@ void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
 	if (!currentScene)return;
 
 	currentScene->OnUpdate(ts);
-	//¹âÓ°
+	//å…‰å½±
 	CalculateShadow();
-	//ÖØ¹¹
+	//é‡æ„
 	GeometryPass();
 	//SSAO
 	if (m_Config.renderSettings.enableSSAO) {
@@ -882,7 +885,7 @@ void RendererLayer::ImGuiRender()
 {
 	DrawSceneHierarchy();
 
-	// »æÖÆ¼ìÊÓ´°¿Ú
+	// ç»˜åˆ¶æ£€è§†çª—å£
 	DrawInspector();
 
 	DrawSceneList();
@@ -911,25 +914,25 @@ void RendererLayer::PickWithColor()
 			return r + (g << 8) + (b << 16);
 			};
 
-		// ÀëÆÁäÖÈ¾µ½ FBO µÄÑÕÉ«»º³å
+		// ç¦»å±æ¸²æŸ“åˆ° FBO çš„é¢œè‰²ç¼“å†²
 		pickFBO->Bind();
 		KEngine::Renderer::ColorPickBegin();
 
-		// äÖÈ¾Ã¿¸ö¶ÔÏóÎªÆä ID color£¨Ö»Ğ´ÑÕÉ«£©
+		// æ¸²æŸ“æ¯ä¸ªå¯¹è±¡ä¸ºå…¶ ID colorï¼ˆåªå†™é¢œè‰²ï¼‰
 		for (const auto& obj : currentScene->GetObjectsInScene())
 		{
-			int id = obj->GetID();            // ĞèÒª´æÔÚ
+			int id = obj->GetID();         
 			glm::vec3 color = EncodeIDToColor(id);
-			glm::mat4 model = obj->GetModelMatrix(); // ĞèÒª´æÔÚ
+			glm::mat4 model = obj->GetModelMatrix();
 
 			pickShader->SetUniformMatrix4fv(model, "model");
 			pickShader->SetUniform3f(color, "pickColor");
 
-			// ĞèÒª¶ÔÏóÄÜÒÔ shader »æÖÆ×Ô¼º£¨»òÌá¹© mesh/model ·ÃÎÊ£©
+			// éœ€è¦å¯¹è±¡èƒ½ä»¥ shader ç»˜åˆ¶è‡ªå·±ï¼ˆæˆ–æä¾› mesh/model è®¿é—®ï¼‰
 			KEngine::Renderer::Submit(pickShader, obj);
 		}
 
-		// ¶ÁÈ¡ÏñËØ£¨´°¿Ú×ø±êµ½ GL µ×²¿Ô­µã£©
+		// è¯»å–åƒç´ ï¼ˆçª—å£åæ ‡åˆ° GL åº•éƒ¨åŸç‚¹ï¼‰
 		int width = KEngine::Application::s_Instance->GetWindow().GetWidth();
 		int height = KEngine::Application::s_Instance->GetWindow().GetHeight();
 		int rx = static_cast<int>(mouseX);
@@ -945,7 +948,7 @@ void RendererLayer::PickWithColor()
 			return;
 		}
 
-		// ÔÚ Objects ÖĞ²éÕÒ pickedID
+		// åœ¨ Objects ä¸­æŸ¥æ‰¾ pickedID
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
 			if (obj->GetID() == pickedID) {
 				m_SelectedObjectID = pickedID;
@@ -994,7 +997,7 @@ void RendererLayer::CalculateShadow()
 		shadowCubeShader->Bind();
 		for (int i = 0; i < 6; ++i) {
 			shadowCubeShader->SetUniformMatrix4fv(matrices[i], ("shadowMatrices[" + std::to_string(i) + "]").c_str());
-		}//ÕâÀï³öÎÊÌâ
+		}//è¿™é‡Œå‡ºé—®é¢˜
 		shadowCubeShader->SetUniform3f(light->GetPosition(), "lightPos");
 		shadowCubeShader->SetUniform1f(25.f, "far_plane");
 
@@ -1065,6 +1068,7 @@ void RendererLayer::SSAOPass()
 	ssaoShader->SetUniform1i(TEX_SLOT_GPOSITION, "gPositionDepth");
 	ssaoShader->SetUniform1i(TEX_SLOT_GNORMAL, "gNormal");
 	ssaoShader->SetUniform1i(TEX_SLOT_SSAO_NOISE, "texNoise");
+	ssaoShader->SetUniformMatrix4fv(currentScene->GetMainCamera()->GetViewMatrix(), "view");
 	ssaoShader->SetUniformMatrix4fv(currentScene->GetMainCamera()->GetProjMatrix(), "projection");
 	ssaoShader->SetUniform1f(m_Config.renderSettings.ssaoRadius, "radius");
 	ssaoShader->SetUniform1f(m_Config.renderSettings.ssaoBias, "bias");
@@ -1074,11 +1078,11 @@ void RendererLayer::SSAOPass()
 		ssaoShader->SetUniform3f(ssaoKernel[i], ("samples[" + std::to_string(i) + "]").c_str());
 	}
 
-	// ¼ÆËãÔëÉùËõ·Å
+	// è®¡ç®—å™ªå£°ç¼©æ”¾
 	glm::vec2 noiseScale(m_Config.windowWidth / 4.0f, m_Config.windowHeight / 4.0f);
 	ssaoShader->SetUniform2f(noiseScale, "noiseScale");
 
-	// »æÖÆÈ«ÆÁquad
+	// ç»˜åˆ¶å…¨å±quad
 	ssaoPassMesh->SetDrawState(ssaoShader, false, false);
 	ssaoPassMesh->Draw();
 
@@ -1111,7 +1115,7 @@ void RendererLayer::LightingPass()
 	lightingPassShader->SetUniform1i(TEX_SLOT_GPOSITION, "gPosition");
 	lightingPassShader->SetUniform1i(TEX_SLOT_GNORMAL, "gNormal");
 	lightingPassShader->SetUniform1i(TEX_SLOT_GALBEDOSPEC, "gAlbedoSpec");
-
+	
 	lightingPassShader->SetUniform1i(TEX_SLOT_DEPTH_MAP, "shadowMap");
 	lightingPassShader->SetUniform1i(TEX_SLOT_DEPTH_CUBE_MAP, "shadowCubeMap");
 
@@ -1125,12 +1129,12 @@ void RendererLayer::LightingPass()
 	auto pointLights = currentScene->GetPointLightInScene();
 	if (!pointLights.empty()) {
 		lightingPassShader->SetUniform3f(pointLights[0]->GetPosition(), "mainLightPos");
-		lightingPassShader->SetUniform1f(25.0f, "far_plane"); // ÓëCalculateShadowÖĞµÄÖµÒ»ÖÂ
+		lightingPassShader->SetUniform1f(25.0f, "far_plane"); 
 	}
 
 	if (m_Config.renderSettings.enableSSAO)
 	{
-		lightingPassShader->SetUniform1i(TEX_SLOT_SSAO_OUTPUT, "ssaoTexture");
+		lightingPassShader->SetUniform1i(TEX_SLOT_SSAO_BLUR_OUTPUT, "ssaoTexture");
 		lightingPassShader->SetUniform1b(true, "enableSSAO");
 	}
 	else
@@ -1214,35 +1218,35 @@ void RendererLayer::DrawSceneHierarchy()
 
 	ImGui::Begin("SceneManager", &m_ShowSceneHierarchy);
 
-	// ´°¿ÚÉèÖÃ
+
 	ImGui::Text("Objects (%d)", currentScene->GetObjectsInScene().size());
 	ImGui::Separator();
 
-	// ¶ÔÏóÁĞ±í
+
 	for (const auto& obj : currentScene->GetObjectsInScene()) {
-		// ÎªÃ¿¸ö¶ÔÏó´´½¨Ò»¸ö¿ÉÑ¡ÔñµÄĞĞ
+	
 		bool isSelected = (m_SelectedObjectID == obj->GetID());
 
-		// Ê¹ÓÃSelectableÀ´´´½¨¿ÉÑ¡ÔñÏî
+
 		if (ImGui::Selectable(obj->GetName().c_str(), isSelected)) {
 			m_SelectedObjectID = obj->GetID();
 			m_SelectedObject = obj;
 		}
 
-		// ÓÒ¼ü²Ëµ¥
+
 		if (ImGui::BeginPopupContextItem()) {
 			if (ImGui::MenuItem("Delete")) {
-				// ÕâÀï¿ÉÒÔÌí¼ÓÉ¾³ıÂß¼­
+		
 				std::cout << "Delete Object: " << obj->GetName() << std::endl;
 			}
 			if (ImGui::MenuItem("Copy")) {
-				// ÕâÀï¿ÉÒÔÌí¼Ó¸´ÖÆÂß¼­
+		
 				std::cout << "Copy Object: " << obj->GetName() << std::endl;
 			}
 			ImGui::EndPopup();
 		}
 
-		// ÏÔÊ¾¶ÔÏó»ù±¾ĞÅÏ¢£¨¿ÉÑ¡£©
+
 		if (ImGui::IsItemHovered()) {
 			ImGui::BeginTooltip();
 			ImGui::Text("ID: %d", obj->GetID());
@@ -1251,25 +1255,25 @@ void RendererLayer::DrawSceneHierarchy()
 		}
 	}
 
-	// Ìí¼Ó¶ÔÏó°´Å¥
+
 	ImGui::Separator();
 	if (ImGui::Button("+ Add Object")) {
-		// ÕâÀï¿ÉÒÔµ¯³öÌí¼Ó¶ÔÏóµÄ²Ëµ¥
+
 		ImGui::OpenPopup("add_object_popup");
 	}
 
-	// Ìí¼Ó¶ÔÏóµ¯³ö²Ëµ¥
+
 	if (ImGui::BeginPopup("add_object_popup")) {
 		if (ImGui::MenuItem("Cube")) {
-			// Ìí¼ÓÁ¢·½ÌåÂß¼­
+	
 			std::cout << "Add Cube" << std::endl;
 		}
 		if (ImGui::MenuItem("Light")) {
-			// Ìí¼Ó¹âÔ´Âß¼­
+
 			std::cout << "Add Light" << std::endl;
 		}
 		if (ImGui::MenuItem("Model")) {
-			// Ìí¼ÓÄ£ĞÍÂß¼­
+	
 			std::cout << "Add Model" << std::endl;
 		}
 		ImGui::EndPopup();
@@ -1285,12 +1289,11 @@ void RendererLayer::DrawInspector()
 	ImGui::Begin("Inspector", &m_ShowInspector);
 
 	if (m_SelectedObject) {
-		// ÏÔÊ¾Ñ¡ÖĞ¶ÔÏóµÄÃû³ÆºÍID
+	
 		ImGui::Text("Name: %s", m_SelectedObject->GetName().c_str());
 		ImGui::Text("ID: %d", m_SelectedObject->GetID());
 		ImGui::Separator();
 
-		// »æÖÆ¶ÔÏóÊôĞÔ
 		DrawObjectProperties(m_SelectedObject);
 	}
 	else {
@@ -1303,26 +1306,26 @@ void RendererLayer::DrawInspector()
 
 void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object)
 {
-	// ±ä»»×é¼ş
+
 	if (ImGui::CollapsingHeader("Transition", ImGuiTreeNodeFlags_DefaultOpen)) {
-		// Ö±½ÓÊ¹ÓÃ¶ÔÏóµÄÊôĞÔ£¬²»ĞèÒª´Ó¾ØÕó·Ö½â
+	
 		glm::vec3 position = object->GetPosition();
 		glm::vec3 rotation = object->GetRotation();
 		glm::vec3 scale = object->GetScale();
 
-		// Î»ÖÃ
+
 		float pos[3] = { position.x, position.y, position.z };
 		if (ImGui::DragFloat3("Position", pos, 0.1f)) {
 			object->SetPosition(glm::vec3(pos[0], pos[1], pos[2]));
 		}
 
-		// Ğı×ª
+
 		float rot[3] = { rotation.x, rotation.y, rotation.z };
 		if (ImGui::DragFloat3("Rotation", rot, 1.0f)) {
 			object->SetRotation(glm::vec3(rot[0], rot[1], rot[2]));
 		}
 
-		// Ëõ·Å
+
 		float scl[3] = { scale.x, scale.y, scale.z };
 		if (ImGui::DragFloat3("Scale", scl, 0.1f, 0.01f, 100.0f)) {
 			object->SetScale(glm::vec3(scl[0], scl[1], scl[2]));
@@ -1370,13 +1373,9 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
 		}
 	}
 
-	// ×Ô¶¨ÒåÊôĞÔÀ©Õ¹µã
+
 	if (ImGui::CollapsingHeader("Custom Attribution")) {
-		/*ImGui::BulletText("ÎïÀíÊôĞÔ");
-		ImGui::BulletText("½Å±¾×é¼ş");
-		ImGui::BulletText("¶¯»­×é¼ş");
-		ImGui::BulletText("Á£×ÓÏµÍ³");*/
-		// ... ¸ü¶à×Ô¶¨Òå×é¼ş
+	
 	}
 }
 void RendererLayer::DrawSceneList()
@@ -1388,13 +1387,13 @@ void RendererLayer::DrawSceneList()
 		const auto& sc = sceneList[i];
 		ImGui::PushID(static_cast<int>(i));
 
-		// Ö÷Ïî
+
 		bool selected = (currentScene == sc);
 		if (ImGui::Selectable(sc->GetName().c_str(), selected))
 			if (currentScene != sc)
 				SwitchToScene(static_cast<int>(i));
 
-		// ÓÒ¼ü²Ëµ¥
+
 		if (ImGui::BeginPopupContextItem())
 		{
 			if (ImGui::MenuItem("Switch to this scene"))

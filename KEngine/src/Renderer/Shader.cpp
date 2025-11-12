@@ -24,11 +24,11 @@ namespace KEngine
 		glCompileShader(fragmentShader);
 		{
 			GLint success;
-			glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+			glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
 			if (!success)
 			{
 				GLchar infoLog[1024];
-				glGetShaderInfoLog(vertexShader, 1024, NULL, infoLog);
+				glGetShaderInfoLog(fragmentShader, 1024, NULL, infoLog);
 				KE_CORE_ERROR("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n{0}", infoLog);
 			}
 		}
@@ -36,6 +36,17 @@ namespace KEngine
 		glAttachShader(m_RendererID, vertexShader);
 		glAttachShader(m_RendererID, fragmentShader);
 		glLinkProgram(m_RendererID);
+
+		// check program link status
+		{
+			GLint linkSuccess;
+			glGetProgramiv(m_RendererID, GL_LINK_STATUS, &linkSuccess);
+			if (!linkSuccess) {
+				GLchar infoLog[1024];
+				glGetProgramInfoLog(m_RendererID, 1024, NULL, infoLog);
+				KE_CORE_ERROR("ERROR::SHADER::PROGRAM::LINKING_FAILED\n{0}", infoLog);
+			}
+		}
 
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
@@ -60,11 +71,11 @@ namespace KEngine
 		glCompileShader(fragmentShader);
 		{
 			GLint success;
-			glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+			glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
 			if (!success)
 			{
 				GLchar infoLog[1024];
-				glGetShaderInfoLog(vertexShader, 1024, NULL, infoLog);
+				glGetShaderInfoLog(fragmentShader, 1024, NULL, infoLog);
 				KE_CORE_ERROR("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n{0}", infoLog);
 			}
 		}
@@ -87,6 +98,17 @@ namespace KEngine
 		glAttachShader(m_RendererID, fragmentShader);
 		glAttachShader(m_RendererID, geometryShader);
 		glLinkProgram(m_RendererID);
+
+		// check program link status
+		{
+			GLint linkSuccess;
+			glGetProgramiv(m_RendererID, GL_LINK_STATUS, &linkSuccess);
+			if (!linkSuccess) {
+				GLchar infoLog[1024];
+				glGetProgramInfoLog(m_RendererID, 1024, NULL, infoLog);
+				KE_CORE_ERROR("ERROR::SHADER::PROGRAM::LINKING_FAILED\n{0}", infoLog);
+			}
+		}
 
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
