@@ -35,8 +35,10 @@ namespace KEngine {
 		virtual void LoadTexture() = 0;
 
 		static Texture2D* Create();
-		static Texture2D* Create(GLint type,unsigned int width,unsigned int height);
+		static Texture2D* Create(GLint type,unsigned int width,unsigned int height,void*data = nullptr);
 		static Texture2D* Create(const std::string& path);
+
+
 	private:
 	};
 	

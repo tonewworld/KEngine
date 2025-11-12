@@ -33,6 +33,22 @@ namespace KEngine{
 	{
 
 	}
+	void Renderer::SSAOPassBegin()
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+	void Renderer::SSAOPassEnd()
+	{
+
+	}
+	void Renderer::SSAOBlurPassBegin()
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+	void Renderer::SSAOBlurPassEnd()
+	{
+
+	}
 	void Renderer::LightingPassBegin()
 	{
 		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -42,6 +58,7 @@ namespace KEngine{
 
 	void Renderer::LightingPassEnd()
 	{
+
 	}
 	void Renderer::HDRandBloomBegin()
 	{

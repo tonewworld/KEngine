@@ -52,7 +52,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 				void main()
 				{
-					
+					gl_FragDepth = gl_FragCoord.z;
 				}
 				)";
 
@@ -148,6 +148,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					layout(location=2) in vec2 v_TexCoord;
 					layout(location=3) in vec3 v_Tangent;
 
+
 					uniform mat4 model;
 					uniform vec3 viewPos;
 					layout(std140) uniform VPMatrix
@@ -167,7 +168,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					void main()
 					{
 						gl_Position = proj * view * model * vec4(v_Position,1.0);
-						vs_out.fragPos = vec3(model*vec4(v_Position,1.0));
+						vs_out.fragPos = vec3(model * vec4(v_Position,1.0));
 						vs_out.texCoord = v_TexCoord;
 
 						vec3 T = normalize(mat3(model) * v_Tangent);
@@ -183,7 +184,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				)";
 
 		char* fragmentSrc = R"(#version 420 core
-					layout(location=0) out vec3 gPosition;
+					layout(location=0) out vec4 gPosition;
 					layout(location=1) out vec3 gNormal;
 					layout(location=2) out vec4 gALbedoSpec;
 
@@ -267,10 +268,17 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 								return texCoord;
 						}
 					}
-
+					const float NEAR = 0.1; 
+					const float FAR = 300.0f; 
+					float LinearizeDepth(float depth)
+					{
+						float z = depth * 2.0 - 1.0; 
+						return (2.0 * NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR));    
+					}
 					void main() {
 						
-						gPosition=fs_in.fragPos;
+						gPosition.xyz = fs_in.fragPos;
+						gPosition.a = -fs_in.fragPos.z;
 						vec3 finalNormal = normalize(fs_in.TBN[2]);
 						vec3 viewDir = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
 						vec2 texCoord = fs_in.texCoord;
@@ -309,16 +317,135 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					TexCoords=v_TexCoords;
 				}
 				)";
+
+		char* fragmentSrc = R"(#version 420 core
+					out float FragColor;
+					in vec2 TexCoords;
+
+					uniform sampler2D gPositionDepth;
+					uniform sampler2D gNormal;
+					uniform sampler2D texNoise;
+
+					uniform vec3 samples[64];
+
+					uniform int kernelSize;
+					uniform float radius;
+
+					uniform vec2 noiseScale;
+
+					uniform mat4 projection;
+
+					void main()
+					{
+						vec3 fragPos = texture(gPositionDepth, TexCoords).xyz;
+						float fragDepth = texture(gPositionDepth, TexCoords).a;
+
+						vec3 normal = texture(gNormal, TexCoords).rgb;
+						vec3 randomVec = texture(texNoise, TexCoords * noiseScale).xyz;
+						
+						vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
+						vec3 bitangent = cross(normal, tangent);
+						mat3 TBN = mat3(tangent, bitangent, normal);
+						
+						float occlusion = 0.0;
+						for(int i = 0; i < kernelSize; ++i)
+						{
+						
+							vec3 sampleVec = TBN * samples[i]; 
+							vec3 samplePos = fragPos + sampleVec * radius; 
+        
+							vec4 offset = projection * vec4(samplePos, 1.0);
+							offset.xyz /= offset.w;
+							vec2 sampleUV = offset.xy * 0.5 + 0.5; 
+
+							if(sampleUV.x < 0.0 || sampleUV.x > 1.0 || sampleUV.y < 0.0 || sampleUV.y > 1.0)
+								continue;        
+
+							float sampleDepth = -texture(gPositionDepth, sampleUV).a;
+							float sampleViewDepth = samplePos.z;        
+							float rangeCheck = smoothstep(0.0, 1.0, radius / (abs(fragDepth - sampleViewDepth) + 1e-5));
+
+							occlusion += (sampleDepth >= sampleViewDepth ? 1.0 : 0.0) * rangeCheck;         
+						}
+						occlusion = 1.0 - (occlusion / float(kernelSize));
+    
+						FragColor = occlusion;
+					}
+				)";
+
+		ssaoShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+	}
+	{
+		char* vertexSrc = R"(
+				#version 420 core
+				layout(location = 0) in vec2 v_Position;
+				layout(location = 1) in vec2 v_TexCoords;
+				out vec2 TexCoords;	
+				void main()
+				{
+					gl_Position = vec4(v_Position,0.0,1.0);
+					TexCoords=v_TexCoords;
+				}
+				)";
+
+		char* fragmentSrc = R"(#version 420 core
+					in vec2 TexCoords;
+					out float fragColor;
+
+					uniform sampler2D ssaoInput;
+					const int blurSize = 4; // use size of noise texture (4x4)
+
+					void main() 
+					{
+					   vec2 texelSize = 1.0 / vec2(textureSize(ssaoInput, 0));
+					   float result = 0.0;
+					   for (int x = 0; x < blurSize; ++x) 
+					   {
+						  for (int y = 0; y < blurSize; ++y) 
+						  {
+							 vec2 offset = (vec2(-2.0) + vec2(float(x), float(y))) * texelSize;
+							 result += texture(ssaoInput, TexCoords + offset).r;
+						  }
+					   }
+ 
+					   fragColor = result / float(blurSize * blurSize);
+					}
+				)";
+
+		ssaoBlurShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
+	}
+	{
+		char* vertexSrc = R"(
+				#version 420 core
+				layout(location = 0) in vec2 v_Position;
+				layout(location = 1) in vec2 v_TexCoords;
+				out vec2 TexCoords;	
+				void main()
+				{
+					gl_Position = vec4(v_Position,0.0,1.0);
+					TexCoords=v_TexCoords;
+				}
+				)";
 		char* fragmentSrc = R"(
 				#version 420 core
 				layout(location=0) out vec4 FragColor;
 				layout(location=1) out vec4 BrightColor;
-
 				in vec2 TexCoords;
 
 				uniform sampler2D gPosition;
 				uniform sampler2D gNormal;
 				uniform sampler2D gAlbedoSpec;
+				uniform sampler2D ssaoTexture;
+				uniform bool enableSSAO;
+
+				uniform sampler2D shadowMap;             
+				uniform samplerCube shadowCubeMap;        
+				uniform mat4 lightSpaceMatrix;           
+				uniform vec3 mainLightDir;            
+				uniform vec3 mainLightPos;              
+				uniform float far_plane;                 
+    
+
 
 				struct PointLight {
 					vec3 Position;
@@ -350,10 +477,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 				uniform vec3 viewPos;
 				float Shininess = 32.0f;
-
+				float CalculatePointShadow(vec3 fragPos, vec3 lightPos, float farPlane);
 				vec3 calculatePointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength);
-				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength);
-
+				float CalculateParallelShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir);
+				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength,vec4 fragPosLightSpace);
 				void main() {
 					vec3 fragPos = texture(gPosition, TexCoords).rgb;
 					vec3 normal = texture(gNormal, TexCoords).rgb;
@@ -364,13 +491,20 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
     
 					vec3 viewDir = normalize(viewPos - fragPos);
 					vec3 lightingResult = vec3(0.1) * albedo; 
-    
+
+					vec4 fragPosLightSpace = lightSpaceMatrix * vec4(fragPos, 1.0);
+
+					if(enableSSAO) {
+						float ambientOcclusion = texture(ssaoTexture, TexCoords).r;
+						lightingResult *= ambientOcclusion;
+					}    
+
 					for(int i = 0; i < pointLightCount; i++) {
 						lightingResult += calculatePointLight(pointLightList[i], fragPos, normal, viewDir, albedo, specularStrength);
 					}
     
 					for(int i = 0; i < parallelLightCount; i++) {
-						lightingResult += calculateParallelLight(parallelLightList[i], fragPos, normal, viewDir, albedo, specularStrength);
+						lightingResult += calculateParallelLight(parallelLightList[i], fragPos, normal, viewDir, albedo, specularStrength,fragPosLightSpace);
 					}
     
 					FragColor = vec4(lightingResult, 1.0);
@@ -379,6 +513,18 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					BrightColor = brightness > 1.0 ? vec4(lightingResult, 1.0) : vec4(0.0);
 				}
 
+				float CalculatePointShadow(vec3 fragPos, vec3 lightPos, float farPlane)
+				{
+					vec3 fragToLight = fragPos - lightPos;
+					float currentDepth = length(fragToLight);
+    
+					// 采样立方体贴图
+					float closestDepth = texture(shadowCubeMap, fragToLight).r * farPlane;
+    
+					// 添加bias
+					float bias = 0.05;
+					return currentDepth - bias > closestDepth ? 1.0 : 0.0;
+				}
 				vec3 calculatePointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength) {
 					vec3 lightDir = normalize(light.Position - fragPos);
 
@@ -392,10 +538,36 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					float distance = length(light.Position - fragPos);
 					float attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
     
-					return (diffuse + specular) * attenuation;
+					float shadow = CalculatePointShadow(fragPos, light.Position, far_plane);
+    
+					return (diffuse + specular) * attenuation * (1.0-shadow);
 				}
-
-				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength) {
+				float CalculateParallelShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
+				{
+					// 执行透视除法
+					vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+					// 变换到[0,1]范围
+					projCoords = projCoords * 0.5 + 0.5;
+					
+					// 获取当前fragment在光源视角下的深度
+					float currentDepth = projCoords.z;
+    
+					// PCF软阴影采样
+					float shadow = 0.0;
+					vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+					for(int x = -1; x <= 1; ++x)
+					{
+						for(int y = -1; y <= 1; ++y)
+						{
+							float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x,y) * texelSize).r;
+							shadow += currentDepth  > pcfDepth ? 1.0 : 0.0;
+						}
+					}
+					shadow /= 9.0;
+    
+					return shadow;
+				}
+				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength,vec4 fragPosLightSpace) {
 					vec3 lightDir = normalize(-light.Direction);
     
 					float diff = max(dot(normal, lightDir), 0.0);
@@ -404,8 +576,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					vec3 reflectDir = reflect(-lightDir, normal);
 					float spec = pow(max(dot(viewDir, reflectDir), 0.0), Shininess);
 					vec3 specular = light.Color * spec * specularStrength * light.Specular;
-    
-					return diffuse + specular;
+
+					float shadow = CalculateParallelShadow(fragPosLightSpace, normal, lightDir);
+
+					return (diffuse + specular) * (1.0f-shadow);
 				}
 			)";
 
@@ -531,10 +705,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		{KEngine::ShaderDataType::Float2,"position"} ,
 		{KEngine::ShaderDataType::Float2,"texCoords"}
 	};
-	
+
 	m_Config.textureResolutions.shadowMap = 1024;
 
-	
+
 	pickFBO.reset(KEngine::FrameBuffer::Create());
 	pickTexture.reset(KEngine::Texture2D::Create());
 	pickFBO->Add2DTexture(GL_COLOR_ATTACHMENT0, pickTexture->GetRendererID(), GL_TRUE, GL_TRUE);
@@ -543,18 +717,19 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	depthFBO.reset(KEngine::FrameBuffer::Create());
 	depthTexture.reset(KEngine::Texture2D::Create(GL_DEPTH_COMPONENT, m_Config.textureResolutions.shadowMap, m_Config.textureResolutions.shadowMap));
 	depthFBO->Add2DTexture(GL_DEPTH_ATTACHMENT, depthTexture->GetRendererID(), GL_NONE, GL_NONE);
+	depthTexture->SetTexSlot(TEX_SLOT_DEPTH_MAP);
 
 	depthCubeFBO.reset(KEngine::FrameBuffer::Create());
 	depthCubeTexture.reset(KEngine::TextureCube::Create(GL_DEPTH_COMPONENT, m_Config.textureResolutions.shadowMap, m_Config.textureResolutions.shadowMap));
 	depthCubeFBO->AddTexture(GL_DEPTH_ATTACHMENT, depthCubeTexture->GetRendererID(), GL_NONE, GL_NONE);
+	depthCubeTexture->SetTexSlot(TEX_SLOT_DEPTH_CUBE_MAP);
 
-	
 	//重构：几何管线
 	gBuffer.reset(KEngine::FrameBuffer::Create());
-	gPosition.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
+	gPosition.reset(KEngine::Texture2D::Create(GL_RGBA16F, m_Config.windowWidth, m_Config.windowHeight));
 	gNormal.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
 	gAlbedoSpec.reset(KEngine::Texture2D::Create(GL_RGBA, m_Config.windowWidth, m_Config.windowHeight));
-	unsigned int gTextures[3] = { gPosition->GetRendererID(), gNormal->GetRendererID(),gAlbedoSpec->GetRendererID() };
+	unsigned int gTextures[3] = { gPosition->GetRendererID(), gNormal->GetRendererID(),gAlbedoSpec->GetRendererID()};
 	gBuffer->Add2DTextures(GL_COLOR_ATTACHMENT0, gTextures, GL_TRUE, GL_TRUE, 3);
 	gRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
 	gBuffer->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, gRBO->GetRendererID());
@@ -564,6 +739,55 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4), 0));
 	materialUBO.reset(KEngine::UniformBuffer::Create(4 * sizeof(glm::vec4), 1));
 
+	//SSAO管线
+	ssaoPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
+		quad_Layout,
+		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
+	ssaoFBO.reset(KEngine::FrameBuffer::Create());
+	ssaoTexture.reset(KEngine::Texture2D::Create(GL_R16F, m_Config.windowWidth, m_Config.windowHeight));
+	ssaoFBO->Add2DTexture(GL_COLOR_ATTACHMENT0, ssaoTexture->GetRendererID(), GL_TRUE, GL_TRUE);
+	ssaoTexture->SetTexSlot(TEX_SLOT_SSAO_OUTPUT);
+
+	srand(static_cast<unsigned>(time(nullptr)));
+	ssaoKernel.reserve(64);
+	for (GLuint i = 0; i < 64; ++i) {
+		glm::vec3 sample(
+			RandFloat() * 2.0f - 1.0f,
+			RandFloat() * 2.0f - 1.0f,
+			RandFloat()
+		);
+		sample = glm::normalize(sample);
+		sample *= RandFloat();
+		if (sample.z < 0.0f) sample.z = -sample.z; // 强制在法线方向的半球内
+		GLfloat scale = GLfloat(i) / 64.0f;
+		scale = 0.1f + scale * scale * (1.0f - 0.1f);
+		sample *= scale;
+		ssaoKernel.push_back(sample);
+	}
+
+	std::vector<glm::vec3> ssaoNoise;
+	ssaoNoise.reserve(16);
+	for (unsigned int i = 0; i < 16; i++) {
+		ssaoNoise.push_back(glm::vec3(
+			RandFloat() * 2.0f - 1.0f,
+			RandFloat() * 2.0f - 1.0f,
+			0.0f
+		));
+	}
+	ssaoNoiseTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, 4, 4, &ssaoNoise));
+	ssaoNoiseTexture->SetTexSlot(TEX_SLOT_SSAO_NOISE);
+	ssaoPassMesh->AddTexture(gPosition);
+	ssaoPassMesh->AddTexture(gNormal);
+	ssaoPassMesh->AddTexture(ssaoNoiseTexture);
+	//SSAO模糊管线
+	ssaoBlurPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
+		quad_Layout,
+		quadIndexes, sizeof(quadIndexes) / sizeof(unsigned int)));
+	ssaoBlurFBO.reset(KEngine::FrameBuffer::Create());
+	ssaoBlurTexture.reset(KEngine::Texture2D::Create(GL_R16F, m_Config.windowWidth, m_Config.windowHeight));
+	ssaoBlurFBO->Add2DTexture(GL_COLOR_ATTACHMENT0, ssaoBlurTexture->GetRendererID(), GL_TRUE, GL_TRUE);
+	ssaoBlurPassMesh->AddTexture(ssaoTexture);
+
 	//重构：光照管线
 	lightingPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
 		quad_Layout,
@@ -571,6 +795,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	lightingPassMesh->AddTexture(gPosition);
 	lightingPassMesh->AddTexture(gNormal);
 	lightingPassMesh->AddTexture(gAlbedoSpec);
+	lightingPassMesh->AddTexture(ssaoBlurTexture);
+	lightingPassMesh->AddTexture(depthTexture);
+	lightingPassMesh->AddTexture(depthCubeTexture);
 
 	lightingFBO.reset(KEngine::FrameBuffer::Create());
 	lightingTexture.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
@@ -580,7 +807,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	lightingFBO->Add2DTextures(GL_COLOR_ATTACHMENT0, lightTextures, GL_TRUE, GL_TRUE, 2);
 	lightingRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
 	lightingFBO->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, lightingRBO->GetRendererID());
-	
+
 	pointLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::PointLightUboData), 2));
 	parallelLightUBO.reset(KEngine::UniformBuffer::Create(11 * sizeof(KEngine::ParallelLightUboData), 3));
 
@@ -623,20 +850,26 @@ void RendererLayer::OnDetach()
 
 }
 void RendererLayer::OnUpdate(KEngine::TimeStep ts) {
-	
+
 	if (!currentScene)return;
-	
-	//CalculateShadow();
-	
+
 	currentScene->OnUpdate(ts);
+	//光影
+	CalculateShadow();
 	//重构
 	GeometryPass();
+	//SSAO
+	if (m_Config.renderSettings.enableSSAO) {
+		SSAOPass();
+		SSAOBlurPass();
+	}
+
 	LightingPass();
 	HDRandBloom();
-	
+
 	ScreenPass();
 	ForwardRenderPass();
-	
+
 	PickWithColor();
 
 }
@@ -660,8 +893,8 @@ void RendererLayer::ImGuiRender()
 
 void RendererLayer::PickWithColor()
 {
-	float mouseX = 0.f,mouseY = 0.f;
-	
+	float mouseX = 0.f, mouseY = 0.f;
+
 	if (KEngine::Camera::CheckLeftMouseButtonPress())
 	{
 		std::pair<float, float> mousePosition = KEngine::Input::GetMousePosition();
@@ -703,12 +936,12 @@ void RendererLayer::PickWithColor()
 		int ry = height - 1 - static_cast<int>(mouseY);
 
 		auto pixel = KEngine::Renderer::ReadPixel(rx, ry);
-	
+
 		pickFBO->Unbind();
 
 		int pickedID = DecodeColorToID(pixel[0], pixel[1], pixel[2]);
 		if (pickedID == 0) {
-			
+
 			return;
 		}
 
@@ -717,21 +950,21 @@ void RendererLayer::PickWithColor()
 			if (obj->GetID() == pickedID) {
 				m_SelectedObjectID = pickedID;
 				m_SelectedObject = obj;
-			
+
 				return;
 			}
 		}
-		
+
 	}
 	return;
 }
 
 void RendererLayer::CalculateShadow()
 {
-	
+
 	//parallel
 	for (const auto& light : currentScene->GetParallelLightInScene()) {
-		
+
 		depthFBO->Bind();
 		KEngine::Renderer::ParallelLightShadowBegin();
 		shadowShader->Bind();
@@ -739,10 +972,11 @@ void RendererLayer::CalculateShadow()
 		shadowShader->SetUniformMatrix4fv(light->CalculateLightSpace(), "lightSpaceMatrix");
 
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
-		
+
 			glm::mat4 model = obj->GetModelMatrix();
 			shadowShader->SetUniformMatrix4fv(model, "model");
-			obj->Draw(); 
+			obj->SetDrawState(shadowShader, true, false);
+			obj->Draw();
 		}
 
 		depthFBO->Unbind();
@@ -758,15 +992,16 @@ void RendererLayer::CalculateShadow()
 		shadowCubeShader->Bind();
 		for (int i = 0; i < 6; ++i) {
 			shadowCubeShader->SetUniformMatrix4fv(matrices[i], ("shadowMatrices[" + std::to_string(i) + "]").c_str());
-		}
+		}//这里出问题
 		shadowCubeShader->SetUniform3f(light->GetPosition(), "lightPos");
 		shadowCubeShader->SetUniform1f(25.f, "far_plane");
 
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
-			
+
 			glm::mat4 model = obj->GetModelMatrix();
 			shadowCubeShader->SetUniformMatrix4fv(model, "model");
-			obj->Draw(); 
+			obj->SetDrawState(shadowCubeShader, true, false);
+			obj->Draw();
 		}
 
 		KEngine::Renderer::PointLightShadowEnd();
@@ -802,11 +1037,11 @@ void RendererLayer::GeometryPass()
 		else {
 			geometryPassShader->SetUniform1b(false, "useNormalMap");
 		}
-		if(obj->GetParallaxMap()){
+		if (obj->GetParallaxMap()) {
 			geometryPassShader->SetUniform1i(obj->UseParallaxMapMode(), "useParallaxMapMode");
 			geometryPassShader->SetUniform1i(TEX_SLOT_PARALLAX_MAP, "u_ParallaxMap");
 		}
-		else{
+		else {
 			geometryPassShader->SetUniform1i(0, "useParallaxMapMode");
 		}
 		materialUBO->AddMaterial(KEngine::MaterialUboData{ obj->GetMaterial() });
@@ -815,7 +1050,52 @@ void RendererLayer::GeometryPass()
 	}
 	KEngine::Renderer::GeometryPassEnd();
 	gBuffer->Unbind();
-	
+
+}
+
+void RendererLayer::SSAOPass()
+{
+	ssaoFBO->Bind();
+	KEngine::Renderer::SSAOPassBegin();
+
+	ssaoShader->SetUniform1i(TEX_SLOT_GPOSITION, "gPositionDepth");
+	ssaoShader->SetUniform1i(TEX_SLOT_GNORMAL, "gNormal");
+	ssaoShader->SetUniform1i(TEX_SLOT_SSAO_NOISE, "texNoise");
+	ssaoShader->SetUniformMatrix4fv(currentScene->GetMainCamera()->GetProjMatrix(), "projection");
+	ssaoShader->SetUniform1f(m_Config.renderSettings.ssaoRadius, "radius");
+	ssaoShader->SetUniform1f(m_Config.renderSettings.ssaoBias, "bias");
+	ssaoShader->SetUniform1i(m_Config.renderSettings.ssaoKernelSize, "kernelSize");
+
+	for (int i = 0; i < ssaoKernel.size(); ++i) {
+		ssaoShader->SetUniform3f(ssaoKernel[i], ("samples[" + std::to_string(i) + "]").c_str());
+	}
+
+	// 计算噪声缩放
+	glm::vec2 noiseScale(m_Config.windowWidth / 4.0f, m_Config.windowHeight / 4.0f);
+	ssaoShader->SetUniform2f(noiseScale, "noiseScale");
+
+	// 绘制全屏quad
+	ssaoPassMesh->SetDrawState(ssaoShader, false, false);
+	ssaoPassMesh->Draw();
+
+	KEngine::Renderer::SSAOPassEnd();
+	ssaoFBO->Unbind();
+}
+
+void RendererLayer::SSAOBlurPass()
+{
+	ssaoBlurFBO->Bind();
+	KEngine::Renderer::SSAOBlurPassBegin();
+
+	ssaoBlurShader->Bind();
+
+	ssaoBlurShader->SetUniform1i(TEX_SLOT_SSAO_OUTPUT, "ssaoInput");
+
+	ssaoBlurPassMesh->SetDrawState(ssaoBlurShader, false, false);
+	ssaoBlurPassMesh->Draw();
+
+	KEngine::Renderer::SSAOBlurPassEnd();
+	ssaoBlurFBO->Unbind();
 }
 
 void RendererLayer::LightingPass()
@@ -827,6 +1107,30 @@ void RendererLayer::LightingPass()
 	lightingPassShader->SetUniform1i(TEX_SLOT_GPOSITION, "gPosition");
 	lightingPassShader->SetUniform1i(TEX_SLOT_GNORMAL, "gNormal");
 	lightingPassShader->SetUniform1i(TEX_SLOT_GALBEDOSPEC, "gAlbedoSpec");
+
+	lightingPassShader->SetUniform1i(TEX_SLOT_DEPTH_MAP, "shadowMap");
+	lightingPassShader->SetUniform1i(TEX_SLOT_DEPTH_CUBE_MAP, "shadowCubeMap");
+
+	auto parallelLights = currentScene->GetParallelLightInScene();
+	if (!parallelLights.empty()) {
+		glm::mat4 lightSpaceMatrix = parallelLights[0]->CalculateLightSpace();
+		lightingPassShader->SetUniformMatrix4fv(lightSpaceMatrix, "lightSpaceMatrix");
+		lightingPassShader->SetUniform3f(glm::vec3(0.0,0.0,-1.0), "mainLightDir");
+	}
+
+	auto pointLights = currentScene->GetPointLightInScene();
+	if (!pointLights.empty()) {
+		lightingPassShader->SetUniform3f(pointLights[0]->GetPosition(), "mainLightPos");
+		lightingPassShader->SetUniform1f(25.0f, "far_plane"); // 与CalculateShadow中的值一致
+	}
+
+	if (m_Config.renderSettings.enableSSAO)
+	{
+		lightingPassShader->SetUniform1i(TEX_SLOT_SSAO_OUTPUT, "ssaoTexture");
+		lightingPassShader->SetUniform1b(true, "enableSSAO");
+	}
+	else
+		lightingPassShader->SetUniform1b(false, "enableSSAO");
 
 	pointLightUBO->AddPointLight(currentScene->GetPointLightInScene());
 	parallelLightUBO->AddParallelLight(currentScene->GetParallelLightInScene());
@@ -902,7 +1206,7 @@ void RendererLayer::ForwardRenderPass()
 
 void RendererLayer::DrawSceneHierarchy()
 {
-	if (!m_ShowSceneHierarchy||!currentScene) return;
+	if (!m_ShowSceneHierarchy || !currentScene) return;
 
 	ImGui::Begin("SceneManager", &m_ShowSceneHierarchy);
 
@@ -996,29 +1300,29 @@ void RendererLayer::DrawInspector()
 void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object)
 {
 	// 变换组件
-	if (ImGui::CollapsingHeader("Transition", ImGuiTreeNodeFlags_DefaultOpen)) { 
-        // 直接使用对象的属性，不需要从矩阵分解
-        glm::vec3 position = object->GetPosition();
-        glm::vec3 rotation = object->GetRotation();
-        glm::vec3 scale = object->GetScale();
+	if (ImGui::CollapsingHeader("Transition", ImGuiTreeNodeFlags_DefaultOpen)) {
+		// 直接使用对象的属性，不需要从矩阵分解
+		glm::vec3 position = object->GetPosition();
+		glm::vec3 rotation = object->GetRotation();
+		glm::vec3 scale = object->GetScale();
 
-        // 位置
-        float pos[3] = { position.x, position.y, position.z };
-        if (ImGui::DragFloat3("Position", pos, 0.1f)) {
-            object->SetPosition(glm::vec3(pos[0], pos[1], pos[2]));
-        }
+		// 位置
+		float pos[3] = { position.x, position.y, position.z };
+		if (ImGui::DragFloat3("Position", pos, 0.1f)) {
+			object->SetPosition(glm::vec3(pos[0], pos[1], pos[2]));
+		}
 
-        // 旋转
-        float rot[3] = { rotation.x, rotation.y, rotation.z };
-        if (ImGui::DragFloat3("Rotation", rot, 1.0f)) {
-            object->SetRotation(glm::vec3(rot[0], rot[1], rot[2]));
-        }
+		// 旋转
+		float rot[3] = { rotation.x, rotation.y, rotation.z };
+		if (ImGui::DragFloat3("Rotation", rot, 1.0f)) {
+			object->SetRotation(glm::vec3(rot[0], rot[1], rot[2]));
+		}
 
-        // 缩放
-        float scl[3] = { scale.x, scale.y, scale.z };
-        if (ImGui::DragFloat3("Scale", scl, 0.1f, 0.01f, 100.0f)) {
-            object->SetScale(glm::vec3(scl[0], scl[1], scl[2]));
-        }
+		// 缩放
+		float scl[3] = { scale.x, scale.y, scale.z };
+		if (ImGui::DragFloat3("Scale", scl, 0.1f, 0.01f, 100.0f)) {
+			object->SetScale(glm::vec3(scl[0], scl[1], scl[2]));
+		}
 	}
 
 
@@ -1026,18 +1330,18 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
 
 		if (object->shader) {
 			ImGui::Text("Shader: %s", "Allocated");
-			
+
 			ImGui::Checkbox("BlinPhon: ", &object->UseBlin());
 			ImGui::Checkbox("NormalMap: ", &object->UseNormalMap());
 
 			ImGui::Separator();
 			ImGui::Text("ParallaxMap :");
-			std::array<std::string, 4> algo{ "Close", "Simple", "Steep","Occlusion"};
+			std::array<std::string, 4> algo{ "Close", "Simple", "Steep","Occlusion" };
 			for (std::size_t i = 0; i < algo.size(); ++i)
 			{
 				ImGui::RadioButton(algo[i].data(), &object->UseParallaxMapMode(), static_cast<int>(i));
 			}
-			
+
 		}
 		else {
 			ImGui::Text("Shader: null");
@@ -1091,7 +1395,7 @@ void RendererLayer::DrawSceneList()
 		{
 			if (ImGui::MenuItem("Switch to this scene"))
 				if (currentScene != sc)
-				SwitchToScene(static_cast<int>(i));
+					SwitchToScene(static_cast<int>(i));
 			ImGui::EndPopup();
 		}
 
@@ -1102,7 +1406,7 @@ void RendererLayer::DrawSceneList()
 void RendererLayer::SwitchToScene(int index)
 {
 	if (index < 0 || index >= static_cast<int>(sceneList.size())) return;
-	if(currentScene)
+	if (currentScene)
 		currentScene->Destroy();
 	KEngine::Renderer::ResetGLState();
 	currentScene = sceneList[index];
@@ -1137,6 +1441,26 @@ void RendererLayer::DrawGlobalSettings()
 		ImGui::Checkbox("Enable Gamma Correction", &m_Config.renderSettings.enableGamma);
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("Enable Gamma correction\nCorrect color space");
+
+		//SSAO Settings
+		if (ImGui::CollapsingHeader("SSAO Settings", ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			ImGui::Checkbox("Enable SSAO", &m_Config.renderSettings.enableSSAO);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Toggle Screen Space Ambient Occlusion");
+
+			ImGui::SliderFloat("Radius", &m_Config.renderSettings.ssaoRadius, 0.1f, 5.0f, "%.2f");
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("SSAO sampling radius");
+
+			ImGui::SliderInt("Kernel Size", &m_Config.renderSettings.ssaoKernelSize, 16, 64);
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Number of SSAO samples (higher=better quality but slower)");
+
+			ImGui::SliderFloat("Bias", &m_Config.renderSettings.ssaoBias, 0.0f, 0.1f, "%.3f");
+			if (ImGui::IsItemHovered())
+				ImGui::SetTooltip("Depth bias to prevent self-shadowing");
+		}
 	}
 
 	// ========== Performance Info ==========

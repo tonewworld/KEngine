@@ -20,6 +20,7 @@ namespace KEngine
 		void SetUniform1i(int value, const char* name);
 		void SetUniform1f(float value, const char* name);
 		void SetUniform1b(bool tag, const char* name);
+		void SetUniform2f(const glm::vec2 vec, const char* name);
 		void BindUniformBufferPoint(const char* name,unsigned int number);
 
 	};

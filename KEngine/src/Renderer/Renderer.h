@@ -22,6 +22,10 @@ namespace KEngine{
         //÷ÿππ
         static void GeometryPassBegin();
         static void GeometryPassEnd();
+        static void SSAOPassBegin();
+        static void SSAOPassEnd();
+        static void SSAOBlurPassBegin();
+        static void SSAOBlurPassEnd();
         static void LightingPassBegin();
         static void LightingPassEnd();
         static void HDRandBloomBegin();

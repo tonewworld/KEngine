@@ -14,7 +14,7 @@ namespace KEngine
 
 	}
 
-	OpenGLTexture2D::OpenGLTexture2D(GLint internalFormat, unsigned int width, unsigned int height)
+	OpenGLTexture2D::OpenGLTexture2D(GLint internalFormat, unsigned int width, unsigned int height,void*data)
 	{
 		glGenTextures(1, &m_RendererID);
 		Bind();
@@ -45,7 +45,7 @@ namespace KEngine
 			dataType = GL_UNSIGNED_BYTE;
 		}
 
-		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, externalFormat, dataType, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, externalFormat, dataType, data);
 
 		// 对浮点纹理使用线性过滤，一般不使用 mipmap（如果需要请生成 mipmap 并设置 MIN_FILTER）
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (dataType == GL_FLOAT) ? GL_LINEAR : GL_NEAREST);

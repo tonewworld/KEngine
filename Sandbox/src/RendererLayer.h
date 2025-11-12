@@ -16,10 +16,18 @@ public:
     void ImGuiRender() override;
 	void PickWithColor();
 	void CalculateShadow();
-	//延迟着色重构
+	//几何通道
 	void GeometryPass();
+	//环境光遮蔽通道
+	void SSAOPass();
+	inline float RandFloat() { return static_cast<float>(rand()) / RAND_MAX; }
+	//模糊通道
+	void SSAOBlurPass();
+	//光照通道
 	void LightingPass();
+	//HDR和Bloom通道
 	void HDRandBloom();
+	//屏幕渲染通道
 	void ScreenPass();
 
 	//前向渲染
@@ -54,13 +62,26 @@ private:
 	std::shared_ptr<KEngine::Texture2D>   gPosition;
 	std::shared_ptr<KEngine::Texture2D>   gNormal;
 	std::shared_ptr<KEngine::Texture2D>   gAlbedoSpec;
+	std::shared_ptr<KEngine::Texture2D>   gWorldPos;
 	std::shared_ptr<KEngine::RenderBuffer>gRBO;
 	std::shared_ptr<KEngine::UniformBuffer>materialUBO;
 	std::shared_ptr<KEngine::UniformBuffer>matrixUBO;
+	
+	//SSAO管线
+	std::shared_ptr<KEngine::Mesh>		  ssaoPassMesh;
+	std::shared_ptr<KEngine::Shader>      ssaoShader;
+	std::shared_ptr<KEngine::FrameBuffer> ssaoFBO;
+	std::shared_ptr<KEngine::Texture2D>   ssaoTexture;
+	std::vector<glm::vec3> ssaoKernel;
+	std::shared_ptr<KEngine::Texture2D>   ssaoNoiseTexture;
+	//SSAO模糊管线
+	std::shared_ptr<KEngine::Mesh>        ssaoBlurPassMesh;
+	std::shared_ptr<KEngine::Shader>      ssaoBlurShader;
+	std::shared_ptr<KEngine::FrameBuffer> ssaoBlurFBO;
+	std::shared_ptr<KEngine::Texture2D>   ssaoBlurTexture;
 
 	//重构：光照管线
 	std::shared_ptr<KEngine::Mesh>        lightingPassMesh;
-
 	std::shared_ptr<KEngine::Shader>      lightingPassShader;
 	std::shared_ptr<KEngine::FrameBuffer> lightingFBO;
 	std::shared_ptr<KEngine::Texture2D>   lightingTexture;
@@ -78,8 +99,8 @@ private:
 	std::shared_ptr<KEngine::Shader>      hdrAndBlurShader;
 
 	//重构：屏幕渲染管线
-	std::shared_ptr<KEngine::Shader> screenShader;
 	std::shared_ptr<KEngine::Mesh>quad_Mesh;
+	std::shared_ptr<KEngine::Shader> screenShader;
 
 	//颜色拾取
 	std::shared_ptr<KEngine::FrameBuffer> pickFBO;
