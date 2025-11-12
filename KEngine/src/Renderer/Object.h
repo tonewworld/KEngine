@@ -35,6 +35,7 @@ namespace KEngine {
 		unsigned int ID = 0;
 		std::string name = "Object";
 		glm::mat4 model = glm::mat4(1.0f);
+		bool isLight = false;
 
 		bool depthTest = false;
 		bool stencilTest = false;
@@ -115,13 +116,15 @@ namespace KEngine {
 			GLenum func = GL_ALWAYS, GLint ref = 0, GLuint mask = 0xFF);
 		void Draw();
 
+		bool& UseIsLight() { return isLight; }
 	
 		bool& UseBlin() { return useBlin; }
 		bool& UseDiffuseMap() { return useDiffuseMap; }
 		bool& UseNormalMap() { return useNormalMap; }
 		bool& UseCubeMap() { return useCubeMap; }
 		int& UseParallaxMapMode() { return useParallaxMapMode; }
-
 		bool& UseDelayRender() { return delayRender; }
+
+
 	};
 }

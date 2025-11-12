@@ -12,6 +12,7 @@ namespace KEngine
         :Object(name)
     {
         this->m_layout = layout;
+        this->UseIsLight() = true;
         std::vector<float> vertices(m_Vertices, m_Vertices + floatCount);
 
         std::vector<unsigned int> indices(m_Indexes, m_Indexes + indexCount);

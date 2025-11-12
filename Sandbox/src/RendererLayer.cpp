@@ -354,7 +354,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 							vec3 sampleVec = TBN * samples[i]; 
 							vec3 samplePos = fragPos + sampleVec * radius; 
         
-							vec4 offset = projection * vec4(samplePos, 1.0);
+							vec4 offset = projection * vec4(samplePos, 1.0);//这里要转换到视图空间
 							offset.xyz /= offset.w;
 							vec2 sampleUV = offset.xy * 0.5 + 0.5; 
 
@@ -972,7 +972,9 @@ void RendererLayer::CalculateShadow()
 		shadowShader->SetUniformMatrix4fv(light->CalculateLightSpace(), "lightSpaceMatrix");
 
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
-
+			if (obj->UseIsLight()) {
+				continue;
+			}
 			glm::mat4 model = obj->GetModelMatrix();
 			shadowShader->SetUniformMatrix4fv(model, "model");
 			obj->SetDrawState(shadowShader, true, false);
@@ -997,7 +999,9 @@ void RendererLayer::CalculateShadow()
 		shadowCubeShader->SetUniform1f(25.f, "far_plane");
 
 		for (const auto& obj : currentScene->GetObjectsInScene()) {
-
+			if( obj->UseIsLight()) {
+				continue;
+			}
 			glm::mat4 model = obj->GetModelMatrix();
 			shadowCubeShader->SetUniformMatrix4fv(model, "model");
 			obj->SetDrawState(shadowCubeShader, true, false);

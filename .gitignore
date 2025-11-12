@@ -8,3 +8,4 @@ KEngine/.vs/
 *.vcxproj.user
 bin/
 bin-int/
+imgui.ini
