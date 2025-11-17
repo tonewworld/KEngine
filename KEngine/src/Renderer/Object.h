@@ -6,21 +6,18 @@
 #include "Renderer/Texture.h"
 namespace KEngine {
 	struct KE_API Material {
-		glm::vec3 ambient;
-		glm::vec3 diffuse;
-		glm::vec3 specular;
-		float shininess;
+		glm::vec3 albedo = glm::vec3(1.0f);
+		float metallic = 0.0f;
+		float roughness = 1.0f;
 	};
 	struct alignas(16) KE_API MaterialUboData {
-		glm::vec3 ambient; float _pad0;
-		glm::vec3 diffuse; float _pad1;
-		glm::vec3 specular;float _pad2;
-		float shininess;   float _pad3[3];
+		glm::vec3 albedo; float _pad0;
+		float metallic;    float _pad1[3];
+		float roughness;   float _pad2[3];
 		MaterialUboData(Material& m)
-			:ambient(m.ambient), _pad0(0),
-			diffuse(m.diffuse), _pad1(0),
-			specular(m.specular), _pad2(0),
-			shininess(m.shininess), _pad3{ 0,0,0 } {
+			:albedo(m.albedo), _pad0(0),
+			metallic(m.metallic), _pad1{ 0,0,0 },
+			roughness(m.roughness), _pad2{ 0,0,0 }{
 		}
 	};
 
@@ -28,7 +25,7 @@ namespace KEngine {
 	private:
 
 		glm::vec3 m_Position = glm::vec3(0.0f);
-		glm::vec3 m_Rotation = glm::vec3(0.0f); // Å·À­½Ç£¬µ¥Î»£º¶È
+		glm::vec3 m_Rotation = glm::vec3(0.0f); // Å·ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½
 		glm::vec3 m_Scale = glm::vec3(1.0f);
 
 		static unsigned int IDCounter;
@@ -86,9 +83,9 @@ namespace KEngine {
 		inline void UpdateModelMatrix() {
 			model = glm::mat4(1.0f);
 			model = glm::translate(model, m_Position);
-			model = glm::rotate(model, glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // XÖá
-			model = glm::rotate(model, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // YÖá  
-			model = glm::rotate(model, glm::radians(m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // ZÖá
+			model = glm::rotate(model, glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // Xï¿½ï¿½
+			model = glm::rotate(model, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // Yï¿½ï¿½  
+			model = glm::rotate(model, glm::radians(m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // Zï¿½ï¿½
 			model = glm::scale(model, m_Scale);
 		}
 

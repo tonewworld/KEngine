@@ -120,11 +120,7 @@ void ParallaxMapping::Init()
 		m_Layout,
 		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
 		"m"));
-	m_Mesh->SetMaterial({ glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(0.5f,0.5f,0.5f),
-		32.0f
-		});
+	
 	m_DiffuseMap.reset(KEngine::Texture2D::Create("references/parallaxMapping/brickwall_diffuse.jpg"));
 	m_DiffuseMap->SetTexSlot(TEX_SLOT_DIFFUSE_MAP);
 	m_NormalMap.reset(KEngine::Texture2D::Create("references/parallaxMapping/brickwall_normal.jpg"));

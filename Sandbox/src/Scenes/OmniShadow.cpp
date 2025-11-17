@@ -108,22 +108,11 @@ void OmniShadow::Init()
 		m_Layout,
 		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
 		"m"));
-	m_Mesh->SetMaterial({ glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(0.5f,0.5f,0.5f),
-		32.0f
-		});
 	m_Mesh1.reset(new KEngine::Mesh(m_Vertices, sizeof(m_Vertices) / sizeof(float),
 		m_Layout,
 		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
 		"m1"));
-	m_Mesh1->SetMaterial({ glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(1.0f,0.5f,0.31f),
-		glm::vec3(0.5f,0.5f,0.5f),
-		32.0f
-		});
-	m_Mesh1->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
-
+	m_Mesh1->SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
 	float l_Vertices[] = {
 	-0.5f, -0.5f, -0.5f,
 	 0.5f, -0.5f, -0.5f,

@@ -16,21 +16,21 @@ public:
     void ImGuiRender() override;
 	void PickWithColor();
 	void CalculateShadow();
-	//¼¸ºÎÍ¨µÀ
+	//ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
 	void GeometryPass();
-	//»·¾³¹âÕÚ±ÎÍ¨µÀ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½Í¨ï¿½ï¿½
 	void SSAOPass();
 	inline float RandFloat() { return static_cast<float>(rand()) / RAND_MAX; }
-	//Ä£ºýÍ¨µÀ
+	//Ä£ï¿½ï¿½Í¨ï¿½ï¿½
 	void SSAOBlurPass();
-	//¹âÕÕÍ¨µÀ
+	//ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½
 	void LightingPass();
-	//HDRºÍBloomÍ¨µÀ
+	//HDRï¿½ï¿½BloomÍ¨ï¿½ï¿½
 	void HDRandBloom();
-	//ÆÁÄ»äÖÈ¾Í¨µÀ
+	//ï¿½ï¿½Ä»ï¿½ï¿½È¾Í¨ï¿½ï¿½
 	void ScreenPass();
 
-	//Ç°ÏòäÖÈ¾
+	//Ç°ï¿½ï¿½ï¿½ï¿½È¾
 	void ForwardRenderPass();
 
     inline glm::mat4 CalculateVP(glm::mat4 view, glm::mat4 proj) { return proj * view; }
@@ -42,6 +42,8 @@ private:
 	
 	bool m_ShowGlobalSettings = true;
 
+	// debug flag removed
+
 	
 
 	std::shared_ptr<KEngine::FrameBuffer> depthFBO;
@@ -52,35 +54,35 @@ private:
 	std::shared_ptr<KEngine::TextureCube> depthCubeTexture;
 	std::shared_ptr<KEngine::Shader>      shadowCubeShader;
 	
-	//Ç°ÏòäÖÈ¾
+	//Ç°ï¿½ï¿½ï¿½ï¿½È¾
 	std::shared_ptr<KEngine::Shader>      forwardShader;	
 
-	//ÑÓ³Ù×ÅÉ«
-	//ÖØ¹¹:¼¸ºÎ¹ÜÏß
+	//ï¿½Ó³ï¿½ï¿½ï¿½É«
+	//ï¿½Ø¹ï¿½:ï¿½ï¿½ï¿½Î¹ï¿½ï¿½ï¿½
 	std::shared_ptr<KEngine::Shader>      geometryPassShader;
 	std::shared_ptr<KEngine::FrameBuffer> gBuffer;
 	std::shared_ptr<KEngine::Texture2D>   gPosition;
 	std::shared_ptr<KEngine::Texture2D>   gNormal;
 	std::shared_ptr<KEngine::Texture2D>   gAlbedoSpec;
-	std::shared_ptr<KEngine::Texture2D>   gWorldPos;
+	std::shared_ptr<KEngine::Texture2D>   gRoughness;
 	std::shared_ptr<KEngine::RenderBuffer>gRBO;
 	std::shared_ptr<KEngine::UniformBuffer>materialUBO;
 	std::shared_ptr<KEngine::UniformBuffer>matrixUBO;
 	
-	//SSAO¹ÜÏß
+	//SSAOï¿½ï¿½ï¿½ï¿½
 	std::shared_ptr<KEngine::Mesh>		  ssaoPassMesh;
 	std::shared_ptr<KEngine::Shader>      ssaoShader;
 	std::shared_ptr<KEngine::FrameBuffer> ssaoFBO;
 	std::shared_ptr<KEngine::Texture2D>   ssaoTexture;
 	std::vector<glm::vec3> ssaoKernel;
 	std::shared_ptr<KEngine::Texture2D>   ssaoNoiseTexture;
-	//SSAOÄ£ºý¹ÜÏß
+	//SSAOÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	std::shared_ptr<KEngine::Mesh>        ssaoBlurPassMesh;
 	std::shared_ptr<KEngine::Shader>      ssaoBlurShader;
 	std::shared_ptr<KEngine::FrameBuffer> ssaoBlurFBO;
 	std::shared_ptr<KEngine::Texture2D>   ssaoBlurTexture;
 
-	//ÖØ¹¹£º¹âÕÕ¹ÜÏß
+	//ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½ï¿½ï¿½
 	std::shared_ptr<KEngine::Mesh>        lightingPassMesh;
 	std::shared_ptr<KEngine::Shader>      lightingPassShader;
 	std::shared_ptr<KEngine::FrameBuffer> lightingFBO;
@@ -91,18 +93,18 @@ private:
 	std::shared_ptr<KEngine::UniformBuffer>pointLightUBO;
 	std::shared_ptr<KEngine::UniformBuffer>parallelLightUBO;
 
-	//ÖØ¹¹£ººóÆÚ´¦Àí¹ÜÏß
+	//ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	std::shared_ptr<KEngine::Mesh>        postProcessMesh;
 	int m_FinalBloomIndex = 0;
 	std::shared_ptr<KEngine::FrameBuffer> pingpongFBO[2];
 	std::shared_ptr<KEngine::Texture2D>   pingpongTexture[2];
 	std::shared_ptr<KEngine::Shader>      hdrAndBlurShader;
 
-	//ÖØ¹¹£ºÆÁÄ»äÖÈ¾¹ÜÏß
+	//ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½È¾ï¿½ï¿½ï¿½ï¿½
 	std::shared_ptr<KEngine::Mesh>quad_Mesh;
 	std::shared_ptr<KEngine::Shader> screenShader;
 
-	//ÑÕÉ«Ê°È¡
+	//ï¿½ï¿½É«Ê°È¡
 	std::shared_ptr<KEngine::FrameBuffer> pickFBO;
 	std::shared_ptr<KEngine::Texture2D>   pickTexture;
 	std::shared_ptr<KEngine::RenderBuffer>pickRBO;
@@ -121,12 +123,12 @@ private:
 	std::shared_ptr<KEngine::Scene> currentScene;
 	std::vector<std::shared_ptr<KEngine::Scene>> sceneList;
 
-	// ³¡¾°¹ÜÀíÆ÷Ïà¹Ø·½·¨
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½
 	void DrawSceneHierarchy();
 	void DrawInspector();
 	void DrawObjectProperties(std::shared_ptr<KEngine::Object> object);
-	void DrawSceneList();          // »æÖÆ³¡¾°ÁÐ±í´°¿Ú
-	void SwitchToScene(int index); // ÇÐ»»³¡¾°½Ó¿Ú
+	void DrawSceneList();          // ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½
+	void SwitchToScene(int index); // ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½
 	void DrawGlobalSettings();
 	
 };

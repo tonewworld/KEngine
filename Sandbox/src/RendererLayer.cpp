@@ -1,5 +1,7 @@
 #include "RendererLayer.h"
 #include "imgui.h"
+#include <iostream>
+#include <iomanip>
 
 RendererLayer::RendererLayer() :Layer("Renderer") {
 	m_Config.windowWidth = KEngine::Application::s_Instance->GetWindow().GetWidth();
@@ -59,18 +61,19 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		shadowShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
 	{
-		char* vertexSrc = R"(
-				#version 420 core
-				layout(location = 0) in vec3 v_Position;
+			char* vertexSrc = R"(
+					#version 420 core
+					layout(location = 0) in vec3 v_Position;
 
-				uniform mat4 model;
-				
+					uniform mat4 model;
+					out vec4 vWorldPos;
 
-				void main()
-				{
-					gl_Position =  model * vec4(v_Position, 1.0);
-				}
-				)";
+					void main()
+					{
+						vWorldPos = model * vec4(v_Position, 1.0);
+						gl_Position = vWorldPos;
+					}
+					)";
 		char* geometrySrc = R"(
 				#version 420 core
 				layout(triangles) in;
@@ -78,14 +81,15 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 				uniform mat4 shadowMatrices[6];
 
-				out vec4 FragPos;
+					in vec4 vWorldPos[];
+					out vec4 FragPos;
 
 				void main() {
 					for(int face = 0; face < 6; ++face) {
 						gl_Layer = face;
 						for(int i = 0; i < 3; ++i) {
-							FragPos = gl_in[i].gl_Position;
-							gl_Position = shadowMatrices[face] * FragPos;
+								FragPos = vWorldPos[i];
+								gl_Position = shadowMatrices[face] * FragPos;
 							EmitVertex();
 						}
 						EndPrimitive();
@@ -174,7 +178,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 						vec3 T = normalize(mat3(model) * v_Tangent);
 						vec3 N = normalize(mat3(transpose(inverse(model))) * v_Normal);
 						T = normalize(T - dot(T, N) * N);
-						vec3 B = cross(N, T);
+						vec3 B = normalize(cross(N, T));
 						vs_out.TBN = mat3(T, B, N);
 
 						vs_out.tangentViewPos = vs_out.TBN * viewPos;
@@ -187,17 +191,14 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					layout(location=0) out vec4 gPosition;
 					layout(location=1) out vec3 gNormal;
 					layout(location=2) out vec4 gALbedoSpec;
+					layout(location=3) out float gRoughness;
 
 					layout(std140) uniform MaterialUboData{
-						vec3 Ambient;
-						float _pad0;
-						vec3 Diffuse;
-						float _pad1;
-						vec3 Specular;
-						float _pad2;
-						float Shininess;
-						float _pad3[3];
+					vec3 albedo; float _pad0;
+					float metallic;    float _pad1[3];
+					float roughness;   float _pad2[3];
 					}material;
+
 					uniform bool useDiffuseMap;
 					uniform sampler2D u_DiffuseMap;
 					uniform bool useNormalMap;
@@ -291,12 +292,14 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 							finalNormal = normalize(fs_in.TBN * tangentNormal);
 						}
 						gNormal = finalNormal;
-						vec3 color = material.Diffuse;
+						vec3 finalAlbedo;
 						if(useDiffuseMap){
-							color = texture(u_DiffuseMap,fs_in.texCoord).rgb;
-						}		
-						gALbedoSpec = vec4(color, material.Specular.r);
-
+							finalAlbedo = texture(u_DiffuseMap, texCoord).rgb; // use parallax-corrected UV
+						} else {
+							finalAlbedo = material.albedo;
+						}
+						gALbedoSpec = vec4(finalAlbedo, material.metallic);
+						gRoughness = material.roughness;
 					}
 				)";
 
@@ -347,7 +350,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 						vec3 randomVec = texture(texNoise, TexCoords * noiseScale).xyz;
                         
 						vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
-						vec3 bitangent = cross(normal, tangent);
+						vec3 bitangent = normalize(cross(normal, tangent));
 						mat3 TBN = mat3(tangent, bitangent, normal);
                         
 						float occlusion = 0.0;
@@ -371,7 +374,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 							float sampleViewDepth = samplePosView.z;        
 							float rangeCheck = smoothstep(0.0, 1.0, radius / (abs(fragDepth - sampleViewDepth) + 1e-5));
 
-							occlusion += (sampleDepth >= sampleViewDepth ? 1.0 : 0.0) * rangeCheck;         
+							// In view space z is typically negative for fragments in front of the camera.
+							// Use <= comparison to account for that handedness so occlusion isn't inverted.
+							occlusion += (sampleDepth <= sampleViewDepth ? 1.0 : 0.0) * rangeCheck;         
 						}
 						occlusion = 1.0 - (occlusion / float(kernelSize));
     
@@ -441,8 +446,10 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				uniform sampler2D gPosition;
 				uniform sampler2D gNormal;
 				uniform sampler2D gAlbedoSpec;
+				uniform sampler2D gRoughness;
 				uniform sampler2D ssaoTexture;
 				uniform bool enableSSAO;
+				uniform bool usePBR;
 
 				uniform sampler2D shadowMap;             
 				uniform samplerCube shadowCubeMap;        
@@ -451,7 +458,6 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				uniform vec3 mainLightPos;              
 				uniform float far_plane;                 
     
-
 
 				struct PointLight {
 					vec3 Position;
@@ -480,39 +486,146 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 					int parallelLightCount;
 					int _pad1[3];
 				};
+				
 
 				uniform vec3 viewPos;
 				float Shininess = 32.0f;
+				const float PI = 3.14159265359;
+
 				float CalculatePointShadow(vec3 fragPos, vec3 lightPos, float farPlane);
-				vec3 calculatePointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength);
+				vec3 CalculatePointLight_BlinnPhong(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength);
 				float CalculateParallelShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir);
-				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength,vec4 fragPosLightSpace);
+				vec3 CalculateParallelLight_BlinnPhong(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength,vec4 fragPosLightSpace);
+
+				float DistributionGGX(vec3 N, vec3 H, float roughness)
+				{
+					float a = roughness*roughness;
+					float a2 = a*a;
+					float NdotH = max(dot(N, H), 0.0);
+					float NdotH2 = NdotH*NdotH;
+
+					float nom   = a2;
+					float denom = (NdotH2 * (a2 - 1.0) + 1.0);
+					denom = PI * denom * denom;
+
+					return nom / denom;
+				}
+				float GeometrySchlickGGX(float NdotV, float roughness)
+				{
+					float r = (roughness + 1.0);
+					float k = (r*r) / 8.0;
+
+					float nom   = NdotV;
+					float denom = NdotV * (1.0 - k) + k;
+
+					return nom / denom;
+				}
+				float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness)
+				{
+					float NdotV = max(dot(N, V), 0.0);
+					float NdotL = max(dot(N, L), 0.0);
+					float ggx2 = GeometrySchlickGGX(NdotV, roughness);
+					float ggx1 = GeometrySchlickGGX(NdotL, roughness);
+
+					return ggx1 * ggx2;
+				}
+				vec3 fresnelSchlick(float cosTheta, vec3 F0)
+				{
+					return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
+				}
+				vec3 CalculatePBR(vec3 fragPos, vec3 N, vec3 V, vec3 albedo, float metallic, float roughness, float ao){
+					vec3 F0 = vec3(0.04);
+					F0 = mix(F0, albedo, metallic);
+					vec3 result = vec3(0.0);
+    
+					// 点光源
+					for(int i = 0; i < pointLightCount; ++i) {
+						PointLight light = pointLightList[i];
+						vec3 L = normalize(light.Position - fragPos);
+						vec3 H = normalize(V + L);
+        
+						float distance = length(light.Position - fragPos);
+						float attenuation = 1.0 / (1.0 + 0.09 * distance + 0.032 * distance * distance);
+						vec3 radiance = light.Color * attenuation; 
+        
+						float NDF = DistributionGGX(N, H, roughness);
+						float G = GeometrySmith(N, V, L, roughness);
+						vec3 F = fresnelSchlick(max(dot(H, V), 0.0), F0);
+        
+						vec3 kS = F;
+						vec3 kD = vec3(1.0) - kS;
+						kD *= 1.0 - metallic;
+        
+						vec3 nominator = NDF * G * F;
+						float denominator = 4.0 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.001;
+						vec3 specular = nominator / denominator;
+        
+						float NdotL = max(dot(N, L), 0.0);
+						result += (kD * albedo / PI + specular) * radiance * NdotL;
+					}
+    
+					// 平行光源
+					for(int i = 0; i < parallelLightCount; ++i) {
+						ParallelLight light = parallelLightList[i];
+						vec3 L = normalize(-light.Direction);
+						vec3 H = normalize(V + L);
+        
+						vec3 radiance = light.Color ;  
+        
+						float NDF = DistributionGGX(N, H, roughness);
+						float G = GeometrySmith(N, V, L, roughness);
+						vec3 F = fresnelSchlick(max(dot(H, V), 0.0), F0);
+        
+						vec3 kS = F;
+						vec3 kD = vec3(1.0) - kS;
+						kD *= 1.0 - metallic;
+        
+						vec3 numerator = NDF * G * F;
+						float denominator = 4.0 * max(dot(N, V), 0.0) * max(dot(N, L), 0.0) + 0.001;
+						vec3 specular = numerator / denominator;
+        
+						float NdotL = max(dot(N, L), 0.0);
+						result += (kD * albedo / PI + specular) * radiance * NdotL;
+					}
+    
+					result += vec3(0.03) * albedo * ao;
+  
+					return result;
+
+				}
+
 				void main() {
 					vec3 fragPos = texture(gPosition, TexCoords).rgb;
-					vec3 normal = texture(gNormal, TexCoords).rgb;
-					vec4 albedoSpec = texture(gAlbedoSpec, TexCoords);
+					vec3 N = normalize(texture(gNormal, TexCoords).rgb);
+					vec4 albedoMetallic = texture(gAlbedoSpec, TexCoords);
+					float roughness = texture(gRoughness, TexCoords).r;
+					vec3 albedo = albedoMetallic.rgb;
+					float metallic = albedoMetallic.a;
+					float specularStrength = albedoMetallic.a;
     
-					vec3 albedo = albedoSpec.rgb;
-					float specularStrength = albedoSpec.a;
-    
-					vec3 viewDir = normalize(viewPos - fragPos);
-					vec3 lightingResult = vec3(0.1) * albedo; 
+					vec3 V = normalize(viewPos - fragPos);
+					vec3 lightingResult = vec3(0.0); 
 
 					vec4 fragPosLightSpace = lightSpaceMatrix * vec4(fragPos, 1.0);
 
+					float ao = 1.0;
 					if(enableSSAO) {
-						float ambientOcclusion = texture(ssaoTexture, TexCoords).r;
-						lightingResult *= ambientOcclusion;
-					}    
+						ao = texture(ssaoTexture, TexCoords).r;
+					}
+					if(usePBR){
+						lightingResult = CalculatePBR(fragPos, N, V, albedo, metallic, roughness, ao);
+					}else{
+						for(int i = 0; i < pointLightCount; i++) {
+							lightingResult += CalculatePointLight_BlinnPhong(pointLightList[i], fragPos, N, V, albedo, specularStrength);
+						}
+    
+						for(int i = 0; i < parallelLightCount; i++) {
+							lightingResult += CalculateParallelLight_BlinnPhong(parallelLightList[i], fragPos, N, V, albedo, specularStrength,fragPosLightSpace);
+						}
+						vec3 ambient = vec3(0.1) * albedo * ao;
+						lightingResult += ambient;
+					}
 
-					for(int i = 0; i < pointLightCount; i++) {
-						lightingResult += calculatePointLight(pointLightList[i], fragPos, normal, viewDir, albedo, specularStrength);
-					}
-    
-					for(int i = 0; i < parallelLightCount; i++) {
-						lightingResult += calculateParallelLight(parallelLightList[i], fragPos, normal, viewDir, albedo, specularStrength,fragPosLightSpace);
-					}
-    
 					FragColor = vec4(lightingResult, 1.0);
     
 					float brightness = dot(lightingResult, vec3(0.2126, 0.7152, 0.0722));
@@ -526,10 +639,13 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
     
 					float closestDepth = texture(shadowCubeMap, fragToLight).r * farPlane;
     
-					float bias = 0.05;
+					// simple bias to reduce self-shadowing (acne)
+					float bias = 0.15;
+					// if fragment is outside the light's far plane, it's not shadowed by this light
+					if (currentDepth >= farPlane) return 0.0;
 					return currentDepth - bias > closestDepth ? 1.0 : 0.0;
 				}
-				vec3 calculatePointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength) {
+				vec3 CalculatePointLight_BlinnPhong(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength) {
 					vec3 lightDir = normalize(light.Position - fragPos);
 
 					float diff = max(dot(normal, lightDir), 0.0);
@@ -548,13 +664,17 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				}
 				float CalculateParallelShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
 				{
-			
+
 					vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 			
 					projCoords = projCoords * 0.5 + 0.5;
 
 					float currentDepth = projCoords.z;
 
+					// outside of light's orthographic frustum
+					if(projCoords.z > 1.0) return 0.0;
+					// normal-aware bias
+					float bias = max(0.005 * (1.0 - dot(normal, lightDir)), 0.001);
 					float shadow = 0.0;
 					vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
 					for(int x = -1; x <= 1; ++x)
@@ -562,14 +682,13 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 						for(int y = -1; y <= 1; ++y)
 						{
 							float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x,y) * texelSize).r;
-							shadow += currentDepth  > pcfDepth ? 1.0 : 0.0;
+							shadow += currentDepth  > pcfDepth + bias ? 1.0 : 0.0;
 						}
 					}
 					shadow /= 9.0;
-    
 					return shadow;
 				}
-				vec3 calculateParallelLight(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength,vec4 fragPosLightSpace) {
+				vec3 CalculateParallelLight_BlinnPhong(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength,vec4 fragPosLightSpace) {
 					vec3 lightDir = normalize(-light.Direction);
     
 					float diff = max(dot(normal, lightDir), 0.0);
@@ -589,6 +708,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	}
 	lightingPassShader->BindUniformBufferPoint("PointLightUboData", 2);
 	lightingPassShader->BindUniformBufferPoint("ParallelLightUboData", 3);
+	
 	{
 		char* vertexSrc = R"(
 				#version 420 core
@@ -728,18 +848,27 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 	//重构：几何管线
 	gBuffer.reset(KEngine::FrameBuffer::Create());
+
 	gPosition.reset(KEngine::Texture2D::Create(GL_RGBA16F, m_Config.windowWidth, m_Config.windowHeight));
 	gNormal.reset(KEngine::Texture2D::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight));
 	gAlbedoSpec.reset(KEngine::Texture2D::Create(GL_RGBA, m_Config.windowWidth, m_Config.windowHeight));
-	unsigned int gTextures[3] = { gPosition->GetRendererID(), gNormal->GetRendererID(),gAlbedoSpec->GetRendererID()};
-	gBuffer->Add2DTextures(GL_COLOR_ATTACHMENT0, gTextures, GL_TRUE, GL_TRUE, 3);
+	gRoughness.reset(KEngine::Texture2D::Create(GL_RED, m_Config.windowWidth, m_Config.windowHeight));
+
+	unsigned int gTextures[4] = { 
+		gPosition->GetRendererID(), 
+		gNormal->GetRendererID(),
+		gAlbedoSpec->GetRendererID(),
+		gRoughness->GetRendererID()};
+
+	gBuffer->Add2DTextures(GL_COLOR_ATTACHMENT0, gTextures, GL_TRUE, GL_TRUE, 4);
 	gRBO.reset(KEngine::RenderBuffer::Create(GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
 	gBuffer->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, gRBO->GetRendererID());
 	gPosition->SetTexSlot(TEX_SLOT_GPOSITION);
 	gNormal->SetTexSlot(TEX_SLOT_GNORMAL);
 	gAlbedoSpec->SetTexSlot(TEX_SLOT_GALBEDOSPEC);
+	gRoughness->SetTexSlot(TEX_SLOT_GROUGHNESS);
 	matrixUBO.reset(KEngine::UniformBuffer::Create(2 * sizeof(glm::mat4), 0));
-	materialUBO.reset(KEngine::UniformBuffer::Create(4 * sizeof(glm::vec4), 1));
+	materialUBO.reset(KEngine::UniformBuffer::Create(3 * sizeof(glm::vec4), 1));
 
 	//SSAO管线
 	ssaoPassMesh.reset(new KEngine::Mesh(quad_Vertices, sizeof(quad_Vertices) / sizeof(float),
@@ -798,6 +927,7 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	lightingPassMesh->AddTexture(gPosition);
 	lightingPassMesh->AddTexture(gNormal);
 	lightingPassMesh->AddTexture(gAlbedoSpec);
+	lightingPassMesh->AddTexture(gRoughness);
 	lightingPassMesh->AddTexture(ssaoBlurTexture);
 	lightingPassMesh->AddTexture(depthTexture);
 	lightingPassMesh->AddTexture(depthCubeTexture);
@@ -993,11 +1123,13 @@ void RendererLayer::CalculateShadow()
 		depthCubeFBO->Bind();
 		KEngine::Renderer::PointLightShadowBegin();
 
-		const auto& matrices = light->CalculateLightSpace();
+		// copy returned array to a local variable to ensure lifetime
+		auto matrices = light->CalculateLightSpace();
 		shadowCubeShader->Bind();
 		for (int i = 0; i < 6; ++i) {
-			shadowCubeShader->SetUniformMatrix4fv(matrices[i], ("shadowMatrices[" + std::to_string(i) + "]").c_str());
-		}//这里出问题
+			std::string name = "shadowMatrices[" + std::to_string(i) + "]";
+			shadowCubeShader->SetUniformMatrix4fv(matrices[i], name.c_str());
+		} // 先确保名称字符串和矩阵的生命周期稳定
 		shadowCubeShader->SetUniform3f(light->GetPosition(), "lightPos");
 		shadowCubeShader->SetUniform1f(25.f, "far_plane");
 
@@ -1024,7 +1156,7 @@ void RendererLayer::GeometryPass()
 	KEngine::Renderer::GeometryPassBegin();
 	for (const auto& obj : currentScene->GetObjectsInScene())
 	{
-		if (!obj->UseDelayRender())continue;
+		if (!obj->UseDelayRender()) continue;
 		obj->SetDrawState(geometryPassShader, true, false);
 		obj->UpdateModelMatrix();
 		geometryPassShader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
@@ -1115,6 +1247,7 @@ void RendererLayer::LightingPass()
 	lightingPassShader->SetUniform1i(TEX_SLOT_GPOSITION, "gPosition");
 	lightingPassShader->SetUniform1i(TEX_SLOT_GNORMAL, "gNormal");
 	lightingPassShader->SetUniform1i(TEX_SLOT_GALBEDOSPEC, "gAlbedoSpec");
+	lightingPassShader->SetUniform1i(TEX_SLOT_GROUGHNESS, "gRoughness");
 	
 	lightingPassShader->SetUniform1i(TEX_SLOT_DEPTH_MAP, "shadowMap");
 	lightingPassShader->SetUniform1i(TEX_SLOT_DEPTH_CUBE_MAP, "shadowCubeMap");
@@ -1142,6 +1275,7 @@ void RendererLayer::LightingPass()
 
 	pointLightUBO->AddPointLight(currentScene->GetPointLightInScene());
 	parallelLightUBO->AddParallelLight(currentScene->GetParallelLightInScene());
+	lightingPassShader->SetUniform1b(m_Config.renderSettings.enablePBR, "usePBR");
 
 	lightingPassShader->SetUniform3f(currentScene->GetMainCamera()->GetPosition(), "viewPos");
 	lightingPassMesh->Draw();
@@ -1183,6 +1317,7 @@ void RendererLayer::ScreenPass()
 {
 	KEngine::Renderer::ScreenPassBegin();
 
+	// Regular screen composition: sample the lighting texture and bloom
 	lightingTexture->Bind(TEX_SLOT_SCENE);
 	pingpongTexture[m_FinalBloomIndex]->Bind(TEX_SLOT_BLOOM_BLUR);
 
@@ -1339,14 +1474,18 @@ void RendererLayer::DrawObjectProperties(std::shared_ptr<KEngine::Object> object
 			ImGui::Text("Shader: %s", "Allocated");
 
 			ImGui::Checkbox("BlinPhon: ", &object->UseBlin());
+			ImGui::Checkbox("DiffuseMap: ", &object->UseDiffuseMap());
 			ImGui::Checkbox("NormalMap: ", &object->UseNormalMap());
 
 			ImGui::Separator();
 			ImGui::Text("ParallaxMap :");
 			std::array<std::string, 4> algo{ "Close", "Simple", "Steep","Occlusion" };
+			int curMode = object->UseParallaxMapMode();
 			for (std::size_t i = 0; i < algo.size(); ++i)
 			{
-				ImGui::RadioButton(algo[i].data(), &object->UseParallaxMapMode(), static_cast<int>(i));
+				if (ImGui::RadioButton(algo[i].c_str(), &curMode, static_cast<int>(i))) {
+					object->UseParallaxMapMode() = curMode;
+				}
 			}
 
 		}
@@ -1444,6 +1583,13 @@ void RendererLayer::DrawGlobalSettings()
 		ImGui::Checkbox("Enable Gamma Correction", &m_Config.renderSettings.enableGamma);
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("Enable Gamma correction\nCorrect color space");
+
+		//PBR
+		ImGui::Checkbox("Enable PBR", &m_Config.renderSettings.enablePBR);
+		if (ImGui::IsItemHovered())
+			ImGui::SetTooltip("Enable PBR\n");
+
+		// (debug checkbox removed)
 
 		//SSAO Settings
 		if (ImGui::CollapsingHeader("SSAO Settings", ImGuiTreeNodeFlags_DefaultOpen))

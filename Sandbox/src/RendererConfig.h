@@ -17,6 +17,7 @@
 #define TEX_SLOT_SSAO_BLUR_OUTPUT 15
 #define TEX_SLOT_DEPTH_MAP    17
 #define TEX_SLOT_DEPTH_CUBE_MAP 16
+#define TEX_SLOT_GROUGHNESS   15
 // 分辨率配置（保留动态性）
 struct RendererConfig {
     int windowWidth = 0;
@@ -31,6 +32,7 @@ struct RendererConfig {
         bool  enableHDR = true;
         bool  enableGamma = true;
 		bool  enableSSAO = false;
+        bool  enablePBR = false;
         float ssaoRadius = 1.0f;     // 采样半径
         float ssaoBias = 0.025f;     // 深度偏差，避免自遮挡
         int ssaoKernelSize = 64;     // 采样核心大小
