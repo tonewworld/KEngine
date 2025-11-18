@@ -43,7 +43,9 @@
         OpenGLFrameBuffer::OpenGLFrameBuffer()
         {
             glCreateFramebuffers(1, &m_RendererID);
+            glBindFramebuffer(GL_FRAMEBUFFER, m_RendererID);
         }
+
 
         void OpenGLFrameBuffer::Bind()
         {
@@ -123,6 +125,30 @@
             this->Unbind();
             
 		}
+        void OpenGLFrameBuffer::AddMultiSampleTextures(GLint type, unsigned int* textureID, GLboolean drawable, GLboolean readable,const int count)
+        {
+            this->Bind();
+            std::vector<GLenum> attachments(count);
+            for (int i = 0; i < count; i++) {
+                GLenum attach = static_cast<GLenum>(type + i);
+                glFramebufferTexture2D(GL_FRAMEBUFFER, attach, GL_TEXTURE_2D_MULTISAMPLE, textureID[i], 0);
+                attachments[i] = attach;
+            }
+
+            if (type >= GL_COLOR_ATTACHMENT0 && type <= GL_COLOR_ATTACHMENT31) {
+                glDrawBuffers(count, attachments.data());
+                glReadBuffer(readable ? attachments[0] : GL_NONE);
+            }
+            else {
+                glDrawBuffer(GL_NONE);
+                glReadBuffer(GL_NONE);
+            }
+
+            GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+            if (status != GL_FRAMEBUFFER_COMPLETE) {
+                std::cout << "ERROR: HDR FBO not complete! 0x" << std::hex << status << std::dec << std::endl;
+            }
+        }
 	    //RenderBuffer
         OpenGLRenderBuffer::OpenGLRenderBuffer(GLint type, const int width, const int height)
         {
@@ -130,6 +156,13 @@
             glBindRenderbuffer(GL_RENDERBUFFER, m_RendererID);
             //深度和模板缓冲
             glRenderbufferStorage(GL_RENDERBUFFER, type, width, height); // Use a single renderbuffer object for both a depth AND stencil buffer.
+            glBindRenderbuffer(GL_RENDERBUFFER, 0);
+        }
+        OpenGLRenderBuffer::OpenGLRenderBuffer(int samples,GLint type, const int width, const int height)
+        {
+            glGenRenderbuffers(1, &m_RendererID);
+            glBindRenderbuffer(GL_RENDERBUFFER, m_RendererID);
+            glRenderbufferStorageMultisample(GL_RENDERBUFFER,samples, type, width, height); // Use a single renderbuffer object for both a depth AND stencil buffer.
             glBindRenderbuffer(GL_RENDERBUFFER, 0);
         }
         

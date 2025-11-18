@@ -1149,9 +1149,87 @@ void RendererLayer::CalculateShadow()
 	}
 }
 
+void RendererLayer::InitMSAA()
+{
+	msaaFBO.reset(KEngine::FrameBuffer::Create());
+
+	msaaPosition.reset(KEngine::MultiSampleTexture::Create(GL_RGBA16F, m_Config.windowWidth, m_Config.windowHeight,m_Config.renderSettings.msaaSamples));
+	msaaNormal.reset(KEngine::MultiSampleTexture::Create(GL_RGB16F, m_Config.windowWidth, m_Config.windowHeight, m_Config.renderSettings.msaaSamples));
+	msaaAlbedoSpec.reset(KEngine::MultiSampleTexture::Create(GL_RGBA, m_Config.windowWidth, m_Config.windowHeight, m_Config.renderSettings.msaaSamples));
+	msaaRoughness.reset(KEngine::MultiSampleTexture::Create(GL_RED, m_Config.windowWidth, m_Config.windowHeight, m_Config.renderSettings.msaaSamples));
+
+	unsigned int msaaTextures[4] = {
+		msaaPosition->GetRendererID(),
+		msaaNormal->GetRendererID(),
+		msaaAlbedoSpec->GetRendererID(),
+		msaaRoughness->GetRendererID() };
+
+	msaaFBO->AddMultiSampleTextures(GL_COLOR_ATTACHMENT0, msaaTextures, GL_TRUE, GL_TRUE, 4);
+
+	msaaRBO.reset(KEngine::RenderBuffer::Create(m_Config.renderSettings.msaaSamples,GL_DEPTH24_STENCIL8, m_Config.windowWidth, m_Config.windowHeight));
+	msaaFBO->AddRenderBuffer(GL_DEPTH_STENCIL_ATTACHMENT, msaaRBO->GetRendererID());
+
+	msaaPosition->SetTexSlot(TEX_SLOT_MSAAPOSITION);
+	msaaNormal->SetTexSlot(TEX_SLOT_MSAANORMAL);
+	msaaAlbedoSpec->SetTexSlot(TEX_SLOT_MSAAALBEDOSPEC);
+	msaaRoughness->SetTexSlot(TEX_SLOT_MSAAROUGHNESS);
+}
+
+void RendererLayer::MSAAPass()
+{
+	if (!isInitedMSAA) {
+		InitMSAA();
+		isInitedMSAA = true;
+	}
+	if (m_Config.renderSettings.enableMSAA)
+	{
+		msaaFBO->Bind();
+		KEngine::Renderer::GeometryPassBegin();
+		for (const auto& obj : currentScene->GetObjectsInScene())
+		{
+			if (!obj->UseDelayRender()) continue;
+			obj->SetDrawState(geometryPassShader, true, false);
+			obj->UpdateModelMatrix();
+			geometryPassShader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+			geometryPassShader->SetUniform3f(currentScene->GetMainCamera()->GetPosition(), "viewPos");
+			if (obj->GetDiffuseMap()) {
+				geometryPassShader->SetUniform1b(obj->UseDiffuseMap(), "useDiffuseMap");
+				geometryPassShader->SetUniform1i(TEX_SLOT_DIFFUSE_MAP, "u_DiffuseMap");
+			}
+			else {
+				geometryPassShader->SetUniform1b(false, "useDiffuseMap");
+			}
+
+			if (obj->GetNormalMap()) {
+				geometryPassShader->SetUniform1b(obj->UseNormalMap(), "useNormalMap");
+				geometryPassShader->SetUniform1i(TEX_SLOT_NORMAL_MAP, "u_NormalMap");
+			}
+			else {
+				geometryPassShader->SetUniform1b(false, "useNormalMap");
+			}
+			if (obj->GetParallaxMap()) {
+				geometryPassShader->SetUniform1i(obj->UseParallaxMapMode(), "useParallaxMapMode");
+				geometryPassShader->SetUniform1i(TEX_SLOT_PARALLAX_MAP, "u_ParallaxMap");
+			}
+			else {
+				geometryPassShader->SetUniform1i(0, "useParallaxMapMode");
+			}
+			materialUBO->AddMaterial(KEngine::MaterialUboData{ obj->GetMaterial() });
+			matrixUBO->AddVPMatrix(currentScene->GetMainCamera()->GetViewMatrix(), currentScene->GetMainCamera()->GetProjMatrix(), 0);
+			obj->Draw();
+		}
+		KEngine::Renderer::GeometryPassEnd();
+		msaaFBO->Unbind();
+	}
+}
 
 void RendererLayer::GeometryPass()
 {
+	if (m_Config.renderSettings.enableMSAA) {
+		MSAAPass();
+		KEngine::Renderer::ResolveMSAAGBuffer(msaaFBO->GetRendererID(),gBuffer->GetRendererID(),m_Config.windowWidth,m_Config.windowHeight);
+		return;
+	}
 	gBuffer->Bind();
 	KEngine::Renderer::GeometryPassBegin();
 	for (const auto& obj : currentScene->GetObjectsInScene())

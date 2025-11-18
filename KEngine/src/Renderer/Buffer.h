@@ -122,6 +122,7 @@ namespace KEngine{
 		virtual void AddTexture(GLint type, unsigned int textureID, GLboolean drawable, GLboolean readable) = 0;
 		virtual void Add2DTextures(GLint type, unsigned int* textureID, GLboolean drawable, GLboolean readable,const int count) = 0;
 		virtual void AddRenderBuffer(GLint type, unsigned int renderBufferID) = 0;
+		virtual void AddMultiSampleTextures(GLint type, unsigned int* textureID, GLboolean drawable, GLboolean readable,const int count) = 0;
 	};
 	class KE_API RenderBuffer
 	{
@@ -131,7 +132,8 @@ namespace KEngine{
 		virtual void Bind() = 0;
 		virtual void Unbind() = 0;
 		virtual unsigned int GetRendererID() = 0;
-		static RenderBuffer* Create(GLint type,const int width,const int height);
+		static RenderBuffer* Create(GLint type, const int width, const int height);
+		static RenderBuffer* Create(int samples,GLint type,const int width,const int height);
 	};
 
 	class KE_API UniformBuffer

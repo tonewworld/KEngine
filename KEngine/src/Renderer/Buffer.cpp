@@ -36,6 +36,7 @@ namespace KEngine{
         //KE_CORE_ASSERT(false, "Unknown RendererAPI");
         return nullptr;
     }
+  
     RenderBuffer* RenderBuffer::Create(GLint type,const int width,const int height) {
         switch (Renderer::GetAPI()) {
         case RendererAPI::API::None:
@@ -43,6 +44,17 @@ namespace KEngine{
             return nullptr;
         case RendererAPI::API::OpenGL:
             return new OpenGLRenderBuffer(type, width, height);
+        }
+        //KE_CORE_ASSERT(false, "Unknown RendererAPI");
+        return nullptr;
+    }
+    RenderBuffer* RenderBuffer::Create(int samples,GLint type, const int width, const int height) {
+        switch (Renderer::GetAPI()) {
+        case RendererAPI::API::None:
+            //KE_CORE_ASSERT(false, "RendererAPI::None is currently not supported");
+            return nullptr;
+        case RendererAPI::API::OpenGL:
+            return new OpenGLRenderBuffer(samples,type, width, height);
         }
         //KE_CORE_ASSERT(false, "Unknown RendererAPI");
         return nullptr;

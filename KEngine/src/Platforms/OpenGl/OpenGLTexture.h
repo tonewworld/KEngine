@@ -20,7 +20,24 @@ namespace KEngine
 		virtual void LoadTexture() override;
 		inline virtual unsigned int GetRendererID() const override { return m_RendererID; }
 	};
-	
+
+	class KE_API OpenGLMultiSampleTexture :public MultiSampleTexture
+	{
+	private:
+		unsigned int m_RendererID;
+		std::string m_Path;
+	public:
+		OpenGLMultiSampleTexture();
+		OpenGLMultiSampleTexture(GLint type, unsigned int width, unsigned int height, int samples);
+		virtual ~OpenGLMultiSampleTexture();
+		virtual void Bind() override;
+		virtual void Bind(unsigned int slot) override;
+		virtual void Unbind() override;
+		inline virtual std::string GetPath() override { return m_Path; }
+		virtual void LoadTexture() override;
+		inline virtual unsigned int GetRendererID() const override { return m_RendererID; }
+	};
+
 	class KE_API OpenGLTextureCube :public TextureCube
 	{
 	private:

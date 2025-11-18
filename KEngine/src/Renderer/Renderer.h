@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "Model.h"
 #include "Light.h"
+
 namespace KEngine{
    
     class KE_API Renderer{
@@ -20,6 +21,7 @@ namespace KEngine{
         static void PointLightShadowEnd();
 
         //÷ÿππ
+        
         static void GeometryPassBegin();
         static void GeometryPassEnd();
         static void SSAOPassBegin();
@@ -50,6 +52,7 @@ namespace KEngine{
         static void SetDepthOpenOrClose(bool tag);
         
         static void SwitchFrameBuffer(unsigned int frameBuffer);
+        static void ResolveMSAAGBuffer(unsigned int readBuffer,unsigned int drawBuffer,unsigned int windowWidth, unsigned int windowHeight);
 
         static std::array<unsigned char,4> ReadPixel(int rx,int ry);
         

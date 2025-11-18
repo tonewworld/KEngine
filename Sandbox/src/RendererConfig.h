@@ -18,6 +18,10 @@
 #define TEX_SLOT_DEPTH_MAP    17
 #define TEX_SLOT_DEPTH_CUBE_MAP 16
 #define TEX_SLOT_GROUGHNESS   15
+#define TEX_SLOT_MSAAPOSITION 14
+#define TEX_SLOT_MSAANORMAL   13
+#define TEX_SLOT_MSAAALBEDOSPEC 12
+#define TEX_SLOT_MSAAROUGHNESS 11
 // 分辨率配置（保留动态性）
 struct RendererConfig {
     int windowWidth = 0;
@@ -28,13 +32,21 @@ struct RendererConfig {
 
     struct GlobalRenderSettings {
         float exposure = 1.0f;
+
         bool  enableBloom = true;
+
         bool  enableHDR = true;
+
         bool  enableGamma = true;
+
 		bool  enableSSAO = false;
-        bool  enablePBR = false;
         float ssaoRadius = 1.0f;     // 采样半径
         float ssaoBias = 0.025f;     // 深度偏差，避免自遮挡
         int ssaoKernelSize = 64;     // 采样核心大小
+
+        bool  enablePBR = false;
+
+        bool  enableMSAA = true;
+		int  msaaSamples = 4;
     } renderSettings;
 };

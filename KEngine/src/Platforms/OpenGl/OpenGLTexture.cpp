@@ -184,4 +184,37 @@ namespace KEngine
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	}
 
+	OpenGLMultiSampleTexture::OpenGLMultiSampleTexture()
+	{
+		
+	}
+
+	OpenGLMultiSampleTexture::OpenGLMultiSampleTexture(GLint type, unsigned int width, unsigned int height, int samples)
+	{
+		glGenTextures(1, &m_RendererID);
+		Bind();
+		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples, type, width, height, GL_TRUE);
+	}
+
+	OpenGLMultiSampleTexture::~OpenGLMultiSampleTexture()
+	{
+	}
+
+	void OpenGLMultiSampleTexture::Bind()
+	{
+		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_RendererID);
+	}
+
+	void OpenGLMultiSampleTexture::Bind(unsigned int slot)
+	{
+	}
+
+	void OpenGLMultiSampleTexture::Unbind()
+	{
+	}
+
+	void OpenGLMultiSampleTexture::LoadTexture()
+	{
+	}
+
 }

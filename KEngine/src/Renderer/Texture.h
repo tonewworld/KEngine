@@ -35,13 +35,25 @@ namespace KEngine {
 		virtual void LoadTexture() = 0;
 
 		static Texture2D* Create();
-		static Texture2D* Create(GLint type,unsigned int width,unsigned int height,void*data = nullptr);
+		static Texture2D* Create(GLint type, unsigned int width, unsigned int height, void* data = nullptr);
 		static Texture2D* Create(const std::string& path);
 
 
 	private:
 	};
 	
+	class KE_API MultiSampleTexture :public Texture2D
+	{
+	public:
+		MultiSampleTexture() = default;
+		~MultiSampleTexture() = default;
+		virtual void Bind() = 0;
+		virtual void Bind(unsigned int slot) = 0;
+		virtual void Unbind() = 0;
+		virtual std::string GetPath() = 0;
+		virtual void LoadTexture() = 0;
+		static MultiSampleTexture* Create(GLint type, unsigned int width, unsigned int height, int samples);
+	};
 	class KE_API TextureCube :public Texture
 	{
 	public:
@@ -56,6 +68,6 @@ namespace KEngine {
 		static TextureCube* Create(std::vector<std::string>& faces);
 		static TextureCube* Create(GLint type, unsigned int width, unsigned int height);
 	};
-
+	
 }
 

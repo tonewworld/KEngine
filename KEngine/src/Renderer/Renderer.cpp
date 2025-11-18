@@ -21,6 +21,7 @@ namespace KEngine{
 		
 	}
 
+
 	void Renderer::GeometryPassBegin()
 	{
 		RenderCommand::SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -166,6 +167,26 @@ namespace KEngine{
 	}
 	void Renderer::SwitchFrameBuffer(unsigned int frameBuffer) {
 		RenderCommand::SwitchFrameBuffer(frameBuffer);
+	}
+
+	void Renderer::ResolveMSAAGBuffer(
+		unsigned int readBuffer, unsigned int drawBuffer,
+		unsigned int windowWidth,unsigned int windowHeight)
+	{
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, readBuffer);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, drawBuffer);
+		// blit color attachments individually
+		for (int i = 0; i < 4; ++i) {
+			glReadBuffer(GL_COLOR_ATTACHMENT0 + i);
+			glDrawBuffer(GL_COLOR_ATTACHMENT0 + i);
+			glBlitFramebuffer(0, 0, windowWidth,windowHeight,
+				0, 0, windowWidth, windowHeight,
+				GL_COLOR_BUFFER_BIT, GL_NEAREST);
+		}
+		// blit depth (可选，如果你需要深度到单样本 gBuffer)
+		glBlitFramebuffer(0, 0, windowWidth,windowHeight,
+			0, 0, windowWidth, windowHeight,
+			GL_DEPTH_BUFFER_BIT, GL_NEAREST);
 	}
 
 	std::array<unsigned char, 4> Renderer::ReadPixel(int rx ,int ry)
