@@ -966,12 +966,14 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	omniShadowScene.reset(new OmniShadow("OmniShadow"));
 	normalMappingScene.reset(new NormalMapping("NormalMapping"));
 	parallaxMappingScene.reset(new ParallaxMapping("ParallaxMapping"));
+	sdfMixScene.reset(new SDFMix("SDFMixScene"));
 
 	sceneList.push_back(skyboxScene);
 	sceneList.push_back(paraShadowScene);
 	sceneList.push_back(omniShadowScene);
 	sceneList.push_back(normalMappingScene);
 	sceneList.push_back(parallaxMappingScene);
+	sceneList.push_back(sdfMixScene);
 }
 
 void RendererLayer::OnAttach() {

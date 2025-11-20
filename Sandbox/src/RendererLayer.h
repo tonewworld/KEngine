@@ -6,6 +6,7 @@
 #include "Scenes/OmniShadow.h"
 #include "Scenes/NormalMapping.h"
 #include "Scenes/ParallaxMapping.h"
+#include "Scenes/SDFMix.h"
 class RendererLayer : public KEngine::Layer {
 public:
     RendererLayer();
@@ -128,6 +129,7 @@ private:
 	std::shared_ptr<OmniShadow>omniShadowScene;
 	std::shared_ptr<NormalMapping>normalMappingScene;
 	std::shared_ptr<ParallaxMapping>parallaxMappingScene;
+	std::shared_ptr<SDFMix>sdfMixScene;
 	std::shared_ptr<KEngine::Scene> currentScene;
 	std::vector<std::shared_ptr<KEngine::Scene>> sceneList;
 

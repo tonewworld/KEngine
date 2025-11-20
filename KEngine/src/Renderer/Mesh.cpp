@@ -1,6 +1,5 @@
 #include "kepch.h"
 #include "Mesh.h"
-#include "glad/glad.h"
 
 namespace KEngine
 {

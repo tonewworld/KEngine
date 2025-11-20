@@ -9,25 +9,9 @@ namespace KEngine
         BufferLayout layout,
         unsigned int* m_Indexes, unsigned int indexCount,
         const std::string& name)
-        :Object(name)
+        :Mesh(m_Vertices, floatCount, layout, m_Indexes, indexCount, name)
     {
-        this->m_layout = layout;
-        this->UseIsLight() = true;
-        std::vector<float> vertices(m_Vertices, m_Vertices + floatCount);
-
-        std::vector<unsigned int> indices(m_Indexes, m_Indexes + indexCount);
-
-        VAO.reset(VertexArray::Create());
-        VAO->Bind();
-
-        VBO.reset(VertexBuffer::Create(vertices));
-        VBO->SetLayout(m_layout);
-        VAO->AddVertexBuffer(VBO);
-
-        IBO.reset(IndexBuffer::Create(indices));
-        VAO->SetIndexBuffer(IBO);
-
-        VAO->Unbind();
+        
     }
     std::array<glm::mat4,6> PointLight::CalculateLightSpace()
     {

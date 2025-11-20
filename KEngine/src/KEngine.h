@@ -28,6 +28,8 @@
 #include "Renderer/Object.h"
 #include "Renderer/Scene.h"
 #include "Renderer/Light.h"
+#include "Renderer/Sphere.h"
+#include "Renderer/ObjectFactory.h"
 
 #include "Platforms/OpenGL/OpenGLBuffer.h"
 #include "Platforms/OpenGL/OpenGLVertexArray.h"

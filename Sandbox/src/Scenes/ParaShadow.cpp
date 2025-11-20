@@ -1,5 +1,4 @@
 #include "ParaShadow.h"
-
 ParaShadow::ParaShadow(std::string name) :name(name)
 {
 }
@@ -43,143 +42,13 @@ void ParaShadow::Init()
 				)";
 		l_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
-	float m_Vertices[] = {
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+	
+	m_Mesh = KEngine::ObjectFactory::CreateCube("cube1");
+	m_Mesh1 = KEngine::ObjectFactory::CreateCube("cube2");
+	m_Mesh1->SetPosition(glm::vec3(0.0f, 0.f, -3.0f));
 
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+	parallelLight0 = KEngine::ObjectFactory::CreateParallelLight("parallelLightCube1");
 
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-	};
-	unsigned int m_Indices[]{
-		0,1,2,
-		3,4,5,
-		6,7,8,
-		9,10,11,
-		12,13,14,
-		15,16,17,
-		18,19,20,
-		21,22,23,
-		24,25,26,
-		27,28,29,
-		30,31,32,
-		33,34,35
-	};
-
-	KEngine::BufferLayout m_Layout = {
-		{KEngine::ShaderDataType::Float3,"position"} ,
-		{KEngine::ShaderDataType::Float3,"normal"}
-	};
-	m_Mesh.reset(new KEngine::Mesh(m_Vertices, sizeof(m_Vertices) / sizeof(float),
-		m_Layout,
-		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
-		"m"));
-	m_Mesh1.reset(new KEngine::Mesh(m_Vertices, sizeof(m_Vertices) / sizeof(float),
-		m_Layout,
-		m_Indices, sizeof(m_Indices) / sizeof(unsigned int),
-		"m1"));
-	m_Mesh1->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
-
-	float l_Vertices[] = {
-	-0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f,  0.5f, -0.5f,
-	 0.5f,  0.5f, -0.5f,
-	-0.5f,  0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-
-	-0.5f, -0.5f,  0.5f,
-	 0.5f, -0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-	-0.5f, -0.5f,  0.5f,
-
-	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-	-0.5f, -0.5f, -0.5f,
-	-0.5f, -0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-
-	 0.5f,  0.5f,  0.5f,
-	 0.5f,  0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
-
-	-0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f, -0.5f,
-	 0.5f, -0.5f,  0.5f,
-	 0.5f, -0.5f,  0.5f,
-	-0.5f, -0.5f,  0.5f,
-	-0.5f, -0.5f, -0.5f,
-
-	-0.5f,  0.5f, -0.5f,
-	 0.5f,  0.5f, -0.5f,
-	 0.5f,  0.5f,  0.5f,
-	 0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f
-	};
-	unsigned int l_Indices[]{
-		0,1,2,
-		3,4,5,
-		6,7,8,
-		9,10,11,
-		12,13,14,
-		15,16,17,
-		18,19,20,
-		21,22,23,
-		24,25,26,
-		27,28,29,
-		30,31,32,
-		33,34,35
-	};
-
-	KEngine::BufferLayout l_Layout = {
-		{KEngine::ShaderDataType::Float3,"position"}
-	};
-	parallelLight0.reset(new KEngine::ParallelLight(l_Vertices, sizeof(l_Vertices) / sizeof(float),
-		l_Layout,
-		l_Indices, sizeof(l_Indices) / sizeof(unsigned int),
-		"parallelLight0"));
 	parallelLight0->SetLightAttributes({
 		glm::vec3( 0.f, 0.f,-1.f),
 		glm::vec3(0.2f,0.2f,0.2f),

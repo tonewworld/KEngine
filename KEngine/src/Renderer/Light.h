@@ -1,7 +1,6 @@
 #pragma once
 #include "Core.h"
-#include "Object.h"
-#include "VertexArray.h"
+#include "Mesh.h"
 namespace KEngine {
 	struct KE_API PointLightAttri {
 		glm::vec3 ambient;
@@ -46,7 +45,7 @@ namespace KEngine {
 		{
 		}
 	};
-	class KE_API Light :public Object {
+	class KE_API Light :public Mesh {
 	public:
 		Light(float* m_Vertices, unsigned int vertexCount,
 			BufferLayout layout,
@@ -54,13 +53,7 @@ namespace KEngine {
 			const std::string& name = "Mesh");
 		virtual ~Light() = default;
 
-		std::shared_ptr<VertexArray> VAO;
-		std::shared_ptr<VertexBuffer> VBO;
-		std::shared_ptr<IndexBuffer> IBO;
-
 	private:
-
-		BufferLayout m_layout;
 
 
 	};

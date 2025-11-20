@@ -1,16 +1,16 @@
-#include "OmniShadow.h"
-OmniShadow::OmniShadow(std::string name) :name(name)
+#include "SDFMix.h"
+SDFMix::SDFMix(std::string name) :name(name)
 {
 }
 
-OmniShadow::~OmniShadow()
+SDFMix::~SDFMix()
 {
 	Destroy();
 }
 
-void OmniShadow::Init()
+void SDFMix::Init()
 {
-	
+
 	mainCamera = std::make_unique<KEngine::Camera>();
 	{
 		char* vertexSrc = R"(
@@ -41,12 +41,10 @@ void OmniShadow::Init()
 				)";
 		l_Shader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
-	
-	m_Mesh = KEngine::ObjectFactory::CreateCube("cube1");
-	m_Mesh1 = KEngine::ObjectFactory::CreateCube("cube2");
-	m_Mesh1->SetPosition(glm::vec3(0.0f, 0.0f, -3.0f));
-	
-	
+
+	m_Sphere1 = KEngine::ObjectFactory::CreateSphere(50, 50, 0.3f, "sphere1");
+	m_Sphere2 = KEngine::ObjectFactory::CreateSphere(50, 50, 0.3f, "sphere2");
+
 	pointLight0 = KEngine::ObjectFactory::CreatePointLight("pointLightCube1");
 
 	pointLight0->SetLightAttributes({
@@ -61,21 +59,19 @@ void OmniShadow::Init()
 	pointLight0->SetDrawState(l_Shader, true, false);
 
 	pointLightList.push_back(pointLight0);
-	
-	Objects.push_back(m_Mesh);
-	Objects.push_back(m_Mesh1);
+
+	Objects.push_back(m_Sphere1);
+	Objects.push_back(m_Sphere2);
 	Objects.push_back(pointLight0);
 }
-void OmniShadow::OnUpdate(KEngine::TimeStep ts)
+void SDFMix::OnUpdate(KEngine::TimeStep ts)
 {
 	mainCamera->Control(ts.GetTimeStep());
 
-	
 }
-void OmniShadow::Destroy()
+void SDFMix::Destroy()
 {
-	m_Mesh.reset();
-	m_Mesh1.reset();
+
 	pointLight0.reset();
 
 	Objects.clear();
