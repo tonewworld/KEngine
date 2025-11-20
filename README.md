@@ -8,14 +8,16 @@
 
 ## 项目结构
 
+```
 KEngine/
 ├── KEngine/                 # 核心引擎代码
-│  ├── src/                 # 引擎源码
-│   ├── vendor/              # 第三方依赖库
-├── Sandbox/                 # 示例与测试应用
-│   ├── RendererLayer.cpp       # 渲染层实现
-│   ├── Scenes/              # 渲染技术展示场景
-└── vendor/                  # 构建工具
+│   ├── src/                # 引擎源码
+│   └── vendor/             # 第三方依赖库
+├── Sandbox/                # 示例与测试应用
+│   ├── RendererLayer.cpp   # 渲染层实现
+│   └── Scenes/             # 渲染技术展示场景
+└── vendor/                 # 构建工具
+```
 
 ## 构建说明
 
