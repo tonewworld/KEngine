@@ -1,12 +1,12 @@
 #pragma once
 #include <KEngine.h>
 #include "RendererConfig.h"
-#include "Scenes/Skybox.h"
-#include "Scenes/ParaShadow.h"
-#include "Scenes/OmniShadow.h"
 #include "Scenes/NormalMapping.h"
 #include "Scenes/ParallaxMapping.h"
 #include "Scenes/SDFMix.h"
+#include "Scenes/SSAORoom.h"
+#include "Scenes/ShadowRoom.h"
+#include "Scenes/WallParallax.h"
 class RendererLayer : public KEngine::Layer {
 public:
     RendererLayer();
@@ -124,12 +124,12 @@ private:
 	int m_SelectedObjectID = -1;
 	std::shared_ptr<KEngine::Object> m_SelectedObject = nullptr;
 
-	std::shared_ptr<Skybox> skyboxScene;
-	std::shared_ptr<ParaShadow>paraShadowScene;
-	std::shared_ptr<OmniShadow>omniShadowScene;
 	std::shared_ptr<NormalMapping>normalMappingScene;
 	std::shared_ptr<ParallaxMapping>parallaxMappingScene;
 	std::shared_ptr<SDFMix>sdfMixScene;
+	std::shared_ptr<SSAORoom> ssaoRoomScene;
+	std::shared_ptr<ShadowRoom> shadowRoomScene;
+	std::shared_ptr<WallParallax> wallParallaxScene;
 	std::shared_ptr<KEngine::Scene> currentScene;
 	std::vector<std::shared_ptr<KEngine::Scene>> sceneList;
 

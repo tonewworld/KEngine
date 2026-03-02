@@ -145,163 +145,177 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 		forwardShader->BindUniformBufferPoint("VPMatrix", 0);
 	}
 	{
-		char* vertexSrc = R"(
-					#version 420 core
-					layout(location=0) in vec3 v_Position;
-					layout(location=1) in vec3 v_Normal;
-					layout(location=2) in vec2 v_TexCoord;
-					layout(location=3) in vec3 v_Tangent;
+        char* vertexSrc = R"(
+                    #version 420 core
+                    layout(location=0) in vec3 v_Position;
+                    layout(location=1) in vec3 v_Normal;
+                    layout(location=2) in vec2 v_TexCoord;
+                    layout(location=3) in vec3 v_Tangent;
 
+                    uniform mat4 model;
+                    uniform vec3 viewPos;
+                    layout(std140) uniform VPMatrix
+                    {
+                        mat4 view;
+                        mat4 proj;
+                    };
+                    
+                    out VS_OUT {
+                        vec3 fragPos; // world-space position
+                        vec2 texCoord;
+                        mat3 TBN;    // TBN in world-space (tangent->world)
+                        vec3 tangentViewPos; // camera pos in tangent-space
+                        vec3 tangentFragPos; // fragment pos in tangent-space
+                    } vs_out;
 
-					uniform mat4 model;
-					uniform vec3 viewPos;
-					layout(std140) uniform VPMatrix
-					{
-						mat4 view;
-						mat4 proj;
-					};
-					
-					out VS_OUT {
-						vec3 fragPos;
-						vec2 texCoord;
-						mat3 TBN;				
-						vec3 tangentViewPos;
-						vec3 tangentFragPos;
-					} vs_out;
-							
-					void main()
-					{
-						gl_Position = proj * view * model * vec4(v_Position,1.0);
-						vs_out.fragPos = vec3(model * vec4(v_Position,1.0));
-						vs_out.texCoord = v_TexCoord;
+                    void main()
+                    {
+                        // clip position
+                        gl_Position = proj * view * model * vec4(v_Position,1.0);
+                        // world-space fragment position for G-buffer
+                        vs_out.fragPos = vec3(model * vec4(v_Position,1.0));
+                        vs_out.texCoord = v_TexCoord;
 
-						vec3 T = normalize(mat3(model) * v_Tangent);
-						vec3 N = normalize(mat3(transpose(inverse(model))) * v_Normal);
-						T = normalize(T - dot(T, N) * N);
-						vec3 B = normalize(cross(N, T));
-						vs_out.TBN = mat3(T, B, N);
+                        // build TBN in world-space so G-buffer normal is world-space
+                        // transform tangent and normal with the inverse-transpose to handle non-uniform scale
+                        mat3 normalMatrix = mat3(transpose(inverse(model)));
+                        vec3 T = normalize(normalMatrix * v_Tangent);
+                        vec3 N = normalize(normalMatrix * v_Normal);
+                        T = normalize(T - dot(T, N) * N);
+                        vec3 B = normalize(cross(N, T));
+                        vs_out.TBN = mat3(T, B, N);
 
-						vs_out.tangentViewPos = vs_out.TBN * viewPos;
-						vs_out.tangentFragPos = vs_out.TBN * vs_out.fragPos;
-					}
+                        // viewPos is provided in world-space; transform both positions into tangent-space
+                        vs_out.tangentViewPos = transpose(vs_out.TBN) * viewPos;
+                        vs_out.tangentFragPos = transpose(vs_out.TBN) * vs_out.fragPos;
+                    }
 
-				)";
+                )";
 
-		char* fragmentSrc = R"(#version 420 core
-					layout(location=0) out vec4 gPosition;
-					layout(location=1) out vec3 gNormal;
-					layout(location=2) out vec4 gALbedoSpec;
-					layout(location=3) out float gRoughness;
+        char* fragmentSrc = R"(#version 420 core
+                    layout(location=0) out vec4 gPosition;
+                    layout(location=1) out vec3 gNormal;
+                    layout(location=2) out vec4 gALbedoSpec;
+                    layout(location=3) out float gRoughness;
 
-					layout(std140) uniform MaterialUboData{
-					vec3 albedo; float _pad0;
-					float metallic;    float _pad1[3];
-					float roughness;   float _pad2[3];
-					}material;
+                    layout(std140) uniform MaterialUboData{
+                    vec3 albedo; float _pad0;
+                    float metallic;    float _pad1[3];
+                    float roughness;   float _pad2[3];
+                    }material;
 
-					uniform bool useDiffuseMap;
-					uniform sampler2D u_DiffuseMap;
-					uniform bool useNormalMap;
-					uniform sampler2D u_NormalMap;
-					uniform int useParallaxMapMode;
-					uniform sampler2D u_ParallaxMap;
+                    // VPMatrix UBO must be declared in fragment shader as well so 'view'/'proj' are available
+                    layout(std140) uniform VPMatrix {
+                        mat4 view;
+                        mat4 proj;
+                    };
 
-					float heightScale= 0.1;
+                    uniform bool useDiffuseMap;
+                    uniform sampler2D u_DiffuseMap;
+                    uniform bool useNormalMap;
+                    uniform sampler2D u_NormalMap;
+                    uniform int useParallaxMapMode;
+                    uniform sampler2D u_ParallaxMap;
 
-					in VS_OUT {
-						vec3 fragPos;
-						vec2 texCoord;
-						mat3 TBN;
-						vec3 tangentViewPos;
-						vec3 tangentFragPos;
-					} fs_in;
-					vec2 ParallaxMapping(vec2 texCoord, vec3 viewDir)
-					{
-						switch(useParallaxMapMode) {
-							case 1: { 
-								float height = texture(u_ParallaxMap, texCoord).r;
-								vec2 p = viewDir.xy / viewDir.z * (height * heightScale);
-								return texCoord - p;
-							}
-							case 2: { 
-								const float minLayerNum = 8.0;
-								const float maxLayerNum = 32.0;
-								float layerNum = mix(maxLayerNum, minLayerNum, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
-								const float layerDepth = 1.0 / layerNum;
-								float currentLayerDepth = 0.0;
-								vec2 p = viewDir.xy * heightScale;
-								vec2 deltaTexCoord = p / layerNum;
-								vec2 currentTexCoord = texCoord;
-								float currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+                    float heightScale= 0.1;
+
+                    in VS_OUT {
+                        vec3 fragPos; // world-space position
+                        vec2 texCoord;
+                        mat3 TBN;    // TBN in world-space (tangent -> world)
+                        vec3 tangentViewPos; // camera position in tangent-space
+                        vec3 tangentFragPos; // fragment position in tangent-space
+                    } fs_in;
+                    vec2 ParallaxMapping(vec2 texCoord, vec3 viewDir)
+                    {
+                        switch(useParallaxMapMode) {
+                            case 1: { 
+                                float height = texture(u_ParallaxMap, texCoord).r;
+                                vec2 p = viewDir.xy / viewDir.z * (height * heightScale);
+                                return texCoord - p;
+                            }
+                            case 2: { 
+                                const float minLayerNum = 8.0;
+                                const float maxLayerNum = 32.0;
+                                float layerNum = mix(maxLayerNum, minLayerNum, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
+                                const float layerDepth = 1.0 / layerNum;
+                                float currentLayerDepth = 0.0;
+                                vec2 p = viewDir.xy * heightScale;
+                                vec2 deltaTexCoord = p / layerNum;
+                                vec2 currentTexCoord = texCoord;
+                                float currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
                 
-								while(currentDepth > currentLayerDepth) {
-									currentTexCoord -= deltaTexCoord;
-									currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
-									currentLayerDepth += layerDepth;    
-								}
-								return currentTexCoord;
-							}
-							case 3: { 
-								const float minLayerNum = 8.0;
-								const float maxLayerNum = 32.0;
-								float layerNum = mix(maxLayerNum, minLayerNum, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
-								const float layerDepth = 1.0 / layerNum;
-								float currentLayerDepth = 0.0;
-								vec2 p = viewDir.xy * heightScale;
-								vec2 deltaTexCoord = p / layerNum;
-								vec2 currentTexCoord = texCoord;
-								float currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+                                while(currentDepth > currentLayerDepth) {
+                                    currentTexCoord -= deltaTexCoord;
+                                    currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+                                    currentLayerDepth += layerDepth;    
+                                }
+                                return currentTexCoord;
+                            }
+                            case 3: { 
+                                const float minLayerNum = 8.0;
+                                const float maxLayerNum = 32.0;
+                                float layerNum = mix(maxLayerNum, minLayerNum, abs(dot(vec3(0.0, 0.0, 1.0), viewDir)));
+                                const float layerDepth = 1.0 / layerNum;
+                                float currentLayerDepth = 0.0;
+                                vec2 p = viewDir.xy * heightScale;
+                                vec2 deltaTexCoord = p / layerNum;
+                                vec2 currentTexCoord = texCoord;
+                                float currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
                 
-								while(currentDepth > currentLayerDepth) {
-									currentTexCoord -= deltaTexCoord;
-									currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
-									currentLayerDepth += layerDepth;    
-								}
+                                while(currentDepth > currentLayerDepth) {
+                                    currentTexCoord -= deltaTexCoord;
+                                    currentDepth = texture(u_ParallaxMap, currentTexCoord).r;
+                                    currentLayerDepth += layerDepth;    
+                                }
                 
-								vec2 prevTexCoord = currentTexCoord + deltaTexCoord;
-								float prevDepth = texture(u_ParallaxMap, prevTexCoord).r;
-								float weight = currentLayerDepth - currentDepth;
-								weight /= (currentLayerDepth - prevDepth) + 0.00001; 
+                                vec2 prevTexCoord = currentTexCoord + deltaTexCoord;
+                                float prevDepth = texture(u_ParallaxMap, prevTexCoord).r;
+                                float weight = currentLayerDepth - currentDepth;
+                                weight /= (currentLayerDepth - prevDepth) + 0.00001; 
                 
-								return prevTexCoord * weight + currentTexCoord * (1.0 - weight);
-							}
-							default:
-								return texCoord;
-						}
-					}
-					const float NEAR = 0.1; 
-					const float FAR = 300.0f; 
-					float LinearizeDepth(float depth)
-					{
-						float z = depth * 2.0 - 1.0; 
-						return (2.0 * NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR));    
-					}
-					void main() {
-						
-						gPosition.xyz = fs_in.fragPos;
-						gPosition.a = -fs_in.fragPos.z;
-						vec3 finalNormal = normalize(fs_in.TBN[2]);
-						vec3 viewDir = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
-						vec2 texCoord = fs_in.texCoord;
-						if(useParallaxMapMode > 0 && heightScale > 0.0) {
-							texCoord = ParallaxMapping(fs_in.texCoord, viewDir);
-							texCoord = clamp(texCoord, 0.02, 0.98); 
-						}
-						if (useNormalMap) {
-							vec3 tangentNormal = texture(u_NormalMap, texCoord).rgb * 2.0 - 1.0;
-							finalNormal = normalize(fs_in.TBN * tangentNormal);
-						}
-						gNormal = finalNormal;
-						vec3 finalAlbedo;
-						if(useDiffuseMap){
-							finalAlbedo = texture(u_DiffuseMap, texCoord).rgb; // use parallax-corrected UV
-						} else {
-							finalAlbedo = material.albedo;
-						}
-						gALbedoSpec = vec4(finalAlbedo, material.metallic);
-						gRoughness = material.roughness;
-					}
-				)";
+                                return prevTexCoord * weight + currentTexCoord * (1.0 - weight);
+                            }
+                            default:
+                                return texCoord;
+                        }
+                    }
+                    const float NEAR = 0.1; 
+                    const float FAR = 300.0f; 
+                    float LinearizeDepth(float depth)
+                    {
+                        float z = depth * 2.0 - 1.0; 
+                        return (2.0 * NEAR * FAR) / (FAR + NEAR - z * (FAR - NEAR));    
+                    }
+                    void main() {
+                        
+                        // gPosition stores world-space position (xyz)
+                        gPosition.xyz = fs_in.fragPos;
+                        // store positive view-space depth in alpha (for SSAO/reconstruction)
+                        gPosition.a = -(view * vec4(fs_in.fragPos, 1.0)).z;
+                        vec3 finalNormal = normalize(fs_in.TBN[2]); // view-space normal
+                        vec3 viewDir = normalize(fs_in.tangentViewPos - fs_in.tangentFragPos);
+                        vec2 texCoord = fs_in.texCoord;
+                        if(useParallaxMapMode > 0 && heightScale > 0.0) {
+                            texCoord = ParallaxMapping(fs_in.texCoord, viewDir);
+                            texCoord = clamp(texCoord, 0.02, 0.98); 
+                        }
+                        if (useNormalMap) {
+                            vec3 tangentNormal = texture(u_NormalMap, texCoord).rgb * 2.0 - 1.0;
+                            finalNormal = normalize(fs_in.TBN * tangentNormal);
+                        }
+                        // output view-space normal
+                        gNormal = finalNormal;
+                        vec3 finalAlbedo;
+                        if(useDiffuseMap){
+                            finalAlbedo = texture(u_DiffuseMap, texCoord).rgb; // use parallax-corrected UV
+                        } else {
+                            finalAlbedo = material.albedo;
+                        }
+                        gALbedoSpec = vec4(finalAlbedo, material.metallic);
+                        gRoughness = material.roughness;
+                    }
+                )";
 
 		geometryPassShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 
@@ -321,68 +335,70 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				}
 				)";
 
-		char* fragmentSrc = R"(#version 420 core
-					out float FragColor;
-					in vec2 TexCoords;
+        char* fragmentSrc = R"(#version 420 core
+                    out float FragColor;
+                    in vec2 TexCoords;
 
-					uniform sampler2D gPositionDepth;
-					uniform sampler2D gNormal;
-					uniform sampler2D texNoise;
+                    uniform sampler2D gPositionDepth; // stores world-space position in rgb
+                    uniform sampler2D gNormal;        // stores world-space normal
+                    uniform sampler2D texNoise;
 
-					uniform vec3 samples[64];
+                    uniform vec3 samples[64];
 
-					uniform int kernelSize;
-					uniform float radius;
+                    uniform int kernelSize;
+                    uniform float radius;
+                    uniform float bias;
 
-					uniform vec2 noiseScale;
-					
-					uniform mat4 view;
-					uniform mat4 projection;
+                    uniform vec2 noiseScale;
+                    
+                    uniform mat4 view;
+                    uniform mat4 projection;
 
-					void main()
-					{
-						// read world-space position from G-buffer and convert to view-space
-						vec3 fragPosWorld = texture(gPositionDepth, TexCoords).xyz;
-						vec3 fragPos = (view * vec4(fragPosWorld, 1.0)).xyz;
-						float fragDepth = fragPos.z;
+                    void main()
+                    {
+                        // read world-space position from G-buffer and convert to view-space
+                        vec3 fragPosWorld = texture(gPositionDepth, TexCoords).xyz;
+                        vec3 fragPos = (view * vec4(fragPosWorld, 1.0)).xyz;
+                        float fragDepth = fragPos.z;
 
-						vec3 normal = texture(gNormal, TexCoords).rgb;
-						vec3 randomVec = texture(texNoise, TexCoords * noiseScale).xyz;
+                        vec3 normal = texture(gNormal, TexCoords).rgb;
+                        vec3 randomVec = texture(texNoise, TexCoords * noiseScale).xyz;
                         
-						vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
-						vec3 bitangent = normalize(cross(normal, tangent));
-						mat3 TBN = mat3(tangent, bitangent, normal);
+                        vec3 tangent = normalize(randomVec - normal * dot(randomVec, normal));
+                        vec3 bitangent = normalize(cross(normal, tangent));
+                        mat3 TBN = mat3(tangent, bitangent, normal);
                         
-						float occlusion = 0.0;
-						for(int i = 0; i < kernelSize; ++i)
-						{
-							// sample in world space, then transform to view space for projection/depth comparison
-							vec3 sampleVec = TBN * samples[i]; 
-							vec3 samplePosWorld = fragPosWorld + sampleVec * radius; 
-							vec3 samplePosView = (view * vec4(samplePosWorld, 1.0)).xyz;
+                        float occlusion = 0.0;
+                        for(int i = 0; i < kernelSize; ++i)
+                        {
+                            // sample in world space, then transform to view space for projection/depth comparison
+                            vec3 sampleVec = TBN * samples[i]; 
+                            vec3 samplePosWorld = fragPosWorld + sampleVec * radius; 
+                            vec3 samplePosView = (view * vec4(samplePosWorld, 1.0)).xyz;
         
-							vec4 offset = projection * vec4(samplePosView, 1.0);
-							offset.xyz /= offset.w;
-							vec2 sampleUV = offset.xy * 0.5 + 0.5; 
+                            vec4 offset = projection * vec4(samplePosView, 1.0);
+                            offset.xyz /= offset.w;
+                            vec2 sampleUV = offset.xy * 0.5 + 0.5; 
 
-							if(sampleUV.x < 0.0 || sampleUV.x > 1.0 || sampleUV.y < 0.0 || sampleUV.y > 1.0)
-								continue;        
+                            if(sampleUV.x < 0.0 || sampleUV.x > 1.0 || sampleUV.y < 0.0 || sampleUV.y > 1.0)
+                                continue;        
 
-							// read world-space position at sample and convert to view-space depth
-							vec3 samplePosWorldFromTex = texture(gPositionDepth, sampleUV).xyz;
-							float sampleDepth = (view * vec4(samplePosWorldFromTex, 1.0)).z;
-							float sampleViewDepth = samplePosView.z;        
-							float rangeCheck = smoothstep(0.0, 1.0, radius / (abs(fragDepth - sampleViewDepth) + 1e-5));
+                            // read world-space position at sample and convert to view-space depth
+                            vec3 samplePosWorldFromTex = texture(gPositionDepth, sampleUV).xyz;
+                            float sampleDepth = (view * vec4(samplePosWorldFromTex, 1.0)).z;
+                            float sampleViewDepth = samplePosView.z;        
+                            float rangeCheck = smoothstep(0.0, 1.0, radius / (abs(fragDepth - sampleViewDepth) + 1e-5));
 
-							// In view space z is typically negative for fragments in front of the camera.
-							// Use <= comparison to account for that handedness so occlusion isn't inverted.
-							occlusion += (sampleDepth <= sampleViewDepth ? 1.0 : 0.0) * rangeCheck;         
-						}
-						occlusion = 1.0 - (occlusion / float(kernelSize));
+                            // In view space z is typically negative for fragments in front of the camera.
+                            // Consider a sample occluded if the sampled depth is closer to the camera than
+                            // the expected sample depth (use bias to reduce acne).
+                            occlusion += (sampleDepth >= sampleViewDepth + bias ? 1.0 : 0.0) * rangeCheck;         
+                        }
+                        occlusion = 1.0 - (occlusion / float(kernelSize));
     
-						FragColor = occlusion;
-					}
-				)";
+                        FragColor = occlusion;
+                    }
+                )";
 
 		ssaoShader.reset(new KEngine::Shader(vertexSrc, fragmentSrc));
 	}
@@ -448,8 +464,9 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 				uniform sampler2D gAlbedoSpec;
 				uniform sampler2D gRoughness;
 				uniform sampler2D ssaoTexture;
-				uniform bool enableSSAO;
-				uniform bool usePBR;
+                uniform bool enableSSAO;
+                uniform bool usePBR;
+            uniform int shadowMode;
 
 				uniform sampler2D shadowMap;             
 				uniform samplerCube shadowCubeMap;        
@@ -634,16 +651,84 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 
 				float CalculatePointShadow(vec3 fragPos, vec3 lightPos, float farPlane)
 				{
-					vec3 fragToLight = fragPos - lightPos;
-					float currentDepth = length(fragToLight);
-    
-					float closestDepth = texture(shadowCubeMap, fragToLight).r * farPlane;
-    
-					// simple bias to reduce self-shadowing (acne)
-					float bias = 0.15;
-					// if fragment is outside the light's far plane, it's not shadowed by this light
-					if (currentDepth >= farPlane) return 0.0;
-					return currentDepth - bias > closestDepth ? 1.0 : 0.0;
+		vec3 fragToLight = fragPos - lightPos;
+		float currentDepth = length(fragToLight);
+
+		// simple bias to reduce self-shadowing (acne)
+		float bias = 0.15;
+		// if fragment is outside the light's far plane, it's not shadowed by this light
+		if (currentDepth >= farPlane) return 0.0;
+
+        // shadowMode: 0 = Hard, 1 = PCF, 2 = PCSS
+        if(shadowMode == 0) {
+            float closestDepth = texture(shadowCubeMap, fragToLight).r * farPlane;
+            return currentDepth - bias > closestDepth ? 1.0 : 0.0;
+        } else if(shadowMode == 1) {
+            // Simple PCF for point light: sample a few nearby directions on the cubemap
+            int samples = 6;
+            float diskRadius = 0.1; // small offset in direction space
+            vec3 sampleOffset[6] = vec3[](
+                vec3( 1.0,  0.0,  0.0),
+                vec3(-1.0,  0.0,  0.0),
+                vec3( 0.0,  1.0,  0.0),
+                vec3( 0.0, -1.0,  0.0),
+                vec3( 0.0,  0.0,  1.0),
+                vec3( 0.0,  0.0, -1.0)
+            );
+            float shadow = 0.0;
+            for(int i = 0; i < samples; ++i) {
+                vec3 sampleDir = normalize(fragToLight + sampleOffset[i] * diskRadius);
+                float closestDepth = texture(shadowCubeMap, sampleDir).r * farPlane;
+                shadow += (currentDepth - bias > closestDepth) ? 1.0 : 0.0;
+            }
+            shadow /= float(samples);
+            return shadow;
+        } else {
+            // Approximate PCSS for point light: blocker search then filter radius
+            int searchSamples = 6;
+            float diskRadius = 0.05;
+            float avgBlocker = 0.0;
+            int blockerCount = 0;
+            vec3 sampleOffset[6] = vec3[](
+                vec3( 1.0,  0.0,  0.0),
+                vec3(-1.0,  0.0,  0.0),
+                vec3( 0.0,  1.0,  0.0),
+                vec3( 0.0, -1.0,  0.0),
+                vec3( 0.0,  0.0,  1.0),
+                vec3( 0.0,  0.0, -1.0)
+            );
+            for(int i = 0; i < searchSamples; ++i) {
+                vec3 sdir = normalize(fragToLight + sampleOffset[i] * diskRadius);
+                float d = texture(shadowCubeMap, sdir).r * farPlane;
+                if(d < currentDepth - bias) {
+                    avgBlocker += d;
+                    blockerCount++;
+                }
+            }
+            if(blockerCount == 0) return 0.0;
+            avgBlocker /= float(blockerCount);
+
+            // estimate penumbra size
+            float lightSize = 0.05;
+            float penumbra = (currentDepth - avgBlocker) / avgBlocker;
+            float filterRadius = clamp(penumbra * lightSize * 50.0, 1.0, 8.0);
+
+            int samples = int(max(1.0, floor(filterRadius)));
+            float shadow = 0.0;
+            int cnt = 0;
+            for(int i = -samples; i <= samples; ++i) {
+                for(int j = -samples; j <= samples; ++j) {
+                    // construct offset in tangent-like space using sample offsets
+                    int idx = (abs(i + j) % 6);
+                    vec3 sdir = normalize(fragToLight + sampleOffset[idx] * (diskRadius * float(max(abs(i), abs(j)) + 1)));
+                    float d = texture(shadowCubeMap, sdir).r * farPlane;
+                    shadow += (currentDepth - bias > d) ? 1.0 : 0.0;
+                    cnt++;
+                }
+            }
+            shadow /= float(max(cnt,1));
+            return shadow;
+        }
 				}
 				vec3 CalculatePointLight_BlinnPhong(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength) {
 					vec3 lightDir = normalize(light.Position - fragPos);
@@ -662,32 +747,75 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
     
 					return (diffuse + specular) * attenuation * (1.0-shadow);
 				}
-				float CalculateParallelShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
-				{
+		float CalculateParallelShadow(vec4 fragPosLightSpace, vec3 normal, vec3 lightDir)
+		{
+			vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+			projCoords = projCoords * 0.5 + 0.5;
+			float currentDepth = projCoords.z;
 
-					vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
-			
-					projCoords = projCoords * 0.5 + 0.5;
+			// outside of light's orthographic frustum
+			if(projCoords.z > 1.0) return 0.0;
+			// normal-aware bias
+			float bias = max(0.005 * (1.0 - dot(normal, lightDir)), 0.001);
 
-					float currentDepth = projCoords.z;
+                // shadowMode: 0 = hard, 1 = PCF, 2 = PCSS
+                if(shadowMode == 0) {
+                    // hard shadow: single sample
+                    float pcfDepth = texture(shadowMap, projCoords.xy).r;
+                    return currentDepth  > pcfDepth + bias ? 1.0 : 0.0;
+                } else if(shadowMode == 1) {
+                    // PCF soft shadow: 3x3 kernel
+                    float shadow = 0.0;
+                    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+                    for(int x = -1; x <= 1; ++x)
+                    {
+                        for(int y = -1; y <= 1; ++y)
+                        {
+                            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x,y) * texelSize).r;
+                            shadow += currentDepth  > pcfDepth + bias ? 1.0 : 0.0;
+                        }
+                    }
+                    shadow /= 9.0;
+                    return shadow;
+                } else {
+                    // PCSS implementation (approximate)
+                    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+                    // 1) blocker search (small kernel)
+                    float avgBlocker = 0.0;
+                    int blockerCount = 0;
+                    int searchRadius = 1; // 3x3
+                    for(int x = -searchRadius; x <= searchRadius; ++x) {
+                        for(int y = -searchRadius; y <= searchRadius; ++y) {
+                            float sampleDepth = texture(shadowMap, projCoords.xy + vec2(x,y) * texelSize).r;
+                            if(sampleDepth < currentDepth - bias) {
+                                avgBlocker += sampleDepth;
+                                blockerCount++;
+                            }
+                        }
+                    }
+                    if(blockerCount == 0) return 0.0;
+                    avgBlocker /= float(blockerCount);
 
-					// outside of light's orthographic frustum
-					if(projCoords.z > 1.0) return 0.0;
-					// normal-aware bias
-					float bias = max(0.005 * (1.0 - dot(normal, lightDir)), 0.001);
-					float shadow = 0.0;
-					vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-					for(int x = -1; x <= 1; ++x)
-					{
-						for(int y = -1; y <= 1; ++y)
-						{
-							float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x,y) * texelSize).r;
-							shadow += currentDepth  > pcfDepth + bias ? 1.0 : 0.0;
-						}
-					}
-					shadow /= 9.0;
-					return shadow;
-				}
+                    // 2) estimate filter radius (penumbra) based on blocker
+                    float lightSize = 0.05; // scene constant, tweak for stronger/weaker penumbra
+                    float penumbra = (currentDepth - avgBlocker) / avgBlocker;
+                    float filterRadius = clamp(penumbra * lightSize * 100.0, 1.0, 10.0); // in texels approximated
+
+                    // 3) PCF over radius
+                    int r = int(filterRadius);
+                    float shadow = 0.0;
+                    int samples = 0;
+                    for(int x = -r; x <= r; ++x) {
+                        for(int y = -r; y <= r; ++y) {
+                            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x,y) * texelSize).r;
+                            shadow += currentDepth > pcfDepth + bias ? 1.0 : 0.0;
+                            samples++;
+                        }
+                    }
+                    shadow /= float(max(samples,1));
+                    return shadow;
+                }
+		}
 				vec3 CalculateParallelLight_BlinnPhong(ParallelLight light, vec3 fragPos, vec3 normal, vec3 viewDir, vec3 albedo, float specularStrength,vec4 fragPosLightSpace) {
 					vec3 lightDir = normalize(-light.Direction);
     
@@ -961,19 +1089,21 @@ RendererLayer::RendererLayer() :Layer("Renderer") {
 	quad_Mesh->AddTexture(lightingTexture);
 	quad_Mesh->AddTexture(pingpongTexture[0]);
 
-	skyboxScene.reset(new Skybox("SkyboxScene"));
-	paraShadowScene.reset(new ParaShadow("ParaShadow"));
-	omniShadowScene.reset(new OmniShadow("OmniShadow"));
 	normalMappingScene.reset(new NormalMapping("NormalMapping"));
 	parallaxMappingScene.reset(new ParallaxMapping("ParallaxMapping"));
 	sdfMixScene.reset(new SDFMix("SDFMixScene"));
+	ssaoRoomScene.reset(new SSAORoom("SSAORoom"));
+	shadowRoomScene.reset(new ShadowRoom("ShadowRoom"));
+    wallParallaxScene.reset(new WallParallax("WallParallax"));
 
-	sceneList.push_back(skyboxScene);
-	sceneList.push_back(paraShadowScene);
-	sceneList.push_back(omniShadowScene);
 	sceneList.push_back(normalMappingScene);
 	sceneList.push_back(parallaxMappingScene);
 	sceneList.push_back(sdfMixScene);
+	// add new demo scenes
+	sceneList.push_back(ssaoRoomScene);
+	sceneList.push_back(shadowRoomScene);
+	// wall parallax demo
+	sceneList.push_back(wallParallaxScene);
 }
 
 void RendererLayer::OnAttach() {
@@ -1194,7 +1324,10 @@ void RendererLayer::MSAAPass()
 			obj->UpdateModelMatrix();
 			geometryPassShader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
 			geometryPassShader->SetUniform3f(currentScene->GetMainCamera()->GetPosition(), "viewPos");
+
+			// bind textures explicitly
 			if (obj->GetDiffuseMap()) {
+				obj->GetDiffuseMap()->Bind(TEX_SLOT_DIFFUSE_MAP);
 				geometryPassShader->SetUniform1b(obj->UseDiffuseMap(), "useDiffuseMap");
 				geometryPassShader->SetUniform1i(TEX_SLOT_DIFFUSE_MAP, "u_DiffuseMap");
 			}
@@ -1203,13 +1336,16 @@ void RendererLayer::MSAAPass()
 			}
 
 			if (obj->GetNormalMap()) {
+				obj->GetNormalMap()->Bind(TEX_SLOT_NORMAL_MAP);
 				geometryPassShader->SetUniform1b(obj->UseNormalMap(), "useNormalMap");
 				geometryPassShader->SetUniform1i(TEX_SLOT_NORMAL_MAP, "u_NormalMap");
 			}
 			else {
 				geometryPassShader->SetUniform1b(false, "useNormalMap");
 			}
+
 			if (obj->GetParallaxMap()) {
+				obj->GetParallaxMap()->Bind(TEX_SLOT_PARALLAX_MAP);
 				geometryPassShader->SetUniform1i(obj->UseParallaxMapMode(), "useParallaxMapMode");
 				geometryPassShader->SetUniform1i(TEX_SLOT_PARALLAX_MAP, "u_ParallaxMap");
 			}
@@ -1241,7 +1377,10 @@ void RendererLayer::GeometryPass()
 		obj->UpdateModelMatrix();
 		geometryPassShader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
 		geometryPassShader->SetUniform3f(currentScene->GetMainCamera()->GetPosition(), "viewPos");
+
+		// bind textures explicitly
 		if (obj->GetDiffuseMap()) {
+			obj->GetDiffuseMap()->Bind(TEX_SLOT_DIFFUSE_MAP);
 			geometryPassShader->SetUniform1b(obj->UseDiffuseMap(), "useDiffuseMap");
 			geometryPassShader->SetUniform1i(TEX_SLOT_DIFFUSE_MAP, "u_DiffuseMap");
 		}
@@ -1250,13 +1389,16 @@ void RendererLayer::GeometryPass()
 		}
 
 		if (obj->GetNormalMap()) {
+			obj->GetNormalMap()->Bind(TEX_SLOT_NORMAL_MAP);
 			geometryPassShader->SetUniform1b(obj->UseNormalMap(), "useNormalMap");
 			geometryPassShader->SetUniform1i(TEX_SLOT_NORMAL_MAP, "u_NormalMap");
 		}
 		else {
 			geometryPassShader->SetUniform1b(false, "useNormalMap");
 		}
+
 		if (obj->GetParallaxMap()) {
+			obj->GetParallaxMap()->Bind(TEX_SLOT_PARALLAX_MAP);
 			geometryPassShader->SetUniform1i(obj->UseParallaxMapMode(), "useParallaxMapMode");
 			geometryPassShader->SetUniform1i(TEX_SLOT_PARALLAX_MAP, "u_ParallaxMap");
 		}
@@ -1353,6 +1495,9 @@ void RendererLayer::LightingPass()
 	else
 		lightingPassShader->SetUniform1b(false, "enableSSAO");
 
+    // set shadow filtering mode: 0=Hard,1=PCF,2=PCSS
+    lightingPassShader->SetUniform1i(m_Config.renderSettings.shadowMode, "shadowMode");
+
 	pointLightUBO->AddPointLight(currentScene->GetPointLightInScene());
 	parallelLightUBO->AddParallelLight(currentScene->GetParallelLightInScene());
 	lightingPassShader->SetUniform1b(m_Config.renderSettings.enablePBR, "usePBR");
@@ -1414,17 +1559,26 @@ void RendererLayer::ScreenPass()
 
 void RendererLayer::ForwardRenderPass()
 {
-	KEngine::Renderer::BlitFrameBuffer(gBuffer, m_Config.windowWidth, m_Config.windowHeight);
-	KEngine::Renderer::ForwardRenderPassBegin();
-	forwardShader->Bind();
-	for (const auto& obj : currentScene->GetObjectsInScene()) {
-		if (obj->UseDelayRender())continue;
-		obj->UpdateModelMatrix();
-		obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
-		matrixUBO->AddVPMatrix(currentScene->GetMainCamera()->GetViewMatrix(), currentScene->GetMainCamera()->GetProjMatrix(), 0);
-		obj->Draw();
-	}
-	KEngine::Renderer::ForwardRenderPassEnd();
+    // Forward pass: render non-deferred objects (do not blit G-buffer here)
+    KEngine::Renderer::ForwardRenderPassBegin();
+    forwardShader->Bind();
+    for (const auto& obj : currentScene->GetObjectsInScene()) {
+        if (obj->UseDelayRender()) continue;
+        obj->UpdateModelMatrix();
+        // if object has its own shader, keep it; otherwise use forwardShader
+        if (!obj->shader) {
+            obj->SetDrawState(forwardShader, false, false);
+            forwardShader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+        }
+        else {
+            // use object's own shader and set model uniform if available
+            obj->SetDrawState(obj->shader, false, false);
+            obj->shader->SetUniformMatrix4fv(obj->GetModelMatrix(), "model");
+        }
+        matrixUBO->AddVPMatrix(currentScene->GetMainCamera()->GetViewMatrix(), currentScene->GetMainCamera()->GetProjMatrix(), 0);
+        obj->Draw();
+    }
+    KEngine::Renderer::ForwardRenderPassEnd();
 }
 
 void RendererLayer::DrawSceneHierarchy()
@@ -1668,6 +1822,17 @@ void RendererLayer::DrawGlobalSettings()
 		ImGui::Checkbox("Enable PBR", &m_Config.renderSettings.enablePBR);
 		if (ImGui::IsItemHovered())
 			ImGui::SetTooltip("Enable PBR\n");
+
+		// Shadow filtering mode: Hard / PCF / PCSS
+		int mode = m_Config.renderSettings.shadowMode;
+		ImGui::Text("Shadow Filtering:");
+		ImGui::SameLine();
+		if (ImGui::RadioButton("Hard", &mode, 0)) m_Config.renderSettings.shadowMode = mode;
+		ImGui::SameLine();
+		if (ImGui::RadioButton("PCF", &mode, 1)) m_Config.renderSettings.shadowMode = mode;
+		ImGui::SameLine();
+		if (ImGui::RadioButton("PCSS", &mode, 2)) m_Config.renderSettings.shadowMode = mode;
+		if (ImGui::IsItemHovered()) ImGui::SetTooltip("Choose shadow algorithm: Hard, PCF(soft), PCSS(physically-based soft)");
 
 		// (debug checkbox removed)
 

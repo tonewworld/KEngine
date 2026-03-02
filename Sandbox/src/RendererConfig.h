@@ -45,6 +45,8 @@ struct RendererConfig {
         int ssaoKernelSize = 64;     // 采样核心大小
 
         bool  enablePBR = false;
+        // shadow filtering mode: 0 = Hard, 1 = PCF, 2 = PCSS
+        int   shadowMode = 1;
 
         bool  enableMSAA = true;
 		int  msaaSamples = 4;

@@ -25,6 +25,8 @@ private:
 	std::shared_ptr<KEngine::Shader> l_Shader;
 	std::shared_ptr<KEngine::PointLight> pointLight0;
 	std::vector<std::shared_ptr<KEngine::PointLight>> pointLightList;
+	std::shared_ptr<KEngine::Mesh> quadMesh;
+	std::shared_ptr<KEngine::Shader> sdfShader;
 
 	std::vector<std::shared_ptr<KEngine::ParallelLight>> parallelLightList;
 
