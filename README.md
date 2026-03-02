@@ -1,56 +1,63 @@
-# KEngine
+# KEngine 
 
-一个基于Hazel引擎架构的学习型游戏引擎项目，专注于渲染子系统的实现与理解。
+这是一个面向求职展示的渲染子系统工程样例（基于 Hazel 教程与 LearnOpenGL 的延伸实现）。
 
-## 项目简介
 
-这个项目是我在学习游戏引擎的架构的时候做的，前半段与cherno教程一致，后半段开始学习opengl渲染，实现LearnOpenGL教程中的一些渲染技术
+核心亮点
+- 延迟渲染管线（G-buffer）
+- 屏幕空间效果：SSAO（开/关）
+- 法线贴图、视差贴图（开/关）
+- 阴影过滤对比：硬阴影 / PCF / PCSS（三选一实时切换）
+- 点光与平行光阴影（包含立方体 shadow map）
+- ImGui 实时控制面板（参数与开关）
 
-## 项目结构
-
-```
-KEngine/
-├── KEngine/                 # 核心引擎代码
-│   ├── src/                # 引擎源码
-│   └── vendor/             # 第三方依赖库
-├── Sandbox/                # 示例与测试应用
-│   ├── RendererLayer.cpp   # 渲染层实现
-│   └── Scenes/             # 渲染技术展示场景
-└── vendor/                 # 构建工具
+快速目录
 ```
 
-## 构建说明
+```
 
-### 前置要求
 
-- Visual Studio 2022
-- C++17
+- `screenshots/engine_overview.png`        — 引擎运行整体界面（全窗口）
+- `screenshots/normal_off.png`            — 关闭法线贴图的画面
+- `screenshots/normal_on.png`             — 打开法线贴图的画面
+- `screenshots/sdfmix.png`                — SDFMix 场景效果截图
+- `screenshots/ssao_off.png`              — 关闭 SSAO 的画面
+- `screenshots/ssao_on.png`               — 打开 SSAO 的画面
+- `screenshots/parallax_off.png`          — 关闭视差贴图的画面
+- `screenshots/parallax_simple.png`           — 打开视差贴图的画面
+- `screenshots/parallax_steep.png`           — 打开视差贴图的画面
+- `screenshots/parallax_occlusion.png`           — 打开视差贴图的画面
+- `screenshots/shadow_hard.png`           — 硬阴影（Hard）效果
+- `screenshots/shadow_pcf.png`            — PCF（软阴影）效果
+- `screenshots/shadow_pcss.png`           — PCSS（物理软阴影）效果
 
-### 构建步骤
 
-1. 克隆仓库以及子模块
-2. 双击GenerationProjects.bat进行项目构建
-3. 点开生成的sln进行生成
+构建与运行
+1. 安装 Visual Studio 2022（含 C++ 桌面开发）。
+2. 克隆仓库并确保 submodules（若有）已初始化：
+   - git clone --recurse-submodules <repo>
+3. 用项目生成脚本或直接打开生成的 solution 并编译（详见项目根目录文档）。
+4. 运行 `Sandbox` 可执行程序，打开 `ShadowRoom` / `SSAORoom` / `SDFMix` 等场景进行演示。
 
-## 开发日志
+演示控制（ImGui）
+- Global Render Settings 面板：
+  - Exposure / HDR / Bloom / Gamma
+  - SSAO 开/关 与参数
+  - 法线贴图、视差贴图开关
+  - 阴影过滤模式（Hard / PCF / PCSS）
 
-- **2025-9-1**: 项目启动
-- **2025-9-7**: 完成P13，Log系统实现
-- **2025-9-10**: 完成P16，ImGui集成
-- **2025-9-15**: 完成P30，渲染器架构设计
-- **2025-9-20**: 完成P33，Command模式实现
-- **2025-9-23**: 完成P36，DLL生成问题记录
-- **2025-10-21**: 自主实现渲染层，暂停跟随教程
-- **2025-11-20**: 项目暂停，转向ShaderToy学习
 
-## 技术栈
+技术要点
+- 着色器组织：以字符串内联方式构建 shader，运行时通过 Shader 类编译并绑定 UBO。
+- 阴影：实现了平行光 shadow map（深度 FBO）与点光立方体 shadow map，两者在 Lighting Pass 中读取用于阴影测试。
+- 阴影过滤：PCF 使用 3x3 采样；PCSS 为近似实现（blocker search + radius 估算 + 可变半径 PCF）。
+- 后处理：HDR、Bloom 与可选高斯模糊的 ping-pong 渲染。
 
-- C++
-- OpenGL
-- ImGui
 
-## 致谢
+![Engine overview](screenshots/engine_overview.png)
 
-- [Cherno的Hazel引擎教程](https://www.youtube.com/playlist?list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT)
-- [主页 - LearnOpenGL CN](https://learnopengl-cn.github.io/)
-- 以及各种博客网站
+## 联系方式
+
+
+---
+
